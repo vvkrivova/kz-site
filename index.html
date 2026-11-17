@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tian Way — Кыргызстан на автодоме</title>
+  <meta name="description" content="Путешествия на автодоме по Кыргызстану: аренда автодомов, готовые туры, рыбалка и охота.">
+  <meta name="theme-color" content="#353f2b">
+
+  <!-- иконки во вкладке браузера и на телефоне -->
+  <link rel="icon" type="image/png" sizes="32x32" href="img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="img/meta/apple-touch-icon.png">
+
+  <!-- превью ссылки в мессенджерах и соцсетях.
+       ВАЖНО: когда появится домен, заменить адреса на полные, например https://tianway.kg/img/meta/og-image.jpg -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Tian Way">
+  <meta property="og:title" content="Кыргызстан на автодоме — Tian Way">
+  <meta property="og:description" content="Для тех, кто выбирает свободу в путешествиях — без компромисса с комфортом. Аренда автодомов, готовые туры, рыбалка и охота.">
+  <meta property="og:image" content="img/meta/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем ДО отрисовки страницы, чтобы при обновлении она не «прыгала» -->
+  <script>
+    document.documentElement.style.setProperty('--page-scale', (document.documentElement.clientWidth / 1440).toFixed(5));
+    // появление первого экрана: прячем его до загрузки картинок (запускает js/main.js; через 4 с — в любом случае)
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      // анимации 2 и 8: блоки ниже первого экрана скрыты, пока не дойдут до экрана (показывает js/main.js)
+      document.documentElement.classList.add('reveal-on');
+      document.documentElement.classList.add('hero-wait');
+      setTimeout(function () {
+        var h = document.documentElement;
+        if (h.classList.contains('hero-wait')) { h.classList.remove('hero-wait'); h.classList.add('hero-play'); }
+      }, 4000);
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css?v=20261117j">
+</head>
+<body>
+<main class="page">
+
+  <!-- ============ 1. ПЕРВЫЙ ЭКРАН ============ -->
+  <section class="section hero" id="top">
+    <div class="stage">
+      <img class="hero__bg" src="img/hero-bg.png" alt="">
+      <div class="hero__bg-shade"></div>
+      <img class="hero__lines" src="img/lines-hero.png" alt="">
+      <img class="hero__top-shade" src="img/hero-top-shade.png" alt="">
+
+      <header class="header">
+        <a class="header__logo" href="#top"><img src="img/logo.png" alt="Tian Way"></a>
+        <a class="header__phone" href="tel:+79272082971">+7 (927) 208-29-71</a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/icon-instagram.png" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/icon-whatsapp.png" alt=""></a>
+        <a class="header__social header__social--tg" href="#" aria-label="Telegram"><img src="img/icon-telegram.png" alt=""></a>
+      </header>
+
+      <h1 class="hero__title">Кыргызстан на автодоме</h1>
+      <p class="hero__subtitle">Для тех, кто выбирает свободу<br>в путешествиях — без компромисса с комфортом</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--light" href="#formats">Выбрать формат</a>
+        <a class="btn btn--orange" href="#">Посмотреть автодом</a>
+      </div>
+
+      <!-- коллаж -->
+      <img class="deco hero__photo-rv" src="img/hero-photo-rv.png" alt="Автодом в горах Кыргызстана на закате">
+      <img class="deco hero__stamp-red" src="img/stamp-red.png" alt="">
+      <img class="deco hero__stamp-horses" src="img/stamp-horses.png" alt="">
+      <div class="deco hero__photo-bw"><img src="img/photo-bw-horses.png" alt="Лошади и юрты в горной степи"></div>
+      <img class="deco hero__stamp-round" src="img/stamp-round-logo.png" alt="">
+    </div>
+  </section>
+
+  <!-- ============ 2. ВЫБЕРИ ФОРМАТ ============ -->
+  <section class="section formats" id="formats">
+    <div class="stage">
+      <img class="formats__cloud-1" src="img/cloud-1.png" alt="">
+      <div class="formats__valley"><img src="img/mountain-valley.png" alt=""></div>
+      <img class="formats__cloud-2" src="img/cloud-2.png" alt="">
+      <div class="formats__panel"></div>
+      <img class="formats__lines" src="img/lines-format.png" alt="">
+
+      <h2 class="formats__title">Выбери формат путешествия</h2>
+
+      <article class="format-card format-card--rv">
+        <h3 class="format-card__title">Аренда<br>автодома</h3>
+        <p class="format-card__text">Выбираете автодом, даты<br>и собираете поездку<br>под себя.</p>
+        <div class="format-card__img"><img src="img/card-rv.png" alt="Автодомы у озера"></div>
+      </article>
+      <a class="format-btn format-btn--rv" href="#">Аренда автодома</a>
+
+      <article class="format-card format-card--tours">
+        <h3 class="format-card__title">Готовые<br>путешествия</h3>
+        <p class="format-card__text">Организуем путешествие<br>под вас, вашу семью<br>или компанию.</p>
+        <div class="format-card__img"><img src="img/card-tours.png" alt="Беркутчи на лошадях в степи"></div>
+      </article>
+      <a class="format-btn format-btn--tours" href="trips.html">Подобрать путешествие</a>
+
+      <article class="format-card format-card--fishing">
+        <h3 class="format-card__title">Рыбалка<br>и охота</h3>
+        <p class="format-card__text">Отдельные программы для тех,<br>кто едет в Кыргызстан прежде<br>всего за рыбалкой или охотой.</p>
+        <div class="format-card__img"><img src="img/card-fishing.png" alt="Рыбак на горном озере"></div>
+      </article>
+      <a class="format-btn format-btn--fishing" href="fishing.html">Смотреть программы</a>
+
+      <div class="formats__clouds-a"><img src="img/clouds-set.png" alt=""></div>
+      <div class="formats__clouds-b"><img src="img/clouds-set.png" alt=""></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. ПЕРВЫЙ РАЗ ЗА РУЛЕМ АВТОДОМА? ============ -->
+  <section class="section first">
+    <div class="stage">
+      <div class="first__bg"><img src="img/first-bg.png" alt="Горный серпантин в ущелье"></div>
+      <img class="first__edge" src="img/svg/torn-edge.svg" alt="">
+      <div class="first__shade"></div>
+      <h2 class="first__title">Первый раз&nbsp;за&nbsp;рулем автодома?</h2>
+
+      <span class="first__spot first__spot--1"></span>
+      <span class="first__spot first__spot--2"></span>
+      <span class="first__spot first__spot--3"></span>
+      <span class="first__spot first__spot--4"></span>
+
+      <!-- 4 шага: координаты из макета, относительно группы -->
+      <div class="first-step first-step--right" data-sign="4" style="left:444px; top:738px; width:331px;">
+        <h3 class="first-step__title" style="left:0; width:295px;">Показываем<br>и рассказываем</h3>
+        <p class="first-step__text" style="left:48px; width:244px;">Перед выездом спокойно разбираем управление<br>и все оборудование в машине</p>
+        <span class="first-step__line" style="left:331px; top:46px;"></span>
+      </div>
+      <div class="first-step" data-sign="3" style="left:945px; top:644px; width:270px;">
+        <h3 class="first-step__title" style="left:40px; width:174px;">Проезжаем первые километры вместе</h3>
+        <p class="first-step__text" style="left:40px; width:230px;">Сначала проезжаем пробный круг вместе — без спешки<br>и сложных дорог</p>
+        <span class="first-step__line" style="left:0; top:45px;"></span>
+      </div>
+      <div class="first-step first-step--right" data-sign="2" style="left:819px; top:411px; width:343px;">
+        <h3 class="first-step__title" style="left:0; width:295px;">Передаем там,<br>где удобно</h3>
+        <p class="first-step__text" style="left:33px; width:259px;">Возможность доставки машины / передачи в удобной точке — если подтверждено операционно</p>
+        <span class="first-step__line" style="left:343px; top:39px;"></span>
+      </div>
+      <div class="first-step" data-sign="1" style="left:835px; top:219px; width:297px;">
+        <h3 class="first-step__title" style="left:40px; width:174px;">Остаемся<br>на связи</h3>
+        <p class="first-step__text" style="left:40px; width:257px;">На протяжении всей поездки: остаемся на связи по вопросам машины и маршрута</p>
+        <span class="first-step__line" style="left:0; top:45px;"></span>
+      </div>
+
+      <!-- значки-указатели: data-sign связывает значок с его текстом (наведение на любой — качается значок) -->
+      <div class="first__stamp first__stamp--1" data-sign="1"><img src="img/retro-stamps.png" alt=""></div>
+      <div class="first__stamp first__stamp--2" data-sign="2"><img src="img/retro-stamps.png" alt=""></div>
+      <div class="first__stamp first__stamp--3" data-sign="3"><img src="img/retro-stamps.png" alt=""></div>
+      <div class="first__stamp first__stamp--4" data-sign="4"><img src="img/retro-stamps.png" alt=""></div>
+
+      <!-- элементы, заходящие на следующий блок -->
+      <div class="deco first__topo"><img src="img/topo-lines.png" alt=""></div>
+      <img class="deco first__stamp-red" src="img/stamp-red.png" alt="">
+      <div class="deco first__photo-bw"><img src="img/photo-bw-horses.png" alt=""></div>
+      <div class="deco first__route"><img src="img/map/dashed-route.png" alt=""></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. КУДА НА АВТОДОМЕ РЕАЛЬНО ПРОЕХАТЬ ============ -->
+  <section class="section routes" id="routes">
+    <div class="stage">
+      <img class="routes__topo" src="img/topo-lines.png" alt="">
+      <h2 class="routes__title">Куда на автодоме реально проехать</h2>
+      <p class="routes__text">Не просто отмечаем красивые места на карте. Мы сами проезжаем направления и фиксируем то, что важно именно для автодома: дорогу, реальное время в пути, стоянки, воду, топливо, связь<br>и сезонные ограничения</p>
+
+      <img class="routes__mountains" src="img/map-mountains-bottom.png" alt="">
+
+      <!-- коллаж справа сверху -->
+            <div class="deco routes__photo-bw"><img src="img/map/photo-bw-eagle.png" alt="Беркут над горами Тянь-Шаня"></div>
+      <img class="deco routes__photo-sunset" src="img/map/photo-sunset-rv.png" alt="Автодом в горной долине на закате">
+      <img class="deco routes__stamp-round" src="img/map/stamp-round-logo.png" alt="">
+      <img class="deco routes__stamp-horses" src="img/map/stamp-horses.png" alt="">
+      <img class="deco routes__stamp-red" src="img/map/stamp-red.png" alt="">
+      <img class="deco routes__route-top" src="img/map/route-top.svg" alt="">
+      <img class="deco routes__dot routes__dot--1" src="img/map/route-dot.svg" alt="">
+      <img class="deco routes__dot routes__dot--2" src="img/map/route-dot.svg" alt="">
+      <img class="deco routes__dot routes__dot--3" src="img/map/route-dot.svg" alt="">
+      <div class="deco routes__pin"><img src="img/map/dashed-route.png" alt=""></div>
+
+      <!-- карта -->
+      <img class="routes__map" src="img/map/kg-map.png" alt="Карта Кыргызстана с точками маршрута">
+      <div class="routes__layer" data-routes-layer></div>
+      <img class="routes__underline" src="img/map/underline.svg" alt="">
+
+      <!-- карточка направления -->
+      <article class="route-card" data-route-card aria-live="polite">
+        <div class="route-card__top">
+          <span class="route-card__label">Готовые путешествия</span>
+          <div class="route-card__nav">
+            <button class="route-card__arrow route-card__arrow--prev" type="button" data-route-prev aria-label="Предыдущее направление"><img src="img/map/arrow-prev.svg" alt=""></button>
+            <button class="route-card__arrow" type="button" data-route-next aria-label="Следующее направление"><img src="img/map/arrow-next.svg" alt=""></button>
+            <span class="route-card__counter" data-route-counter>1/3</span>
+          </div>
+        </div>
+        <h3 class="route-card__title" data-route-title></h3>
+        <p class="route-card__desc" data-route-desc></p>
+        <dl class="route-card__rows">
+          <div class="route-row"><span class="route-row__icon route-row__icon--days"><img src="img/icons-sprite.png" alt=""></span><dt>Количество дней</dt><dd data-route-days></dd></div>
+          <div class="route-row"><span class="route-row__icon route-row__icon--fun"><img src="img/icons-sprite.png" alt=""></span><dt>Впечатления</dt><dd data-route-fun></dd></div>
+          <div class="route-row"><span class="route-row__icon route-row__icon--food"><img src="img/map/icon-food.png" alt=""></span><dt>Питание</dt><dd data-route-food></dd></div>
+          <div class="route-row"><span class="route-row__icon route-row__icon--season"><img src="img/icons-sprite.png" alt=""></span><dt>Сезон</dt><dd data-route-season></dd></div>
+          <div class="route-row"><span class="route-row__icon route-row__icon--who"><img src="img/icons-sprite.png" alt=""></span><dt>Для кого</dt><dd data-route-who></dd></div>
+        </dl>
+        <a class="route-card__btn" href="#">Смотреть программу</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 5. УЖЕ ЕЗДИЛИ С TIAN WAY ============ -->
+  <section class="section reviews" id="reviews">
+    <div class="stage">
+      <img class="reviews__brush" src="img/brushstroke.png" alt="">
+      <img class="reviews__topo" src="img/topo-mountains.png" alt="">
+      <h2 class="reviews__title">Уже ездили с Tian Way</h2>
+      <img class="reviews__label" src="img/label-real-experience.png" alt="">
+
+      <div class="review review--a" data-review-slot="0">
+        <article class="review__card">
+          <img class="review__quote" src="img/icon-quote.png" alt="">
+          <h3 class="review__name" data-review-name></h3>
+          <div class="review__pin"><img src="img/icon-pin.png" alt=""></div>
+          <p class="review__trip" data-review-trip></p>
+          <div class="review__cal"><img src="img/icons-sprite.png" alt=""></div>
+          <span class="review__days" data-review-days></span>
+          <p class="review__text" data-review-text></p>
+          <button class="review__more" type="button" data-review-open>Читать отзыв полностью</button>
+        </article>
+        <img class="review__photo-1" src="img/review-photo-1.png" alt="Автодом на горной дороге у заснеженных вершин">
+        <img class="review__photo-2" src="img/review-photo-2.png" alt="Путешественники у костра на берегу горного озера на закате">
+        <img class="review__stamp-round" src="img/stamp-round-logo.png" alt="">
+        <img class="review__stamp-red" src="img/stamp-red.png" alt="">
+        <img class="review__stamp-horses" src="img/stamp-horses.png" alt="">
+      </div>
+
+      <div class="review review--b" data-review-slot="1">
+        <article class="review__card">
+          <img class="review__quote" src="img/icon-quote.png" alt="">
+          <h3 class="review__name" data-review-name></h3>
+          <div class="review__pin"><img src="img/icon-pin.png" alt=""></div>
+          <p class="review__trip" data-review-trip></p>
+          <div class="review__cal"><img src="img/icons-sprite.png" alt=""></div>
+          <span class="review__days" data-review-days></span>
+          <p class="review__text" data-review-text></p>
+          <button class="review__more" type="button" data-review-open>Читать отзыв полностью</button>
+        </article>
+        <img class="review__photo-1" src="img/review-photo-1.png" alt="Автодом на горной дороге у заснеженных вершин">
+        <img class="review__photo-2" src="img/review-photo-2.png" alt="Путешественники у костра на берегу горного озера на закате">
+        <img class="review__stamp-round" src="img/stamp-round-logo.png" alt="">
+        <img class="review__stamp-red" src="img/stamp-red.png" alt="">
+        <img class="review__stamp-horses" src="img/stamp-horses.png" alt="">
+      </div>
+
+      <button class="reviews__arrow reviews__arrow--next" type="button" data-review-next aria-label="Следующий отзыв"><img src="img/svg/arrow-right-long.svg" alt=""></button>
+      <button class="reviews__arrow reviews__arrow--prev" type="button" data-review-prev aria-label="Предыдущий отзыв"><img src="img/svg/arrow-left-long.svg" alt=""></button>
+    </div>
+  </section>
+
+  <!-- ============ 6. ОСТАЛИСЬ ВОПРОСЫ? ============ -->
+  <section class="section faq" id="faq">
+    <div class="stage">
+      <img class="faq__topo" src="img/topo-lines.png" alt="">
+      <div class="faq__mountains"><img src="img/topo-mountains.png" alt=""></div>
+      <img class="faq__compass" src="img/compass.png" alt="">
+      <img class="faq__coords" src="img/compass-coords.png" alt="">
+
+      <h2 class="faq__title">Остались вопросы?</h2>
+      <p class="faq__sub">Коротко отвечаем на то, что обычно хочется понять до бронирования</p>
+      <span class="faq__note">Мы рядом</span>
+
+      <div class="faq-item" style="top:182px;">
+        <span class="faq-item__num" style="left:3px;">01</span>
+        <h3 class="faq-item__q" style="top:-3px;">Я никогда<br>не водил автодом.<br>Я справлюсь?</h3>
+        <span class="faq-item__line" style="left:362px; top:0;"></span>
+        <p class="faq-item__a" style="left:395px; top:0; width:340px;">Перед&nbsp;выдачей покажем управление и&nbsp;оборудование, а&nbsp;первые километры проедем вместе. Автодом больше обычной машины, поэтому здесь важнее спокойно привыкнуть к&nbsp;габаритам, чем&nbsp;иметь опыт именно с&nbsp;автодомами.</p>
+      </div>
+      <span class="faq__divider" style="left:546px; top:350px; width:852px;"></span>
+      <div class="faq-item" style="top:402px;">
+        <span class="faq-item__num">02</span>
+        <h3 class="faq-item__q" style="top:-3px;">А&nbsp;если машина сломается в&nbsp;дороге?</h3>
+        <span class="faq-item__line" style="left:365px; top:-5px;"></span>
+        <p class="faq-item__a" style="left:395px; top:-5px; width:345px;">Вы&nbsp;не&nbsp;остаетесь с&nbsp;проблемой один на&nbsp;один. Мы&nbsp;заранее пропишем, как&nbsp;действуем при&nbsp;неисправности, когда можем решить вопрос на&nbsp;месте и&nbsp;в&nbsp;каких случаях возможна замена машины</p>
+      </div>
+      <span class="faq__divider" style="left:546px; top:538px; width:852px;"></span>
+      <div class="faq-item" style="top:592px;">
+        <span class="faq-item__num">03</span>
+        <h3 class="faq-item__q" style="top:-3px;">Что если испортится погода или дорога станет непроходимой?</h3>
+        <span class="faq-item__line" style="left:365px; top:0;"></span>
+        <p class="faq-item__a" style="left:396px; top:-3px; width:345px;">Если&nbsp;условия на&nbsp;участке изменились, помогаем скорректировать дорогу и&nbsp;выбрать безопасный вариант из&nbsp;доступных.<br><br>Именно поэтому в&nbsp;маршрутах отдельно отмечаем сезонность и&nbsp;участки, которые зависят от&nbsp;погоды.</p>
+      </div>
+      <span class="faq__divider" style="left:552px; top:770px; width:846px;"></span>
+
+      <a class="faq__more" href="faq.html">Смотреть еще вопросы <svg class="btn-icon btn-icon--faq" width="20" height="6" viewBox="0 0 20 6" aria-hidden="true"><path d="M0.5 2.38672C0.223858 2.38672 0 2.61058 0 2.88672C0 3.16286 0.223858 3.38672 0.5 3.38672L0.5 2.88672L0.5 2.38672ZM0.5 2.88672L0.5 3.38672L15 3.38672V2.88672V2.38672L0.5 2.38672L0.5 2.88672ZM19.5 2.88672L14.5 -3.26633e-05V5.77347L19.5 2.88672Z" fill="currentColor"/></svg></a>
+      <span class="faq__more-line"></span>
+      <p class="faq__ask">Не&nbsp;нашли ответ?<br>Напишите нам&nbsp;— подскажем</p>
+      <a class="faq__ask-btn" href="faq.html#ask" aria-label="Задать свой вопрос"><img src="img/svg/faq-circle-arrow.svg" alt=""></a>
+
+      <img class="faq__route" src="img/map/dashed-route.png" alt="">
+      <img class="faq__photo" src="img/hero-photo-rv.png" alt="">
+      <img class="faq__stamp-horses" src="img/stamp-horses.png" alt="">
+      <img class="faq__stamp-round" src="img/stamp-round-logo.png" alt="">
+    </div>
+  </section>
+
+  <!-- ============ 7. СОБЕРЕМ ПОЕЗДКУ ПОД ВАС ============ -->
+  <section class="section trip" id="trip">
+    <div class="stage">
+      <img class="trip__bg" src="img/form-bg.png" alt="">
+      <div class="trip__topo"><img src="img/topo-lines.png" alt=""></div>
+      <img class="trip__photo" src="img/hero-photo-rv.png" alt="">
+      <img class="trip__stamp-red" src="img/stamp-red.png" alt="">
+      <div class="trip__panel"></div>
+
+      <h2 class="trip__title">Соберем поездку под вас</h2>
+      <p class="trip__sub">Не обязательно знать точные даты, маршрут или программу.<br>Расскажите, что примерно хотите — мы предложим подходящий вариант.</p>
+
+      <form class="trip-form" data-trip-form novalidate>
+        <!-- Шаг 1 -->
+        <div class="trip-step" data-step="1">
+          <h3 class="trip-step__title" style="left:420px; top:303px;">Какой отдых вам интересен?</h3>
+          <p class="trip-step__hint" style="left:420px; top:352px;">Выберите направление — остальные детали уточним вместе.</p>
+
+          <label class="trip-option" style="left:365px; top:413px;">
+            <input type="radio" name="kind" value="Аренда автодома">
+            <b>Аренда автодома</b>
+            <span>Хочу выбрать машину<br>и собрать поездку самостоятельно</span>
+          </label>
+          <label class="trip-option" style="left:723px; top:412px;">
+            <input type="radio" name="kind" value="Готовое путешествие">
+            <b>Готовое путешествие</b>
+            <span>Хочу, чтобы вы помогли собрать и организовать поездку под меня<br>или нашу компанию</span>
+          </label>
+          <label class="trip-option" style="left:365px; top:613px;">
+            <input type="radio" name="kind" value="Рыбалка и охота">
+            <b>Рыбалка и охота</b>
+            <span>Интересует отдельная профильная программа</span>
+          </label>
+          <label class="trip-option" style="left:723px; top:613px;">
+            <input type="radio" name="kind" value="Пока не знаю">
+            <b>Пока не знаю</b>
+            <span>Расскажу, какой отдых хочу, а вы предложите подходящий вариант</span>
+          </label>
+
+          <button class="trip-btn trip-btn--next" type="button" data-trip-next disabled style="left:579.62px; top:814px; width:232.38px;">Продолжить <svg class="btn-icon btn-icon--arrow" width="35" height="12" viewBox="0 0 35 12" aria-hidden="true"><path d="M1 4.77344C0.447715 4.77344 0 5.22115 0 5.77344C0 6.32572 0.447715 6.77344 1 6.77344V5.77344V4.77344ZM1 5.77344V6.77344H25.1964V5.77344V4.77344H1V5.77344ZM34.1964 5.77344L24.1964 -6.53267e-05V11.5469L34.1964 5.77344Z" fill="currentColor"/></svg></button>
+        </div>
+
+        <!-- Шаг 2 -->
+        <div class="trip-step" data-step="2" hidden>
+          <h3 class="trip-step__title" style="left:409px; top:304px;">Расскажите немного о поездке</h3>
+          <p class="trip-step__hint" style="left:464px; top:352px;">Даже если пока не знаете точных дат, это нормально.</p>
+
+          <div class="trip-box" style="left:402px; top:398px; width:389px; height:134px;">
+            <b class="trip-box__title">Когда планируете?</b>
+            <button class="trip-chip" type="button" data-dates-toggle style="left:25px; top:64px; width:164px;"><span data-dates-label>Выбрать даты</span></button>
+            <button class="trip-chip" type="button" data-dates-unknown style="left:200px; top:64px; width:157px;">Пока не знаю</button>
+          </div>
+
+          <div class="trip-box" style="left:800px; top:398px; width:213px; height:134px;">
+            <b class="trip-box__title">Сколько вас?</b>
+            <button class="trip-counter__btn trip-counter__btn--minus" type="button" data-count-minus aria-label="Меньше"></button>
+            <output class="trip-counter__value" data-count>4</output>
+            <button class="trip-counter__btn trip-counter__btn--plus" type="button" data-count-plus aria-label="Больше"></button>
+          </div>
+
+          <div class="trip-box" style="left:401px; top:548px; width:611px; height:149px; border-radius:20px;">
+            <b class="trip-box__title" style="top:22.6px;">Контактные данные</b>
+            <label class="trip-input" style="left:21px; top:69px; width:193px;"><input type="text" name="name" placeholder="Имя" autocomplete="name"></label>
+            <label class="trip-input" style="left:227px; top:69px; width:247px;"><input type="tel" name="phone" placeholder="Телефон" autocomplete="tel"></label>
+            <p class="trip-field-error" data-contact-error role="alert" hidden></p>
+          </div>
+
+          <label class="trip-consent" style="left:422px; top:715px;">
+            <input type="checkbox" name="consent">
+            <span class="trip-consent__box"></span>
+            <span class="trip-consent__text">Я даю согласие на обработку персональных данных в соответствии с&nbsp;<a href="#">Согласием на обработку персональных данных</a>&nbsp;и ознакомился с&nbsp;<a href="#">Политикой в отношении обработки персональных данных</a>.</span>
+          </label>
+          <p class="trip-error" data-trip-error hidden></p>
+
+          <button class="trip-btn trip-btn--back" type="button" data-trip-back style="left:510px; top:813px; width:181px;"><svg class="btn-icon btn-icon--arrow" width="35" height="12" viewBox="0 0 35 12" aria-hidden="true"><path d="M33.1965 4.77344C33.7488 4.77344 34.1965 5.22115 34.1965 5.77344C34.1965 6.32572 33.7488 6.77344 33.1965 6.77344V5.77344V4.77344ZM33.1965 5.77344V6.77344H9.0001V5.77344V4.77344H33.1965V5.77344ZM0.000102997 5.77344L10.0001 -6.53267e-05V11.5469L0.000102997 5.77344Z" fill="currentColor"/></svg> Назад</button>
+          <button class="trip-btn trip-btn--send" type="submit" style="left:723px; top:813px; width:155px;">Отправить</button>
+
+          <!-- календарь -->
+          <div class="calendar" data-calendar hidden>
+            <button class="calendar__nav calendar__nav--prev" type="button" data-cal-prev aria-label="Предыдущий месяц"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M5.63025 1.05127L1.31434 4.50401C0.963631 4.78458 0.963632 5.318 1.31435 5.59857L5.63025 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <button class="calendar__nav calendar__nav--next" type="button" data-cal-next aria-label="Следующий месяц"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1.05127 1.05127L5.36718 4.50401C5.71789 4.78458 5.71789 5.318 5.36717 5.59857L1.05127 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <div class="calendar__month" data-cal-month="0"></div>
+            <div class="calendar__month calendar__month--right" data-cal-month="1"></div>
+            <p class="calendar__summary" data-cal-summary>Выберите даты заезда и выезда</p>
+            <button class="calendar__apply" type="button" data-cal-apply>Применить</button>
+          </div>
+        </div>
+
+        <!-- Шаг 3 -->
+        <div class="trip-step" data-step="3" hidden>
+          <img class="trip-done__check" src="img/check-circle.png" alt="">
+          <img class="trip-done__rays-l" src="img/rays-left.png" alt="">
+          <img class="trip-done__rays-r" src="img/rays-right.png" alt="">
+          <h3 class="trip-done__title">Спасибо, заявка отправлена</h3>
+          <p class="trip-done__text">Мы получили вашу заявку и скоро свяжемся с вами, чтобы уточнить даты, маршрут и формат поездки.</p>
+          <div class="trip-done__next">
+            <img src="img/folded-map.png" alt="">
+            <b>Следующий шаг</b>
+            <span>Мы напишем вам и поможем собрать подходящий вариант поездки.</span>
+          </div>
+        </div>
+
+        <div class="trip-progress" aria-hidden="true">
+          <span data-progress="1"></span><span data-progress="2"></span><span data-progress="3"></span>
+        </div>
+      </form>
+
+      <img class="trip__stamp-horses" src="img/stamp-horses.png" alt="">
+      <div class="trip__photo-bw"><img src="img/photo-bw-horses.png" alt=""></div>
+    </div>
+  </section>
+
+  <!-- элементы коллажа, лежащие поверх стыков блоков (координаты страницы) -->
+  <div class="page-overlay" aria-hidden="true">
+    <div class="ov-lines-a"><img src="img/lines-hero.png" alt=""></div>
+    <div class="ov-tape"><img src="img/torn-tape-rendered.png" alt=""></div>
+    <div class="ov-photo-bw"><img src="img/photo-bw-horses.png" alt=""></div>
+    <div class="ov-lines-b"><img src="img/lines-hero.png" alt=""></div>
+    <div class="ov-clouds"><img src="img/clouds-set.png" alt=""></div>
+  </div>
+
+  <!-- подвал — в разработке -->
+</main>
+
+<script src="js/main.js?v=20261117j"></script>
+</body>
+</html>

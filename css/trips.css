@@ -1,0 +1,214 @@
+/* =========================================================
+   Tian Way — страница «Готовые путешествия» (trips.html)
+   Общие цвета, шрифты, шапка, масштаб, календарь и выпадающие списки — в css/style.css.
+   Координаты — из макета Figma (экран Desktop - 80, 1440×2998).
+   ========================================================= */
+
+/* ---------- кнопки первого экрана — как на главной («Выбрать формат» / «Посмотреть автодом»):
+   обе бежевые с оранжевым текстом; при наведении — оранжевая, приподнимается, тень глубже ---------- */
+.tp-btn {
+  display: flex; align-items: center; justify-content: center; height: 61px; border-radius: 5.93px;
+  background: var(--sand); color: var(--orange);
+  font: 700 24px/1 var(--font-body);
+  box-shadow: 12px 7px 4px rgba(0, 0, 0, .25);
+  transition: background-color .25s ease, color .25s ease, translate .25s ease, box-shadow .25s ease;
+}
+.tp-btn:hover, .tp-btn:focus-visible {
+  background: var(--orange); color: var(--sand);
+  translate: 0 -4px; box-shadow: 14px 12px 10px rgba(0, 0, 0, .3);
+}
+@media (prefers-reduced-motion: reduce) { .tp-btn { transition: none; } .tp-btn:hover { translate: none; } }
+
+/* =========================================================
+   1. ПЕРВЫЙ ЭКРАН
+   ========================================================= */
+.tp-hero .stage { height: 889px; background: var(--beige); }
+.tp-hero__bg { left: -41px; top: -2px; width: 1546px; height: 870px; object-fit: cover; }
+.tp-hero__shade { left: -41px; top: -2px; width: 1546px; height: 870px; background: rgba(0, 0, 0, .2); }
+/* затемнение неба сверху, чтобы читался заголовок */
+.tp-hero__gradient {
+  left: 0; top: -2px; width: 1440px; height: 593px;
+  background: linear-gradient(to top, rgba(52, 47, 47, 0) 0%, rgba(52, 47, 47, .72) 86%);
+}
+.tp-hero__title {
+  left: 58px; top: 262px; width: 647px; margin: 0;
+  font: 600 96px/101.86% var(--font-display); letter-spacing: 2.88px; text-transform: uppercase; color: var(--sand);
+}
+.tp-hero__sub { left: 58px; top: 486px; width: 738px; margin: 0; font: 500 24px/normal var(--font-body); color: var(--sand); }
+.tp-hero__btn-trips { left: 58px; top: 591px; width: 377px; }
+.tp-hero__btn-custom { left: 462px; top: 591px; width: 269px; }
+
+/* =========================================================
+   2. КУДА ПОЕХАТЬ В ЭТОМ СЕЗОНЕ
+   ========================================================= */
+.tp-season .stage { height: 1040px; background: var(--beige); }
+.tp-season__topo { left: 0; top: 0; width: 1440px; height: 1036px; pointer-events: none; }
+.tp-season__title {
+  left: 102px; top: 69px; width: 1235px; margin: 0; text-align: center;
+  font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: #000;
+}
+
+/* вкладки сезонов */
+.tp-tabs { left: 0; top: 221px; width: 1440px; height: 53px; }
+.tp-tab {
+  position: absolute; top: 0; height: 53px; padding: 0; border: 0; border-radius: 10px;
+  background: var(--sand); color: #98887a; font: 500 24px/1 var(--font-body); text-transform: uppercase; cursor: pointer;
+  transition: background-color .25s ease, color .25s ease, translate .25s ease, box-shadow .25s ease;
+}
+.tp-tab:hover, .tp-tab:focus-visible { translate: 0 -3px; box-shadow: 0 8px 14px rgba(0, 0, 0, .18); color: var(--orange-map); }
+.tp-tab.is-active { background: var(--orange-map); color: #fff; }
+.tp-tab.is-active:hover { color: #fff; }
+
+/* лента карточек: окно на всю ширину, карточки внутри «дорожки», которая сдвигается стрелками */
+.tp-cards { left: 0; top: 300px; width: 1440px; height: 700px; overflow: hidden; overflow: clip; }
+.tp-cards__track {
+  position: absolute; left: 61px; top: 105px; height: 569px;
+  transition: translate .7s cubic-bezier(.65, 0, .35, 1);
+}
+
+/* карточка: 372×482 + кнопка под ней; фото и марки «выглядывают» за верхний край */
+.tcard {
+  position: absolute; top: 0; width: 373px; height: 569px;
+  transition: left .6s cubic-bezier(.65, 0, .35, 1), opacity .35s ease, translate .35s ease;
+}
+.tcard > * { position: absolute; }
+.tcard__body { left: 0; top: 0; width: 372px; height: 482px; border-radius: 14px; background: #fffaf2; }
+.tcard__photo, .tcard__stamp { object-fit: cover; transition: rotate .45s cubic-bezier(.2, .7, .2, 1), scale .45s cubic-bezier(.2, .7, .2, 1); }
+.tcard__stamp-tw { overflow: hidden; transition: rotate .45s cubic-bezier(.2, .7, .2, 1); }
+/* марка «tian way» — кадрирована из большого файла, как в макете */
+.tcard__stamp-tw img, .tp-custom__stamp-tw img { position: absolute; left: -7.31%; top: -23.96%; width: 115.19%; height: 144.8%; }
+
+.tcard__title {
+  left: 28px; bottom: 302px; width: 316px; margin: 0;
+  font: 400 32px/.94 var(--font-display); text-transform: uppercase; color: #000;
+}
+.tcard__desc { left: 28px; top: 285px; width: 316px; margin: 0; font: 400 16px/.94 var(--font-body); color: var(--ink-2); }
+
+/* значки «дни» и «локации» — тоже кадрированы из файлов-спрайтов */
+.tcard__ico { overflow: hidden; }
+.tcard__ico img { position: absolute; }
+.tcard__ico--days { left: 53px; top: 364px; width: 59px; height: 53px; }
+.tcard__ico--days img { left: -89.1%; top: -181.8%; width: 273.2%; height: 919.1%; }
+.tcard__ico--locs { left: 153px; top: 366px; width: 50px; height: 59px; }
+.tcard__ico--locs img { left: -50%; top: -46.3%; width: 206%; height: 187.5%; }
+.tcard__meta { top: 425px; font: 500 14px/normal var(--font-body); color: #342f2f; white-space: nowrap; }
+.tcard__meta--days { left: 58px; }
+.tcard__meta--locs { left: 147px; }
+.tcard__meta--price { left: 236px; width: 101px; text-align: center; }
+
+.tcard__btn {
+  left: 0; top: 499px; width: 373px; height: 70px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--sand); color: #98887a; font: 700 24px/1 var(--font-body);
+  transition: background-color .25s ease, color .25s ease, translate .25s ease, box-shadow .25s ease;
+}
+/* наведение на карточку: кнопка становится оранжевой, фото чуть поворачивается и приближается */
+.tcard:hover .tcard__btn, .tcard__btn:focus-visible {
+  background: var(--orange-map); color: #fff; translate: 0 -3px; box-shadow: 0 10px 18px rgba(0, 0, 0, .22);
+}
+.tcard:hover .tcard__photo { scale: 1.04; rotate: 1.5deg; }
+.tcard:hover .tcard__stamp, .tcard:hover .tcard__stamp-tw { rotate: -4deg; }
+
+/* фильтр по сезону: карточки уходят и возвращаются плавно */
+.tcard.is-out { opacity: 0; translate: 0 16px; pointer-events: none; }
+.tcard[hidden] { display: none; }
+
+/* стрелки ленты */
+.tp-arrow {
+  top: 643px; width: 59px; height: 59px; padding: 0; border: 0; border-radius: 50%; z-index: 2;
+  display: grid; place-items: center; background: var(--orange-map); cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .25);
+  transition: translate .25s ease, box-shadow .25s ease, opacity .3s ease;
+}
+.tp-arrow[hidden] { display: none; }
+.tp-arrow--next { left: 1352px; }
+.tp-arrow--prev { left: 29px; }
+.tp-arrow:hover, .tp-arrow:focus-visible { translate: 0 -3px; box-shadow: 0 10px 18px rgba(0, 0, 0, .3); }
+.tp-arrow--next:hover svg { translate: 3px 0; }
+.tp-arrow--prev:hover svg { translate: -3px 0; }
+.tp-arrow svg { transition: translate .25s ease; }
+
+/* =========================================================
+   3. СОБЕРЕМ ПУТЕШЕСТВИЕ ПОД ВАС
+   ========================================================= */
+.tp-custom .stage { height: 1069px; background: var(--beige); }
+.tp-custom__topo { left: 0; top: 0; width: 1440px; height: 421px; pointer-events: none; }
+.tp-custom__lines { left: -640px; top: 494px; width: 2172px; height: 724px; pointer-events: none; }
+.tp-custom__title {
+  left: 58px; top: 51px; width: 680px; margin: 0;
+  font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: #342f2f;
+}
+.tp-custom__sub { left: 58px; top: 354px; width: 566px; margin: 0; font: 400 24px/normal var(--font-body); color: #342f2f; }
+.tp-custom__photo { left: 72.3px; top: 521.1px; width: 571.3px; height: 319.5px; object-fit: cover; transform: rotate(3.71deg); }
+.tp-custom__stamp-eagle { left: 40px; top: 776px; width: 140px; height: 87px; object-fit: cover; }
+.tp-custom__stamp-tw { left: 495.1px; top: 484.6px; width: 175.8px; height: 93.2px; overflow: hidden; transform: rotate(-7.2deg); }
+
+/* панель с формой */
+.tp-panel { left: 712px; top: 51px; width: 690px; height: 856px; border-radius: 17px; background: #353f2b; }
+.tp-panel > *, .tp-form > * { position: absolute; }
+.tp-form { inset: 0; }
+.tp-label { font: 400 32px/normal var(--font-display); letter-spacing: 1.28px; color: #fffaf2; white-space: nowrap; }
+
+/* выпадающие списки (общие .ask-dd из css/style.css) — размеры под эту форму */
+.tp-dd .ask-dd__btn { padding: 0 18px 0 25px; }
+.tp-dd .ask-dd__list { width: 244px; }
+.tp-dd--num .ask-dd__btn { padding: 0 14px 0 25px; }
+.tp-dd--num .ask-dd__list { width: 120px; }
+
+/* поле дат — выглядит как остальные поля, по клику открывает календарь */
+.tp-dates, .tp-field {
+  border: 1px solid transparent; border-radius: 5.93px; background: #fff; outline: none;
+  font: 400 20px/1.35 var(--font-body); color: #000;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.tp-dates {
+  display: flex; align-items: center; gap: 12px; width: 554px; height: 50px; padding: 0 15px 0 25px;
+  text-align: left; cursor: pointer;
+}
+.tp-dates span { flex: 1; color: rgba(0, 0, 0, .35); }
+.tp-dates.is-filled span { color: #000; }
+.tp-dates[aria-expanded="true"] .ask-dd__chev { transform: rotate(180deg); }
+.tp-field { width: 258px; height: 50px; padding: 0 17px; }
+.tp-field--area { width: 554px; height: 87px; padding: 14px 17px; resize: none; }
+.tp-field::placeholder { color: rgba(0, 0, 0, .35); }
+.tp-dates:focus-visible, .tp-dates[aria-expanded="true"], .tp-field:focus { border-color: var(--orange-map); box-shadow: 0 0 0 2px rgba(222, 72, 17, .35); }
+.tp-field.is-invalid { border-color: var(--orange-map); box-shadow: 0 0 0 2px var(--orange-map); }
+
+/* календарь — под полем дат, правым краем по краю панели */
+.tp-calendar { left: -47px; top: 289px; }
+
+.tp-error { left: 61px; top: 600px; margin: 0; font: 600 14px/1 var(--font-body); color: #ffb08a; white-space: nowrap; }
+.tp-error[hidden] { display: none; }
+
+.tp-submit {
+  left: 61px; top: 630px; width: 554px; height: 75px; padding: 0; border: 0; border-radius: 5.93px;
+  background: var(--orange-map); color: #fff; font: 700 24px/1 var(--font-body); cursor: pointer;
+  transition: translate .25s ease, box-shadow .25s ease;
+}
+.tp-submit:hover, .tp-submit:focus-visible { translate: 0 -3px; box-shadow: 0 8px 14px rgba(0, 0, 0, .28); }
+.tp-consent { left: 61px; top: 737px; }
+
+/* после отправки — благодарность на месте формы */
+.tp-done {
+  left: 61px; top: 250px; width: 554px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;
+  color: var(--beige);
+}
+.tp-done[hidden] { display: none; }
+.tp-done b { font: 600 48px/1 var(--font-display); text-transform: uppercase; }
+.tp-done span { font: 400 24px/1.35 var(--font-body); }
+.tp-again {
+  margin-top: 10px; padding: 14px 24px; border: 1px solid var(--beige); border-radius: 7px; background: transparent;
+  color: var(--beige); font: 600 20px/1 var(--font-body); cursor: pointer; transition: background-color .25s, color .25s;
+}
+.tp-again:hover, .tp-again:focus-visible { background: var(--beige); color: #342f2f; }
+.tp-form.is-hiding, .tp-done.is-hiding { animation: tp-out .3s ease-in forwards; }
+.tp-form.is-showing > :not(.calendar) { animation: reveal-up .6s cubic-bezier(.2, .7, .2, 1) calc(var(--si, 0) * 45ms) backwards; }
+.tp-done.is-showing > * { animation: reveal-up .7s cubic-bezier(.2, .7, .2, 1) backwards; }
+.tp-done.is-showing > :nth-child(2) { animation-delay: .1s; }
+.tp-done.is-showing > :nth-child(3) { animation-delay: .2s; }
+@keyframes tp-out { to { opacity: 0; translate: 0 -12px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .tcard, .tcard__photo, .tcard__stamp, .tcard__stamp-tw, .tp-cards__track { transition: none !important; }
+  .tp-form, .tp-form > *, .tp-done, .tp-done > * { animation: none !important; }
+}

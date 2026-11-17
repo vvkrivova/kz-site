@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Готовые путешествия — Tian Way</title>
+  <meta name="description" content="Готовые путешествия на автодоме по Кыргызстану: Иссык-Куль, Каракол, Новый год в горах. Или соберем поездку под ваши даты, темп и интересы.">
+  <meta name="theme-color" content="#353f2b">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="img/meta/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
+  <script>
+    document.documentElement.style.setProperty('--page-scale', (document.documentElement.clientWidth / 1440).toFixed(5));
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css?v=20261117j">
+  <link rel="stylesheet" href="css/trips.css?v=20261117j">
+</head>
+<body>
+<main class="page">
+
+  <!-- ============ 1. ГОТОВЫЕ ПУТЕШЕСТВИЯ ============ -->
+  <section class="section tp-hero" id="top">
+    <div class="stage">
+      <img class="tp-hero__bg" src="img/trips/trips-hero-bg.jpg" alt="Зеленая горная долина с тропой и снежными вершинами">
+      <div class="tp-hero__shade"></div>
+      <div class="tp-hero__gradient"></div>
+
+      <header class="header">
+        <a class="header__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo.png" alt="Tian Way"></a>
+      </header>
+
+      <h1 class="tp-hero__title" data-reveal>Готовые путешествия</h1>
+      <p class="tp-hero__sub" data-reveal style="--rd:.12s">Собираем путешествия по Кыргызстану для одного человека, пары, семьи или компании — под ваши даты, темп и интересы</p>
+      <a class="tp-btn tp-btn--orange tp-hero__btn-trips" href="#season" data-reveal style="--rd:.24s">Посмотреть путешествия</a>
+      <a class="tp-btn tp-btn--light tp-hero__btn-custom" href="#custom" data-reveal style="--rd:.3s">Собрать под себя</a>
+    </div>
+  </section>
+
+  <!-- ============ 2. КУДА ПОЕХАТЬ В ЭТОМ СЕЗОНЕ ============ -->
+  <section class="section tp-season" id="season">
+    <div class="stage">
+      <img class="tp-season__topo" src="img/trips/topo-season.svg" alt="">
+      <h2 class="tp-season__title" data-reveal>Куда поехать в&nbsp;этом сезоне</h2>
+
+      <!-- вкладки сезонов: data-season-tab совпадает с data-seasons у карточек -->
+      <div class="tp-tabs" role="tablist" aria-label="Сезон" data-reveal style="--rd:.1s">
+        <button class="tp-tab is-active" type="button" role="tab" aria-selected="true" data-season-tab="now" style="left:320px; width:152px;">Сейчас</button>
+        <button class="tp-tab" type="button" role="tab" aria-selected="false" data-season-tab="winter" style="left:497px; width:152px;">Зима</button>
+        <button class="tp-tab" type="button" role="tab" aria-selected="false" data-season-tab="summer" style="left:675px; width:152px;">Лето</button>
+        <button class="tp-tab" type="button" role="tab" aria-selected="false" data-season-tab="offseason" style="left:853px; width:216px;">Межсезонье</button>
+      </div>
+
+      <!-- лента карточек: сдвигается стрелками, карточки фильтруются по сезону -->
+      <div class="tp-cards" data-cards>
+        <div class="tp-cards__track" data-cards-track>
+
+          <article class="tcard" data-seasons="now summer offseason">
+            <div class="tcard__body"></div>
+            <img class="tcard__photo" src="img/trips/trip-issyk-north.png" alt="Закат над Иссык-Кулем" style="left:31.7px; top:-50.8px; width:306.4px; height:230.2px; transform:rotate(5.13deg);">
+            <div class="tcard__stamp-tw" style="left:7.6px; top:-69.4px; width:132.3px; height:70.2px; transform:rotate(8.72deg);"><img src="img/trips/stamp-tianway-rect.png" alt=""></div>
+            <h3 class="tcard__title">Северный берег Иссык-Куля</h3>
+            <p class="tcard__desc">Размеренное путешествие по северному побережью Иссык-Куля: отдых у озера, конные прогулки, горные ущелья, традиционная кухня и рыбалка.</p>
+            <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.png" alt=""></span>
+            <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.png" alt=""></span>
+            <span class="tcard__meta tcard__meta--days">6 дней</span>
+            <span class="tcard__meta tcard__meta--locs">5 локаций</span>
+            <span class="tcard__meta tcard__meta--price">от 1 150 $</span>
+            <a class="tcard__btn" href="tour-issyk-north.html">Смотреть программу</a>
+          </article>
+
+          <article class="tcard" data-seasons="now winter">
+            <div class="tcard__body"></div>
+            <img class="tcard__photo" src="img/trips/trip-karakol-winter.png" alt="Заснеженный Каракол на закате" style="left:50.6px; top:-53.4px; width:254.7px; height:254.7px; transform:rotate(-3.04deg);">
+            <img class="tcard__stamp" src="img/stamp-red.png" alt="" style="left:270.5px; top:123.3px; width:81.8px; height:89.5px; transform:rotate(-3.33deg);">
+            <h3 class="tcard__title">Зимний Каракол</h3>
+            <p class="tcard__desc">Путешествие к заснеженным вершинам Тянь-Шаня: зимние пейзажи Иссык-Куля, горнолыжный отдых в Караколе, красные скалы и горячие источники.</p>
+            <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.png" alt=""></span>
+            <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.png" alt=""></span>
+            <span class="tcard__meta tcard__meta--days">6 дней</span>
+            <span class="tcard__meta tcard__meta--locs">5 локаций</span>
+            <span class="tcard__meta tcard__meta--price">от 0 000 $</span>
+            <a class="tcard__btn" href="tour-issyk-winter.html">Смотреть программу</a>
+          </article>
+
+          <article class="tcard" data-seasons="now summer offseason">
+            <div class="tcard__body"></div>
+            <img class="tcard__photo" src="img/trips/trip-issyk-ring.png" alt="Красные скалы и зеленая долина у Иссык-Куля" style="left:19.5px; top:-63.2px; width:333.9px; height:250.2px; transform:rotate(5.64deg);">
+            <h3 class="tcard__title">Большое кольцо Иссык-Куля</h3>
+            <p class="tcard__desc">Полноценное путешествие вокруг Иссык-Куля: горные ущелья, каньоны, национальная кухня и знакомство с кыргызскими традициями.</p>
+            <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.png" alt=""></span>
+            <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.png" alt=""></span>
+            <span class="tcard__meta tcard__meta--days">8 дней</span>
+            <span class="tcard__meta tcard__meta--locs">5 локаций</span>
+            <span class="tcard__meta tcard__meta--price">от 1 600 $</span>
+            <a class="tcard__btn" href="tour-issyk-ring.html">Смотреть программу</a>
+          </article>
+
+          <article class="tcard" data-seasons="now winter">
+            <div class="tcard__body"></div>
+            <!-- в макете фото отражено по горизонтали и чуть повернуто -->
+            <img class="tcard__photo" src="img/trips/trip-new-year.png" alt="Юрты у горного озера" style="left:33.7px; top:-78.3px; width:270px; height:270px; transform:matrix(-.9983, -.0585, -.0585, .9983, 0, 0);">
+            <img class="tcard__stamp" src="img/stamp-horses.png" alt="" style="left:-.2px; top:138.6px; width:131.9px; height:78.9px; transform:rotate(-7.82deg);">
+            <h3 class="tcard__title">Новый год</h3>
+            <p class="tcard__desc">Высокогорное озеро и кочевая культура</p>
+            <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.png" alt=""></span>
+            <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.png" alt=""></span>
+            <span class="tcard__meta tcard__meta--days">6 дней</span>
+            <span class="tcard__meta tcard__meta--locs">5 локаций</span>
+            <span class="tcard__meta tcard__meta--price">от 1 150 $</span>
+            <a class="tcard__btn" href="#">Смотреть программу</a>
+          </article>
+
+        </div>
+      </div>
+
+      <button class="tp-arrow tp-arrow--prev" type="button" data-cards-prev aria-label="Предыдущие путешествия" hidden>
+        <svg width="24" height="16" viewBox="0 0 24 16" fill="none" aria-hidden="true"><path d="M23 8H2M8.5 1.5 2 8l6.5 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="tp-arrow tp-arrow--next" type="button" data-cards-next aria-label="Следующие путешествия">
+        <svg width="24" height="16" viewBox="0 0 24 16" fill="none" aria-hidden="true"><path d="M1 8h21M15.5 1.5 22 8l-6.5 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ 3. СОБЕРЕМ ПУТЕШЕСТВИЕ ПОД ВАС ============ -->
+  <section class="section tp-custom" id="custom">
+    <div class="stage">
+      <img class="tp-custom__topo" src="img/trips/topo-form.svg" alt="">
+      <img class="tp-custom__lines" src="img/lines-hero.png" alt="">
+
+      <h2 class="tp-custom__title" data-reveal>Соберем путешествие под&nbsp;вас</h2>
+      <p class="tp-custom__sub" data-reveal style="--rd:.12s">Нравятся готовые идеи, но хочется своего? Расскажите, как вы видите идеальную дорогу, — мы подготовим предложение.</p>
+
+      <img class="tp-custom__photo" src="img/trips/photo-bw-eagle-hunter.png" alt="Беркутчи с беркутом и всадники в горной долине">
+      <img class="tp-custom__stamp-eagle" src="img/trips/stamp-eagle.png" alt="">
+      <div class="tp-custom__stamp-tw"><img src="img/trips/stamp-tianway-rect.png" alt=""></div>
+
+      <div class="tp-panel" data-reveal style="--rd:.15s">
+        <form class="tp-form" data-tp-form novalidate>
+          <span class="tp-label" id="tp-where-label" style="left:61px; top:44px;">Куда хочется?</span>
+          <div class="ask-dd tp-dd" data-dd style="left:61px; top:102px; width:244px;">
+            <input type="hidden" name="where" value="Зимний Каракол">
+            <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="tp-where-label">
+              <span data-dd-value>Зимний Каракол</span>
+              <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+            </button>
+            <ul class="ask-dd__list" role="listbox" aria-labelledby="tp-where-label">
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">Северный берег</li>
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:1">Зимний Каракол</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">Большое кольцо</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">Новый год</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:4">Свой маршрут</li>
+            </ul>
+          </div>
+
+          <span class="tp-label" id="tp-people-label" style="left:374px; top:44px;">Сколько человек?</span>
+          <div class="ask-dd tp-dd tp-dd--num" data-dd style="left:374px; top:102px; width:87px;">
+            <input type="hidden" name="people" value="2">
+            <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="tp-people-label">
+              <span data-dd-value>2</span>
+              <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+            </button>
+            <ul class="ask-dd__list" role="listbox" aria-labelledby="tp-people-label">
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">1</li>
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:1">2</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">3</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">4</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:4">5</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:5">6+</li>
+            </ul>
+          </div>
+
+          <span class="tp-label" id="tp-dates-label" style="left:61px; top:173px;">На сколько дней?</span>
+          <button class="tp-dates" type="button" data-tp-dates aria-labelledby="tp-dates-label" style="left:61px; top:231px;">
+            <span data-tp-dates-value>Выберите даты поездки</span>
+            <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+          </button>
+          <input type="hidden" name="dates" value="">
+
+          <label class="tp-label" for="tp-wishes" style="left:61px; top:300px;">Ваши пожелания</label>
+          <textarea class="tp-field tp-field--area" id="tp-wishes" name="wishes" style="left:61px; top:358px;"></textarea>
+
+          <label class="tp-label" for="tp-name" style="left:61px; top:477px;">Ваше имя</label>
+          <input class="tp-field" id="tp-name" name="name" type="text" autocomplete="name" style="left:61px; top:535px;">
+          <label class="tp-label" for="tp-contact" style="left:357px; top:477px;">Контакты</label>
+          <input class="tp-field" id="tp-contact" name="contact" type="text" autocomplete="tel" placeholder="Телефон или Telegram" style="left:357px; top:535px;">
+
+          <p class="tp-error" data-tp-error role="alert" hidden></p>
+
+          <button class="tp-submit" type="submit">Отправить заявку</button>
+
+          <label class="trip-consent tp-consent">
+            <input type="checkbox" name="consent">
+            <span class="trip-consent__box"></span>
+            <span class="trip-consent__text">Я даю согласие на обработку персональных данных в соответствии с&nbsp;<a href="#">Согласием на обработку персональных данных</a>&nbsp;и ознакомился с&nbsp;<a href="#">Политикой в отношении обработки персональных данных</a>.</span>
+          </label>
+
+          <!-- календарь (общий с формой на главной, логика — rangeCalendar в js/main.js) -->
+          <div class="calendar tp-calendar" data-calendar hidden>
+            <button class="calendar__nav calendar__nav--prev" type="button" data-cal-prev aria-label="Предыдущий месяц"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M5.63025 1.05127L1.31434 4.50401C0.963631 4.78458 0.963632 5.318 1.31435 5.59857L5.63025 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <button class="calendar__nav calendar__nav--next" type="button" data-cal-next aria-label="Следующий месяц"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1.05127 1.05127L5.36718 4.50401C5.71789 4.78458 5.71789 5.318 5.36717 5.59857L1.05127 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <div class="calendar__month" data-cal-month="0"></div>
+            <div class="calendar__month calendar__month--right" data-cal-month="1"></div>
+            <p class="calendar__summary" data-cal-summary>Выберите даты заезда и выезда</p>
+            <button class="calendar__apply" type="button" data-cal-apply>Применить</button>
+          </div>
+        </form>
+
+        <div class="tp-done" data-tp-done hidden>
+          <b>Спасибо, заявка отправлена!</b>
+          <span>Подготовим предложение и свяжемся с вами в ближайшее время — обычно в течение дня.</span>
+          <button class="tp-again" type="button" data-tp-again>Отправить еще одну</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- подвал — в разработке -->
+</main>
+
+<script src="js/main.js?v=20261117j"></script>
+<script src="js/trips.js?v=20261117j"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+/* =========================================================
+   Tian Way — страница «Рыбалка и охота» (fishing.html)
+   Общие цвета, шрифты, шапка, масштаб, календарь и выпадающие списки — в css/style.css.
+   Координаты — из макета Figma (экран Desktop - 87, 1440×1921).
+   ========================================================= */
+
+.fish .stage { height: 1921px; background: var(--olive); }
+
+/* ---------- заголовок ---------- */
+.fish__title {
+  left: 330px; top: 165px; width: 780px; margin: 0; text-align: center;
+  font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: var(--beige);
+}
+/* оранжевая «наклейка» поверх заголовка: при появлении «шлепается» с легким пружинящим отскоком */
+.fish__tag {
+  left: 483.1px; top: 335.8px; width: 489.4px; height: 46px; margin: 0; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; transform: rotate(-5.14deg);
+  background: var(--orange-map); color: var(--beige); font: 500 24px/1 var(--font-body); text-transform: uppercase;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .25);
+}
+html.reveal-on .fish__tag { animation: fish-tag-in .7s cubic-bezier(.3, 1.5, .5, 1) .55s backwards; }
+@keyframes fish-tag-in { from { opacity: 0; scale: 1.35; translate: 0 -10px; } }
+.fish__intro {
+  left: 204px; top: 435.5px; width: 1057px; margin: 0; text-align: center;
+  font: 500 24px/normal var(--font-body); color: var(--beige);
+}
+
+/* ---------- карточки «Рыбалка» и «Охота» ---------- */
+.fcard { top: 555px; height: 466px; color: #342f2f; cursor: pointer; }
+.fcard > * { position: absolute; }
+.fcard--fishing { left: 138px; width: 568px; }
+.fcard--hunting { left: 758px; width: 570px; }
+.fcard__body {
+  left: 0; top: 150px; width: 568px; height: 316px; border: 1px solid #98887a; border-radius: 10px; background: var(--beige);
+  transition: box-shadow .3s ease;
+}
+.fcard__photo { left: 0; top: 0; width: 100%; height: 267px; border-radius: 16px; overflow: hidden; }
+.fcard__photo img { position: absolute; left: 0; width: 100%; transition: scale .6s cubic-bezier(.2, .7, .2, 1); }
+.fcard--fishing .fcard__photo img { top: -32.2%; height: 141.95%; }
+.fcard--hunting .fcard__photo img { top: -27.73%; height: 142.35%; }
+.fcard__title { left: 28px; top: 292px; font: 600 45px/.94 var(--font-display); text-transform: uppercase; }
+.fcard--hunting .fcard__title, .fcard--hunting .fcard__text { left: 39px; }
+.fcard__text { left: 28px; top: 355px; width: 470px; font: 500 20px/normal var(--font-body); }
+/* наведение: карточка приподнимается, фото приближается, заголовок становится оранжевым */
+.fcard { transition: translate .35s cubic-bezier(.2, .7, .2, 1); }
+.fcard:hover, .fcard:focus-visible { translate: 0 -6px; }
+.fcard:hover .fcard__body, .fcard:focus-visible .fcard__body { box-shadow: 0 16px 28px rgba(0, 0, 0, .35); }
+.fcard:hover .fcard__photo img, .fcard:focus-visible .fcard__photo img { scale: 1.05; }
+.fcard__title { transition: color .25s ease; }
+.fcard:hover .fcard__title, .fcard:focus-visible .fcard__title { color: var(--orange-map); }
+
+/* ---------- марки и линии ---------- */
+.fish__stamp-red { left: 72.7px; top: 606.2px; width: 123.4px; height: 135px; object-fit: cover; transform: rotate(21.93deg); pointer-events: none; }
+.fish__stamp-round { left: 1165.2px; top: 756.5px; width: 135.2px; height: 130.2px; object-fit: cover; transform: rotate(-7.77deg); pointer-events: none; }
+.fish__lines { left: -173px; top: 748px; width: 2172px; height: 724px; pointer-events: none; }
+.fish__stamp-horses { left: 859.2px; top: 1114.2px; width: 314.2px; height: 187.9px; object-fit: cover; transform: rotate(11.42deg); filter: blur(2px); pointer-events: none; }
+.fish__stamp-eagle { left: 1012px; top: 1610.7px; width: 140px; height: 87px; object-fit: cover; transform: rotate(-13.26deg); pointer-events: none; }
+.fish__stamp-tw { left: 302.1px; top: 1279.6px; width: 175.8px; height: 93.2px; overflow: hidden; transform: rotate(-7.2deg); pointer-events: none; }
+.fish__stamp-tw img { position: absolute; left: -7.31%; top: -23.96%; width: 115.19%; height: 144.8%; }
+/* карточки и марки над ними: марки не мешают наведению на карточку */
+.fcard { z-index: 1; }
+.fish__stamp-red, .fish__stamp-round { z-index: 2; }
+
+/* ---------- форма (светлая панель) ---------- */
+.fish-panel { left: 363px; top: 1140px; width: 690px; height: 674px; border-radius: 17px; background: var(--beige); z-index: 2; }
+.fish__stamp-eagle, .fish__stamp-tw { z-index: 3; }
+.fish-panel > *, .fish-form > * { position: absolute; }
+.fish-form { inset: 0; }
+.fish-label { font: 400 32px/normal var(--font-display); letter-spacing: 1.28px; color: #000; white-space: nowrap; }
+
+.fish-dd .ask-dd__btn { padding: 0 18px 0 25px; }
+.fish-dd .ask-dd__list { width: 240px; }
+.fish-dd--num .ask-dd__btn { padding: 0 14px 0 19px; }
+.fish-dd--num .ask-dd__list { width: 120px; }
+
+.fish-dates, .fish-field {
+  border: 1px solid transparent; border-radius: 5.93px; background: #fff; outline: none;
+  font: 400 20px/1.35 var(--font-body); color: #000;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.fish-dates { display: flex; align-items: center; gap: 12px; width: 554px; height: 50px; padding: 0 15px 0 14px; text-align: left; cursor: pointer; }
+.fish-dates span { flex: 1; color: rgba(0, 0, 0, .35); }
+.fish-dates.is-filled span { color: #000; }
+.fish-dates[aria-expanded="true"] .ask-dd__chev { transform: rotate(180deg); }
+.fish-field { width: 258px; height: 50px; padding: 0 17px; }
+.fish-field::placeholder { color: rgba(0, 0, 0, .35); }
+.fish-dates:focus-visible, .fish-dates[aria-expanded="true"], .fish-field:focus { border-color: var(--orange-map); box-shadow: 0 0 0 2px rgba(222, 72, 17, .35); }
+.fish-field.is-invalid { border-color: var(--orange-map); box-shadow: 0 0 0 2px var(--orange-map); }
+.fish-calendar { left: -47px; top: 284px; }
+
+.fish-error { left: 61px; top: 422px; margin: 0; font: 600 14px/1 var(--font-body); color: #c4400f; white-space: nowrap; }
+.fish-error[hidden] { display: none; }
+.fish-submit {
+  left: 61px; top: 456px; width: 554px; height: 75px; padding: 0; border: 0; border-radius: 5.93px;
+  background: var(--orange-map); color: #fff; font: 700 24px/1 var(--font-body); cursor: pointer;
+  transition: translate .25s ease, box-shadow .25s ease;
+}
+.fish-submit:hover, .fish-submit:focus-visible { translate: 0 -3px; box-shadow: 0 8px 14px rgba(0, 0, 0, .28); }
+/* согласие на светлом фоне: квадрат светлый с оранжевой рамкой, текст темный (как в макете) */
+.fish-consent { left: 68px; top: 559px; }
+.fish-consent .trip-consent__box { background: var(--beige); }
+.fish-consent .trip-consent__text { color: #342f2f; }
+.fish-consent input:focus-visible + .trip-consent__box { outline-color: var(--orange-map); }
+
+/* благодарность после отправки */
+.fish-done { left: 61px; top: 220px; width: 554px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; color: #342f2f; }
+.fish-done[hidden] { display: none; }
+.fish-done b { font: 600 48px/1 var(--font-display); text-transform: uppercase; }
+.fish-done span { font: 400 24px/1.35 var(--font-body); }
+.fish-again {
+  margin-top: 10px; padding: 14px 24px; border: 1px solid var(--orange-map); border-radius: 7px; background: transparent;
+  color: var(--orange-map); font: 600 20px/1 var(--font-body); cursor: pointer; transition: background-color .25s, color .25s;
+}
+.fish-again:hover, .fish-again:focus-visible { background: var(--orange-map); color: #fff; }
+.fish-form.is-hiding, .fish-done.is-hiding { animation: fish-out .3s ease-in forwards; }
+.fish-form.is-showing > :not(.calendar) { animation: reveal-up .6s cubic-bezier(.2, .7, .2, 1) calc(var(--si, 0) * 45ms) backwards; }
+.fish-done.is-showing > * { animation: reveal-up .7s cubic-bezier(.2, .7, .2, 1) backwards; }
+.fish-done.is-showing > :nth-child(2) { animation-delay: .1s; }
+.fish-done.is-showing > :nth-child(3) { animation-delay: .2s; }
+@keyframes fish-out { to { opacity: 0; translate: 0 -12px; } }
+
+/* выбранная из карточки тема — поле «Что вас интересует?» коротко подсвечивается */
+.fish-dd.is-flash .ask-dd__btn { animation: fish-flash 1.2s ease; }
+@keyframes fish-flash { 0%, 100% { box-shadow: 0 0 0 0 rgba(222, 72, 17, 0); } 25% { box-shadow: 0 0 0 4px rgba(222, 72, 17, .55); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .fcard, .fcard__photo img, .fish__tag { transition: none !important; animation: none !important; }
+  .fish-form, .fish-form > *, .fish-done, .fish-done > *, .fish-dd .ask-dd__btn { animation: none !important; }
+}

@@ -1,0 +1,125 @@
+/* =========================================================
+   Tian Way — страница «Вопросы и ответы» (faq.html)
+   Общие цвета, шрифты, шапка, масштаб и кнопки — в css/style.css.
+   Координаты — из макета Figma (экран Desktop - 38, 1440×3670).
+   ========================================================= */
+
+.faqp .stage { height: 3670px; background: var(--beige); }
+/* фон под макетом — тот же бежевый: запас снизу (для центрирования формы) не виден */
+body:has(.faqp) { background: var(--beige); }
+
+/* ---------- фон ---------- */
+.faqp__lines-ask { left: -642.71px; top: 2923.01px; width: 2172px; height: 724px; object-fit: cover; transform: rotate(-8.13deg); }
+.faqp__topo-r { left: 830.46px; top: -221.95px; width: 769.16px; height: 546px; object-fit: cover; opacity: .43; transform: rotate(48.63deg); }
+.faqp__topo-l { left: -646.38px; top: -378.64px; width: 1208.36px; height: 857.76px; object-fit: cover; opacity: .59; transform: rotate(-2deg); }
+.faqp__compass { left: 1284.72px; top: 220.99px; width: 116.64px; height: 117.79px; object-fit: cover; opacity: .42; filter: blur(1.3px); transform: rotate(10.62deg); }
+.faqp__coords { left: 1185.67px; top: 112.46px; width: 114px; height: 45px; object-fit: cover; opacity: .39; transform: rotate(34.72deg); }
+
+/* ---------- шапка: на светлом фоне логотип и телефон оранжевые ---------- */
+.faqp__header .header__logo { left: 52px; top: 23px; }
+/* оранжевый логотип = наш логотип как «трафарет» (mask), залитый оранжевым */
+.faqp__logo {
+  /* пропорции как у файла logo.png (750×500 = 1,5 : 1) и contain — логотип целиком, без обрезки */
+  display: block; width: 77px; height: 51px; background: var(--orange-map);
+  -webkit-mask: url(../img/logo.png) center / contain no-repeat; mask: url(../img/logo.png) center / contain no-repeat;
+}
+.faqp__header .header__phone { color: var(--orange-map); }
+
+/* ---------- заголовок ---------- */
+.faqp__title {
+  left: 279px; top: 147px; width: 905px; text-align: center;
+  font: 600 96px/1.031 var(--font-display); letter-spacing: -.96px; text-transform: uppercase; color: #342f2f;
+}
+.faqp__sub { left: 333px; top: 263px; width: 798px; text-align: center; font: 400 24px/normal var(--font-body); color: #342f2f; }
+.faqp__note {
+  left: 223.16px; top: 112.55px; width: 196px; height: 72px; transform: rotate(-11.33deg);
+  font: 400 57px/normal "Caveat", cursive; color: var(--orange-map); white-space: nowrap;
+}
+
+/* ---------- вопросы ---------- */
+.qa { left: 0; width: 1440px; height: 0; }
+.qa > * { position: absolute; }
+.qa__num { font: 400 48px/.94 var(--font-body); color: var(--orange-map); }
+.qa__q { width: 419px; margin: 0; font: 500 32px/.94 var(--font-body); color: #342f2f; }
+.qa__line { width: .5px; height: 257px; background: rgba(0, 0, 0, .42); }
+.qa__a { width: 628px; font: 300 24px/normal var(--font-body); color: #342f2f; }
+.qa__btn {
+  display: flex; align-items: center; justify-content: center; height: 56px; border-radius: 7px;
+  background: var(--orange-map); color: #fff; font: 700 24px/1 var(--font-body);
+  transition: translate .25s ease, box-shadow .25s ease;
+}
+.qa__btn:hover, .qa__btn:focus-visible { translate: 0 -3px; box-shadow: 0 8px 14px rgba(0, 0, 0, .28); }
+.faqp__divider { left: 107px; width: 1289px; height: 1px; background: rgba(0, 0, 0, .12); transform-origin: left center; }
+
+.faqp__route { left: -137.54px; top: 1376.77px; width: 681.6px; height: 199.98px; object-fit: cover; transform: rotate(6.82deg); }
+
+/* ---------- «Не нашли ответ?» ---------- */
+.ask { left: 59px; top: 2891px; width: 1307px; height: 709px; border-radius: 17px; background: #515027; }
+.ask > *, .ask__form > * { position: absolute; }
+.ask__form { inset: 0; }
+.ask__title { left: 48px; top: 42px; width: 434px; margin: 0; font: 600 96px/103.1px var(--font-display); color: var(--beige); text-transform: uppercase; }
+.ask__sub { left: 48px; top: 273px; width: 434px; font: 400 24px/normal var(--font-body); color: var(--beige); }
+
+.ask__label { font: 400 32px/normal var(--font-display); letter-spacing: 1.28px; color: var(--beige); white-space: nowrap; }
+.ask__field {
+  border: 1px solid transparent; border-radius: 5.93px; background: #fff; outline: none;
+  font: 400 20px/1.35 var(--font-body); color: #000;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.ask__field { width: 258px; height: 50px; padding: 0 17px; }
+.ask__textarea { width: 468px; height: 109px; padding: 17px 17px; resize: none; }
+.ask__field::placeholder { color: rgba(0, 0, 0, .35); }
+.ask__field:focus { border-color: var(--orange-map); box-shadow: 0 0 0 2px rgba(222, 72, 17, .35); }
+
+/* выпадающий список .ask-dd — общий, стили в css/style.css */
+.ask-dd { width: 300px; }
+.ask__field.is-invalid { border-color: var(--orange-map); box-shadow: 0 0 0 2px var(--orange-map); }
+
+.ask__error { left: 688px; top: 459px; font: 600 14px/1 var(--font-body); color: #ffb08a; white-space: nowrap; }
+.ask__error[hidden] { display: none; }
+
+.ask__submit {
+  left: 688px; top: 486px; width: 554px; height: 75px; padding: 0; border: 0; border-radius: 5.93px;
+  background: var(--orange-map); color: #fff; font: 700 24px/1 var(--font-body); cursor: pointer;
+  transition: translate .25s ease, box-shadow .25s ease;
+}
+.ask__submit:hover, .ask__submit:focus-visible { translate: 0 -3px; box-shadow: 0 8px 14px rgba(0, 0, 0, .28); }
+.ask__consent { width: 520px; }
+
+/* после отправки — благодарность на месте формы */
+.ask__done {
+  left: 688px; top: 150px; width: 554px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;
+  color: var(--beige);
+}
+.ask__done[hidden] { display: none; }
+.ask__done b { font: 600 48px/1 var(--font-display); text-transform: uppercase; }
+.ask__done span { font: 400 24px/1.35 var(--font-body); }
+.ask__again {
+  margin-top: 10px; padding: 14px 24px; border: 1px solid var(--beige); border-radius: 7px; background: transparent;
+  color: var(--beige); font: 600 20px/1 var(--font-body); cursor: pointer; transition: background-color .25s, color .25s;
+}
+.ask__again:hover, .ask__again:focus-visible { background: var(--beige); color: #342f2f; }
+.ask__form.is-hiding, .ask__done.is-hiding { animation: ask-out .3s ease-in forwards; }
+/* возвращение к форме: подписи и поля выплывают снизу по очереди (--si ставит js/faq.js) */
+.ask__form.is-showing > * { animation: reveal-up .6s cubic-bezier(.2, .7, .2, 1) calc(var(--si, 0) * 45ms) backwards; }
+.ask__done.is-showing > * { animation: reveal-up .7s cubic-bezier(.2, .7, .2, 1) backwards; }
+.ask__done.is-showing > :nth-child(2) { animation-delay: .1s; }
+.ask__done.is-showing > :nth-child(3) { animation-delay: .2s; }
+@keyframes ask-out { to { opacity: 0; translate: 0 -12px; } }
+
+.faqp__photo { left: 1199.49px; top: 2818.8px; width: 148.69px; height: 223.04px; object-fit: cover; transform: rotate(9.57deg); }
+.faqp__stamp { left: 1126.88px; top: 2954.25px; width: 115.23px; height: 110.9px; object-fit: cover; transform: rotate(-8.9deg); }
+
+/* ---------- появление при прокрутке (анимации 2 и 8 — как на главной) ---------- */
+/* общие правила [data-reveal] — в css/style.css */
+/* у вопроса номер, вопрос, черта, ответ и кнопка выплывают по очереди */
+.qa.is-in { animation: none; }
+.qa.is-in > * { animation: reveal-up .8s cubic-bezier(.2, .7, .2, 1) backwards; }
+.qa.is-in > .qa__q { animation-delay: .08s; }
+.qa.is-in > .qa__line { animation: line-grow .7s cubic-bezier(.65, 0, .35, 1) .15s backwards; transform-origin: center top; }
+.qa.is-in > .qa__a { animation-delay: .18s; }
+.qa.is-in > .qa__btn { animation-delay: .32s; }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal], [data-reveal] > *, .ask__form, .ask__form > *, .ask__done, .ask__done > *, .ask-dd__opt { animation: none !important; }
+  .ask-dd__list, .ask-dd__chev { transition: none !important; }
+}

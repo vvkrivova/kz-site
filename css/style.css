@@ -1,0 +1,1066 @@
+/* =========================================================
+   Tian Way — главная страница (десктоп, макет 1440px)
+   Коллажи свёрстаны абсолютным позиционированием внутри
+   «сцены» шириной 1440px; на других ширинах экрана сцена
+   масштабируется целиком (см. js/main.js).
+   ========================================================= */
+
+:root {
+  --cream: #f8f2eb;
+  --beige: #f1e7d9;
+  --sand: #e9dcc2;
+  --paper: #ebe6dc;
+  --sky: #d9e4f1;
+  --olive: #353f2b;
+  --orange: #dc4b07;
+  --orange-btn: #d34c1b;
+  --orange-map: #de4811;
+  --light-text: #f5ece5;
+  --title-light: #f1e7d9;
+  --ink: #272626;
+  --ink-2: #3f3d3d;
+
+  --font-display: "Oswald", "Arial Narrow", sans-serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+
+  --stage-w: 1440px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: none; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, p, dl, dd { margin: 0; }
+button { font: inherit; }
+
+.page { width: var(--stage-w); margin: 0; transform-origin: 0 0; transform: scale(var(--page-scale, 1)); background: var(--beige); /* цвет блоков — чтобы на стыках не просвечивало светлое */ }
+/* масштаб задаёт js/main.js; лишнее за пределами масштабированной страницы обрезаем */
+html { overflow-x: hidden; }
+/* clip (а не hidden): обрезает, но не создаёт прокручиваемый контейнер — иначе якоря ломают прокрутку */
+body { overflow: clip; }
+
+/* overflow: clip — обрезает, но (в отличие от hidden) блок нельзя «прокрутить» изнутри
+   при фокусе клавишей Tab или переходе по якорю. hidden — запасной вариант для старых браузеров */
+.section { position: relative; width: var(--stage-w); overflow: hidden; overflow: clip; }
+.stage { position: relative; width: var(--stage-w); height: 1024px; }
+.stage > * { position: absolute; }
+
+/* rotated collage pieces: размер + поворот задаются ниже */
+.deco { transform-origin: center; pointer-events: none; }
+.deco img { position: absolute; }
+
+/* ---------- кнопки ---------- */
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 261px; height: 54px; border-radius: 10px;
+  font: 600 20px/1 var(--font-body);
+  box-shadow: 12px 7px 4px rgba(0, 0, 0, .25);
+}
+.btn--light { background: var(--sand); color: var(--orange); }
+.btn--orange { background: var(--orange); color: var(--sand); }
+
+/* =========================================================
+   1. ПЕРВЫЙ ЭКРАН
+   ========================================================= */
+.hero .stage { background: var(--cream); }
+
+.hero__bg { left: -7px; top: 0; width: 1447px; height: 1030px; object-fit: cover; transform: scaleX(-1); }
+.hero__bg-shade { left: -7px; top: 0; width: 1447px; height: 1030px; background: rgba(0, 0, 0, .26); mix-blend-mode: multiply; }
+.hero__lines { left: -95px; top: 460px; width: 2172px; height: 724px; }
+.hero__top-shade { left: -33px; top: -32px; width: 1720px; height: 145px; object-fit: cover; filter: blur(28.6px); }
+
+.header { inset: 0 0 auto 0; height: 120px; z-index: 5; }
+.header > * { position: absolute; }
+.header__logo { left: 58px; top: 57px; }
+.header__logo img { width: 84px; height: 56px; object-fit: cover; }
+.header__phone { left: 1137px; top: 52px; font: 600 16px/normal var(--font-body); color: var(--sand); white-space: nowrap; }
+.header__social img { width: 100%; height: 100%; object-fit: cover; }
+.header__social--ig { left: 1299px; top: 49px; width: 27px; height: 27px; }
+.header__social--wa { left: 1328px; top: 50px; width: 24px; height: 24px; }
+.header__social--tg { left: 1354px; top: 48px; width: 28px; height: 28px; }
+
+.hero__title {
+  left: 58px; top: 294px; width: 728px;
+  font: 600 112px/.94 var(--font-display); text-transform: uppercase; color: var(--sand);
+}
+.hero__subtitle { left: 58px; top: 531px; width: 558px; font: 400 32px/normal var(--font-body); color: var(--sand); }
+
+.hero__actions { left: 58px; top: 700px; display: flex; gap: 36px; }
+
+.hero__photo-rv     { left: 812.58px; top: 149.45px; width: 522.076px; height: 783.114px; object-fit: cover; transform: rotate(-3.32deg); }
+.hero__stamp-red    { left: 737.97px; top: 623.18px; width: 178px; height: 195px; object-fit: cover; transform: rotate(21.93deg); }
+.hero__stamp-horses { left: 650.93px; top: 150.54px; width: 238px; height: 142px; object-fit: cover; transform: rotate(-7.82deg); }
+.hero__photo-bw     { left: 660.90px; top: 802.28px; width: 411.112px; height: 231.182px; overflow: hidden; transform: rotate(8.55deg); }
+.hero__photo-bw img { left: -0.99%; top: -10.85%; width: 101.86%; height: 120.75%; }
+.hero__stamp-round  { left: 1217.34px; top: 809.80px; width: 170.898px; height: 164.48px; object-fit: cover; transform: rotate(-7.77deg); }
+
+/* =========================================================
+   2. ВЫБЕРИ ФОРМАТ ПУТЕШЕСТВИЯ
+   ========================================================= */
+.formats .stage { background: var(--sky); }
+
+.formats__cloud-1 { left: -146px; top: 207px; width: 527px; height: 264px; object-fit: cover; }
+.formats__valley { left: -1px; top: 74px; width: 1442px; height: 950px; overflow: hidden; }
+.formats__valley img { left: 0; top: -.01%; width: 100%; height: 215.71%; }
+.formats__cloud-2 { left: 855px; top: 9px; width: 681px; height: 227px; object-fit: cover; filter: blur(4px); transform: rotate(15.2deg); }
+.formats__panel { left: 23px; top: 99px; width: 1394px; height: 826px; border-radius: 12px; background: var(--olive); }
+.formats__lines { left: -289px; top: 288px; width: 1809px; height: 603px; object-fit: cover; }
+
+.formats__title {
+  left: 70px; top: 151px; width: 1299px; text-align: center;
+  font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: var(--title-light);
+}
+
+.format-card { width: 381px; height: 580px; border-radius: 10px; background: var(--sand); color: #000; }
+.format-card > * { position: absolute; }
+.format-card__title { top: 46px; font: 400 40px/.94 var(--font-display); }
+.format-card__text { top: 142px; font: 400 20px/normal var(--font-body); }
+.format-card__img { left: 0; top: 318px; width: 381px; height: 262px; overflow: hidden; border-radius: 0 0 10px 10px; }
+.format-card__img img { position: absolute; }
+
+.format-card--rv { left: 91px; top: 288px; }
+.format-card--rv .format-card__title,
+.format-card--rv .format-card__text { left: 37px; }
+.format-card--rv .format-card__text { width: 251px; }
+.format-card--rv .format-card__img img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.format-card--tours { left: 538.37px; top: 286px; }
+.format-card--tours .format-card__title,
+.format-card--tours .format-card__text { left: 33px; }
+.format-card--tours .format-card__text { width: 317px; }
+.format-card--tours .format-card__img img { left: -.09%; top: 16.71%; width: 100%; height: 113.72%; }
+
+.format-card--fishing { left: 976.51px; top: 288px; }
+.format-card--fishing .format-card__title,
+.format-card--fishing .format-card__text { left: 33px; }
+.format-card--fishing .format-card__text { width: 307px; }
+.format-card--fishing .format-card__img { top: 319px; }
+.format-card--fishing .format-card__img img { left: -22.57%; top: 15.59%; width: 144.65%; height: 85.4%; }
+
+.format-btn {
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px; background: var(--orange-btn); color: var(--light-text);
+  font-weight: 600; white-space: nowrap;
+  box-shadow: 6px 9px 4px rgba(0, 0, 0, .25);
+}
+.format-btn--rv      { left: 71.44px;  top: 549.46px; width: 316.373px; height: 57.366px; font-size: 24.96px; transform: rotate(-3.47deg); }
+.format-btn--tours   { left: 500.36px; top: 561.08px; width: 303px;     height: 58.785px; font-size: 23.905px; transform: rotate(3.07deg); }
+.format-btn--fishing { left: 962.37px; top: 557.40px; width: 281px;     height: 57.348px; font-size: 22.17px; transform: rotate(-4.89deg); }
+
+.formats__clouds-a { left: 1163px; top: 288px; width: 328px; height: 142px; overflow: hidden; pointer-events: none; }
+.formats__clouds-a img { left: -562.2%; top: -245.77%; width: 662.2%; height: 509.86%; }
+.formats__clouds-b { left: 217px; top: -89px; width: 564px; height: 261px; overflow: hidden; opacity: .9; filter: blur(4.1px); pointer-events: none; }
+.formats__clouds-b img { left: -161.11%; top: 0; width: 402.22%; height: 289.6%; }
+.formats__clouds-a img, .formats__clouds-b img { position: absolute; }
+
+/* =========================================================
+   4. КУДА НА АВТОДОМЕ РЕАЛЬНО ПРОЕХАТЬ
+   ========================================================= */
+.routes .stage { background: var(--beige); }
+
+.routes__topo { left: 1010.39px; top: -33.45px; width: 710px; height: 504px; object-fit: cover; opacity: .62; transform: rotate(-156.27deg); }
+.routes__title {
+  left: 58px; top: 40px; width: 878px;
+  font: 600 96px/105px var(--font-display); text-transform: uppercase; color: var(--ink);
+}
+.routes__text { left: 58px; top: 272px; width: 819px; font: 400 24px/normal var(--font-body); color: var(--ink); }
+.routes__mountains { left: 0; top: 696px; width: 1441px; height: 483px; object-fit: cover; }
+
+.routes__route-top { left: 928.8px; top: 3.43px; width: 410.131px; height: 66.671px; }
+.routes__dot { width: 17px; height: 17px; }
+.routes__dot--1 { left: 916.5px; top: 22.5px; }
+.routes__dot--2 { left: 1189.5px; top: -1.5px; }
+.routes__dot--3 { left: 1336.5px; top: 60.5px; }
+.routes__pin { left: 1335px; top: 8px; width: 31px; height: 48px; overflow: hidden; transform: rotate(9.45deg); }
+.routes__pin img { left: -1456.82%; top: 0; width: 1859.09%; height: 352.94%; }
+
+.routes__photo-bw { left: 1149.26px; top: 50.88px; width: 251.005px; height: 251.005px; clip-path: inset(4.3px round 20px); overflow: hidden; transform: rotate(177deg) scaleY(-1); }
+.routes__photo-bw img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.routes__photo-sunset { left: 934.69px; top: 211.58px; width: 319px; height: 227px; object-fit: cover; transform: rotate(4.66deg); }
+.routes__stamp-round  { left: 1231.69px; top: 266.99px; width: 110.658px; height: 106.502px; object-fit: cover; transform: rotate(-7.77deg); }
+.routes__stamp-horses { left: 990.28px; top: 98.56px; width: 146.495px; height: 87.608px; object-fit: cover; transform: rotate(-7.82deg); }
+.routes__stamp-red    { left: 876.13px; top: 333.24px; width: 89.984px; height: 98.464px; object-fit: cover; transform: rotate(21.93deg); }
+
+.routes__map { left: 31px; top: 426px; width: 830px; height: 391px; object-position: bottom; }
+.routes__layer { inset: 0; pointer-events: none; }
+.routes__layer > * { position: absolute; }
+.routes__underline { left: 65px; top: 801.13px; width: 123.001px; height: 10.298px; }
+
+/* точки и подписи на карте (позиции задаёт js/main.js) */
+.map-dot { width: 18px; height: 18px; }
+.map-route { pointer-events: none; }
+.map-label {
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.map-label__line {
+  display: block; height: 25px; padding: 0 7px; border-radius: 4px;
+  background: rgba(222, 72, 17, .95);
+  font: 600 14px/25px var(--font-body); color: #fff; white-space: nowrap;
+}
+.map-label__line + .map-label__line { margin-top: -4px; }
+.map-label--small .map-label__line { font-size: 13px; }
+.map-tail { width: 13px; height: 27px; transform-origin: center; }
+.map-tail img { position: absolute; left: 6.7%; top: 0; width: 86.6%; height: 75%; }
+
+/* карточка направления */
+.route-card {
+  left: 910px; top: 426px; width: 503px; min-height: 502px;
+  padding: 25px 22px 26px;
+  border-radius: 10px; background: var(--paper);
+  box-shadow: -3px 4px 4px rgba(0, 0, 0, .25);
+  color: var(--ink-2);
+}
+.route-card__top { display: flex; justify-content: space-between; align-items: center; height: 13px; }
+.route-card__label { font: 400 14px/.94 var(--font-body); text-transform: uppercase; }
+.route-card__nav { display: flex; align-items: center; gap: 0; margin-right: 1px; }
+.route-card__arrow {
+  display: grid; place-items: center; width: 25px; height: 24px; padding: 0;
+  border: 0; background: none; cursor: pointer;
+}
+.route-card__arrow img { width: 14.5px; height: 7.364px; }
+.route-card__arrow--prev img { transform: rotate(180deg); }
+.route-card__counter { margin-left: 2px; font: 400 13px/.94 var(--font-body); min-width: 22px; }
+
+.route-card__title { margin-top: 16px; max-width: 300px; white-space: pre-line; font: 800 32px/.94 var(--font-body); color: var(--ink); }
+.route-card__desc { margin-top: 12px; width: 429px; font: 400 14px/1 var(--font-body); }
+
+.route-card__rows { margin-top: 15px; }
+.route-row {
+  position: relative; display: grid; grid-template-columns: 55px 154px 1fr; align-items: center;
+  min-height: 46px; padding: 6px 0;
+  font-size: 14px;
+}
+.route-row + .route-row::before {
+  content: ""; position: absolute; left: 55px; top: 0; width: 370px; height: 1px; background: #cfcfcf;
+}
+.route-row dt { font-weight: 700; line-height: .94; }
+.route-row dd { width: 252px; line-height: 1; }
+.route-row__icon { position: relative; overflow: hidden; justify-self: start; }
+.route-row__icon img { position: absolute; }
+.route-row__icon--days   { width: 41px; height: 36px; }
+.route-row__icon--days img   { left: -58.33%; top: -139.85%; width: 220.83%; height: 737.83%; }
+.route-row__icon--fun    { width: 42px; height: 32px; }
+.route-row__icon--fun img    { left: -51.92%; top: -375.34%; width: 203.85%; height: 793.17%; }
+.route-row__icon--food   { width: 35px; height: 33px; margin-left: 3px; }
+.route-row__icon--food img   { left: -33.9%; top: -47.37%; width: 166.1%; height: 171.93%; }
+.route-row__icon--season { width: 36px; height: 32px; margin-left: 5px; }
+.route-row__icon--season img { left: -81.4%; top: -616.14%; width: 246.51%; height: 834.92%; }
+.route-row__icon--who    { width: 36px; height: 24px; margin-left: 3px; }
+.route-row__icon--who img    { left: -56%; top: -842.83%; width: 212%; height: 961.42%; }
+
+.route-card__btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 201px; height: 32px; margin: 14px auto 0; border-radius: 7px;
+  background: var(--orange-map); color: #fbfbfb; font: 700 15px/1 var(--font-body);
+}
+
+/* общий приём: картинка, обрезанная внутри рамки (crop из Figma) */
+.crop { overflow: hidden; }
+.crop > img, .first__bg img, .first__stamp img, .first__topo img, .first__photo-bw img, .first__route img,
+.faq__mountains img, .trip__topo img, .trip__photo-bw img, .review__pin img, .review__cal img,
+.page-overlay img { position: absolute; }
+
+/* =========================================================
+   3. ПЕРВЫЙ РАЗ ЗА РУЛЁМ АВТОДОМА?
+   ========================================================= */
+.first { overflow: visible; z-index: 2; }
+.first .stage { height: 1126px; }
+/* фото заходит на 2px под предыдущий блок: при уменьшенном масштабе на стыке не появляется светлая щель */
+.first__bg { left: -53px; top: -2px; width: 1544px; height: 1101px; overflow: hidden; }
+.first__bg img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.first__bg::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, .2); }
+.first__edge { left: 0; top: 836.93px; width: 1440px; height: 270px; }
+.first__shade { left: 74px; top: 269px; width: 757px; height: 355px; background: rgba(0, 0, 0, .41); filter: blur(83px); }
+.first__title {
+  left: 199px; top: 272px; width: 576px;
+  font: 600 96px/1.0092 var(--font-display); text-transform: uppercase; color: var(--sand);
+}
+.first__spot { border-radius: 50%; background: rgba(0, 0, 0, .92); filter: blur(59px); }
+.first__spot--1 { left: 437px; top: 735px; width: 372px; height: 157px; }
+.first__spot--2 { left: 881px; top: 618px; width: 367px; height: 170px; }
+.first__spot--3 { left: 813px; top: 401px; width: 391px; height: 156px; }
+.first__spot--4 { left: 779px; top: 197px; width: 370px; height: 167px; }
+
+.first-step { height: 116px; color: var(--sand); }
+.first-step > * { position: absolute; }
+.first-step__title { top: 0; font: 700 16px/normal var(--font-body); text-transform: uppercase; }
+.first-step__text { top: 50px; font: 400 16px/normal var(--font-body); }
+.first-step--right .first-step__title,
+.first-step--right .first-step__text { text-align: right; }
+.first-step__line { width: 1px; height: 67px; background: #edd0a6; }
+
+.first__stamp { overflow: hidden; }
+.first__stamp img { width: 238.1%; }
+.first__stamp--1 { left: 799px; top: 214px; width: 64px; height: 56px; }
+.first__stamp--1 img { height: 250%; left: -16.67%; top: -17.5%; }
+.first__stamp--2 { left: 1130px; top: 401px; width: 64px; height: 56px; }
+.first__stamp--2 img { height: 250%; left: -119.05%; top: -17.5%; }
+.first__stamp--3 { left: 909px; top: 638px; width: 64px; height: 61px; }
+.first__stamp--3 img { height: 227.27%; left: -11.9%; top: -113.64%; }
+.first__stamp--4 { left: 743px; top: 733px; width: 64px; height: 61px; }
+.first__stamp--4 img { height: 227.27%; left: -119.05%; top: -113.64%; }
+
+/* значки-указатели оживают при наведении (на значок или его текст — классы ставит js/main.js):
+   приподнимаются с тенью и качаются на «столбике», как дорожный знак на ветру */
+.first__stamp {
+  transform-origin: 50% 100%; /* ось качания — низ значка, там, где начинается столбик */
+  transition: scale .3s cubic-bezier(.2, .7, .2, 1), filter .3s ease;
+}
+/* у значков 1 и 3 столбик стоит не по центру, а на 36px от левого края — ось ставим точно над ним */
+.first__stamp--1, .first__stamp--3 { transform-origin: 36px 100%; }
+.first__stamp.is-hover { scale: 1.1; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .5)) brightness(1.06); }
+.first__stamp.is-swaying { animation: sign-sway .95s cubic-bezier(.3, .6, .3, 1); }
+@keyframes sign-sway {
+  0%   { rotate: 0deg; }
+  18%  { rotate: -9deg; }
+  40%  { rotate: 7deg; }
+  60%  { rotate: -4deg; }
+  80%  { rotate: 1.5deg; }
+  100% { rotate: 0deg; }
+}
+.first-step__line { transition: background-color .3s ease, box-shadow .3s ease; }
+.first-step.is-hover .first-step__line { background: #fff3df; box-shadow: 0 0 8px rgba(255, 220, 170, .8); }
+.first-step__title { transition: color .3s ease; }
+.first-step.is-hover .first-step__title { color: #fff3df; }
+@media (prefers-reduced-motion: reduce) { .first__stamp.is-swaying { animation: none; } }
+
+.first__topo { left: -187px; top: 856px; width: 445px; height: 410px; overflow: hidden; }
+.first__topo img { left: 0; top: -22.93%; width: 159.54%; height: 122.93%; }
+.first__stamp-red { left: 92.47px; top: 731.79px; width: 222.89px; height: 243.89px; object-fit: cover; transform: rotate(21.93deg); }
+.first__photo-bw { left: 160.90px; top: 878.28px; width: 411.11px; height: 231.18px; overflow: hidden; transform: rotate(8.55deg); }
+.first__photo-bw img, .ov-photo-bw img, .trip__photo-bw img { left: -1.02%; top: -10.84%; width: 102.04%; height: 120.48%; }
+.first__route { left: 489.39px; top: 981.42px; width: 444.96px; height: 166px; overflow: hidden; transform: rotate(9.18deg); }
+.first__route img { left: 0; top: 0; width: 127.16%; height: 100%; }
+
+/* карта начинается на 3174px, отзывы — на 4196px */
+.routes .stage { height: 1022px; }
+.routes { z-index: 1; }
+
+/* =========================================================
+   5. УЖЕ ЕЗДИЛИ С TIAN WAY
+   ========================================================= */
+.reviews { z-index: 2; }
+.reviews .stage { background: var(--beige); }
+.reviews__brush { left: 404px; top: 136px; width: 345px; height: 85px; object-fit: cover; transform: rotate(-5.03deg); }
+.reviews__topo { left: -41px; top: 769px; width: 1552px; height: 361px; object-fit: cover; opacity: .76; }
+.reviews__title {
+  left: 229px; top: 70px; width: 981px; text-align: center;
+  font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: var(--ink);
+}
+.reviews__label { left: 95.09px; top: 120.95px; width: 167px; height: 117px; object-fit: cover; transform: rotate(-10.27deg); }
+
+.review { inset: 0; pointer-events: none; }
+.review > * { position: absolute; }
+.review > img { object-fit: cover; }
+.review__card {
+  top: 572px; width: 611px; height: 370px; border-radius: 10px; background: var(--paper);
+  box-shadow: -3px 4px 4px rgba(0, 0, 0, .25); pointer-events: auto;
+}
+.review--a .review__card { left: 62px; }
+.review--b .review__card { left: 749px; }
+.review__card > * { position: absolute; }
+.review__name { left: 111px; top: 22px; font: 400 48px/.94 var(--font-display); color: var(--ink); white-space: nowrap; }
+.review__pin { left: 111px; top: 96px; width: 43px; height: 50px; overflow: hidden; }
+.review__pin img { left: -48.98%; top: -47.17%; width: 204.08%; height: 188.68%; }
+.review__trip { left: 170px; top: 100px; width: 223px; font: 400 16px/.94 var(--font-body); color: var(--ink-2); }
+.review__cal { left: 417px; top: 94px; width: 60px; height: 53px; overflow: hidden; }
+.review__cal img { left: -80.49%; top: -616.67%; width: 243.9%; height: 833.33%; }
+.review__days { left: 481px; top: 114px; font: 400 16px/.94 var(--font-body); color: var(--ink-2); white-space: nowrap; }
+.review__quote { left: 24px; top: 144px; width: 79px; height: 53px; object-fit: cover; }
+.review__text { left: 111px; top: 167px; width: 470px; font: 300 24px/normal var(--font-body); color: var(--ink); }
+.review__more {
+  top: 325px; right: 37px; padding: 0; border: 0; background: none; cursor: pointer;
+  font: 300 16px/normal var(--font-body); color: var(--orange-map);
+}
+.review__more:hover { text-decoration: underline; }
+
+.review--a .review__photo-1 { left: 297.00px; top: 324.89px; width: 318.75px; height: 305.08px; transform: rotate(12.1deg); }
+.review--a .review__photo-2 { left: 87.06px; top: 271.00px; width: 265px; height: 253px; }
+.review--a .review__stamp-round { left: 245.78px; top: 468.88px; width: 100.59px; height: 96.81px; transform: rotate(-7.77deg); }
+.review--a .review__stamp-red { left: 578.88px; top: 313.67px; width: 81.8px; height: 89.5px; transform: rotate(21.93deg); }
+.review--a .review__stamp-horses { left: 300.86px; top: 276.69px; width: 133.16px; height: 79.64px; transform: rotate(-7.82deg); }
+.review--b .review__photo-1 { left: 981.31px; top: 307.80px; width: 335.01px; height: 320.64px; transform: rotate(12.1deg); }
+.review--b .review__photo-2 { left: 761.06px; top: 252.00px; width: 277px; height: 266px; }
+.review--b .review__stamp-round { left: 932.79px; top: 468.88px; width: 100.59px; height: 96.81px; transform: rotate(-7.77deg); }
+.review--b .review__stamp-red { left: 1265.88px; top: 313.67px; width: 81.8px; height: 89.5px; transform: rotate(21.93deg); }
+.review--b .review__stamp-horses { left: 987.86px; top: 276.69px; width: 133.16px; height: 79.64px; transform: rotate(-7.82deg); }
+
+.reviews__arrow {
+  display: grid; place-items: center; width: 40px; height: 40px; padding: 0;
+  border: 0; background: none; cursor: pointer;
+}
+.reviews__arrow img { width: 27px; height: 8px; }
+.reviews__arrow--next { left: 1367px; top: 688px; }
+.reviews__arrow--prev { left: 11px; top: 705px; }
+
+/* --- плавная смена отзывов ---
+   .reviews.is-leaving  — текст уходит в сторону стрелки и гаснет (быстро)
+   .reviews.is-entering — новый текст ставится с другой стороны без анимации,
+   затем класс снимается, и текст плавно выезжает на место.
+   --rev-dir: 1 — «вперед», -1 — «назад»; задержки дают «волну» сверху вниз и слева направо */
+.review__card :is([data-review-name], [data-review-trip], [data-review-days], [data-review-text]) {
+  transition: opacity .45s ease-out, translate .55s cubic-bezier(.22, .61, .36, 1), height .5s cubic-bezier(.4, 0, .2, 1);
+  transition-delay: calc(var(--rev-d, 0ms) + var(--rev-slot, 0ms)), calc(var(--rev-d, 0ms) + var(--rev-slot, 0ms)), 0s;
+}
+.review__card :is([data-review-trip], [data-review-days]) { --rev-d: 40ms; }
+.review__card [data-review-text] { --rev-d: 80ms; }
+.review--b { --rev-slot: 70ms; }
+.reviews.is-leaving .review__card :is([data-review-name], [data-review-trip], [data-review-days], [data-review-text]) {
+  opacity: 0; translate: calc(var(--rev-dir, 1) * -22px) 0;
+  transition: opacity .22s ease-in, translate .22s ease-in;
+  transition-delay: calc(var(--rev-d, 0ms) + var(--rev-slot, 0ms));
+}
+.reviews.is-entering .review__card :is([data-review-name], [data-review-trip], [data-review-days], [data-review-text]) {
+  opacity: 0; translate: calc(var(--rev-dir, 1) * 22px) 0; transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .review__card :is([data-review-name], [data-review-trip], [data-review-days], [data-review-text]) {
+    transition: none !important; translate: none !important;
+  }
+}
+
+/* --- «Читать отзыв полностью»: карточка раскрывается вниз ---
+   Свернуто: текст сам обрезается до 4 строк с «...» — карточки одного размера при любой длине отзыва.
+   Раскрыто: js/main.js плавно увеличивает высоту текста и карточки и опускает ссылку.
+   Блок отзывов растет вместе с карточкой и отодвигает все, что ниже. */
+.review__text {
+  white-space: pre-line;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; overflow: hidden;
+}
+.review.is-unclamped .review__text { display: block; -webkit-line-clamp: unset; line-clamp: none; }
+.review__card { transition: height .5s cubic-bezier(.4, 0, .2, 1); }
+.review__more { transition: top .5s cubic-bezier(.4, 0, .2, 1); }
+.reviews .stage { transition: height .5s cubic-bezier(.4, 0, .2, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .review__card, .review__more, .reviews .stage { transition: none; }
+}
+
+/* =========================================================
+   6. ОСТАЛИСЬ ВОПРОСЫ?
+   ========================================================= */
+.faq { z-index: 1; }
+.faq .stage { background: var(--beige); }
+.faq__topo { left: -80.69px; top: 623.75px; width: 769.16px; height: 546px; object-fit: cover; opacity: .85; transform: rotate(10.22deg); }
+.faq__mountains { left: -42px; top: 0; width: 1552px; height: 106px; overflow: hidden; opacity: .78; }
+.faq__mountains img { left: 0; top: -244.83%; width: 100%; height: 344.83%; }
+.faq__compass { left: 1195.37px; top: 36.86px; width: 116px; height: 118px; object-fit: cover; opacity: .42; filter: blur(1.3px); transform: rotate(-24.74deg); }
+.faq__coords { left: 1068px; top: 45px; width: 114px; height: 45px; object-fit: cover; opacity: .39; }
+
+.faq__title {
+  left: 67px; top: 155px; width: 533px;
+  font: 600 96px/1.031 var(--font-display); letter-spacing: -.96px; text-transform: uppercase; color: #342f2f;
+}
+.faq__sub { left: 67px; top: 374px; width: 315px; font: 400 24px/normal var(--font-body); color: #342f2f; }
+.faq__note {
+  left: 37.16px; top: 108.55px; width: 196px; height: 72px; transform: rotate(-11.33deg);
+  font: 400 57px/normal "Caveat", cursive; color: var(--orange-map); white-space: nowrap;
+}
+
+.faq-item { left: 562px; height: 160px; width: 840px; }
+.faq-item > * { position: absolute; }
+.faq-item__num { left: 0; top: 0; font: 400 32px/.94 var(--font-body); color: var(--orange-map); }
+.faq-item__q { left: 72px; width: 286px; font: 500 24px/.94 var(--font-body); color: #342f2f; }
+.faq-item__line { width: .5px; height: 102px; background: rgba(0, 0, 0, .42); }
+.faq-item__a { font: 300 16px/normal var(--font-body); color: #342f2f; }
+.faq__divider { height: 1px; background: rgba(0, 0, 0, .12); }
+
+.faq__more {
+  left: 577px; top: 830px; width: 325px; height: 61px; border-radius: 7px;
+  display: flex; align-items: center; gap: 30px; padding-left: 18px;
+  background: var(--orange-map); color: #fff; font: 400 20px/normal var(--font-body);
+}
+.faq__more img { width: 20px; height: 6px; }
+.faq__more-line { left: 947px; top: 830px; width: .5px; height: 61px; background: rgba(0, 0, 0, .42); }
+.faq__ask { left: 985px; top: 839px; font: 400 16px/normal var(--font-body); color: rgba(52, 47, 47, .69); text-transform: uppercase; white-space: nowrap; }
+.faq__ask-btn { left: 1281px; top: 834px; width: 44px; height: 44px; border-radius: 50%; }
+.faq__ask-btn img { width: 44px; height: 44px; }
+
+.faq__route { left: -22.51px; top: 740.87px; width: 525.98px; height: 154.32px; object-fit: cover; transform: rotate(-8.46deg); }
+.faq__photo { left: 224.65px; top: 522.62px; width: 142.28px; height: 213.41px; object-fit: cover; transform: rotate(10.48deg); }
+.faq__stamp-horses { left: 127.66px; top: 700.24px; width: 156.92px; height: 93.84px; object-fit: cover; transform: rotate(-7.82deg); }
+.faq__stamp-round { left: 156.08px; top: 605.36px; width: 100.59px; height: 96.81px; object-fit: cover; transform: rotate(-7.77deg); }
+
+/* =========================================================
+   7. СОБЕРЁМ ПОЕЗДКУ ПОД ВАС (форма в 3 шага)
+   ========================================================= */
+.trip .stage { background: var(--beige); }
+.trip__bg { left: -48px; top: -1342px; width: 1510px; height: 2684px; object-fit: cover; }
+.trip__topo { left: -106.54px; top: -100.69px; width: 769.16px; height: 243.07px; overflow: hidden; opacity: .85; transform: rotate(10.22deg); }
+.trip__topo img { left: 0; top: -122.22%; width: 100%; height: 222.22%; }
+.trip__photo { left: 1069.28px; top: 153.46px; width: 166.04px; height: 249.07px; object-fit: cover; filter: blur(3.25px); transform: rotate(18.63deg); }
+.trip__stamp-red { left: 164.40px; top: 250.48px; width: 234.29px; height: 256.37px; object-fit: cover; transform: rotate(14.56deg); }
+.trip__stamp-horses { left: 1068.84px; top: 584.38px; width: 189.71px; height: 113.45px; object-fit: cover; transform: rotate(-7.82deg); }
+.trip__photo-bw { left: 39.90px; top: 696.37px; width: 328.07px; height: 184.49px; overflow: hidden; filter: blur(1.4px); transform: rotate(8.55deg); }
+.trip__panel { left: 282px; top: 266px; width: 849px; height: 638px; border-radius: 11px; background: #515027; }
+
+.trip__title {
+  left: 145px; top: 46px; width: 1148px; text-align: center; white-space: nowrap;
+  font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: #342f2f;
+}
+.trip__sub { left: 270px; top: 164px; width: 900px; text-align: center; font: 400 24px/normal var(--font-body); color: #342f2f; }
+
+.trip-form { inset: 0; }
+.trip-form > *, .trip-step > * { position: absolute; }
+.trip-step { position: absolute; inset: 0; }
+.trip-step[hidden] { display: none; }
+.trip-step__title { font: 700 40px/.94 var(--font-body); color: var(--beige); white-space: nowrap; }
+.trip-step__hint { font: 400 20px/normal var(--font-body); color: rgba(241, 231, 217, .48); white-space: nowrap; }
+
+/* карточки выбора (шаг 1) */
+.trip-option {
+  width: 326px; height: 177px; padding: 30px 24px 0 30px; border-radius: 20px;
+  border: 1px solid var(--orange-map); background: #f3ebe1; color: var(--ink);
+  cursor: pointer; transition: background-color .2s, color .2s;
+}
+.trip-option input { position: absolute; opacity: 0; pointer-events: none; }
+.trip-option b { display: block; font: 800 24px/.94 var(--font-body); white-space: nowrap; }
+.trip-option span { display: block; margin-top: 18px; font: 500 20px/.94 var(--font-body); }
+.trip-option:has(input:checked) { background: var(--orange-map); border-color: var(--beige); color: #e9dfc4; }
+.trip-option:has(input:focus-visible) { outline: 2px solid #fff; outline-offset: 3px; }
+
+/* кнопки формы */
+.trip-btn {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  height: 61px; padding: 0; border-radius: 7px; border: 1px solid transparent;
+  font: 600 20px/normal var(--font-body); cursor: pointer;
+}
+.trip-btn img { width: 35px; height: 12px; }
+.trip-btn--next, .trip-btn--send { background: var(--orange-map); color: #fff; }
+.trip-btn--back { background: transparent; border-color: var(--beige); color: var(--beige); }
+
+/* блоки шага 2 */
+.trip-box { border: 1px solid var(--orange-map); border-radius: 12px; background: var(--beige); }
+.trip-box > * { position: absolute; }
+.trip-box__title { left: 25px; top: 19px; font: 800 24px/.94 var(--font-body); color: #342f2f; white-space: nowrap; }
+.trip-chip {
+  height: 42px; padding: 0; border-radius: 7px; border: 1px solid var(--orange-map);
+  background: var(--beige); color: var(--orange-map); font: 500 20px/.94 var(--font-body); cursor: pointer;
+  white-space: nowrap;
+}
+.trip-chip:first-of-type { background: #e9dfc4; }
+.trip-chip.is-active { background: var(--orange-map); color: var(--beige); }
+
+.trip-counter__btn {
+  top: 63px; width: 42px; height: 42px; padding: 0; border-radius: 7px;
+  border: 1px solid var(--orange-map); background: #e9dfc4; cursor: pointer;
+}
+.trip-counter__btn--minus { left: 34px; }
+.trip-counter__btn--plus { left: 135px; }
+.trip-counter__btn::before, .trip-counter__btn--plus::after {
+  content: ""; position: absolute; left: 11px; top: 18px; width: 18px; height: 4px; border-radius: 1px; background: var(--orange-map);
+}
+.trip-counter__btn--plus::after { transform: rotate(90deg); }
+/* место для цифры — ровно между кнопками и по их высоте; сам рисунок цифры центрирует js/main.js */
+.trip-counter__value { left: 76px; top: 63px; width: 59px; height: 42px; text-align: center; font: 400 48px/42px "Caveat", cursive; color: var(--orange-map); }
+
+.trip-input { height: 53px; }
+.trip-input input {
+  width: 100%; height: 100%; padding: 0 18px; border-radius: 10px; border: 1px solid #98887a;
+  background: transparent; font: 600 16px/1 var(--font-body); color: #342f2f; outline: none;
+}
+.trip-input input::placeholder { font-size: 14px; color: #98887a; }
+.trip-input input:focus { border-color: var(--orange-map); }
+
+.trip-consent { display: flex; gap: 22px; width: 520px; cursor: pointer; }
+.trip-consent input { position: absolute; opacity: 0; }
+.trip-consent__box {
+  flex: none; position: relative; width: 23px; height: 23px; margin-top: 3px;
+  border: 1px solid var(--orange-map); background: rgba(28, 16, 12, .38);
+}
+.trip-consent__box::after { content: ""; position: absolute; inset: 3px; background: var(--orange-map); transform: scale(0); transition: transform .15s; }
+.trip-consent input:checked + .trip-consent__box::after { transform: scale(1); }
+.trip-consent input:focus-visible + .trip-consent__box { outline: 2px solid #fff; outline-offset: 2px; }
+.trip-consent__text { width: 475px; font: 600 14px/normal var(--font-body); color: #fff; }
+.trip-consent__text a { text-decoration: underline; }
+.trip-error { left: 422px; top: 778px; font: 600 14px/1 var(--font-body); color: #ffb08a; }
+
+/* прогресс */
+.trip-progress { left: 369px; top: 950.5px; display: flex; gap: 40px; }
+.trip-progress span { position: relative; overflow: hidden; width: 215px; height: 7px; background: rgba(63, 61, 61, .55); }
+/* оранжевая заливка «нарастает» слева направо при переходе на шаг */
+.trip-progress span::after {
+  content: ""; position: absolute; inset: 0; background: var(--orange-map);
+  transform-origin: left center; scale: 0 1; transition: scale .6s cubic-bezier(.65, 0, .35, 1);
+}
+.trip-progress span.is-done::after { scale: 1 1; }
+
+/* шаг 3 */
+.trip-done__check { left: 628.93px; top: 295px; width: 165px; height: 150px; object-fit: cover; }
+.trip-done__rays-l { left: 547.96px; top: 301.69px; width: 109.5px; height: 94.5px; }
+.trip-done__rays-r { left: 766.81px; top: 336.92px; width: 120px; height: 89px; }
+.trip-done__title { left: 392px; top: 473px; width: 658px; text-align: center; font: 700 48px/.94 var(--font-display); text-transform: uppercase; color: var(--beige); }
+.trip-done__text { left: 435px; top: 538px; width: 588px; text-align: center; font: 400 24px/normal var(--font-body); color: var(--beige); }
+.trip-done__next { left: 459px; top: 641px; width: 524px; height: 149px; border: 1px solid var(--orange-map); border-radius: 20px; background: var(--beige); overflow: hidden; }
+.trip-done__next > * { position: absolute; }
+.trip-done__next img { left: 0; top: 0; width: 180px; height: 135px; object-fit: cover; }
+.trip-done__next b { left: 172px; top: 18px; font: 800 24px/.94 var(--font-body); color: #342f2f; }
+.trip-done__next span { left: 172px; top: 54px; width: 289px; font: 400 20px/normal var(--font-body); color: #000; }
+
+/* --- анимация появления экрана «Спасибо» ---
+   Шаг 3 показывается из display:none, поэтому анимации запускаются заново каждый раз,
+   когда экран открывается. fill-mode both прячет элементы до начала их анимации. */
+.trip-done__check  { animation: done-pop .7s cubic-bezier(.34, 1.56, .64, 1) .1s both; }
+.trip-done__rays-l { transform-origin: right center; animation: done-rays .55s cubic-bezier(.34, 1.56, .64, 1) .45s both; }
+.trip-done__rays-r { transform-origin: left center;  animation: done-rays .55s cubic-bezier(.34, 1.56, .64, 1) .5s both; }
+.trip-done__title  { animation: done-rise .6s cubic-bezier(.22, .9, .3, 1) .55s both; }
+.trip-done__text   { animation: done-rise .6s cubic-bezier(.22, .9, .3, 1) .7s both; }
+.trip-done__next   { animation: done-float .8s cubic-bezier(.22, 1.2, .36, 1) .85s both; }
+.trip-done__next img { transform-origin: left center; animation: done-unfold .7s cubic-bezier(.22, 1.2, .36, 1) 1.15s both; }
+
+@keyframes done-pop {
+  0%   { opacity: 0; scale: .3; rotate: -25deg; }
+  60%  { opacity: 1; }
+  100% { opacity: 1; scale: 1; rotate: 0deg; }
+}
+@keyframes done-rays {
+  from { opacity: 0; scale: .2 .6; }
+  to   { opacity: 1; scale: 1 1; }
+}
+@keyframes done-rise {
+  from { opacity: 0; translate: 0 22px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+@keyframes done-float {
+  from { opacity: 0; translate: 0 46px; scale: .94; box-shadow: 0 24px 34px rgba(0, 0, 0, .3); }
+  70%  { box-shadow: 0 10px 22px rgba(0, 0, 0, .22); }
+  to   { opacity: 1; translate: 0 0; scale: 1; box-shadow: 0 0 0 rgba(0, 0, 0, 0); } /* в итоге без тени — как в макете */
+}
+@keyframes done-unfold {
+  from { opacity: 0; scale: .7 1; rotate: -6deg; }
+  to   { opacity: 1; scale: 1 1; rotate: 0deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-done__check, .trip-done__rays-l, .trip-done__rays-r, .trip-done__title,
+  .trip-done__text, .trip-done__next, .trip-done__next img { animation: none; }
+  .trip-progress span::after { transition: none; }
+}
+
+/* календарь */
+.calendar {
+  left: 427px; top: 503px; width: 736.84px; height: 424px; z-index: 5;
+  border: 1px solid #98887a; border-radius: 7px; background: #fffaf2;
+}
+.calendar[hidden] { display: none; }
+.calendar > * { position: absolute; }
+.calendar__nav {
+  top: 25px; width: 23px; height: 21px; padding: 0; border: 0; border-radius: 5px;
+  display: grid; place-items: center; background: var(--orange-map);
+  box-shadow: -2.1px 2.8px 2.8px rgba(0, 0, 0, .25); cursor: pointer;
+}
+.calendar__nav img { width: 7px; height: 11px; }
+.calendar__nav--prev { left: 18px; }
+.calendar__nav--next { left: 696px; }
+.calendar__month { left: 0; top: 0; width: 370px; height: 360px; }
+.calendar__month--right { left: 378px; }
+.calendar__month > * { position: absolute; }
+.cal-title { top: 25px; width: 352px; text-align: center; font: 600 20px/.99 var(--font-display); text-transform: uppercase; color: #342f2f; }
+.cal-wd, .cal-day {
+  width: 34.14px; height: 34.14px; margin-left: -17.07px; margin-top: -17.07px;
+  display: grid; place-items: center;
+}
+.cal-wd { font: 600 16px/.99 var(--font-display); text-transform: uppercase; color: #342f2f; }
+.cal-day {
+  padding: 0; border: 0; background: none; border-radius: 7px;
+  font: 400 13px/1 var(--font-body); color: #000; cursor: pointer;
+}
+.calendar__summary { left: 21.44px; top: 380.33px; font: 400 14px/normal var(--font-body); color: #000; }
+.calendar__apply {
+  left: 574.07px; top: 371.6px; width: 138.95px; height: 34.14px; padding: 0; border: 0; border-radius: 7px;
+  background: var(--orange-map); color: #fff8f8; font: 700 16px/1 var(--font-body); cursor: pointer;
+}
+
+/* =========================================================
+   Слой поверх стыков блоков (координаты всей страницы)
+   ========================================================= */
+.page { position: relative; overflow-x: clip; }
+.page-overlay { position: absolute; left: 0; top: 0; width: 1440px; height: 0; z-index: 4; pointer-events: none; }
+.page-overlay > div { position: absolute; overflow: hidden; }
+.ov-lines-a { left: -95px; top: 460px; width: 737px; height: 724px; }
+.ov-lines-a img { left: 0; top: 0; width: 294.72%; height: 100%; }
+.ov-lines-b { left: -95px; top: 460px; width: 664px; height: 724px; }
+.ov-lines-b img { left: 0; top: 0; width: 327.12%; height: 100%; }
+/* лента выгружена из Figma готовой картинкой — с эффектом «текстура» и поворотом */
+.ov-tape { left: 0; top: 881.75px; width: 1440px; height: 260.69px; }
+.ov-tape img { left: 0; top: 0; width: 100%; height: 100%; }
+.ov-photo-bw { left: 660.90px; top: 802.28px; width: 411.11px; height: 231.18px; transform: rotate(8.55deg); }
+.ov-clouds { left: 254px; top: 909px; width: 564px; height: 261px; opacity: .9; filter: blur(4.1px); }
+.ov-clouds img { left: -161.14%; top: 0; width: 402.25%; height: 289.6%; }
+
+/* =========================================================
+   КНОПКИ: обычное состояние — бежевое, наведение и выбор — оранжевое + анимация 1
+   (анимация 1 = плавный подъём на несколько пикселей и более глубокая тень)
+   ========================================================= */
+:root {
+  --btn-bg: #f3ebe1;               /* как карточка «Рыбалка и охота» */
+  --btn-border: var(--orange-map);
+  --btn-text: var(--ink);
+  --btn-on-bg: var(--orange-map);  /* как выбранная «Аренда автодома» */
+  --btn-on-border: var(--beige);
+  --btn-on-text: #e9dfc4;
+}
+
+/* иконки внутри кнопок — встроенные SVG, берут цвет текста кнопки (currentColor) */
+.btn-icon { display: inline-block; flex: none; }
+
+/* плавность для всех кнопок */
+.btn, .format-btn, .route-card__btn, .faq__more, .trip-btn, .trip-chip, .trip-counter__btn,
+.calendar__apply, .calendar__nav, .trip-option {
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease,
+              translate .25s ease, box-shadow .25s ease;
+}
+
+/* --- 1. Кнопки первого экрана: обе как «Выбрать формат» в макете --- */
+.btn--light, .btn--orange { background: var(--sand); color: var(--orange); }
+.btn:hover, .btn:focus-visible {
+  background: var(--orange); color: var(--sand);
+  translate: 0 -4px; box-shadow: 14px 12px 10px rgba(0, 0, 0, .3);
+}
+
+/* --- 2. Остальные кнопки: обычное состояние как «Рыбалка и охота» --- */
+.route-card__btn, .trip-btn, .trip-btn--back,
+.trip-chip, .trip-chip:first-of-type, .trip-counter__btn, .calendar__apply, .calendar__nav {
+  background: var(--btn-bg); border: 1px solid var(--btn-border); color: var(--btn-text);
+}
+.trip-counter__btn::before, .trip-counter__btn--plus::after { background: currentColor; }
+
+/* наведение и выбранное состояние → оранжевая + подъём */
+.route-card__btn:hover, .route-card__btn:focus-visible,
+.trip-btn:hover:not(:disabled), .trip-btn:focus-visible,
+.trip-chip:hover, .trip-chip:focus-visible, .trip-chip.is-active,
+.trip-counter__btn:hover, .trip-counter__btn:focus-visible,
+.calendar__apply:hover, .calendar__apply:focus-visible,
+.calendar__nav:hover, .calendar__nav:focus-visible {
+  background: var(--btn-on-bg); border-color: var(--btn-on-border); color: var(--btn-on-text);
+  translate: 0 -3px; box-shadow: 0 8px 14px rgba(0, 0, 0, .28);
+}
+/* --- Оранжевые кнопки из макета: остаются оранжевыми, при наведении только приподнимаются --- */
+/* наклонные кнопки «Выбери формат» — подъём не сбивает наклон (translate, а не transform) */
+.format-btn:hover, .format-btn:focus-visible { translate: 0 -4px; box-shadow: 8px 14px 10px rgba(0, 0, 0, .3); }
+/* «Смотреть еще вопросы» — точно как в Figma: оранжевая, белый текст, светлая стрелка */
+.faq__more { padding-left: 18px; gap: 0; }
+.faq__more .btn-icon { position: absolute; left: 280.5px; top: 27.5px; color: var(--beige); }
+.faq__more:hover, .faq__more:focus-visible { translate: 0 -3px; box-shadow: 0 8px 14px rgba(0, 0, 0, .28); }
+
+/* --- 3. Карточки выбора в форме --- */
+.trip-option:hover, .trip-option:has(input:checked) {
+  background: var(--btn-on-bg); border-color: var(--btn-on-border); color: var(--btn-on-text);
+  translate: 0 -6px; box-shadow: 0 14px 24px rgba(0, 0, 0, .3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .format-btn, .route-card__btn, .faq__more, .trip-btn, .trip-chip, .trip-counter__btn,
+  .calendar__apply, .calendar__nav, .trip-option { transition: none; translate: none !important; }
+}
+
+/* «Продолжить» неактивна, пока не выбран вариант отдыха */
+.trip-btn:disabled { opacity: .55; cursor: not-allowed; }
+
+/* =========================================================
+   АНИМАЦИЯ 2 — плавная смена маршрута на карте
+   ========================================================= */
+.route-card__title, .route-card__desc, .route-card__rows, .route-card__counter {
+  transition: opacity .28s ease, translate .28s ease;
+}
+.route-card.is-leaving .route-card__title,
+.route-card.is-leaving .route-card__desc,
+.route-card.is-leaving .route-card__rows { opacity: 0; translate: -14px 0; }
+.route-card.is-entering .route-card__title,
+.route-card.is-entering .route-card__desc,
+.route-card.is-entering .route-card__rows { opacity: 0; translate: 14px 0; transition: none; }
+.routes__layer { transition: opacity .28s ease; }
+.routes__layer.is-leaving { opacity: 0; }
+
+/* =========================================================
+   АНИМАЦИЯ 9 — маршрут прорисовывается, точки и подписи появляются по пути
+   ========================================================= */
+/* пунктир маршрута — отдельные чёрточки, появляются по очереди по ходу движения */
+.map-route { overflow: visible; pointer-events: none; }
+.map-dash { fill: none; stroke: #de4811; stroke-width: 3; stroke-linecap: round; }
+/* пока карта не появилась на экране — маршрут не нарисован (чёрточки «спрятаны» сдвигом штриха) */
+.routes__layer:not(.is-play) .map-dash { stroke-dashoffset: var(--from); }
+.routes__layer:not(.is-play) .map-dot,
+.routes__layer:not(.is-play) .map-tail,
+.routes__layer:not(.is-play) .map-label { opacity: 0; }
+
+.routes__layer.is-play .map-dash { animation-name: dash-draw; animation-timing-function: linear; animation-fill-mode: both; }
+.routes__layer.is-play .map-dot { animation: route-pop .45s cubic-bezier(.3, 1.6, .5, 1) both; }
+.routes__layer.is-play .map-tail,
+.routes__layer.is-play .map-label { animation: route-label .4s ease-out both; }
+.map-label { transform-origin: 50% 100%; }
+
+@keyframes dash-draw { from { stroke-dashoffset: var(--from); } to { stroke-dashoffset: 0; } }
+@keyframes route-pop { from { opacity: 0; scale: 0; } to { opacity: 1; scale: 1; } }
+@keyframes route-label { from { opacity: 0; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .route-card__title, .route-card__desc, .route-card__rows, .routes__layer { transition: none; }
+  .routes__layer .map-dash, .routes__layer .map-dot, .routes__layer .map-tail, .routes__layer .map-label {
+    animation: none !important; clip-path: none !important; opacity: 1 !important;
+  }
+}
+
+/* =========================================================
+   КАЛЕНДАРЬ — красивый и плавный выбор дат
+   ========================================================= */
+/* плавное появление: чуть сверху, с лёгким увеличением */
+.calendar {
+  opacity: 0; translate: 0 -10px; scale: .98; transform-origin: 15% 0;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
+  transition: opacity .22s ease, translate .22s ease, scale .22s ease;
+}
+.calendar.is-open { opacity: 1; translate: 0 0; scale: 1; }
+
+/* стрелки месяцев — поверх заголовков месяцев, иначе заголовок перехватывает клик */
+.calendar__nav { z-index: 2; }
+.cal-title { pointer-events: none; }
+
+/* перелистывание месяцев */
+.calendar__month.slide-next { animation: cal-slide-next .32s cubic-bezier(.2, .7, .2, 1); }
+.calendar__month.slide-prev { animation: cal-slide-prev .32s cubic-bezier(.2, .7, .2, 1); }
+@keyframes cal-slide-next { from { opacity: 0; translate: 28px 0; } to { opacity: 1; translate: 0 0; } }
+@keyframes cal-slide-prev { from { opacity: 0; translate: -28px 0; } to { opacity: 1; translate: 0 0; } }
+
+/* день */
+.cal-day {
+  isolation: isolate; border-radius: 10px;
+  transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.cal-day__num { position: relative; z-index: 1; }
+.cal-day:not([disabled]):hover { box-shadow: inset 0 0 0 1.5px var(--orange-map); color: var(--orange-map); }
+.cal-day[disabled] { color: #cbc2b8; cursor: default; }
+
+/* сегодня — маленькая точка под числом */
+.cal-day.is-today .cal-day__num::after {
+  content: ""; position: absolute; left: 50%; bottom: -6px; width: 4px; height: 4px; margin-left: -2px;
+  border-radius: 50%; background: var(--orange-map);
+}
+
+/* полоса диапазона: сплошная, без разрывов между днями, скруглена на краях строк */
+.cal-day::before {
+  content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: -7.63px; right: -7.63px;
+  background: rgba(218, 210, 202, .58); /* как в Figma: #dad2ca, 58% */
+  opacity: 0; transition: opacity .22s ease; transition-delay: calc(var(--i, 0) * 14ms);
+}
+.cal-day.in-range::before, .cal-day.band-start::before, .cal-day.band-end::before { opacity: 1; }
+.cal-day.band-start::before { left: 50%; }
+.cal-day.band-end::before { right: 50%; }
+.cal-day.edge-left::before { left: 0; border-radius: 7px 0 0 7px; }
+.cal-day.edge-right::before { right: 0; border-radius: 0 7px 7px 0; }
+.cal-day.band-start.edge-right::before, .cal-day.band-end.edge-left::before { opacity: 0; }
+/* начало/конец диапазона в первом/последнем столбце: полоса всё равно идёт только от центра даты */
+.cal-day.band-start.edge-left::before { left: 50%; border-radius: 0 10px 10px 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.cal-day.band-end.edge-right::before { right: 50%; border-radius: 0; }
+.cal-day.in-range { color: #000; }
+/* предпросмотр (дата выезда ещё не выбрана, человек водит курсором) — светлее и без задержки */
+.cal-day.is-preview::before { background: rgba(218, 210, 202, .35); transition-delay: 0s; }
+
+/* выбранные даты заезда и выезда */
+/* оранжевый квадрат рисуем отдельным слоем ::after — поверх полосы диапазона, под числом */
+.cal-day::after {
+  content: ""; position: absolute; z-index: 0; inset: 0; border-radius: 7px;
+  background: var(--orange-map); opacity: 0; scale: .6;
+  transition: opacity .2s ease, scale .32s cubic-bezier(.3, 1.6, .5, 1);
+}
+.cal-day.is-edge { color: #fff; box-shadow: none; }
+.cal-day.is-edge::after { opacity: 1; scale: 1; }
+.cal-day.is-edge:hover { color: #fff; box-shadow: none; }
+/* дата выезда «на примерке» под курсором */
+.cal-day.is-ghost-end { box-shadow: inset 0 0 0 1.5px var(--orange-map); color: var(--orange-map); }
+
+/* подпись с датами и «Применить», пока выезд не выбран */
+.calendar__summary { transition: color .2s ease; }
+.calendar__apply:disabled {
+  opacity: .5; cursor: not-allowed;
+  background: var(--btn-bg) !important; color: var(--btn-text) !important; border-color: var(--btn-border) !important;
+  translate: none !important; box-shadow: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calendar, .calendar__month, .cal-day, .cal-day::before, .cal-day::after { transition: none !important; animation: none !important; }
+}
+
+/* =========================================================
+   ПОЯВЛЕНИЕ ПЕРВОГО ЭКРАНА (вариант 3 — кинематографичное проявление)
+   html.hero-wait — ждём загрузки картинок: экран тёмный, всё скрыто;
+   html.hero-play — проигрываем: фон проявляется и «отъезжает», затем текст, затем коллаж.
+   Используем keyframes (а не transition): анимация главнее параллакса, а после окончания
+   элементы возвращаются к обычным стилям без скачка.
+   ========================================================= */
+html.hero-wait .hero .stage, html.hero-play .hero .stage { background: #1f1b17; }
+
+html.hero-wait .hero__bg, html.hero-wait .hero__bg-shade, html.hero-wait .hero__top-shade,
+html.hero-wait .hero__lines, html.hero-wait .ov-lines-a, html.hero-wait .ov-lines-b, html.hero-wait .ov-tape, html.hero-wait .ov-clouds,
+html.hero-wait .header, html.hero-wait .hero__title, html.hero-wait .hero__subtitle, html.hero-wait .hero__actions,
+html.hero-wait .hero__photo-rv, html.hero-wait .hero__stamp-horses, html.hero-wait .hero__stamp-red,
+html.hero-wait .hero__photo-bw, html.hero-wait .ov-photo-bw, html.hero-wait .hero__stamp-round { opacity: 0; }
+
+/* 1. фон гор: проявляется из темноты и медленно «отъезжает» */
+html.hero-play .hero__bg { animation: hero-bg 1.8s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes hero-bg { from { opacity: 0; scale: 1.08; } 60% { opacity: 1; } to { opacity: 1; scale: 1; } }
+
+/* затемнения, линии, газетная лента */
+html.hero-play .hero__bg-shade, html.hero-play .hero__top-shade, html.hero-play .hero__lines,
+html.hero-play .ov-lines-a, html.hero-play .ov-lines-b, html.hero-play .ov-tape, html.hero-play .ov-clouds {
+  animation: hero-fade .9s ease .4s both;
+}
+@keyframes hero-fade { from { opacity: 0; } } /* до обычной прозрачности элемента (у облаков она .9) */
+
+/* 2. текст и кнопки выплывают снизу по очереди */
+html.hero-play .header        { animation: hero-rise .7s cubic-bezier(.2, .7, .2, 1) .7s both; }
+html.hero-play .hero__title    { animation: hero-rise .7s cubic-bezier(.2, .7, .2, 1) .85s both; }
+html.hero-play .hero__subtitle { animation: hero-rise .7s cubic-bezier(.2, .7, .2, 1) 1s both; }
+html.hero-play .hero__actions  { animation: hero-rise .7s cubic-bezier(.2, .7, .2, 1) 1.15s both; }
+@keyframes hero-rise { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
+
+/* 3. фото и марки коллажа опускаются на свои места последними */
+html.hero-play .hero__photo-rv     { animation: hero-drop .7s cubic-bezier(.2, .7, .2, 1) 1.3s both; }
+html.hero-play .hero__stamp-horses { animation: hero-drop .7s cubic-bezier(.2, .7, .2, 1) 1.42s both; }
+html.hero-play .hero__stamp-red    { animation: hero-drop .7s cubic-bezier(.2, .7, .2, 1) 1.54s both; }
+html.hero-play .hero__photo-bw,
+html.hero-play .ov-photo-bw        { animation: hero-drop .7s cubic-bezier(.2, .7, .2, 1) 1.66s both; }
+html.hero-play .hero__stamp-round  { animation: hero-drop .7s cubic-bezier(.2, .7, .2, 1) 1.78s both; }
+@keyframes hero-drop { from { opacity: 0; translate: 0 -18px; } to { opacity: 1; translate: 0 0; } }
+
+/* =========================================================
+   АНИМАЦИЯ 2 — блоки появляются при прокрутке
+   АНИМАЦИЯ 8 — вопросы появляются по очереди, линии прочерчиваются
+   html.reveal-on ставит скрипт в <head> (не ставится при «уменьшить движение»).
+   Пока блок не дошел до экрана, его заголовок и карточки скрыты; js/main.js добавляет
+   блоку класс is-revealed — и они по очереди выплывают снизу.
+   fill-mode backwards: анимация действует только пока проигрывается, поэтому
+   не мешает подъему кнопок при наведении и параллаксу после появления.
+   ========================================================= */
+html.reveal-on .section:not(.is-revealed) :is(
+  .formats__title, .format-card, .format-btn,
+  .first__title, .first-step,
+  .routes__title, .routes__text, .route-card,
+  .reviews__title, .review,
+  .faq__title, .faq__sub, .faq__note, .faq-item, .faq__divider, .faq__more, .faq__more-line, .faq__ask, .faq__ask-btn,
+  .trip__title, .trip__sub, .trip__panel, .trip-form
+) { opacity: 0; }
+
+.section.is-revealed :is(
+  .formats__title, .format-card, .format-btn,
+  .first__title, .first-step,
+  .routes__title, .routes__text, .route-card,
+  .reviews__title, .review,
+  .faq__title, .faq__sub, .faq__note, .faq-item, .faq__more, .faq__more-line, .faq__ask, .faq__ask-btn,
+  .trip__title, .trip__sub, .trip__panel, .trip-form
+) { animation: reveal-up .8s cubic-bezier(.2, .7, .2, 1) var(--rd, 0s) backwards; }
+@keyframes reveal-up { from { opacity: 0; translate: 0 34px; } }
+
+/* порядок появления внутри блоков: заголовок → текст → карточки слева направо */
+.formats__title { --rd: 0s; }
+.format-card--rv, .format-btn--rv { --rd: .15s; }
+.format-card--tours, .format-btn--tours { --rd: .28s; }
+.format-card--fishing, .format-btn--fishing { --rd: .41s; }
+
+.first__title { --rd: 0s; }
+/* задержки шагов, вопросов и разделителей ставит js/main.js — по их порядку на странице */
+
+.routes__title { --rd: 0s; } .routes__text { --rd: .12s; } .route-card { --rd: .25s; }
+.reviews__title { --rd: 0s; } .review--a { --rd: .15s; } .review--b { --rd: .28s; }
+.trip__title { --rd: 0s; } .trip__sub { --rd: .12s; } .trip__panel, .trip-form { --rd: .25s; }
+
+/* --- анимация 8: «Остались вопросы?» --- */
+.faq__title { --rd: 0s; } .faq__sub { --rd: .1s; } .faq__note { --rd: .2s; }
+/* разделители прочерчиваются слева направо — каждый сразу после «своего» вопроса */
+.faq__divider { transform-origin: left center; }
+.faq.is-revealed .faq__divider { animation: line-draw .9s cubic-bezier(.65, 0, .35, 1) var(--rd, 0s) backwards; }
+@keyframes line-draw { from { scale: 0 1; } }
+/* вертикальная черта у ответа вырастает сверху вниз вместе с вопросом */
+.faq-item__line { transform-origin: center top; }
+.faq.is-revealed .faq-item__line { animation: line-grow .7s cubic-bezier(.65, 0, .35, 1) calc(var(--rd, 0s) + .2s) backwards; }
+@keyframes line-grow { from { scale: 1 0; } }
+.faq__more, .faq__more-line { --rd: 1.15s; }
+.faq__ask, .faq__ask-btn { --rd: 1.25s; }
+
+/* =========================================================
+   ПЛАВНАЯ СМЕНА ШАГОВ ФОРМЫ (js/main.js → goTo)
+   --sdir: 1 — вперед (уходит влево, новое приходит справа), -1 — назад.
+   --si: порядковый номер элемента шага — элементы выплывают по очереди.
+   ========================================================= */
+.trip-step.step-out { animation: step-out .26s ease-in forwards; pointer-events: none; }
+@keyframes step-out { to { opacity: 0; translate: calc(var(--sdir, 1) * -36px) 0; } }
+
+.trip-step.step-in > :not(.calendar) {
+  animation: step-in .55s cubic-bezier(.2, .7, .2, 1) calc(min(var(--si, 0), 8) * 45ms) backwards;
+}
+@keyframes step-in { from { opacity: 0; translate: calc(var(--sdir, 1) * 36px) 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-step.step-out, .trip-step.step-in > * { animation: none !important; }
+}
+
+/* сообщение про имя и телефон — сразу под полями, внутри блока «Контактные данные» */
+.trip-field-error { left: 21px; top: 128px; font: 600 13px/1 var(--font-body); color: #c4400f; white-space: nowrap; }
+.trip-field-error[hidden] { display: none; }
+.trip-input input.is-invalid { border-color: var(--orange-map); box-shadow: inset 0 0 0 1px var(--orange-map); }
+
+
+/* =========================================================
+   ОБЩЕЕ ДЛЯ ВНУТРЕННИХ СТРАНИЦ
+   ========================================================= */
+/* появление при прокрутке: элемент с data-reveal выплывает снизу, когда доходит до экрана
+   (класс is-in ставит js/main.js); data-reveal="line" — линия прочерчивается слева направо */
+html.reveal-on [data-reveal]:not(.is-in) { opacity: 0; }
+[data-reveal].is-in { animation: reveal-up .8s cubic-bezier(.2, .7, .2, 1) var(--rd, 0s) backwards; }
+[data-reveal="line"].is-in { animation: line-draw .9s cubic-bezier(.65, 0, .35, 1) .15s backwards; }
+
+/* «Что вас интересует?» — свой выпадающий список: белое поле, как в макете,
+   по клику выезжает кремовый «бумажный» список */
+/* поверх «Какой у вас вопрос?» и поля под ним; шире макетных 258px,
+   чтобы «Готовое путешествие» помещалось целиком */
+.ask-dd { z-index: 3; width: 300px; } /* ширину можно переопределить на странице */
+.ask-dd__btn {
+  display: flex; align-items: center; gap: 12px; width: 100%; height: 50px; padding: 0 18px 0 24px;
+  border: 1px solid transparent; border-radius: 5.93px; background: #fff; color: #000; outline: none;
+  font: 400 20px/1 var(--font-body); text-align: left; cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.ask-dd__btn span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ask-dd__chev { flex: none; width: 20px; height: 10px; transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+.ask-dd.is-open .ask-dd__chev { transform: rotate(180deg); }
+.ask-dd__btn:focus-visible, .ask-dd.is-open .ask-dd__btn { border-color: var(--orange-map); box-shadow: 0 0 0 2px rgba(222, 72, 17, .35); }
+
+.ask-dd__list {
+  position: absolute; left: 0; top: calc(100% + 8px); width: 300px; margin: 0; padding: 6px; list-style: none;
+  border-radius: 10px; background: var(--cream); box-shadow: 0 14px 30px rgba(0, 0, 0, .28);
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: opacity .22s ease, transform .3s cubic-bezier(.2, .7, .2, 1), visibility 0s .3s;
+}
+.ask-dd.is-open .ask-dd__list { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.ask-dd__opt {
+  position: relative; padding: 12px 40px 12px 14px; border-radius: 6px; cursor: pointer;
+  font: 400 18px/1.2 var(--font-body); color: var(--ink); transition: background-color .18s ease;
+}
+.ask-dd.is-open .ask-dd__opt { animation: dd-opt-in .35s cubic-bezier(.2, .7, .2, 1) calc(var(--i) * 40ms) backwards; }
+@keyframes dd-opt-in { from { opacity: 0; transform: translateY(-6px); } }
+/* оранжевая черточка слева у пункта под курсором */
+.ask-dd__opt::before {
+  content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 2px;
+  background: var(--orange-map); transform: scaleY(0); transition: transform .2s ease;
+}
+.ask-dd__opt:hover, .ask-dd__opt.is-active { background: var(--sand); }
+.ask-dd__opt:hover::before, .ask-dd__opt.is-active::before { transform: none; }
+/* галочка у выбранного */
+.ask-dd__opt[aria-selected="true"] { font-weight: 600; }
+.ask-dd__opt[aria-selected="true"]::after {
+  content: ""; position: absolute; right: 14px; top: 50%; width: 16px; height: 12px; margin-top: -6px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 12' fill='none' stroke='%23de4811' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.5 6.5 6 10.5 14.5 1.5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal], .ask-dd__opt { animation: none !important; }
+  .ask-dd__list, .ask-dd__chev { transition: none !important; }
+}
