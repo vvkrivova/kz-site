@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Рыбалка и охота в Кыргызстане — Tian Way</title>
+  <meta name="description" content="Программы по рыбалке и охоте в живописных регионах Кыргызстана: дикие реки и озера, опытные гиды, снаряжение, сопровождение. Оставьте заявку — расскажем о форматах и маршрутах.">
+  <meta name="theme-color" content="#353f2b">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="img/meta/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
+  <script>
+    document.documentElement.style.setProperty('--page-scale', (document.documentElement.clientWidth / 1440).toFixed(5));
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css?v=20261117j">
+  <link rel="stylesheet" href="css/fishing.css?v=20261117j">
+</head>
+<body>
+<main class="page">
+  <section class="section fish" id="top">
+    <div class="stage">
+
+      <!-- шапка — как на главной -->
+      <header class="header">
+        <a class="header__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo.png" alt="Tian Way"></a>
+        <a class="header__phone" href="tel:+79272082971">+7 (927) 208-29-71</a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/icon-instagram.png" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/icon-whatsapp.png" alt=""></a>
+        <a class="header__social header__social--tg" href="#" aria-label="Telegram"><img src="img/icon-telegram.png" alt=""></a>
+      </header>
+
+      <!-- заголовок -->
+      <h1 class="fish__title" data-reveal>Рыбалка и охота<br>в Кыргызстане</h1>
+      <p class="fish__tag">Эта страница еще в разработке, но...</p>
+      <p class="fish__intro" data-reveal style="--rd:.2s">У нас уже готовы программы по рыбалке и охоте в самых живописных регионах Кыргызстана. Оставьте контакты, а мы расскажем о возможных форматах и маршрутах.</p>
+
+      <!-- две карточки: по клику — выбор в форме и прокрутка к ней -->
+      <a class="fcard fcard--fishing" href="#request" data-pick="Рыбалка" data-reveal style="--rd:.1s">
+        <span class="fcard__body"></span>
+        <span class="fcard__photo"><img src="img/fishing/fishing.jpg" alt="Рыбаки с удочками на берегу горного озера"></span>
+        <span class="fcard__title">Рыбалка</span>
+        <span class="fcard__text">Дикие реки и озера, опытные гиды, снаряжение и&nbsp;продуманные программы на несколько дней</span>
+      </a>
+      <a class="fcard fcard--hunting" href="#request" data-pick="Охота" data-reveal style="--rd:.22s">
+        <span class="fcard__body"></span>
+        <span class="fcard__photo"><img src="img/fishing/hunting.jpg" alt="Охотник с ружьем в заснеженном поле"></span>
+        <span class="fcard__title">Охота</span>
+        <span class="fcard__text">Охотничьи программы в горах Кыргызстана —<br>с сопровождением, подготовкой<br>и соблюдением всех требований</span>
+      </a>
+      <img class="fish__stamp-red" src="img/stamp-red.png" alt="">
+      <img class="fish__stamp-round" src="img/stamp-round-logo.png" alt="">
+
+      <!-- линии и марки вокруг формы -->
+      <img class="fish__lines" src="img/lines-hero.png" alt="">
+      <img class="fish__stamp-horses" src="img/stamp-horses.png" alt="">
+
+      <!-- форма -->
+      <div class="fish-panel" id="request" data-reveal style="--rd:.1s">
+        <form class="fish-form" data-fish-form novalidate>
+          <span class="fish-label" id="fish-what-label" style="left:61px; top:39px;">Что вас интересует?</span>
+          <div class="ask-dd fish-dd" data-dd style="left:61px; top:97px; width:195px;">
+            <input type="hidden" name="what" value="Рыбалка">
+            <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="fish-what-label">
+              <span data-dd-value>Рыбалка</span>
+              <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+            </button>
+            <ul class="ask-dd__list" role="listbox" aria-labelledby="fish-what-label">
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:0">Рыбалка</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:1">Охота</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">Рыбалка и охота</li>
+            </ul>
+          </div>
+
+          <span class="fish-label" id="fish-people-label" style="left:377px; top:39px;">Сколько человек?</span>
+          <div class="ask-dd fish-dd fish-dd--num" data-dd style="left:377px; top:97px; width:88px;">
+            <input type="hidden" name="people" value="2">
+            <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="fish-people-label">
+              <span data-dd-value>2</span>
+              <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+            </button>
+            <ul class="ask-dd__list" role="listbox" aria-labelledby="fish-people-label">
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">1</li>
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:1">2</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">3</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">4</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:4">5</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:5">6+</li>
+            </ul>
+          </div>
+
+          <span class="fish-label" id="fish-dates-label" style="left:61px; top:168px;">Когда примерно хотите поехать?</span>
+          <button class="fish-dates" type="button" data-fish-dates aria-labelledby="fish-dates-label" style="left:61px; top:226px;">
+            <span data-fish-dates-value>Выберите даты поездки</span>
+            <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+          </button>
+          <input type="hidden" name="dates" value="">
+
+          <label class="fish-label" for="fish-name" style="left:61px; top:297px;">Ваше имя</label>
+          <input class="fish-field" id="fish-name" name="name" type="text" autocomplete="name" style="left:61px; top:355px;">
+          <label class="fish-label" for="fish-contact" style="left:357px; top:297px;">Контакты</label>
+          <input class="fish-field" id="fish-contact" name="contact" type="text" autocomplete="tel" placeholder="Телефон или Telegram" style="left:357px; top:355px;">
+
+          <p class="fish-error" data-fish-error role="alert" hidden></p>
+
+          <button class="fish-submit" type="submit">Отправить заявку</button>
+
+          <label class="trip-consent fish-consent">
+            <input type="checkbox" name="consent">
+            <span class="trip-consent__box"></span>
+            <span class="trip-consent__text">Я даю согласие на обработку персональных данных в соответствии с&nbsp;<a href="#">Согласием на обработку персональных данных</a>&nbsp;и ознакомился с&nbsp;<a href="#">Политикой в отношении обработки персональных данных</a>.</span>
+          </label>
+
+          <!-- календарь (общий, логика — rangeCalendar в js/main.js) -->
+          <div class="calendar fish-calendar" data-calendar hidden>
+            <button class="calendar__nav calendar__nav--prev" type="button" data-cal-prev aria-label="Предыдущий месяц"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M5.63025 1.05127L1.31434 4.50401C0.963631 4.78458 0.963632 5.318 1.31435 5.59857L5.63025 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <button class="calendar__nav calendar__nav--next" type="button" data-cal-next aria-label="Следующий месяц"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1.05127 1.05127L5.36718 4.50401C5.71789 4.78458 5.71789 5.318 5.36717 5.59857L1.05127 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <div class="calendar__month" data-cal-month="0"></div>
+            <div class="calendar__month calendar__month--right" data-cal-month="1"></div>
+            <p class="calendar__summary" data-cal-summary>Выберите даты заезда и выезда</p>
+            <button class="calendar__apply" type="button" data-cal-apply>Применить</button>
+          </div>
+        </form>
+
+        <div class="fish-done" data-fish-done hidden>
+          <b>Спасибо, заявка отправлена!</b>
+          <span>Расскажем о форматах и маршрутах — свяжемся с вами в ближайшее время, обычно в течение дня.</span>
+          <button class="fish-again" type="button" data-fish-again>Отправить еще одну</button>
+        </div>
+      </div>
+
+      <img class="fish__stamp-eagle" src="img/trips/stamp-eagle.png" alt="">
+      <div class="fish__stamp-tw"><img src="img/trips/stamp-tianway-rect.png" alt=""></div>
+    </div>
+  </section>
+
+  <!-- подвал — в разработке -->
+</main>
+
+<script src="js/main.js?v=20261117j"></script>
+<script src="js/fishing.js?v=20261117j"></script>
+</body>
+</html>

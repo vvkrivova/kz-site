@@ -1,0 +1,163 @@
+/* =========================================================
+   Tian Way — страница тура «Большое кольцо Иссык-Куля» (tour-issyk-ring.html)
+   Общие цвета, шрифты, масштаб и появление при прокрутке — в css/style.css.
+   Координаты — из макета Figma (экран Desktop - 71, 1440×2246).
+   ========================================================= */
+
+.tour .stage { height: 2246px; background: var(--beige); }
+
+/* ---------- фоны ---------- */
+/* фото первого экрана — в макете показана верхняя часть кадра (crop) */
+.tour__hero-bg { left: -2px; top: 0; width: 1516px; height: 1255px; overflow: hidden; }
+.tour__hero-bg img { position: absolute; left: 0; top: 0; width: 100%; height: 161.45%; }
+.tour__hero-shade { left: -2px; top: 0; width: 1516px; height: 1255px; background: rgba(0, 0, 0, .2); }
+.tour__hero-gradient {
+  left: 0; top: 0; width: 1440px; height: 695px;
+  background: linear-gradient(to top, rgba(52, 47, 47, 0) 0%, rgba(52, 47, 47, .72) 86%);
+}
+/* мягкие темные «пятна» под текстом, чтобы он читался на фото */
+.tour__spot { border-radius: 50%; background: rgba(0, 0, 0, .36); filter: blur(59px); pointer-events: none; }
+.tour__spot--top { left: -53px; top: 521px; width: 881px; height: 355px; }
+.tour__spot--cta { left: -33px; top: 1921px; width: 699px; height: 355px; }
+
+/* «рваный» край: бежевый блок «Что входит в стоимость» поверх фото */
+.tour__tear { left: 0; top: 1027.5px; width: 1440px; height: 279px; pointer-events: none; }
+.tour__topo { left: -175px; top: 985px; width: 713px; height: 504px; overflow: hidden; transform: rotate(7.4deg); pointer-events: none; }
+.tour__topo img { position: absolute; left: 0; top: 0; width: 100.41%; height: 100.04%; }
+
+/* панорама гор внизу (небо прозрачное — горы «вырастают» из бежевого) */
+.tour__panorama { left: -116px; top: 1537px; width: 1672px; height: 941px; object-fit: cover; }
+.tour__panorama-gradient {
+  left: -2px; top: 1678px; width: 1440px; height: 695px;
+  background: linear-gradient(to bottom, rgba(52, 47, 47, 0) 0%, rgba(52, 47, 47, .72) 86%);
+}
+.tour__lines { left: -395px; top: 1557px; width: 2172px; height: 724px; pointer-events: none; }
+/* линии «рисуются» слева направо, когда штрихи показались на экране: маска с мягким краем,
+   как след кисти. Видимая часть картинки — примерно от 18% до 85% ее ширины.
+   --draw зарегистрирована как число (@property) — поэтому ее можно плавно анимировать transition'ом.
+   Класс is-drawing ставит js/tour.js. */
+@property --draw { syntax: "<number>"; inherits: false; initial-value: 0; }
+html.reveal-on .tour__lines.is-drawing { --draw: 1; }
+html.reveal-on .tour__lines {
+  transition: --draw 4s cubic-bezier(.45, .05, .35, 1);
+  --edge: calc(16% + var(--draw) * 77%);
+  -webkit-mask-image: linear-gradient(to right, #000 var(--edge), transparent calc(var(--edge) + 6%));
+  mask-image: linear-gradient(to right, #000 var(--edge), transparent calc(var(--edge) + 6%));
+}
+
+/* ---------- логотип: на главную ---------- */
+.tour__logo { left: 55px; top: 28px; width: 60px; height: 40px; z-index: 2; transition: translate .25s ease, opacity .25s ease; }
+.tour__logo img { width: 100%; height: 100%; object-fit: contain; }
+.tour__logo:hover, .tour__logo:focus-visible { translate: 0 -2px; opacity: .85; }
+
+/* ---------- 1. название ---------- */
+.tour__title {
+  left: 55px; top: 95px; width: 987px; margin: 0;
+  font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: var(--beige);
+}
+.tour__lead { left: 55px; top: 311px; width: 844px; margin: 0; font: 500 24px/normal var(--font-body); color: var(--beige); }
+
+.tour-chip {
+  top: 513px; height: 61px; border-radius: 5.93px; background: #fffaf2;
+  display: flex; align-items: center; font: 500 24px/1 var(--font-body); color: #342f2f;
+}
+.tour-chip--days { left: 55px; width: 195px; padding-left: 88px; }
+.tour-chip--start { left: 274px; width: 293px; padding-left: 81px; }
+.tour-chip__ico { position: absolute; overflow: hidden; }
+.tour-chip__ico img { position: absolute; }
+/* значки кадрированы из файлов-спрайтов, как в макете */
+.tour-chip__ico--days { left: 7px; top: 5px; width: 57px; height: 51px; }
+.tour-chip__ico--days img { left: -58.35%; top: -139.9%; width: 220.8%; height: 738%; }
+.tour-chip__ico--start { left: 14px; top: 10px; width: 36px; height: 42px; }
+.tour-chip__ico--start img { left: -50%; top: -46.3%; width: 206%; height: 187.5%; }
+
+/* оранжевые кнопки: при наведении приподнимаются, стрелка «едет» вправо */
+.tour-btn {
+  display: flex; align-items: center; height: 61px; border-radius: 5.93px;
+  background: var(--orange-map); color: #fff; font: 500 24px/1 var(--font-body);
+  transition: translate .25s ease, box-shadow .25s ease;
+}
+.tour-btn:hover, .tour-btn:focus-visible { translate: 0 -3px; box-shadow: 0 10px 18px rgba(0, 0, 0, .3); }
+.tour-btn--dates { left: 591px; top: 513px; width: 293px; padding-left: 20px; }
+.tour-btn__arrow { position: absolute; left: 233px; top: 25px; color: var(--beige); transition: translate .3s cubic-bezier(.2, .7, .2, 1); }
+.tour-btn--dates:hover .tour-btn__arrow, .tour-btn--dates:focus-visible .tour-btn__arrow { translate: 6px 0; }
+.tour-btn--cta { left: 995px; top: 2060px; width: 387px; justify-content: center; }
+
+/* ---------- 2. программа по дням ---------- */
+.tour__program-title {
+  left: 58px; top: 665px; width: 900px; margin: 0;
+  font: 400 64px/.94 var(--font-display); text-transform: uppercase; color: var(--beige);
+}
+/* окно ленты на всю ширину; карточки внутри «дорожки», которая сдвигается стрелками */
+.tour-days { left: 0; top: 743px; width: 1440px; height: 430px; overflow: hidden; overflow: clip; }
+.tour-days__track { position: absolute; left: 58px; top: 20px; height: 383px; transition: translate .7s cubic-bezier(.65, 0, .35, 1); }
+.tday {
+  position: absolute; top: 0; width: 372px; height: 383px; overflow: hidden;
+  border-radius: 14px; background: #fffaf2; box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+  transition: translate .3s ease, box-shadow .3s ease;
+}
+.tday > * { position: absolute; }
+.tday__photo { left: 0; top: 0; width: 372px; height: 202px; object-fit: cover; transition: scale .5s cubic-bezier(.2, .7, .2, 1); }
+.tday__photo--top { object-position: 50% 0; }
+.tday__photo--y16 { object-position: 50% 16%; }
+/* дни без фото и описания: вместо фото — крупный бледный номер дня */
+.tday--short::before {
+  content: attr(data-day); position: absolute; left: 14px; top: -6px;
+  font: 600 200px/1 var(--font-display); color: var(--orange-map); opacity: .1; pointer-events: none;
+}
+.tday__num { left: 21px; top: 215px; font: 400 16px/.94 var(--font-display); text-transform: uppercase; color: var(--orange-map); }
+.tday__title {
+  left: 21px; top: 253px; width: 340px; margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px;
+  font: 400 32px/.94 var(--font-display); text-transform: uppercase; color: #342f2f;
+}
+.tday__arrow { flex: none; }
+.tday__text { left: 21px; top: 306px; width: 299px; margin: 0; font: 400 16px/normal var(--font-body); color: #000; }
+/* наведение: карточка чуть приподнимается, фото приближается */
+.tday:hover { translate: 0 -4px; box-shadow: 0 12px 20px rgba(0, 0, 0, .28); }
+.tday:hover .tday__photo { scale: 1.05; }
+
+.tour-arrow {
+  top: 918px; width: 59px; height: 59px; padding: 0; border: 0; border-radius: 50%; z-index: 2;
+  display: grid; place-items: center; background: var(--orange-map); cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .25); transition: translate .25s ease, box-shadow .25s ease;
+}
+.tour-arrow[hidden] { display: none; }
+.tour-arrow--next { left: 1353px; }
+.tour-arrow--prev { left: 28px; }
+.tour-arrow:hover, .tour-arrow:focus-visible { translate: 0 -3px; box-shadow: 0 10px 18px rgba(0, 0, 0, .3); }
+.tour-arrow svg { transition: translate .25s ease; }
+.tour-arrow--next:hover svg { translate: 3px 0; }
+.tour-arrow--prev:hover svg { translate: -3px 0; }
+
+/* ---------- 3. что входит в стоимость ---------- */
+.tour__price-title {
+  left: 55px; top: 1294px; width: 900px; margin: 0;
+  font: 400 64px/.94 var(--font-display); text-transform: uppercase; color: #342f2f;
+}
+.tour-incl { left: 55px; top: 1417px; width: 560px; }
+.tour-incl--no { left: 654px; width: 420px; }
+.tour-incl__head { margin: 0; font: 700 26.64px/36px var(--font-body); color: #000; }
+.tour-incl__list { margin: 39px 0 0; padding: 0; list-style: none; }
+.tour-incl__list li {
+  position: relative; padding-left: 37px; margin-bottom: 20.6px;
+  font: 400 26.64px/36px var(--font-body); color: #000;
+}
+/* галочка у «включено» и черточка у «не включено» — оранжевые, как в макете */
+.tour-incl__list--yes li::before {
+  content: ""; position: absolute; left: 6px; top: 13px; width: 17px; height: 11px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='11' viewBox='0 0 17 11' fill='none'%3E%3Cpath d='M.85 5.01 6.68 10.84 16.67.85' stroke='%23de4811' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat;
+}
+.tour-incl__list--no li::before {
+  content: ""; position: absolute; left: 0; top: 17px; width: 17px; height: 1.7px; border-radius: 1px; background: var(--orange-map);
+}
+
+/* ---------- 4. готовы к путешествию? ---------- */
+.tour__cta-title {
+  left: 58px; top: 2016px; width: 987px; margin: 0;
+  font: 400 48px/.94 var(--font-display); text-transform: uppercase; color: var(--sand);
+}
+.tour__cta-text { left: 62px; top: 2073px; width: 470px; margin: 0; font: 400 24px/normal var(--font-body); color: var(--sand); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tday, .tday__photo, .tour-days__track, .tour-btn, .tour-btn__arrow { transition: none !important; }
+}

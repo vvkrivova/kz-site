@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Большое кольцо Иссык-Куля — Tian Way</title>
+  <meta name="description" content="Путешествие на 8 дней вокруг Иссык-Куля: северный и южный берега, горные ущелья, Каракол и местные традиции. Старт в Бишкеке.">
+  <meta name="theme-color" content="#353f2b">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="img/meta/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
+  <script>
+    document.documentElement.style.setProperty('--page-scale', (document.documentElement.clientWidth / 1440).toFixed(5));
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css?v=20261117j">
+  <link rel="stylesheet" href="css/tour.css?v=20261117j">
+</head>
+<body>
+<main class="page">
+  <!-- вся страница — один «холст» 1440×2246 из макета: фото и линии заходят из блока в блок -->
+  <section class="section tour" id="top">
+    <div class="stage">
+
+      <!-- фоны -->
+      <div class="tour__hero-bg"><img src="img/tours/issyk-ring-hero.png" alt=""></div>
+      <div class="tour__hero-shade"></div>
+      <div class="tour__hero-gradient"></div>
+      <div class="tour__spot tour__spot--top"></div>
+      <img class="tour__panorama" src="img/tours/issyk-ring-panorama.png" alt="">
+      <div class="tour__panorama-gradient"></div>
+      <img class="tour__tear" src="img/tours/torn-edge.svg" alt="">
+      <div class="tour__topo"><img src="img/topo-lines.png" alt=""></div>
+
+      <!-- логотип — ведет на главную (в макете его нет; поставлен меньше, чтобы не задевать заголовок) -->
+      <a class="tour__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo.png" alt="Tian Way"></a>
+
+      <!-- 1. Название и короткое описание -->
+      <h1 class="tour__title" data-reveal>Большое кольцо<br>Иссык-Куля</h1>
+      <p class="tour__lead" data-reveal style="--rd:.12s">За восемь дней мы проедем вокруг Иссык-Куля, исследуем его северный и южный берега, побываем в горных ущельях и познакомимся с местными традициями. Путешествие начнется в Бишкеке и пройдет через самые интересные места региона — основные остановки мы отметили на карте</p>
+
+      <div class="tour-chip tour-chip--days" data-reveal style="--rd:.2s">
+        <span class="tour-chip__ico tour-chip__ico--days"><img src="img/trips/icon-clock.png" alt=""></span>
+        8 дней
+      </div>
+      <div class="tour-chip tour-chip--start" data-reveal style="--rd:.26s">
+        <span class="tour-chip__ico tour-chip__ico--start"><img src="img/icon-pin.png" alt=""></span>
+        Старт в Бишкеке
+      </div>
+      <a class="tour-btn tour-btn--dates" href="trips.html?trip=ring#custom" data-reveal style="--rd:.32s">
+        Подобрать даты
+        <svg class="tour-btn__arrow" width="36" height="12" viewBox="0 0 36 12" fill="none" aria-hidden="true"><path d="M1 6h33M28.5 1 34 6l-5.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+      <!-- 2. Программа по дням -->
+      <h2 class="tour__program-title" data-reveal>Программа тура по дням</h2>
+      <div class="tour-days" data-days>
+        <div class="tour-days__track" data-days-track>
+          <article class="tday">
+            <img class="tday__photo" src="img/tours/day-1-bishkek.png" alt="Бишкек: мечеть на фоне гор">
+            <span class="tday__num">День 1</span>
+            <h3 class="tday__title">Бишкек <svg class="tday__arrow" width="34" height="10" viewBox="0 0 34 10" fill="none" aria-hidden="true"><path d="M0 5h33M28.5 1 33 5l-4.5 4" stroke="currentColor" stroke-linejoin="round"/></svg> Иссык-Куль</h3>
+            <p class="tday__text">Встреча, знакомство с&nbsp;Кыргызстаном<br>и переезд на северный берег озера</p>
+          </article>
+          <article class="tday">
+            <img class="tday__photo tday__photo--top" src="img/tours/day-2-cholpon-ata.png" alt="Петроглифы Чолпон-Аты">
+            <span class="tday__num">День 2</span>
+            <h3 class="tday__title">Чолпон-Ата</h3>
+            <p class="tday__text">Петроглифы, прогулки у озера и отдых</p>
+          </article>
+          <article class="tday">
+            <img class="tday__photo tday__photo--y16" src="img/tours/day-3-kyrchyn.png" alt="Кони на зеленом склоне Кырчына">
+            <span class="tday__num">День 3</span>
+            <h3 class="tday__title">Кырчын <svg class="tday__arrow" width="34" height="10" viewBox="0 0 34 10" fill="none" aria-hidden="true"><path d="M0 5h33M28.5 1 33 5l-4.5 4" stroke="currentColor" stroke-linejoin="round"/></svg> Каракол</h3>
+            <p class="tday__text">Конная прогулка, национальная кухня и&nbsp;переезд в&nbsp;Каракол</p>
+          </article>
+          <article class="tday">
+            <img class="tday__photo" src="img/tours/day-4-karakol.png" alt="Деревянный собор в Караколе">
+            <span class="tday__num">День 4</span>
+            <h3 class="tday__title">Каракол</h3>
+            <p class="tday__text">Город, культура и горы</p>
+          </article>
+          <!-- дни 5–8: пока только название (фото и описание добавим, когда будут материалы) -->
+          <article class="tday tday--short" data-day="05">
+            <span class="tday__num">День 5</span>
+            <h3 class="tday__title">Джети-Огуз</h3>
+          </article>
+          <article class="tday tday--short" data-day="06">
+            <span class="tday__num">День 6</span>
+            <h3 class="tday__title">Каньон Сказка</h3>
+          </article>
+          <article class="tday tday--short" data-day="07">
+            <span class="tday__num">День 7</span>
+            <h3 class="tday__title">Боконбаево</h3>
+          </article>
+          <article class="tday tday--short" data-day="08">
+            <span class="tday__num">День 8</span>
+            <h3 class="tday__title">Ала-Арча <svg class="tday__arrow" width="34" height="10" viewBox="0 0 34 10" fill="none" aria-hidden="true"><path d="M0 5h33M28.5 1 33 5l-4.5 4" stroke="currentColor" stroke-linejoin="round"/></svg> Бишкек</h3>
+          </article>
+        </div>
+      </div>
+      <button class="tour-arrow tour-arrow--prev" type="button" data-days-prev aria-label="Предыдущие дни" hidden>
+        <svg width="24" height="16" viewBox="0 0 24 16" fill="none" aria-hidden="true"><path d="M23 8H2M8.5 1.5 2 8l6.5 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="tour-arrow tour-arrow--next" type="button" data-days-next aria-label="Следующие дни">
+        <svg width="24" height="16" viewBox="0 0 24 16" fill="none" aria-hidden="true"><path d="M1 8h21M15.5 1.5 22 8l-6.5 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <!-- 3. Что входит в стоимость -->
+      <h2 class="tour__price-title" data-reveal>Что входит в стоимость</h2>
+      <div class="tour-incl" data-reveal style="--rd:.1s">
+        <h3 class="tour-incl__head">Включено</h3>
+        <ul class="tour-incl__list tour-incl__list--yes">
+          <li>Трансферы по программе</li>
+          <li>Проживание (отели / гостевые дома)</li>
+          <li>Питание (по программе)</li>
+          <li>Сопровождение гида</li>
+          <li>Организационные расходы</li>
+        </ul>
+      </div>
+      <div class="tour-incl tour-incl--no" data-reveal style="--rd:.2s">
+        <h3 class="tour-incl__head">Не включено</h3>
+        <ul class="tour-incl__list tour-incl__list--no">
+          <li>Авиабилеты</li>
+          <li>Личные расходы</li>
+          <li>Активности вне программы</li>
+        </ul>
+      </div>
+
+      <!-- 4. Готовы к путешествию? -->
+      <img class="tour__lines" src="img/lines-hero.png" alt="">
+      <div class="tour__spot tour__spot--cta"></div>
+      <h2 class="tour__cta-title" data-reveal>Готовы к путешествию?</h2>
+      <p class="tour__cta-text" data-reveal style="--rd:.1s">Оставьте заявку — подберем подходящие даты, уточним детали и&nbsp;рассчитаем стоимость</p>
+      <a class="tour-btn tour-btn--cta" href="trips.html?trip=ring#custom" data-reveal style="--rd:.2s">Подобрать даты путешествия</a>
+    </div>
+  </section>
+
+  <!-- подвал — в разработке -->
+</main>
+
+<script src="js/main.js?v=20261117j"></script>
+<script src="js/tour.js?v=20261117j"></script>
+</body>
+</html>
