@@ -24,11 +24,11 @@ ARROW = ('<svg class="tday__arrow" width="34" height="10" viewBox="0 0 34 10" fi
          '<path d="M0 5h33M28.5 1 33 5l-4.5 4" stroke="currentColor" stroke-linejoin="round"/></svg>')
 
 # фото и описания, которые уже есть (из макета «Большого кольца»)
-BISHKEK = dict(photo='img/tours/day-1-bishkek.png', alt='Бишкек: мечеть на фоне гор',
+BISHKEK = dict(photo='img/tours/day-1-bishkek.webp', alt='Бишкек: мечеть на фоне гор',
                text='Встреча, знакомство с&nbsp;Кыргызстаном<br>и переезд на северный берег озера')
-CHOLPON = dict(photo='img/tours/day-2-cholpon-ata.png', pos='tday__photo--top', alt='Петроглифы Чолпон-Аты',
+CHOLPON = dict(photo='img/tours/day-2-cholpon-ata.webp', pos='tday__photo--top', alt='Петроглифы Чолпон-Аты',
                text='Петроглифы, прогулки у озера и отдых')
-KYRCHYN = dict(photo='img/tours/day-3-kyrchyn.png', pos='tday__photo--y16', alt='Кони на зеленом склоне Кырчына')
+KYRCHYN = dict(photo='img/tours/day-3-kyrchyn.webp', pos='tday__photo--y16', alt='Кони на зеленом склоне Кырчына')
 
 PROGRAMS = [
     {
