@@ -6,6 +6,7 @@
 
 .rx .stage { height: 1236px; background: var(--beige); } /* подвал — 100px ниже списка (946) + 190px */
 .rx-topo { left: -28px; top: 657px; width: 1552px; height: 361px; object-fit: cover; opacity: .76; pointer-events: none; }
+.rx-topo { filter: blur(1px); } /* линии-горы — вектор, чуть размыты, как на странице бронирования */
 /* в макете — по левому краю над карточками; на сайте выровнен по центру (блок «больше воздуха» в конце) */
 .rx-title {
   left: 63px; top: 87px; white-space: nowrap;

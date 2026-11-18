@@ -461,6 +461,8 @@ body { overflow: clip; }
 .faq__topo { left: -80.69px; top: 623.75px; width: 769.16px; height: 546px; object-fit: cover; opacity: .85; transform: rotate(10.22deg); }
 .faq__mountains { left: -42px; top: 0; width: 1552px; height: 106px; overflow: hidden; opacity: .78; }
 .faq__mountains img { left: 0; top: -244.83%; width: 100%; height: 344.83%; }
+/* линии-горы — вектор (img/topo-mountains.svg), чуть размыты, как на странице бронирования */
+.reviews__topo, .faq__mountains img { filter: blur(1px); }
 .faq__compass { left: 1195.37px; top: 36.86px; width: 116px; height: 118px; object-fit: cover; opacity: .42; filter: blur(1.3px); transform: rotate(-24.74deg); }
 .faq__coords { left: 1068px; top: 45px; width: 114px; height: 45px; object-fit: cover; opacity: .39; }
 
@@ -1210,12 +1212,11 @@ html.reveal-on [data-reveal]:not(.is-in) { opacity: 0; }
 .footer__social img { display: block; width: 100%; height: 100%; }
 .footer__social a:hover, .footer__social a:focus-visible { translate: 0 -2px; }
 .footer__links {
-  right: 78px; top: 68px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+  right: 78px; top: 68px; display: flex; flex-direction: column; align-items: flex-end; gap: 11px;
   font: 400 16px/22px var(--font-body); white-space: nowrap;
 }
-/* строки справа на одной линии со строками слева (как в макете): «Политика» — с телефоном, «Оферта» — с почтой,
-   копирайт заканчивается на одной линии с иконками — низ подвала ровный (иконки 126–156px, копирайт 134–156) */
-.footer__links span { margin-top: 14px; }
+/* три строки справа — с равными промежутками (как в макете): верх на одной линии с телефоном,
+   низ копирайта — на одной линии с низом иконок (строки 68, 101, 134; иконки 126–156px) */
 .footer__links a, .footer__phone, .footer__mail { text-decoration: none; }
 .footer__links a { color: inherit; }
 .footer__links a:hover, .footer__links a:focus-visible, .footer__phone:hover, .footer__phone:focus-visible,

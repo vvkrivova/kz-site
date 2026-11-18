@@ -7,6 +7,8 @@
 /* высота по содержимому: левая карточка растет вместе со списком услуг */
 .rb .stage { height: auto; padding: 305px 0 264px 58px; background: var(--beige); } /* снизу — подвал 190px и ~100px над ним */
 .rb-topo { left: -275px; bottom: 0; width: 1956px; height: 440px; object-fit: cover; opacity: .76; pointer-events: none; }
+/* линии-горы здесь — вектор (img/topo-mountains.svg): четкие при растяжении; чуть размыты, чтобы не спорить с карточками */
+.rb-topo { filter: blur(1px); }
 .rb-title {
   left: 241px; top: 51px; width: 957px; text-align: center;
   font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: var(--rent-ink);
