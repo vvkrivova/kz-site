@@ -4,7 +4,7 @@
    Координаты — из макета Figma (Desktop - 65; положения прокрутки — 68, 69, 70).
    ========================================================= */
 
-.rx .stage { height: 1024px; background: var(--beige); }
+.rx .stage { height: 1236px; background: var(--beige); } /* подвал — 100px ниже списка (946) + 190px */
 .rx-topo { left: -28px; top: 657px; width: 1552px; height: 361px; object-fit: cover; opacity: .76; pointer-events: none; }
 /* в макете — по левому краю над карточками; на сайте выровнен по центру (блок «больше воздуха» в конце) */
 .rx-title {

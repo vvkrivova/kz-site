@@ -24,9 +24,9 @@
       document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20261118m">
-  <link rel="stylesheet" href="css/rent.css?v=20261118o">
-  <link rel="stylesheet" href="css/rent-booking.css?v=20261118f">
+  <link rel="stylesheet" href="css/style.css?v=20261119c">
+  <link rel="stylesheet" href="css/rent.css?v=20261119b">
+  <link rel="stylesheet" href="css/rent-booking.css?v=20261119a">
 </head>
 <body>
 <main class="page">
@@ -74,7 +74,7 @@
           <h2 class="rb-form__title">Заказчик</h2>
           <input class="rb-field" name="name" type="text" autocomplete="given-name" placeholder="Имя" aria-label="Имя" style="left:18px; top:100px;">
           <input class="rb-field" name="surname" type="text" autocomplete="family-name" placeholder="Фамилия" aria-label="Фамилия" style="left:291px; top:100px;">
-          <input class="rb-field" name="phone" type="tel" autocomplete="tel" placeholder="Телефон" aria-label="Телефон" style="left:18px; top:202px;">
+          <input class="rb-field" name="phone" type="text" autocomplete="tel" placeholder="Телефон или Telegram" aria-label="Телефон или Telegram" style="left:18px; top:202px;">
           <input class="rb-field" name="email" type="email" autocomplete="email" placeholder="E-mail" aria-label="E-mail" style="left:291px; top:202px;">
           <textarea class="rb-field rb-field--notes" name="notes" placeholder="Примечания" aria-label="Примечания" style="left:18px; top:304px;"></textarea>
 
@@ -94,13 +94,29 @@
           <a class="rb-home" href="index.html">На главную</a>
         </div>
       </div>
+      <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
+      <footer class="footer footer--light">
+        <a class="footer__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo-footer-light.webp" alt="Tian Way"></a>
+        <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/social-instagram.webp" alt=""></a>
+          <a href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/social-whatsapp.webp" alt=""></a>
+          <a href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/social-telegram.webp" alt=""></a>
+        </div>
+        <div class="footer__links">
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Публичная оферта</a>
+          <span>© 2026 «Tian Way». Все права защищены</span>
+        </div>
+      </footer>
     </div>
   </section>
 
 </main>
 
-<script src="js/main.js?v=20261118l"></script>
+<script src="js/main.js?v=20261118s"></script>
 <script src="js/rent-store.js?v=20261118b"></script>
-<script src="js/rent-booking.js?v=20261118e"></script>
+<script src="js/rent-booking.js?v=20261118f"></script>
 </body>
 </html>

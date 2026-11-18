@@ -103,11 +103,12 @@ const rbSummary = (function () {
     const bad = [];
     const check = (el, msg) => { if (msg) { setError(el, msg); bad.push(el); } else clearError(el); };
     const phoneDigits = f.phone.value.replace(/\D/g, '').length;
+    const isTelegram = /\p{L}/u.test(f.phone.value);   // есть буквы — это ник или ссылка Telegram, цифры не считаем
     const email = f.email.value.trim();
     // обязательны все поля, кроме «Примечаний»
     check(f.name, f.name.value.trim() ? '' : 'Укажите имя');
     check(f.surname, f.surname.value.trim() ? '' : 'Укажите фамилию');
-    check(f.phone, !f.phone.value.trim() ? 'Укажите телефон' : phoneDigits < 10 ? 'В номере не хватает цифр' : '');
+    check(f.phone, !f.phone.value.trim() ? 'Укажите телефон или Telegram' : !isTelegram && phoneDigits < 10 ? 'В номере не хватает цифр' : '');
     check(f.email, !email ? 'Укажите e-mail' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'Проверьте e-mail — в адресе ошибка' : '');
     check(f.consent, f.consent.checked ? '' : 'Нужно согласие на обработку персональных данных');
     if (bad.length) { bad[0].focus({ preventScroll: true }); return; }

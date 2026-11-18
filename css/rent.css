@@ -68,8 +68,12 @@
   transition: translate .25s ease, box-shadow .25s ease;
 }
 .rs-find:hover, .rs-find:focus-visible { translate: 0 -3px; box-shadow: 0 8px 14px rgba(0, 0, 0, .22); outline: none; }
+/* «Найти» подсвечивается, когда даты и гости выбраны, а искать еще не нажимали */
+.rs-find.is-flash { animation: find-call 1.1s ease 2; }
+@keyframes find-call { 30% { box-shadow: 0 0 0 8px rgba(222, 72, 17, .25); scale: 1.04; } }
+@media (prefers-reduced-motion: reduce) { .rs-find.is-flash { animation: none; } }
 /* подсказка под «Найти»: чего не хватает (например, «Выберите автодом ниже») */
-.rs-hint { left: 1141px; top: 345px; width: 206px; margin: 0; text-align: center; font: 600 14px/1.3 var(--font-body); color: #c4400f; }
+.rs-hint { left: 1141px; top: 357px; width: 206px; margin: 0; text-align: center; font: 600 14px/1.3 var(--font-body); color: #c4400f; }
 .rs-hint[hidden] { display: none; }
 .rs-hint.is-flash { animation: rb-hint-in .3s ease; }
 @keyframes rb-hint-in { from { opacity: 0; translate: 0 -4px; } }
@@ -182,31 +186,84 @@
 /* «Выбрать» / «Выбрано»: выбранный автодом обведен оранжевым, кнопка оранжевая с галочкой */
 .car__choose { padding: 0; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
 .car__choose svg { width: 12px; height: 10px; flex: none; }
-.car { box-shadow: 0 0 0 0 rgba(222, 72, 17, 0); }
-.car.is-chosen { box-shadow: 0 0 0 2px var(--orange-map); }
-.car.is-chosen .car__choose { background: var(--orange-map); }
-/* «Найти» без выбранного автодома — кнопки «Выбрать» по очереди подпрыгивают */
-.car__choose.is-call { animation: choose-call .9s cubic-bezier(.3, 1.5, .5, 1) calc(var(--ci, 0) * 120ms); }
-@keyframes choose-call { 30% { translate: 0 -5px; background: var(--orange-map); box-shadow: 0 8px 14px rgba(0, 0, 0, .25); } }
-/* приписка над кнопкой: выбрать можно только один автодом */
-.car__choose::after, .car__choose::before { position: absolute; opacity: 0; pointer-events: none; transition: opacity .2s ease, translate .2s ease; translate: 0 4px; }
-.car__choose::after {
-  content: attr(data-note); right: 0; bottom: calc(100% + 9px); width: 230px; padding: 7px 10px; border-radius: 6px;
-  background: rgba(0, 0, 0, .87); color: var(--beige); font: 400 12px/1.35 var(--font-body); text-align: left;
-}
-.car__choose::before { content: ""; right: 40px; bottom: calc(100% + 2px); border: 5px solid transparent; border-bottom: 0; border-top: 7px solid rgba(0, 0, 0, .87); }
-.car__choose.is-noting::after, .car__choose.is-noting::before { opacity: 1; translate: 0 0; }
-.car__choose:not([data-note])::after, .car__choose:not([data-note])::before { display: none; }
 
-/* автодом не подходит под выбранные даты/гостей (js/rent.js, applyAvailability):
-   серый, в конце списка, с пометкой; кнопку «Выбрать» нажать можно — появится подсказка */
-.car.is-off > :not(.car__off):not(.car__more):not(.car__details):not(.car__choose) { opacity: .45; filter: grayscale(1); }
-.car.is-off .car__choose { background: #b9b3a8; cursor: not-allowed; }
-.car.is-off .car__choose:hover, .car.is-off .car__choose:focus-visible { background: #a59f94; translate: none; box-shadow: none; }
+/* результаты поиска (js/rent.js, runSearch): заголовки групп на всю ширину сетки —
+   «Свободны на ваши даты» над подходящими и «Не подошли под ваш запрос» над остальными */
+.cars-head { grid-column: 1 / -1; margin-bottom: -20px; color: var(--rent-ink); }   /* все заголовки одного размера и на одном расстоянии от карточек */
+.cars-head[hidden] { display: none; }
+.cars-head__title { margin: 0; font: 600 32px/1 var(--font-display); text-transform: uppercase; }
+.cars-head__text { margin-top: 8px; font: 400 18px/1.4 var(--font-body); color: rgba(0, 0, 0, .55); }
+.cars-head--off { margin-top: 10px; padding-top: 34px; border-top: 1px solid rgba(0, 0, 0, .15); }
+.cars-head--off .cars-head__title { color: rgba(52, 47, 47, .6); }
+
+/* после поиска у свободного автодома вместо «от 250 $ / сутки» — сумма за срок, кнопка «Забронировать»
+   (шире на 33px, правый край на месте; цена сдвигается влево на столько же) */
+.cars.is-searched .car:not(.is-off) .car__choose { left: 458px; width: 130px; background: var(--orange-map); }
+.cars.is-searched .car:not(.is-off) .car__price { right: 160px; }
+
+/* не подошел под запрос (js/rent.js, runSearch): серый, с пометкой; цены и кнопки нет —
+   внизу карточки панель с причиной и ближайшими свободными датами (высота панели — --alt-h) */
+.car.is-off > :not(.car__off):not(.car__more):not(.car__details):not(.car__alt) { opacity: .45; filter: grayscale(1); }
+.car.is-off .car__price, .car.is-off .car__choose { display: none; }
+.car.is-off { height: calc(464px + var(--alt-h, 0px)); }
+.car.is-off.is-open { height: calc(var(--open-h, 973px) + var(--alt-h, 0px)); }
 .car__off {
   left: 16px; top: 16px; z-index: 3; padding: 8px 14px; border-radius: 7px;
   background: rgba(53, 63, 43, .92); color: #fff; font: 600 15px/1 var(--font-body);
   pointer-events: none;
+}
+.car__alt { left: 25px; top: 452px; width: 554px; padding-top: 18px; border-top: 1px solid rgba(0, 0, 0, .12); transition: top .55s cubic-bezier(.2, .7, .2, 1); }
+.car.is-open .car__alt { top: calc(var(--open-h, 973px) - 12px); }
+.car__alt-text { font: 600 19px/1.3 var(--font-body); color: var(--rent-ink); }
+.car__alt-sub { margin-top: 8px; font: 400 16px/1.35 var(--font-body); color: rgba(0, 0, 0, .55); }
+.car__alt-list { display: flex; gap: 12px; margin-top: 12px; }
+.car__alt-opt {
+  flex: 1; padding: 12px 14px; border: 1px solid var(--rent-line); border-radius: 8px; background: transparent;
+  text-align: left; cursor: pointer; color: var(--rent-ink); transition: border-color .2s ease, background-color .2s ease, translate .2s ease;
+}
+.car__alt-opt b { display: block; font: 600 22px/1.1 var(--font-display); white-space: nowrap; }
+.car__alt-opt span { display: block; margin-top: 6px; font: 400 14px/1.3 var(--font-body); color: rgba(0, 0, 0, .6); white-space: nowrap; }
+.car__alt-opt:hover, .car__alt-opt:focus-visible { border-color: var(--orange-map); background: rgba(222, 72, 17, .06); translate: 0 -2px; outline: none; }
+
+/* окошко-итог «Забронировать» (js/rent.js, bookModal) — вне масштабируемой страницы, размеры в пикселях экрана */
+.rent-modal {
+  position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 16px;
+  background: rgba(24, 22, 19, .55); opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility 0s linear .25s;
+  font-family: var(--font-body); color: var(--rent-ink);
+}
+.rent-modal.is-open { opacity: 1; visibility: visible; transition: opacity .25s ease; }
+.rent-modal__card {
+  position: relative; width: min(460px, 100%); padding: 30px 30px 26px; border-radius: 14px;
+  background: var(--rent-card); box-shadow: 0 24px 60px rgba(0, 0, 0, .35);
+  translate: 0 12px; transition: translate .3s cubic-bezier(.2, .7, .2, 1);
+}
+.rent-modal.is-open .rent-modal__card { translate: 0 0; }
+.rent-modal__close {
+  position: absolute; right: 14px; top: 14px; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%;
+  display: grid; place-items: center; background: transparent; color: var(--rent-ink); cursor: pointer;
+}
+.rent-modal__close:hover, .rent-modal__close:focus-visible { background: rgba(0, 0, 0, .06); outline: none; }
+.rent-modal__close svg { width: 20px; height: 20px; }
+.rent-modal__title { margin: 0; font: 600 30px/1 var(--font-display); text-transform: uppercase; }
+.rent-modal__car { margin-top: 14px; font: 700 18px/1.3 var(--font-body); }
+.rent-modal__rows { margin: 16px 0 0; }
+.rent-modal__rows div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid rgba(0, 0, 0, .1); font-size: 16px; }
+.rent-modal__rows dt { color: rgba(0, 0, 0, .55); }
+.rent-modal__rows dd { margin: 0; text-align: right; }
+.rent-modal__total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 14px; border-top: 1px solid rgba(0, 0, 0, .18); font: 600 26px/1 var(--font-display); text-transform: uppercase; }
+.rent-modal__note { margin-top: 12px; font-size: 14px; line-height: 1.4; color: rgba(0, 0, 0, .55); }
+.rent-modal__btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+.rent-modal__go, .rent-modal__back {
+  display: grid; place-items: center; height: 50px; padding: 0 12px; border-radius: 9px;
+  font: 600 16px/1.1 var(--font-body); text-align: center; cursor: pointer; transition: translate .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.rent-modal__go { border: 0; background: var(--orange-map); color: #fff; }
+.rent-modal__back { border: 1px solid var(--rent-line); background: transparent; color: var(--rent-ink); }
+.rent-modal__go:hover, .rent-modal__go:focus-visible { translate: 0 -2px; box-shadow: 0 8px 14px rgba(0, 0, 0, .2); outline: none; }
+.rent-modal__back:hover, .rent-modal__back:focus-visible { background: rgba(0, 0, 0, .05); outline: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rent-modal, .rent-modal__card, .car__alt, .car__alt-opt { transition: none; }
 }
 
 /* =========================================================
@@ -310,7 +367,7 @@
 @media (prefers-reduced-motion: reduce) {
   .car, .car__track, .car__more, .car__details, .car__price, .car__choose, .gear, .kit, .gear__img, .kit__img,
   .cart-add, .cart-qty { transition: none !important; }
-  .car__choose.is-call, .cart-qty__val.is-bump { animation: none; }
+  .cart-qty__val.is-bump { animation: none; }
 }
 
 
@@ -323,7 +380,7 @@
 /* карточки здесь с мелким текстом — уменьшаем их только на 10%, вместе со всем блоком */
 .rent-title { scale: .72; transform-origin: 50% 0; }
 .rent-search { scale: .82; transform-origin: 50% 221px; margin-top: -25px; } /* панель поиска меньше (было .9) и выше на 25px */
-.cars { scale: .9; transform-origin: 50% 0; margin: -60px 0 -97.8px -4.6px; } /* ближе к панели поиска (было -25px); снизу убрано место, освободившееся после уменьшения (10% высоты сетки) — до «Посуточной аренды» как в макете */
+.cars { scale: .9; transform-origin: 50% 0; margin: -28px 0 -129.8px -4.6px; } /* под «Найти» — место для подсказки (было -60px); снизу убрано место, освободившееся после уменьшения (10% высоты сетки), и эти 32px — «Посуточная аренда» на прежнем месте */
 .gear-title { scale: .72; transform-origin: 50% 0; }
 /* «Посуточная аренда»: карточки снаряжения и наборы — 80%, подзаголовки — 72%.
    left/top в rent.html уже пересчитаны: к центру по бокам и плотнее по высоте (расстояния ×0,8) */
@@ -335,7 +392,11 @@
    чтобы от наборов до подписи внизу было как в макете; тень и подпись — у нижнего края гор */
 .rent-mountains { margin-top: -760.2px; height: 1036px; object-position: 50% 0; }
 .rent-shade, .rent-note { margin-top: -884.2px; }
-.rent-gear .stage { height: 3614.8px; }   /* было 4499px */
+.rent-gear .stage { height: 3858px; }   /* было 4499px → 3614.8px; подвал — 100px ниже примечания (3568) + 190px */
+/* под подвалом — те же горы до самого низа страницы (раньше фото обрывалось над подвалом):
+   фото гор тянется до низа блока (2578.8 → 3858), а темная полоса под подписью продолжается до низа — подвал темный */
+.rent-mountains { height: 1279.2px; }
+.rent-shade { height: 363px; background: linear-gradient(rgba(0, 0, 0, .47), rgba(0, 0, 0, .8) 45%, rgba(0, 0, 0, .8)); }
 
 /* «В корзину» в посуточной аренде — того же размера на экране, что «Выбрать» у автодомов:
    карточки здесь уменьшены до .8, автодомы — до .9, поэтому кнопку увеличиваем в .9 / .8 = 1,125 раза
