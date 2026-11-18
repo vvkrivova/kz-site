@@ -213,7 +213,9 @@
     // анимация 9: пунктир рисуется чёрточка за чёрточкой по ходу маршрута,
     // точки и подписи появляются, когда линия до них доходит
     const dashes = ROUTE_DASHES[route.path];
-    const DRAW = 2.2;   // секунд на весь маршрут
+    // скорость «ручки» одна для всех маршрутов: короткий рисуется быстрее, длинный — дольше
+    // (зимний ≈ 2,2 с, северный ≈ 1,2 с, большое кольцо ≈ 3 с)
+    const SPEED = 250;  // пикселей макета в секунду
     const START = 0.1;
     const SVGNS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(SVGNS, 'svg');
@@ -245,7 +247,7 @@
       travelled += it.len;
       prev = to;
     });
-    const speed = travelled / DRAW;
+    const speed = SPEED;
     items.forEach((it) => {
       it.t = START + it.startDist / speed;
       const st = it.path.style;
@@ -359,16 +361,18 @@
 (function reviewsSlider() {
   const REVIEWS = [
     {
-      name: 'Анна и Максим',
+      name: 'Компания рыбаков',
       trip: 'Аренда автодома. Путешествие по северному берегу Иссык-Куля',
       days: '6 дней',
       text: 'Первый раз ехали на автодоме. За шесть дней прошли северный берег, Каракол и южную часть озера. Больше всего переживали за размер машины...',
+      pics: 'fishers', // набор фото и марок (data-pics в index.html) — переезжает вместе с отзывом
     },
     {
       name: 'Кирилл',
       trip: 'Аренда автодома. Путешествие по северному берегу Иссык-Куля',
       days: '6 дней',
       text: 'Первый раз ехали на автодоме. За шесть дней прошли северный берег, Каракол и южную часть озера. Больше всего переживали за размер машины',
+      pics: 'kirill',
     },
   ];
 
@@ -388,6 +392,7 @@
       slot.querySelector('[data-review-trip]').textContent = r.trip;
       slot.querySelector('[data-review-days]').textContent = r.days;
       slot.querySelector('[data-review-text]').textContent = r.text;
+      slot.querySelectorAll('[data-pics]').forEach((img) => { img.hidden = img.dataset.pics !== r.pics; });
     });
   };
 
@@ -797,12 +802,13 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
     // имя и телефон — сообщение прямо под полями, незаполненное поле подсвечиваем
     const bad = [];
     let contactMsg = '';
-    const phoneShort = phone && phone.replace(/\D/g, '').length < 10;
+    // в поле можно написать телефон или Telegram: есть буквы — это ник/ссылка Telegram, цифры не считаем
+    const phoneShort = phone && !/\p{L}/u.test(phone) && phone.replace(/\D/g, '').length < 10;
     if (!name && !phone) {                       // ничего не заполнено
-      contactMsg = 'Укажите имя и телефон, чтобы мы могли связаться с вами.';
+      contactMsg = 'Укажите имя и телефон или Telegram, чтобы мы могли связаться с вами.';
       bad.push(form.elements.name, form.elements.phone);
     } else if (!phone) {                         // есть только имя
-      contactMsg = 'Укажите телефон, чтобы мы могли связаться с вами.';
+      contactMsg = 'Укажите телефон или Telegram, чтобы мы могли связаться с вами.';
       bad.push(form.elements.phone);
     } else if (!name && phoneShort) {            // нет имени, а номер слишком короткий
       contactMsg = 'Укажите имя и проверьте номер — в нем должно быть не меньше 10 цифр.';
@@ -919,7 +925,6 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
   const stagger = (sel, list) => document.querySelectorAll(sel).forEach((el, i) => {
     if (list[i] !== undefined) el.style.setProperty('--rd', `${list[i]}s`);
   });
-  stagger('.first-step', [0.2, 0.35, 0.5, 0.65]);
   stagger('.faq-item', [0.25, 0.55, 0.85]);       // анимация 8: вопросы по очереди
   stagger('.faq__divider', [0.45, 0.75, 1.05]);   // …и линия под каждым сразу после него
 
@@ -929,6 +934,44 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
     entries.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
   }, { threshold: 0.2 });
   sections.forEach((s) => io.observe(s));
+})();
+
+/* ---------- 7а. «Первый раз за рулем»: значки 01 → 04 появляются по мере прокрутки ----------
+   Значок вместе со своим текстом появляется, когда сам поднялся над нижней частью экрана
+   (на 15% выше нижнего края). Порядок всегда сверху вниз: если значок ниже уже на экране,
+   а верхние еще не показаны (например, страницу открыли сразу на этом месте), — сначала
+   показываем верхние, по очереди с шагом 0,35 с. Стили — .is-shown в css/style.css. */
+(function firstSigns() {
+  if (!document.documentElement.classList.contains('reveal-on')) return;
+  const signs = [1, 2, 3, 4].map((n) => [...document.querySelectorAll(`.first [data-sign="${n}"]`)]);
+  if (!signs[0].length) return;
+  const STEP = 350; // мс между соседними значками
+  let shown = 0;    // сколько значков (по порядку) уже показано
+  let lastAt = 0;   // когда начал появляться последний показанный
+
+  function showUpTo(n) {
+    while (shown < n) {
+      const now = performance.now();
+      const delay = Math.max(0, lastAt + STEP - now);
+      lastAt = now + delay;
+      signs[shown].forEach((el) => {
+        el.style.setProperty('--rd', `${(delay / 1000).toFixed(2)}s`);
+        el.classList.add('is-shown');
+      });
+      shown += 1;
+    }
+  }
+
+  if (!('IntersectionObserver' in window)) { showUpTo(4); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      showUpTo(Number(e.target.dataset.sign));
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -15% 0px' });
+  // следим за самими значками (текст показывается вместе со своим значком)
+  document.querySelectorAll('.first .first__stamp[data-sign]').forEach((el) => io.observe(el));
 })();
 
 /* ---------- 8. Значки-указатели в блоке «Первый раз за рулем» ----------

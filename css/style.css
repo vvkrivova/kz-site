@@ -86,9 +86,10 @@ body { overflow: clip; }
 .header__logo img { width: 84px; height: 56px; object-fit: cover; }
 .header__phone { left: 1137px; top: 52px; font: 600 16px/normal var(--font-body); color: var(--sand); white-space: nowrap; }
 .header__social img { width: 100%; height: 100%; object-fit: cover; }
-.header__social--ig { left: 1299px; top: 49px; width: 27px; height: 27px; }
-.header__social--wa { left: 1328px; top: 50px; width: 24px; height: 24px; }
-.header__social--tg { left: 1354px; top: 48px; width: 28px; height: 28px; }
+/* иконки из одного набора (новый макет): одинаковый размер и шаг */
+.header__social--ig { left: 1304px; top: 49px; width: 24px; height: 25px; }
+.header__social--wa { left: 1334px; top: 49px; width: 24px; height: 25px; }
+.header__social--tg { left: 1364px; top: 49px; width: 24px; height: 25px; }
 
 .hero__title {
   left: 58px; top: 294px; width: 728px;
@@ -357,7 +358,7 @@ body { overflow: clip; }
   left: 229px; top: 70px; width: 981px; text-align: center;
   font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: var(--ink);
 }
-.reviews__label { left: 95.09px; top: 120.95px; width: 167px; height: 117px; object-fit: cover; transform: rotate(-10.27deg); }
+.reviews__label { left: 1175.09px; top: 156.95px; width: 167px; height: 117px; object-fit: cover; transform: rotate(-10.27deg); }
 
 .review { inset: 0; pointer-events: none; }
 .review > * { position: absolute; }
@@ -384,16 +385,18 @@ body { overflow: clip; }
 }
 .review__more:hover { text-decoration: underline; }
 
-.review--a .review__photo-1 { left: 297.00px; top: 324.89px; width: 318.75px; height: 305.08px; transform: rotate(12.1deg); }
-.review--a .review__photo-2 { left: 87.06px; top: 271.00px; width: 265px; height: 253px; }
-.review--a .review__stamp-round { left: 245.78px; top: 468.88px; width: 100.59px; height: 96.81px; transform: rotate(-7.77deg); }
-.review--a .review__stamp-red { left: 578.88px; top: 313.67px; width: 81.8px; height: 89.5px; transform: rotate(21.93deg); }
-.review--a .review__stamp-horses { left: 300.86px; top: 276.69px; width: 133.16px; height: 79.64px; transform: rotate(-7.82deg); }
-.review--b .review__photo-1 { left: 981.31px; top: 307.80px; width: 335.01px; height: 320.64px; transform: rotate(12.1deg); }
-.review--b .review__photo-2 { left: 761.06px; top: 252.00px; width: 277px; height: 266px; }
-.review--b .review__stamp-round { left: 932.79px; top: 468.88px; width: 100.59px; height: 96.81px; transform: rotate(-7.77deg); }
-.review--b .review__stamp-red { left: 1265.88px; top: 313.67px; width: 81.8px; height: 89.5px; transform: rotate(21.93deg); }
-.review--b .review__stamp-horses { left: 987.86px; top: 276.69px; width: 133.16px; height: 79.64px; transform: rotate(-7.82deg); }
+/* фото и марки отзыва: у каждого отзыва свой набор и свое расположение (координаты — для левой карточки),
+   в правой карточке тот же набор сдвинут на расстояние между карточками (749 − 62 = 687px) */
+.review__pic[hidden] { display: none; }
+.review--b .review__pic { translate: 687px 0; }
+.review__pic--lake { left: 66.61px; top: 213.55px; width: 348.86px; height: 348.86px; transform: rotate(7.96deg); }
+.review__pic--friends { left: 296px; top: 295px; width: 345px; height: 345px; transform: rotate(2.13deg); }
+.review__pic--round-f { left: 36.09px; top: 245.36px; width: 100.59px; height: 96.81px; transform: rotate(-7.77deg); }
+.review__pic--horses { left: 345.8px; top: 308.69px; width: 133.16px; height: 79.64px; transform: rotate(-7.82deg); }
+.review__pic--camels { left: 68.13px; top: 201.13px; width: 310px; height: 310px; transform: rotate(-18.48deg); }
+.review__pic--fisher { left: 285.24px; top: 318.24px; width: 363px; height: 363px; transform: rotate(10.72deg); }
+.review__pic--round-k { left: 245.79px; top: 468.88px; width: 100.59px; height: 96.81px; transform: rotate(-7.77deg); }
+.review__pic--red { left: 610.75px; top: 315.04px; width: 81.8px; height: 89.5px; transform: rotate(21.93deg); }
 
 .reviews__arrow {
   display: grid; place-items: center; width: 40px; height: 40px; padding: 0;
@@ -423,8 +426,13 @@ body { overflow: clip; }
 .reviews.is-entering .review__card :is([data-review-name], [data-review-trip], [data-review-days], [data-review-text]) {
   opacity: 0; translate: calc(var(--rev-dir, 1) * 22px) 0; transition: none;
 }
+/* фото и марки отзыва гаснут и появляются вместе с текстом */
+.review__pic { transition: opacity .45s ease-out; transition-delay: var(--rev-slot, 0ms); }
+.reviews.is-leaving .review__pic { opacity: 0; transition: opacity .22s ease-in; }
+.reviews.is-entering .review__pic { opacity: 0; transition: none; }
 @media (prefers-reduced-motion: reduce) {
-  .review__card :is([data-review-name], [data-review-trip], [data-review-days], [data-review-text]) {
+  .review__card :is([data-review-name], [data-review-trip], [data-review-days], [data-review-text]),
+  .review__pic {
     transition: none !important; translate: none !important;
   }
 }
@@ -493,7 +501,7 @@ body { overflow: clip; }
 /* =========================================================
    7. СОБЕРЁМ ПОЕЗДКУ ПОД ВАС (форма в 3 шага)
    ========================================================= */
-.trip .stage { background: var(--beige); }
+.trip .stage { height: 1140px; background: var(--beige); } /* подвал: 100px ниже полосок шагов формы (850) + 190px */
 .trip__bg { left: -48px; top: -1342px; width: 1510px; height: 2684px; object-fit: cover; }
 .trip__topo { left: -106.54px; top: -100.69px; width: 769.16px; height: 243.07px; overflow: hidden; opacity: .85; transform: rotate(10.22deg); }
 .trip__topo img { left: 0; top: -122.22%; width: 100%; height: 222.22%; }
@@ -820,6 +828,8 @@ body { overflow: clip; }
   transition: opacity .22s ease, translate .22s ease, scale .22s ease;
 }
 .calendar.is-open { opacity: 1; translate: 0 0; scale: 1; }
+/* пока календарь открыт, форма «Соберем поездку» поднимается над марками и фото блока — иначе они лежат поверх календаря */
+.trip-form:has(.calendar:not([hidden])) { z-index: 5; }
 
 /* стрелки месяцев — поверх заголовков месяцев, иначе заголовок перехватывает клик */
 .calendar__nav { z-index: 2; }
@@ -943,7 +953,7 @@ html.hero-play .hero__stamp-round  { animation: hero-drop .7s cubic-bezier(.2, .
    ========================================================= */
 html.reveal-on .section:not(.is-revealed) :is(
   .formats__title, .format-card, .format-btn,
-  .first__title, .first-step,
+  .first__title,
   .routes__title, .routes__text, .route-card,
   .reviews__title, .review,
   .faq__title, .faq__sub, .faq__note, .faq-item, .faq__divider, .faq__more, .faq__more-line, .faq__ask, .faq__ask-btn,
@@ -952,7 +962,7 @@ html.reveal-on .section:not(.is-revealed) :is(
 
 .section.is-revealed :is(
   .formats__title, .format-card, .format-btn,
-  .first__title, .first-step,
+  .first__title,
   .routes__title, .routes__text, .route-card,
   .reviews__title, .review,
   .faq__title, .faq__sub, .faq__note, .faq-item, .faq__more, .faq__more-line, .faq__ask, .faq__ask-btn,
@@ -967,6 +977,18 @@ html.reveal-on .section:not(.is-revealed) :is(
 .format-card--fishing, .format-btn--fishing { --rd: .41s; }
 
 .first__title { --rd: 0s; }
+/* значки-указатели 01 → 04 вместе со своим текстом появляются не со всем блоком, а каждый —
+   когда сам доходит до экрана (класс is-shown ставит js/main.js), строго по порядку сверху вниз;
+   каждый мягко «опускается» на свое место. Качание при наведении добавлено второй анимацией
+   в список — так появление не начинается заново */
+html.reveal-on .first-step:not(.is-shown),
+html.reveal-on .first__stamp:not(.is-shown) { opacity: 0; }
+.first-step.is-shown,
+.first__stamp.is-shown { animation: sign-drop 1s cubic-bezier(.2, .7, .2, 1) var(--rd, 0s) backwards; }
+.first__stamp.is-shown.is-swaying {
+  animation: sign-drop 1s cubic-bezier(.2, .7, .2, 1) var(--rd, 0s) backwards, sign-sway .95s cubic-bezier(.3, .6, .3, 1);
+}
+@keyframes sign-drop { from { opacity: 0; translate: 0 -26px; } }
 /* задержки шагов, вопросов и разделителей ставит js/main.js — по их порядку на странице */
 
 .routes__title { --rd: 0s; } .routes__text { --rd: .12s; } .route-card { --rd: .25s; }
@@ -1111,7 +1133,7 @@ html.reveal-on [data-reveal]:not(.is-in) { opacity: 0; }
 .trip__photo        { scale: .86; margin: -12px 0 0 -62.4px; }
 .trip__stamp-red    { scale: .86; margin: -26.1px 0 0 59.5px; }
 .trip__stamp-horses { scale: .86; margin: -62.9px 0 0 -64px; }
-.trip__photo-bw     { scale: .86; margin: -83.5px 0 0 70.4px; }
+.trip__photo-bw     { scale: .86; margin: -83.5px 0 0 40.4px; } /* на 30px левее расчетного места — не заходит на белые плашки формы */
 
 /* --- 4. Блоки с однотонным фоном: содержимое собрано к центру и на 10% меньше,
        по бокам больше фона; узоры (линии, горы, компас) — во всю ширину, как были --- */
@@ -1136,7 +1158,7 @@ html.reveal-on [data-reveal]:not(.is-in) { opacity: 0; }
 .reviews__title { scale: .72; transform-origin: 50% 0; margin-top: 17.7px; }
 /* мазок под заголовком и печать «Реальный опыт» уменьшаются вместе с заголовком и остаются на своих местах относительно него */
 .reviews__brush { scale: .72; margin: -12.7px 0 0 40px; }
-.reviews__label { scale: .72; margin: -13px 0 0 151.5px; } /* уменьшен как заголовок — стоит относительно него как в макете */
+.reviews__label { scale: .72; margin: -23px 0 0 -150.9px; } /* уменьшен как заголовок — стоит относительно него как в макете */
 /* фото и карточки отзывов подняты на 60px ближе к заголовку, блок на 60px короче (было 1024px);
    высоту блока при раскрытии отзыва js/main.js берет отсюда */
 .reviews .stage { height: 964px; }
@@ -1157,6 +1179,45 @@ html.reveal-on [data-reveal]:not(.is-in) { opacity: 0; }
 .faq__ask { scale: .9; margin: -14px 0 0 -38.8px; }
 .faq__ask-btn { scale: .9; margin: -13.8px 0 0 -58.3px; }
 .faq__route { scale: .9; margin: -12.2px 0 0 47.9px; }
+/* под кнопками «Смотреть еще вопросы» на 60px меньше пустого фона — следующий блок
+   «Соберем поездку под вас» целиком (заголовок, форма, марки, горы) поднимается на 60px (было 1024px) */
+.faq .stage { height: 964px; }
+/* узор из линий внизу «Остались вопросы?» продолжается вверху «Соберем поездку под вас» (как в макете).
+   Блок выше стал 964px, поэтому продолжение — та же картинка в том же месте, что .faq__topo, но на 964px выше:
+   623.75 − 964 = −340.25px. Без этого линии на стыке обрываются и не совпадают */
+.trip__topo { left: -80.69px; top: -340.25px; height: 546px; }
+.trip__topo img { top: 0; height: 100%; }
 .faq__photo        { scale: .792; margin: -4.7px 0 0 42.4px; }
 .faq__stamp-horses { scale: .792; margin: -9.4px 0 0 51.4px; }
 .faq__stamp-round  { scale: .792; margin: -5.7px 0 0 51.4px; }
+
+/* ---------- Подвал (одинаковый на всех страницах) ----------
+   Стоит внизу последнего блока страницы (.footer внутри его .stage); высота подвала 190px,
+   над ним ~100px от последней плашки/текста — высота блока подобрана для каждой страницы в ее css.
+   Расположение — как в макете (страницы «Вопросы» и «Путешествия»), размеры уменьшены.
+   footer--light — на светлом фоне (оранжевый логотип, черный текст), footer--dark — на темном.
+   */
+.footer { left: 0; right: 0; top: auto; bottom: 0; height: 190px; z-index: 3; color: #000; }
+.footer--dark { color: var(--sand); }
+.footer > * { position: absolute; }
+/* шрифт, логотип и иконки меньше, чем в макете (24px, 87px, 45px), — так спокойнее и гармоничнее */
+.footer__logo { left: 83px; top: 0; }
+.footer__logo img { display: block; width: auto; height: 52px; }
+.footer__phone { left: 81px; top: 68px; font: 600 16px/22px var(--font-body); color: inherit; white-space: nowrap; }
+.footer__mail { left: 81px; top: 94px; font: 600 16px/22px var(--font-body); color: inherit; white-space: nowrap; }
+.footer__social { left: 80px; top: 126px; display: flex; gap: 8px; }
+.footer__social a { display: block; width: 28px; height: 30px; transition: translate .2s ease; }
+.footer__social img { display: block; width: 100%; height: 100%; }
+.footer__social a:hover, .footer__social a:focus-visible { translate: 0 -2px; }
+.footer__links {
+  right: 78px; top: 68px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+  font: 400 16px/22px var(--font-body); white-space: nowrap;
+}
+/* строки справа на одной линии со строками слева (как в макете): «Политика» — с телефоном, «Оферта» — с почтой,
+   копирайт заканчивается на одной линии с иконками — низ подвала ровный (иконки 126–156px, копирайт 134–156) */
+.footer__links span { margin-top: 14px; }
+.footer__links a, .footer__phone, .footer__mail { text-decoration: none; }
+.footer__links a { color: inherit; }
+.footer__links a:hover, .footer__links a:focus-visible, .footer__phone:hover, .footer__phone:focus-visible,
+.footer__mail:hover, .footer__mail:focus-visible { text-decoration: underline; }
+@media (prefers-reduced-motion: reduce) { .footer__social a { transition: none; } }

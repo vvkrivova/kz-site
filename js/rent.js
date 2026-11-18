@@ -39,7 +39,7 @@ const rentSearch = (function () {
     onApply(from, to) {
       showDates(from, to);
       RentStore.update((s) => { s.from = RentStore.toKey(from); s.to = RentStore.toKey(to); });
-      applyAvailability();
+      criteriaChanged();
       if (onDates) { const next = onDates; onDates = null; setTimeout(next, 250); }
     },
   });
@@ -67,7 +67,7 @@ const rentSearch = (function () {
   }
   const paintGuests = () => dd.classList.toggle('is-empty', !guestsInput.value);
   paintGuests();
-  // доступность автодомов считаем после того, как карточки размечены (см. ниже, cars())
+  // при возврате «Назад» результаты поиска показываем сразу — после того, как карточки размечены (см. ниже, cars())
 
   // гости: список пишет выбранное в скрытое поле — следим за подписью кнопки
   new MutationObserver(() => {
@@ -75,7 +75,7 @@ const rentSearch = (function () {
     guestsInput.value = ddValue.textContent.trim(); // на случай, если подпись сменилась раньше поля
     paintGuests();
     save();
-    applyAvailability();
+    criteriaChanged();
     if (onGuests) { const next = onGuests; onGuests = null; setTimeout(next, 250); }
   }).observe(ddValue, { childList: true, characterData: true, subtree: true });
   // список закрыли, так ничего и не выбрав, — переход отменяется
@@ -104,106 +104,270 @@ const rentSearch = (function () {
     done();
   };
 
-  // --- «Найти»: по очереди спрашиваем даты, гостей и автодом, затем — «Соберите автодом под себя»
+  // --- «Найти»: по очереди спрашиваем даты и гостей, затем показываем свободные автодома
   const hint = form.querySelector('[data-rs-hint]');
   const showHint = (text) => {
     hint.textContent = text;
     hint.hidden = false;
     hint.classList.remove('is-flash'); void hint.offsetWidth; hint.classList.add('is-flash');
   };
+  const hideHint = () => { hint.hidden = true; };
+  // искать сам сайт не начинает — поднимаем к поиску и подсвечиваем «Найти» (подсказка — только если передана)
+  const findBtn = form.querySelector('.rs-find');
+  const askFind = (text) => toSearch(() => {
+    if (text) showHint(text); else hideHint();
+    findBtn.classList.remove('is-flash'); void findBtn.offsetWidth; findBtn.classList.add('is-flash');
+    findBtn.focus({ preventScroll: true });
+  });
+  // плавно подвезти к результатам поиска
+  const toResults = () => {
+    const top = Math.round(document.getElementById('cars').getBoundingClientRect().top + window.scrollY);
+    window.scrollTo({ top: Math.max(0, top - 90), behavior: reduce ? 'auto' : 'smooth' });
+  };
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     save();
-    hint.hidden = true;
-    setTimeout(() => require(() => {
-      if (RentStore.get().car) { window.location.href = form.getAttribute('action'); return; }
-      // автодом не выбран — показываем карточки и подсвечиваем кнопки «Выбрать» у подходящих
-      const free = document.querySelectorAll('.car:not(.is-off) .car__choose');
-      showHint(free.length ? 'Выберите автодом ниже' : 'На эти даты свободных автодомов нет — попробуйте другие даты');
-      // если кнопок «Выбрать» не видно на экране — плавно подвозим к ним
-      const firstBtn = document.querySelector('.car__choose').getBoundingClientRect();
-      if (firstBtn.bottom > window.innerHeight || firstBtn.top < 0) {
-        const top = Math.round(document.getElementById('cars').getBoundingClientRect().top + window.scrollY);
-        window.scrollTo({ top: Math.max(0, top - 80), behavior: reduce ? 'auto' : 'smooth' });
-      }
-      free.forEach((btn, i) => {
-        btn.classList.remove('is-call'); void btn.offsetWidth;
-        btn.style.setProperty('--ci', i);
-        btn.classList.add('is-call');
-      });
-    }), 0);
+    hideHint();
+    setTimeout(() => require(() => { runSearch(); toResults(); }), 0);
   });
 
   return {
     save,
     require,
     showHint,
-    carChosen: () => { hint.hidden = true; },
+    hideHint,
+    askFind,
+    toResults,
+    datesText: () => (calendar.range ? datesValue.textContent : ''),
+    // подставить даты (например, ближайшие свободные из карточки занятого автодома)
+    setDates(from, to) {
+      calendar.set(from, to);
+      showDates(from, to);
+      RentStore.update((s) => { s.from = RentStore.toKey(from); s.to = RentStore.toKey(to); });
+    },
   };
 }());
 
-/* ---------- 2. Карточки автодомов ---------- */
-// отметка выбранного автодома на кнопках и карточках
-function paintCars() {
-  const chosen = (RentStore.get().car || {}).id;
-  document.querySelectorAll('.car').forEach((card) => {
-    const on = card.dataset.car === chosen;
-    const btn = card.querySelector('[data-choose]');
-    card.classList.toggle('is-chosen', on);
-    btn.setAttribute('aria-pressed', String(on));
-    btn.innerHTML = on ? '<svg viewBox="0 0 12 10" fill="none" aria-hidden="true"><path d="M1 5.5 4.3 8.5 11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Выбрано' : 'Выбрать';
-    btn.title = on ? 'Нажмите еще раз, чтобы отменить выбор' : '';
-    btn.classList.remove('is-call');
-  });
-}
-// приписка над кнопкой: выбрать можно только один автодом
-function note(btn, text) {
-  btn.dataset.note = text;
-  btn.classList.remove('is-noting'); void btn.offsetWidth; btn.classList.add('is-noting');
-  clearTimeout(btn.noteTimer);
-  btn.noteTimer = setTimeout(() => btn.classList.remove('is-noting'), 3200);
-}
-function noteOnly(btn, name) { note(btn, `Можно выбрать только один автодом. Сначала отмените «${name}»`); }
-const offNote = (card) => `${card.dataset.off}. Выберите другие даты или другой автодом`;
-
-/* ---------- 2.1. Свободные автодома ----------
-   Когда выбраны даты и количество гостей, подходящие автодома стоят первыми, а занятые на эти даты
-   или слишком маленькие — в конце списка, серыми, с пометкой; выбрать их нельзя.
+/* ---------- 2. Автодома и поиск свободных ----------
+   До поиска видны все автодома — можно листать фото и читать описание; цена «от 250 $ / сутки».
+   «Найти» (после дат и количества гостей), как в системах бронирования отелей:
+   — сверху «Свободны на ваши даты»: у карточки цена за весь срок («1 000 $ за 4 ночи») и «Забронировать»;
+     «Забронировать» открывает окошко-итог: «Оформить бронирование» → «Соберите автодом под себя»;
+   — ниже отдельный блок «Не подошли под ваш запрос»: серые карточки с причиной, а у занятых —
+     ближайшие свободные даты той же длины; нажатие подставляет их в поиск.
+   Сам поиск — только по кнопке «Найти» (кроме возврата «Назад»: тогда показываем прежние результаты).
+   Если даты или гостей поменяли вручную — результаты убираются, пока снова не нажмут «Найти».
+   Порядок групп задается свойством order в сетке .cars (карточки в разметке не переставляются).
    Вместимость и занятые даты — в js/rent-availability.js. */
+const NEXT_PAGE = 'rent-extras.html'; // следующий шаг — «Соберите автодом под себя»
+const carsBox = document.getElementById('cars');
+const DAY = 86400000;
 const guestsCount = () => parseInt(RentStore.get().guests, 10) || 0;
 const searchReady = () => Boolean(RentStore.dates() && guestsCount());
-function applyAvailability() {
-  const data = window.RENT_CARS || {};
+const nightsBetween = (a, b) => Math.round((b - a) / DAY);
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+const guestsWord = (n) => RentStore.plural(n, 'гость', 'гостя', 'гостей'); // 1 гость, 2 гостя, 5 гостей
+const nightsWord = (n) => RentStore.plural(n, 'ночь', 'ночи', 'ночей');
+const MONTHS = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+const dayMonth = (d) => `${d.getDate()} ${MONTHS[d.getMonth()]}`;
+// «с 10 по 14 декабря» или «с 29 декабря по 2 января»
+const fromTo = (a, b) => `с ${a.getMonth() === b.getMonth() ? a.getDate() : dayMonth(a)} по ${dayMonth(b)}`;
+const MON = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+// «12 — 16 дек» или «29 дек — 2 янв»
+const shortRange = (a, b) => (a.getMonth() === b.getMonth() ? `${a.getDate()} — ${b.getDate()} ${MON[b.getMonth()]}`
+  : `${a.getDate()} ${MON[a.getMonth()]} — ${b.getDate()} ${MON[b.getMonth()]}`);
+let searched = false; // результаты поиска сейчас на экране
+
+const carInfo = (card) => (window.RENT_CARS || {})[card.dataset.car] || {};
+const busyRanges = (card) => (carInfo(card).busy || []).map(([a, b]) => [RentStore.fromKey(a), RentStore.fromKey(b)]).filter(([a, b]) => a && b);
+// пересечение с занятым периодом; день выезда уже свободен
+const busyOn = (card, from, to) => busyRanges(card).find(([a, b]) => from < b && to > a);
+
+// почему автодом не подходит: { kind: 'seats' | 'busy', text } или null
+function carReason(card, dates, n) {
+  const seats = carInfo(card).seats;
+  if (seats && n > seats) return { kind: 'seats', text: `Вмещает до ${seats} ${seats === 1 ? 'гостя' : 'гостей'}, а вас ${n}` };
+  const b = busyOn(card, dates.from, dates.to);
+  if (b) return { kind: 'busy', text: `Занят ${fromTo(b[0], b[1])}` };
+  return null;
+}
+
+// ближайшие свободные даты той же длины (до 3 вариантов, не раньше сегодняшнего дня, в пределах 2 месяцев)
+function nearestFree(card, dates) {
+  const len = nightsBetween(dates.from, dates.to);
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const found = [];
+  for (let d = 1; d <= 60 && found.length < 3; d += 1) {
+    [d, -d].forEach((shift) => {
+      const from = addDays(dates.from, shift); const to = addDays(from, len);
+      if (found.length < 3 && from >= today && !busyOn(card, from, to)) found.push([from, to]);
+    });
+  }
+  return found.slice(0, 3).sort((a, b) => a[0] - b[0]);
+}
+
+// заголовки групп в сетке автодомов (создаются один раз)
+function carsHead(kind) {
+  let head = carsBox.querySelector(`[data-cars-head="${kind}"]`);
+  if (!head) {
+    head = document.createElement('div');
+    head.className = `cars-head cars-head--${kind}`;
+    head.dataset.carsHead = kind;
+    head.innerHTML = '<h2 class="cars-head__title"></h2><p class="cars-head__text"></p>';
+    carsBox.append(head);
+  }
+  return head;
+}
+
+// цена и кнопка карточки: до поиска — «от 250 $ / сутки» и «Выбрать», после — сумма за срок и «Забронировать»
+function paintCar(card, nights) {
+  const price = card.querySelector('.car__price');
+  if (!price.dataset.base) price.dataset.base = price.innerHTML;
+  const btn = card.querySelector('[data-choose]');
+  if (nights) {
+    price.innerHTML = `<span class="car__price-sum">${RentStore.money(Number(card.dataset.price) * nights)}</span>`
+      + `<span class="car__price-per">за ${nights} ${nightsWord(nights)}</span>`;
+    btn.textContent = 'Забронировать';
+  } else {
+    price.innerHTML = price.dataset.base;
+    btn.textContent = 'Выбрать';
+  }
+}
+
+// панель занятого автодома: «Нет свободных дат…» и ближайшие свободные даты.
+// Если не подходит по числу гостей — панели нет, причина только на пометке над фото
+function paintAlt(card, reason, dates) {
+  let alt = card.querySelector('.car__alt');
+  if (!reason || reason.kind !== 'busy') { if (alt) alt.remove(); card.style.removeProperty('--alt-h'); return; }
+  if (!alt) { alt = document.createElement('div'); alt.className = 'car__alt'; card.append(alt); }
+  const len = nightsBetween(dates.from, dates.to);
+  const opts = nearestFree(card, dates);
+  alt.innerHTML = `<p class="car__alt-text">Нет свободных дат ${fromTo(dates.from, dates.to)}</p>`
+    + (opts.length ? '<p class="car__alt-sub">Можно забронировать другие даты:</p><div class="car__alt-list">'
+      + opts.map(([a, b]) => `<button class="car__alt-opt" type="button" data-from="${RentStore.toKey(a)}" data-to="${RentStore.toKey(b)}">`
+        + `<b>${shortRange(a, b)}</b><span>${len} ${nightsWord(len)} · ${RentStore.money(Number(card.dataset.price) * len)}</span></button>`).join('')
+      + '</div>' : '<p class="car__alt-sub">В ближайшие два месяца на такой срок занят</p>');
+  card.style.setProperty('--alt-h', `${alt.offsetHeight + 24}px`);
+}
+
+function runSearch() {
   const dates = RentStore.dates();
   const n = guestsCount();
-  const ready = Boolean(dates && n);
-  let chosenOff = false;
+  if (!dates || !n) return;
+  const nights = nightsBetween(dates.from, dates.to);
+  let free = 0; let off = 0;
   document.querySelectorAll('.car').forEach((card) => {
-    const info = data[card.dataset.car] || {};
-    let reason = '';
-    if (ready) {
-      const busy = (info.busy || []).some(([a, b]) => {
-        const from = RentStore.fromKey(a); const to = RentStore.fromKey(b);
-        return from && to && dates.from < to && dates.to > from; // пересечение; день выезда свободен
-      });
-      if (info.seats && n > info.seats) reason = `Вмещает до ${info.seats} ${info.seats === 1 ? 'гостя' : 'гостей'}`;
-      else if (busy) reason = 'Занят на эти даты';
-    }
+    const reason = carReason(card, dates, n);
     card.classList.toggle('is-off', Boolean(reason));
-    card.style.order = reason ? '1' : '';           // неподходящие — в конец списка
-    card.dataset.off = reason;
+    card.style.order = reason ? '3' : '1';
     let badge = card.querySelector('.car__off');
     if (reason) {
       if (!badge) { badge = document.createElement('span'); badge.className = 'car__off'; card.append(badge); }
-      badge.textContent = reason;
+      badge.textContent = reason.text;
     } else if (badge) badge.remove();
-    card.querySelector('[data-choose]').setAttribute('aria-disabled', String(Boolean(reason)));
-    if (reason && (RentStore.get().car || {}).id === card.dataset.car) chosenOff = true;
+    paintCar(card, reason ? 0 : nights);
+    paintAlt(card, reason, dates);
+    if (reason) off += 1; else free += 1;
   });
-  if (chosenOff) { RentStore.update((s) => { delete s.car; }); paintCars(); } // выбранный автодом стал недоступен
+
+  const what = `${rentSearch ? rentSearch.datesText() : ''} · ${nights} ${nightsWord(nights)} · ${n} ${guestsWord(n)}`;
+  const freeHead = carsHead('free');
+  freeHead.style.order = '0';
+  freeHead.querySelector('.cars-head__title').textContent = free ? 'Свободны на ваши даты' : 'Свободных автодомов нет';
+  freeHead.querySelector('.cars-head__text').textContent = what;
+  const offHead = carsHead('off');
+  offHead.style.order = '2';
+  offHead.hidden = !off || !free; // свободных нет — второй заголовок не нужен
+  offHead.querySelector('.cars-head__title').textContent = 'Не подошли под ваш запрос';
+  offHead.querySelector('.cars-head__text').textContent = 'Причина и ближайшие свободные даты — на карточке';
+  carsBox.classList.add('is-searched');
+  searched = true;
+  if (rentSearch) rentSearch.hideHint();
 }
+
+function clearSearch() {
+  document.querySelectorAll('.car').forEach((card) => {
+    card.classList.remove('is-off');
+    card.style.order = '';
+    const badge = card.querySelector('.car__off');
+    if (badge) badge.remove();
+    paintCar(card, 0);
+    paintAlt(card, null);
+  });
+  carsBox.querySelectorAll('[data-cars-head]').forEach((h) => h.remove());
+  carsBox.classList.remove('is-searched');
+  searched = false;
+}
+
+// даты или гости изменились вручную: старые результаты убираем и просим нажать «Найти»
+function criteriaChanged() {
+  if (!searched) return;
+  clearSearch();
+  if (rentSearch && searchReady()) rentSearch.showHint('Нажмите «Найти», чтобы обновить список');
+}
+
+/* ---------- 2.1. Окошко-итог «Забронировать» ----------
+   Автодом, даты, гости, аренда за срок и итог; «Оформить бронирование» запоминает автодом
+   и ведет на «Соберите автодом под себя». Закрыть: «Вернуться к выбору», крестик, фон или Esc. */
+const bookModal = (function () {
+  const box = document.createElement('div');
+  box.className = 'rent-modal';
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-modal', 'true');
+  box.setAttribute('aria-labelledby', 'rent-modal-title');
+  box.innerHTML = `
+    <div class="rent-modal__card">
+      <button class="rent-modal__close" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2 class="rent-modal__title" id="rent-modal-title">Ваше бронирование</h2>
+      <p class="rent-modal__car" data-m-car></p>
+      <dl class="rent-modal__rows">
+        <div><dt>Даты</dt><dd data-m-dates></dd></div>
+        <div><dt>Гости</dt><dd data-m-guests></dd></div>
+        <div><dt data-m-rent-label>Аренда</dt><dd data-m-rent></dd></div>
+      </dl>
+      <p class="rent-modal__total"><span>Итого</span><b data-m-total></b></p>
+      <p class="rent-modal__note">Снаряжение и дополнительные услуги можно добавить на следующем шаге</p>
+      <div class="rent-modal__btns">
+        <a class="rent-modal__go" href="${NEXT_PAGE}" data-m-go>Оформить бронирование</a>
+        <button class="rent-modal__back" type="button" data-m-back>Вернуться к выбору</button>
+      </div>
+    </div>`;
+  document.body.append(box);
+  const $ = (q) => box.querySelector(q);
+  let card = null; let lastFocus = null;
+
+  function open(c) {
+    card = c; lastFocus = document.activeElement;
+    const dates = RentStore.dates(); const n = guestsCount();
+    const nights = nightsBetween(dates.from, dates.to);
+    const price = Number(card.dataset.price);
+    $('[data-m-car]').textContent = `Автодом ${card.dataset.name}`;
+    $('[data-m-dates]').textContent = `${dates.from.getMonth() === dates.to.getMonth() ? dates.from.getDate() : dayMonth(dates.from)} — ${dayMonth(dates.to)}, ${nights} ${nightsWord(nights)}`;
+    $('[data-m-guests]').textContent = `${n} ${guestsWord(n)}`;
+    $('[data-m-rent-label]').textContent = `${RentStore.money(price)} × ${nights} ${nightsWord(nights)}`;
+    $('[data-m-rent]').textContent = RentStore.money(price * nights);
+    $('[data-m-total]').textContent = RentStore.money(price * nights);
+    box.classList.add('is-open');
+    document.documentElement.style.overflow = 'hidden';
+    $('[data-m-go]').focus({ preventScroll: true });
+  }
+  function close() {
+    box.classList.remove('is-open');
+    document.documentElement.style.overflow = '';
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
+  }
+  $('[data-m-go]').addEventListener('click', () => {
+    RentStore.update((s) => { s.car = { id: card.dataset.car, name: card.dataset.name, price: Number(card.dataset.price) }; });
+  });
+  $('[data-m-back]').addEventListener('click', close);
+  $('.rent-modal__close').addEventListener('click', close);
+  box.addEventListener('click', (e) => { if (e.target === box) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('is-open')) close(); });
+  return { open };
+}());
+
+/* ---------- 2.2. Карточки: фото, «Подробнее», «Выбрать» / «Забронировать» ---------- */
 (function cars() {
-  paintCars();
   document.querySelectorAll('.car').forEach((card) => {
     // фото: стрелка листает ленту по одному фото; на последнем стрелка поворачивается и возвращает к первому
     const next = card.querySelector('[data-gallery-next]');
@@ -232,35 +396,29 @@ function applyAvailability() {
       label.textContent = open ? 'Скрыть описание' : 'Подробнее';
     });
 
-    // «Выбрать»: отмечаем автодом, остаемся на странице. Выбрать можно только один —
-    // при попытке выбрать второй появляется приписка; повторное нажатие на «Выбрано» снимает выбор
+    // «Выбрать» до поиска: спрашиваем даты и гостей и просим нажать «Найти» (сам поиск — только по кнопке);
+    // «Забронировать» после поиска — окошко-итог
     const choose = card.querySelector('[data-choose]');
     choose.addEventListener('click', () => {
-      // сначала даты и количество гостей: спрашиваем по очереди, потом пробуем выбрать этот автодом еще раз
-      if (rentSearch && !searchReady()) {
+      if (!searched && rentSearch) {
         rentSearch.showHint('Сначала выберите даты и количество гостей');
-        rentSearch.require(() => { if (!card.classList.contains('is-off')) choose.click(); else note(choose, offNote(card)); });
+        rentSearch.require(() => rentSearch.askFind());
         return;
       }
-      if (card.classList.contains('is-off')) { note(choose, offNote(card)); return; }
-      const current = RentStore.get().car;
-      if (current && current.id === card.dataset.car) {          // снять выбор
-        RentStore.update((s) => { delete s.car; });
-        paintCars();
-        return;
-      }
-      if (current) {                                              // уже выбран другой
-        noteOnly(choose, current.name);
-        return;
-      }
-      RentStore.update((s) => {
-        s.car = { id: card.dataset.car, name: card.dataset.name, price: Number(card.dataset.price) };
-      });
-      paintCars();
-      if (rentSearch) rentSearch.carChosen();
+      if (!card.classList.contains('is-off')) bookModal.open(card);
+    });
+
+    // ближайшие свободные даты у занятого автодома: подставляем их в поиск и просим нажать «Найти»
+    card.addEventListener('click', (e) => {
+      const opt = e.target.closest('.car__alt-opt');
+      if (!opt || !rentSearch) return;
+      rentSearch.setDates(RentStore.fromKey(opt.dataset.from), RentStore.fromKey(opt.dataset.to));
+      clearSearch();
+      rentSearch.askFind('Даты подставлены — нажмите «Найти»');
     });
   });
-  applyAvailability();
+  // возврат «Назад» со следующего шага: поиск уже был — показываем его результаты такими, как были
+  if (document.documentElement.classList.contains('nav-back') && searchReady()) runSearch();
 })();
 
 /* ---------- 3. Снаряжение: «В корзину» → счетчик «− 1 +» (общая логика — RentStore.cartControls) ---------- */

@@ -150,4 +150,4 @@ html.reveal-on .fish__tag { animation: fish-tag-in .7s cubic-bezier(.3, 1.5, .5,
 /* под заголовком все поднято: текст и карточки с марками — на 87px, форма с марками и линии гор — на 147px;
    под формой оставлено 107px фона, как в макете */
 .fish__lines { margin-top: -147px; }
-.fish .stage { height: 1670px; }   /* было 1921px */
+.fish .stage { height: 1853px; }   /* было 1921px → 1670px; подвал — 100px ниже формы (1563) + 190px */

@@ -23,8 +23,8 @@
       document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20261118m">
-  <link rel="stylesheet" href="css/tour.css?v=20261118a">
+  <link rel="stylesheet" href="css/style.css?v=20261119c">
+  <link rel="stylesheet" href="css/tour.css?v=20261119a">
 </head>
 <body>
 <main class="page">
@@ -71,7 +71,7 @@
             <img class="tday__photo" src="img/tours/day-1-bishkek.webp" alt="Бишкек: мечеть на фоне гор">
             <span class="tday__num">День 1</span>
             <h3 class="tday__title">Бишкек <svg class="tday__arrow" width="34" height="10" viewBox="0 0 34 10" fill="none" aria-hidden="true"><path d="M0 5h33M28.5 1 33 5l-4.5 4" stroke="currentColor" stroke-linejoin="round"/></svg> Иссык-Куль</h3>
-            <p class="tday__text">Встреча, знакомство с&nbsp;Кыргызстаном<br>и переезд на северный берег озера</p>
+            <p class="tday__text">Знакомство с&nbsp;кыргызской кухней в&nbsp;Supara, живописная дорога к&nbsp;Иссык-Кулю и&nbsp;первый вечер на&nbsp;берегу озера</p>
           </article>
           <article class="tday tday--short" data-day="02">
             <span class="tday__num">День 2</span>
@@ -81,15 +81,17 @@
             <img class="tday__photo" src="img/tours/day-4-karakol.webp" alt="Деревянный собор в Караколе">
             <span class="tday__num">День 3</span>
             <h3 class="tday__title">Каракол</h3>
-            <p class="tday__text">Город, культура и горы</p>
+            <p class="tday__text">Знакомство с&nbsp;городом, подъем в&nbsp;горы на&nbsp;канатной дороге и&nbsp;ужин в&nbsp;дунганской семье с&nbsp;приготовлением ашлянфу</p>
           </article>
           <article class="tday tday--short" data-day="04">
             <span class="tday__num">День 4</span>
             <h3 class="tday__title">Ак-Суу</h3>
           </article>
-          <article class="tday tday--short" data-day="05">
+          <article class="tday">
+            <img class="tday__photo tday__photo--top" src="img/tours/day-5-jeti-oguz.webp" alt="Красные скалы Джети-Огуза">
             <span class="tday__num">День 5</span>
             <h3 class="tday__title">Джети-Огуз</h3>
+            <p class="tday__text">Красные скалы Джети-Огуза, причудливые пейзажи каньона Сказка и&nbsp;путешествие вдоль южного берега Иссык-Куля</p>
           </article>
           <article class="tday tday--short" data-day="06">
             <span class="tday__num">День 6</span>
@@ -131,13 +133,28 @@
       <h2 class="tour__cta-title" data-reveal>Готовы к путешествию?</h2>
       <p class="tour__cta-text" data-reveal style="--rd:.1s">Оставьте заявку — подберем подходящие даты, уточним детали и&nbsp;рассчитаем стоимость</p>
       <a class="tour-btn tour-btn--cta" href="trips.html?trip=karakol#custom" data-reveal style="--rd:.2s">Подобрать даты путешествия</a>
+      <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
+      <footer class="footer footer--dark">
+        <a class="footer__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo-footer-dark.webp" alt="Tian Way"></a>
+        <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/social-instagram.webp" alt=""></a>
+          <a href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/social-whatsapp.webp" alt=""></a>
+          <a href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/social-telegram.webp" alt=""></a>
+        </div>
+        <div class="footer__links">
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Публичная оферта</a>
+          <span>© 2026 «Tian Way». Все права защищены</span>
+        </div>
+      </footer>
     </div>
   </section>
 
-  <!-- подвал — в разработке -->
 </main>
 
-<script src="js/main.js?v=20261118l"></script>
+<script src="js/main.js?v=20261118s"></script>
 <script src="js/tour.js?v=20261117k"></script>
 </body>
 </html>

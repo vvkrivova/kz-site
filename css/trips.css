@@ -247,6 +247,6 @@
 .tp-custom__stamp-eagle { scale: .792; margin-left: 126.9px; margin-top: -161.2px; }
 .tp-custom__stamp-tw { scale: .792; margin-left: 28.5px; margin-top: -101.3px; }
 .tp-custom__lines { margin-top: -132px; }
-.tp-custom .stage { height: 880px; }  /* было 1069px: под формой фона примерно как в макете */
+.tp-custom .stage { height: 1026px; } /* подвал — 100px ниже формы (736) + 190px */  /* было 1069px: под формой фона примерно как в макете */
 /* форма чуть меньше (было .846), правый край на прежнем месте */
 .tp-panel { scale: .8; transform-origin: 50% 0; margin-left: -36.1px; }

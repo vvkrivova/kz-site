@@ -5,7 +5,7 @@
    ========================================================= */
 
 /* высота по содержимому: левая карточка растет вместе со списком услуг */
-.rb .stage { height: auto; padding: 305px 0 74px 58px; background: var(--beige); }
+.rb .stage { height: auto; padding: 305px 0 264px 58px; background: var(--beige); } /* снизу — подвал 190px и ~100px над ним */
 .rb-topo { left: -275px; bottom: 0; width: 1956px; height: 440px; object-fit: cover; opacity: .76; pointer-events: none; }
 .rb-title {
   left: 241px; top: 51px; width: 957px; text-align: center;

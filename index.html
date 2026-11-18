@@ -44,7 +44,7 @@
       }, 4000);
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20261118m">
+  <link rel="stylesheet" href="css/style.css?v=20261119c">
 </head>
 <body>
 <main class="page">
@@ -60,9 +60,9 @@
       <header class="header">
         <a class="header__logo" href="#top"><img src="img/logo.webp" alt="Tian Way"></a>
         <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
-        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/icon-instagram.webp" alt=""></a>
-        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/icon-whatsapp.webp" alt=""></a>
-        <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/icon-telegram.webp" alt=""></a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/social-instagram.webp" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/social-whatsapp.webp" alt=""></a>
+        <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/social-telegram.webp" alt=""></a>
       </header>
 
       <h1 class="hero__title">Кыргызстан на автодоме</h1>
@@ -227,6 +227,8 @@
       <img class="reviews__label" src="img/label-real-experience.webp" alt="">
 
       <div class="review review--a" data-review-slot="0">
+        <!-- фото и марки: у каждого отзыва свой набор (data-pics), он переезжает вместе с отзывом — js/main.js -->
+        <img class="review__pic review__pic--lake" data-pics="fishers" src="img/review-lake.webp" alt="Берег горного озера с деревьями">
         <article class="review__card">
           <img class="review__quote" src="img/icon-quote.webp" alt="">
           <h3 class="review__name" data-review-name></h3>
@@ -237,14 +239,18 @@
           <p class="review__text" data-review-text></p>
           <button class="review__more" type="button" data-review-open>Читать отзыв полностью</button>
         </article>
-        <img class="review__photo-1" src="img/review-photo-1.webp" alt="Автодом на горной дороге у заснеженных вершин">
-        <img class="review__photo-2" src="img/review-photo-2.webp" alt="Путешественники у костра на берегу горного озера на закате">
-        <img class="review__stamp-round" src="img/stamp-round-logo.webp" alt="">
-        <img class="review__stamp-red" src="img/stamp-red.webp" alt="">
-        <img class="review__stamp-horses" src="img/stamp-horses.webp" alt="">
+        <img class="review__pic review__pic--friends" data-pics="fishers" src="img/review-friends.webp" alt="Четверо друзей в горах">
+        <img class="review__pic review__pic--round-f" data-pics="fishers" src="img/stamp-round-logo.webp" alt="">
+        <img class="review__pic review__pic--horses" data-pics="fishers" src="img/stamp-horses.webp" alt="">
+        <img class="review__pic review__pic--red" data-pics="kirill" src="img/stamp-red.webp" alt="" hidden>
+        <img class="review__pic review__pic--fisher" data-pics="kirill" src="img/review-fisher.webp" alt="Рыбак с большой рыбой на берегу озера" hidden>
+        <img class="review__pic review__pic--round-k" data-pics="kirill" src="img/stamp-round-logo.webp" alt="" hidden>
+        <img class="review__pic review__pic--camels" data-pics="kirill" src="img/review-camels.webp" alt="Верблюды в степи у гор" hidden>
       </div>
 
       <div class="review review--b" data-review-slot="1">
+        <!-- фото и марки: у каждого отзыва свой набор (data-pics), он переезжает вместе с отзывом — js/main.js -->
+        <img class="review__pic review__pic--lake" data-pics="fishers" src="img/review-lake.webp" alt="Берег горного озера с деревьями" hidden>
         <article class="review__card">
           <img class="review__quote" src="img/icon-quote.webp" alt="">
           <h3 class="review__name" data-review-name></h3>
@@ -255,11 +261,13 @@
           <p class="review__text" data-review-text></p>
           <button class="review__more" type="button" data-review-open>Читать отзыв полностью</button>
         </article>
-        <img class="review__photo-1" src="img/review-photo-1.webp" alt="Автодом на горной дороге у заснеженных вершин">
-        <img class="review__photo-2" src="img/review-photo-2.webp" alt="Путешественники у костра на берегу горного озера на закате">
-        <img class="review__stamp-round" src="img/stamp-round-logo.webp" alt="">
-        <img class="review__stamp-red" src="img/stamp-red.webp" alt="">
-        <img class="review__stamp-horses" src="img/stamp-horses.webp" alt="">
+        <img class="review__pic review__pic--friends" data-pics="fishers" src="img/review-friends.webp" alt="Четверо друзей в горах" hidden>
+        <img class="review__pic review__pic--round-f" data-pics="fishers" src="img/stamp-round-logo.webp" alt="" hidden>
+        <img class="review__pic review__pic--horses" data-pics="fishers" src="img/stamp-horses.webp" alt="" hidden>
+        <img class="review__pic review__pic--red" data-pics="kirill" src="img/stamp-red.webp" alt="">
+        <img class="review__pic review__pic--fisher" data-pics="kirill" src="img/review-fisher.webp" alt="Рыбак с большой рыбой на берегу озера">
+        <img class="review__pic review__pic--round-k" data-pics="kirill" src="img/stamp-round-logo.webp" alt="">
+        <img class="review__pic review__pic--camels" data-pics="kirill" src="img/review-camels.webp" alt="Верблюды в степи у гор">
       </div>
 
       <button class="reviews__arrow reviews__arrow--next" type="button" data-review-next aria-label="Следующий отзыв"><img src="img/svg/arrow-right-long.svg" alt=""></button>
@@ -376,7 +384,7 @@
           <div class="trip-box" style="left:401px; top:548px; width:611px; height:149px; border-radius:20px;">
             <b class="trip-box__title" style="top:22.6px;">Контактные данные</b>
             <label class="trip-input" style="left:21px; top:69px; width:193px;"><input type="text" name="name" placeholder="Имя" autocomplete="name"></label>
-            <label class="trip-input" style="left:227px; top:69px; width:247px;"><input type="tel" name="phone" placeholder="Телефон" autocomplete="tel"></label>
+            <label class="trip-input" style="left:227px; top:69px; width:247px;"><input type="text" name="phone" placeholder="Телефон или Telegram" autocomplete="tel"></label>
             <p class="trip-field-error" data-contact-error role="alert" hidden></p>
           </div>
 
@@ -422,6 +430,22 @@
 
       <img class="trip__stamp-horses" src="img/stamp-horses.webp" alt="">
       <div class="trip__photo-bw"><img src="img/photo-bw-horses.webp" alt=""></div>
+      <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
+      <footer class="footer footer--dark">
+        <a class="footer__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo-footer-dark.webp" alt="Tian Way"></a>
+        <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/social-instagram.webp" alt=""></a>
+          <a href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/social-whatsapp.webp" alt=""></a>
+          <a href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/social-telegram.webp" alt=""></a>
+        </div>
+        <div class="footer__links">
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Публичная оферта</a>
+          <span>© 2026 «Tian Way». Все права защищены</span>
+        </div>
+      </footer>
     </div>
   </section>
 
@@ -434,9 +458,8 @@
     <div class="ov-clouds"><img src="img/clouds-set.webp" alt=""></div>
   </div>
 
-  <!-- подвал — в разработке -->
 </main>
 
-<script src="js/main.js?v=20261118l"></script>
+<script src="js/main.js?v=20261118s"></script>
 </body>
 </html>
