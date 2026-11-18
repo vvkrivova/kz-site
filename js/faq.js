@@ -20,7 +20,12 @@
     let y = 0;
     for (let el = panel; el && el !== page; el = el.offsetParent) y += el.offsetTop;
     const scale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--page-scale')) || 1;
-    return { top: y * scale, height: panel.offsetHeight * scale };
+    // плашка уменьшена свойством scale (css/faq.css, «больше воздуха») — берем ее видимый размер
+    const cs = getComputedStyle(panel);
+    const own = parseFloat(cs.scale) || 1;
+    const oy = parseFloat(cs.transformOrigin.split(' ')[1]) || 0;
+    const h = panel.offsetHeight;
+    return { top: (y + oy * (1 - own)) * scale, height: h * own * scale };
   };
   const center = () => {
     if (location.hash !== '#ask') return;

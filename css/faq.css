@@ -123,3 +123,31 @@ body:has(.faqp) { background: var(--beige); }
   [data-reveal], [data-reveal] > *, .ask__form, .ask__form > *, .ask__done, .ask__done > *, .ask-dd__opt { animation: none !important; }
   .ask-dd__list, .ask-dd__chev { transition: none !important; }
 }
+
+
+/* =========================================================
+   БОЛЬШЕ ВОЗДУХА (вариант Б, как на главной — см. конец css/style.css)
+   Заголовки меньше, вставные фото и марки меньше; на однотонном фоне
+   содержимое собрано к центру (по бокам больше фона), узоры — как были.
+   Уменьшение — свойством scale, сдвиг — margin (не мешает анимациям).
+   ========================================================= */
+.faqp__title { scale: .72; transform-origin: 50% 0; margin-left: -3.2px; }
+.faqp__note { scale: .72; margin-left: 114.9px; margin-top: -.6px; }   /* «Мы рядом» остается у края заголовка */
+.faqp__sub { scale: .9; transform-origin: 50% 0; margin-left: -1.2px; margin-top: -20px; } /* ближе к заголовку */
+.qa { scale: .9; transform-origin: 50% 0; }
+.faqp__divider { scale: .9; margin-left: 61.3px; }
+.faqp__route { scale: .9; margin-left: 51.7px; margin-top: -190px; }  /* вместе с 3-м вопросом */
+.ask { scale: .846; transform-origin: 50% 0; margin-left: 1.2px; margin-top: -431px; }
+.faqp__photo { scale: .846; margin-left: -85.2px; margin-top: -437.1px; }  /* фото и марка — у угла плашки «Не нашли ответ?» */
+.faqp__stamp { scale: .846; margin-left: -71.5px; margin-top: -449.3px; }
+/* вопросы и ответы чуть мельче, строки ответа свободнее (было 32px и 24px) */
+.qa__q { font-size: 29px; line-height: 1.02; }
+.qa__a { font-size: 22px; line-height: 1.42; }
+/* промежутки между вопросами одинаковые: 48px от ответа (или кнопки) до линии и 48px от линии до следующего вопроса,
+   кнопки — в 44px под ответом (top вопросов, линий и кнопок — в faq.html);
+   все, что ниже вопросов, поднято на 431px, страница на столько же короче */
+.faqp .stage { height: 3239px; }   /* было 3670px */
+.faqp__lines-ask { margin-top: -431px; }
+/* шапка как на главной: логотип того же размера и на том же месте (было 77×51, left 52px, top 23px) */
+.faqp__header .header__logo { left: 58px; top: 34px; }
+.faqp__logo { width: 84px; height: 56px; }

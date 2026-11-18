@@ -24,6 +24,7 @@
   --font-body: "Manrope", system-ui, sans-serif;
 
   --stage-w: 1440px;
+  --page-gutter: 0px; /* поля слева и справа (пробовали 40px — убрали); масштаб учитывает их в js/main.js */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -43,7 +44,7 @@ a { color: inherit; text-decoration: none; }
 h1, h2, h3, p, dl, dd { margin: 0; }
 button { font: inherit; }
 
-.page { width: var(--stage-w); margin: 0; transform-origin: 0 0; transform: scale(var(--page-scale, 1)); background: var(--beige); /* цвет блоков — чтобы на стыках не просвечивало светлое */ }
+.page { width: var(--stage-w); margin: 0 0 0 var(--page-gutter); transform-origin: 0 0; transform: scale(var(--page-scale, 1)); background: var(--beige); /* цвет блоков — чтобы на стыках не просвечивало светлое */ }
 /* масштаб задаёт js/main.js; лишнее за пределами масштабированной страницы обрезаем */
 html { overflow-x: hidden; }
 /* clip (а не hidden): обрезает, но не создаёт прокручиваемый контейнер — иначе якоря ломают прокрутку */
@@ -264,9 +265,8 @@ body { overflow: clip; }
   background: var(--orange-map); color: #fbfbfb; font: 700 15px/1 var(--font-body);
 }
 
-/* общий приём: картинка, обрезанная внутри рамки (crop из Figma) */
-.crop { overflow: hidden; }
-.crop > img, .first__bg img, .first__stamp img, .first__topo img, .first__photo-bw img, .first__route img,
+/* картинки, обрезанные внутри рамки (crop из Figma): сама картинка — абсолютно внутри своего блока */
+.first__bg img, .first__stamp img, .first__topo img, .first__photo-bw img, .first__route img,
 .faq__mountains img, .trip__topo img, .trip__photo-bw img, .review__pin img, .review__cal img,
 .page-overlay img { position: absolute; }
 
@@ -1064,3 +1064,99 @@ html.reveal-on [data-reveal]:not(.is-in) { opacity: 0; }
   [data-reveal], .ask-dd__opt { animation: none !important; }
   .ask-dd__list, .ask-dd__chev { transition: none !important; }
 }
+
+/* =========================================================
+   БОЛЬШЕ ВОЗДУХА (вариант Б, выбран 18.11.2026)
+   Поверх координат из макета: элементы уменьшены свойством scale,
+   сдвинуты через margin (не мешает анимациям и параллаксу — они
+   используют translate). Фоны, облака, узоры и линии не тронуты.
+   ========================================================= */
+
+/* логотип — по центру строки с телефоном и иконками (их середина на 62px; было top: 57px) */
+.header__logo { top: 34px; }
+
+/* --- 1. Спокойнее заголовки и текст --- */
+.formats__title, .trip__title { scale: .8; transform-origin: 50% 0; }
+.first__title { scale: .8; transform-origin: 0 0; }
+.routes__text { font-size: 21px; line-height: 1.55; }
+.trip__sub, .faq__sub { line-height: 1.5; }
+.faq-item__q { line-height: 1.12; }
+
+/* --- 2. Вставные фото, марки и печати на 12% меньше (каждая вокруг своего центра) --- */
+:is(.hero__photo-rv, .hero__stamp-red, .hero__stamp-horses, .hero__photo-bw, .hero__stamp-round,
+    .first__stamp-red, .first__photo-bw) { scale: .88; }
+
+/* иконки шагов «Первый раз за рулем» — на 15% меньше */
+.first__stamp { scale: .85; }
+.first__stamp.is-hover { scale: .95; }
+/* «Первый раз за рулем»: срезаем 80px гор сверху — весь блок (фото, подписи на дороге, марки) поднимается вместе */
+.first .stage { height: 1046px; }            /* было 1126px */
+.first .stage > * { margin-top: -80px; }
+.first__route { overflow: visible; } /* линия теперь векторная и сама кончается у кружка — рамка-обрезка не нужна (она подрезала первый кружок) */
+/* рваный край дотянут до самого низа блока (было 270px) — иначе его нижняя кромка видна тонкой полосой */
+.first__edge { height: 290px; }
+
+/* --- 3. Плашки на 4–6% меньше --- */
+.formats__panel { scale: .96; }
+.formats .stage { height: 960px; } /* меньше гор под зеленой плашкой: было 1024px (под плашкой ~115px гор, стало ~50px) */
+.format-card { scale: .94; }
+.format-btn { scale: .94; }               /* оранжевые ярлыки остаются на тех же местах карточек */
+.format-btn--rv { translate: 3.1px 0; }
+.format-btn--tours { translate: 4.6px -.9px; }
+.format-btn--fishing { translate: 3.9px -.5px; }
+/* «Соберем поездку под вас»: форма меньше (.86) и выше на 55px; фото и марки уменьшаются и сдвигаются
+   вместе с ней (вокруг центра плашки) — стоят относительно ее углов как в макете */
+.trip__panel { scale: .86; transform-origin: 50% 50%; margin-top: -55px; }
+.trip-form { scale: .86; transform-origin: 706.5px 585px; margin-top: -55px; }
+.trip__photo        { scale: .86; margin: -12px 0 0 -62.4px; }
+.trip__stamp-red    { scale: .86; margin: -26.1px 0 0 59.5px; }
+.trip__stamp-horses { scale: .86; margin: -62.9px 0 0 -64px; }
+.trip__photo-bw     { scale: .86; margin: -83.5px 0 0 70.4px; }
+
+/* --- 4. Блоки с однотонным фоном: содержимое собрано к центру и на 10% меньше,
+       по бокам больше фона; узоры (линии, горы, компас) — во всю ширину, как были --- */
+/* «Куда на автодоме реально проехать» */
+.routes__title { scale: .72; transform-origin: 0 100%; margin: 10.4px 0 0 66.2px; }
+.routes__text { scale: .9; margin: 7px 0 0 25.3px; }
+.routes__map { scale: .9; margin: -4.4px 0 0 27.4px; }
+.routes__layer { scale: .9; }
+.routes__underline { display: none; } /* бежевый мазок, прикрывавший полосу под картой; сама полоса стерта в img/map/kg-map.webp — мазок не нужен */
+.route-card { scale: .94; margin: -6.7px 0 0 -44.1px; } /* описание маршрута — крупнее остального блока (было .846), место то же */
+.routes__photo-bw     { scale: .792; margin: 13.4px 0 0 -55.5px; }
+.routes__photo-sunset { scale: .792; margin: 7.4px 0 0 -37.5px; }
+.routes__stamp-round  { scale: .792; margin: 7.6px 0 0 -56.7px; }
+.routes__stamp-horses { scale: .792; margin: 14.7px 0 0 -34.3px; }
+.routes__stamp-red    { scale: .792; margin: 5.2px 0 0 -20.1px; }
+/* пунктир маршрута сверху (с точками и булавкой) не уменьшаем: он продолжает линию из блока выше.
+   Опущен на 4px вместе с линией из блока выше — иначе верхний кружок срезается краем блока */
+.routes__route-top, .routes__dot, .routes__pin { margin-top: 4px; }
+.first .stage > .first__route { margin-top: -76px; }
+
+/* «Уже ездили с Tian Way» */
+.reviews__title { scale: .72; transform-origin: 50% 0; margin-top: 17.7px; }
+/* мазок под заголовком и печать «Реальный опыт» уменьшаются вместе с заголовком и остаются на своих местах относительно него */
+.reviews__brush { scale: .72; margin: -12.7px 0 0 40px; }
+.reviews__label { scale: .72; margin: -13px 0 0 151.5px; } /* уменьшен как заголовок — стоит относительно него как в макете */
+/* фото и карточки отзывов подняты на 60px ближе к заголовку, блок на 60px короче (было 1024px);
+   высоту блока при раскрытии отзыва js/main.js берет отсюда */
+.reviews .stage { height: 964px; }
+.review { scale: .85; transform-origin: 50% 512px; margin-top: -60px; } /* фото, марки и карточка уменьшаются одной группой — расположение как в макете */
+.reviews__arrow { scale: .9; }
+.reviews__arrow--next { margin: -67.8px 0 0 -66.7px; }
+.reviews__arrow--prev { margin: -68.5px 0 0 68.9px; }
+.reviews__topo { margin-top: -60px; }
+
+/* «Остались вопросы?» (у вопросов и разделителей top/left в index.html уже с учетом сдвига) */
+.faq__title { scale: .72; transform-origin: 0 0; margin: 14.3px 0 0 65.3px; }
+.faq__sub { scale: .9; margin: 3.4px 0 0 49.5px; }
+.faq__note { scale: .9; margin: 14.7px 0 0 58.5px; }
+.faq-item { scale: .9; margin-left: -26.2px; }
+.faq__divider { scale: .9; }
+.faq__more { scale: .9; margin: -13.9px 0 0 -1.9px; }
+.faq__more-line { scale: .9; margin: -13.9px 0 0 -22.7px; }
+.faq__ask { scale: .9; margin: -14px 0 0 -38.8px; }
+.faq__ask-btn { scale: .9; margin: -13.8px 0 0 -58.3px; }
+.faq__route { scale: .9; margin: -12.2px 0 0 47.9px; }
+.faq__photo        { scale: .792; margin: -4.7px 0 0 42.4px; }
+.faq__stamp-horses { scale: .792; margin: -9.4px 0 0 51.4px; }
+.faq__stamp-round  { scale: .792; margin: -5.7px 0 0 51.4px; }

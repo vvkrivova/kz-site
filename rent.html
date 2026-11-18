@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Аренда автодома — Tian Way</title>
+  <meta name="description" content="Аренда автодома в Кыргызстане: Forland S1, Forland S2, Freedom Cannon. Посуточная аренда снаряжения для кемпинга и активного отдыха.">
+  <meta name="theme-color" content="#353f2b">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="img/meta/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
+  <script>
+    document.documentElement.style.setProperty('--page-scale', (document.documentElement.clientWidth / 1440).toFixed(5));
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css?v=20261118m">
+  <link rel="stylesheet" href="css/rent.css?v=20261118o">
+</head>
+<body>
+<main class="page">
+
+  <!-- ============ 1. ВЫБЕРИТЕ СВОЙ АВТОДОМ ============
+       Высота блока не фиксирована: карточка «Подробнее» раскрывается и сдвигает все, что ниже. -->
+  <section class="section rent-top" id="top">
+    <div class="stage">
+      <img class="rent-cloud" src="img/rent/clouds.webp" alt="" style="left:-696px; top:11px; opacity:.66;">
+      <img class="rent-cloud rent-cloud--blur" src="img/rent/clouds.webp" alt="" style="left:1009px; top:-147px; opacity:.8;">
+      <img class="rent-cloud" src="img/rent/clouds.webp" alt="" style="left:-454px; top:742px;">
+
+      <h1 class="rent-title" data-reveal>Выберите свой автодом</h1>
+
+      <!-- поиск: даты, гости, промокод. Выбор запоминается и переходит на следующие шаги бронирования -->
+      <form class="rent-search" data-rent-search action="rent-extras.html" novalidate data-reveal style="--rd:.12s">
+        <span class="rs-label" id="rs-dates-label" style="left:95px;">Дата заезда <span class="rs-label__dash">—</span> выезда</span>
+        <button class="rs-field rs-dates" type="button" data-rs-dates aria-labelledby="rs-dates-label" aria-expanded="false" style="left:93px; width:402px;">
+          <span class="rs-dates__value" data-rs-dates-value>Выберите даты</span>
+          <svg class="rs-chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M1.5 1.5 10 8.5l8.5-7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <span class="rs-label" id="rs-guests-label" style="left:534px;">Количество гостей</span>
+        <div class="ask-dd rs-dd" data-dd style="left:530px; top:263px; width:264px;">
+          <input type="hidden" name="guests" value="">
+          <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="rs-guests-label">
+            <span data-dd-value>Выберите</span>
+            <svg class="ask-dd__chev rs-chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M1.5 1.5 10 8.5l8.5-7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="ask-dd__list" role="listbox" aria-labelledby="rs-guests-label">
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">1 гость</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:1">2 гостя</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">3 гостя</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">4 гостя</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:4">5 гостей</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:5">6 гостей</li>
+          </ul>
+        </div>
+
+        <label class="rs-label" for="rs-promo" style="left:829px;">Промокод</label>
+        <input class="rs-field rs-promo" id="rs-promo" name="promo" type="text" autocomplete="off" spellcheck="false" style="left:829px; width:264px;">
+
+        <button class="rs-find" type="submit">Найти</button>
+        <p class="rs-hint" data-rs-hint role="status" hidden></p>
+
+        <!-- календарь (общий для всех форм сайта, логика — rangeCalendar в js/main.js); здесь он крупнее, как в макете -->
+        <div class="rs-cal-wrap">
+          <div class="calendar rs-calendar" data-calendar hidden>
+            <button class="calendar__nav calendar__nav--prev" type="button" data-cal-prev aria-label="Предыдущий месяц"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M5.63025 1.05127L1.31434 4.50401C0.963631 4.78458 0.963632 5.318 1.31435 5.59857L5.63025 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <button class="calendar__nav calendar__nav--next" type="button" data-cal-next aria-label="Следующий месяц"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1.05127 1.05127L5.36718 4.50401C5.71789 4.78458 5.71789 5.318 5.36717 5.59857L1.05127 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <div class="calendar__month" data-cal-month="0"></div>
+            <div class="calendar__month calendar__month--right" data-cal-month="1"></div>
+            <p class="calendar__summary" data-cal-summary>Выберите даты заезда и выезда</p>
+            <button class="calendar__apply" type="button" data-cal-apply>Применить</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- автодомы: две колонки; «Подробнее» раскрывает карточку вниз -->
+      <div class="cars" id="cars">
+
+        <!-- Forland S1 -->
+        <article class="car" data-car="forland-s1" data-name="Forland S1" data-price="250" data-reveal style="--open-h:973px; --rd:.1s;">
+          <div class="car__gallery">
+            <div class="car__track">
+              <img class="car__photo" src="img/rent/car-s1.webp" alt="Автодом Forland S1 на поляне среди сосен">
+              <img class="car__photo car__photo--tall" src="img/rent/car-s1-2.webp" data-full="img/rent/full/car-s1-2.webp" alt="Forland S1: обеденная зона">
+              <img class="car__photo car__photo--tall" src="img/rent/car-s1-3.webp" data-full="img/rent/full/car-s1-3.webp" alt="Forland S1: кухня">
+              <img class="car__photo car__photo--tall" src="img/rent/car-s1-4.webp" data-full="img/rent/full/car-s1-4.webp" alt="Forland S1: салон">
+              <img class="car__photo" src="img/rent/car-s1-5.webp" data-full="img/rent/full/car-s1-5.webp" alt="Forland S1: спальное место">
+              <img class="car__photo car__photo--tall" src="img/rent/car-s1-6.webp" data-full="img/rent/full/car-s1-6.webp" alt="Forland S1: санузел">
+              <img class="car__photo car__photo--tall" src="img/rent/car-s1-7.webp" data-full="img/rent/full/car-s1-7.webp" alt="Forland S1: кабина водителя">
+            </div>
+            <button class="car__next" type="button" data-gallery-next aria-label="Следующее фото"><svg viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <span class="car__tag">Популярный выбор</span>
+          <div class="car__head">
+            <h2 class="car__title">Forland S1</h2>
+            <p class="car__lead" style="width:241px;">Универсальный и комфортный для компании до 4&nbsp;человек</p>
+          </div>
+          <ul class="car__feats">
+            <li class="car__feat" data-tip="Коробка-автомат" style="left:19px; top:393px; width:38px;"><img src="img/rent/ic-auto.webp" alt="Коробка-автомат"></li>
+            <li class="car__feat" data-tip="4 спальных места" style="left:59px; top:392px; width:45px;"><img src="img/rent/ic-bed.webp" alt="4 спальных места"></li>
+            <li class="car__feat" data-tip="Душевая зона" style="left:109px; top:393px; width:40px;"><img src="img/rent/ic-shower.webp" alt="Душевая зона"></li>
+            <li class="car__feat" data-tip="Кухня" style="left:154px; top:393px; width:40px;"><img src="img/rent/ic-kitchen.webp" alt="Кухня"></li>
+          </ul>
+          <button class="car__more" type="button" aria-expanded="false" aria-controls="car-s1-details"><span data-more-label>Подробнее</span><svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M.5.5 5 5 9.5.5" stroke="currentColor"/></svg></button>
+          <div class="car__details" id="car-s1-details">
+            <p class="car__about">Автодом, в&nbsp;котором продумана каждая деталь для спокойного и&nbsp;комфортного путешествия: автоматическая коробка передач берет на&nbsp;себя рутину управления, позволяя водителю сосредоточиться на&nbsp;дороге, а&nbsp;ассистенты вроде круиз-контроля и&nbsp;камеры заднего вида заметно снижают усталость и&nbsp;делают маневры увереннее.</p>
+            <h3 class="car__h" style="left:0; top:95px;">Оснащение автодома и мебели:</h3>
+            <ul class="car__list" style="left:25px; top:120px; width:218px;">
+              <li>Раскладной стол</li><li>Мягкие сиденья</li><li>Напольные шкафы</li><li>Телевизор</li><li>Кондиционер</li><li>Отопление</li><li>Маркиза</li><li>Уличное освещение</li><li>Механическая подножка</li><li>Места для крепления велосипедов</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:95px;">Спальные места:</h3>
+            <ul class="car__list" style="left:333px; top:120px; width:218px;">
+              <li>4 спальных места</li><li>1 двуспальная кровать 140×200&nbsp;см</li><li>1 раскладная кровать за&nbsp;счет трансформации стола и&nbsp;мягких сидений</li><li>Индивидуальные LED-светильники</li><li>Шторки для уединения</li><li>Хранение вещей рядом со&nbsp;спальными местами</li>
+            </ul>
+            <h3 class="car__h" style="left:2px; top:328px;">Ванная комната:</h3>
+            <ul class="car__list" style="left:25px; top:353px; width:240px;">
+              <li>Душевая кабина</li><li>Умывальник с&nbsp;зеркалом и&nbsp;шкафчиком</li><li>Биотуалет</li><li>Водонагреватель для горячей воды</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:328px;">Кухня:</h3>
+            <ul class="car__list" style="left:332px; top:353px; width:218px;">
+              <li>Рабочая поверхность с&nbsp;мойкой</li><li>Индукционная плита (2&nbsp;конфорки)</li><li>Микроволновая печь</li><li>Холодильник до&nbsp;100&nbsp;л</li><li>Вентиляция/вытяжка над плитой</li>
+            </ul>
+          </div>
+          <p class="car__price"><span class="car__price-sum"><small>от</small> 250&nbsp;$</span><span class="car__price-per">/ сутки</span></p>
+          <button class="car__choose" type="button" data-choose aria-pressed="false">Выбрать</button>
+        </article>
+
+        <!-- Freedom Cannon -->
+        <article class="car" data-car="freedom-cannon" data-name="Freedom Cannon" data-price="250" data-reveal style="--open-h:870px; --rd:.2s;">
+          <div class="car__gallery">
+            <div class="car__track">
+              <img class="car__photo" src="img/rent/car-freedom.webp" alt="Автодом Freedom Cannon на берегу горного озера">
+              <img class="car__photo" src="img/rent/car-freedom-2.webp" data-full="img/rent/full/car-freedom-2.webp" alt="Freedom Cannon: стол и кухня">
+              <img class="car__photo" src="img/rent/car-freedom-3.webp" data-full="img/rent/full/car-freedom-3.webp" alt="Freedom Cannon: обеденная зона">
+              <img class="car__photo" src="img/rent/car-freedom-4.webp" data-full="img/rent/full/car-freedom-4.webp" alt="Freedom Cannon: спальное место">
+              <img class="car__photo" src="img/rent/car-freedom-5.webp" data-full="img/rent/full/car-freedom-5.webp" alt="Freedom Cannon: санузел">
+              <img class="car__photo" src="img/rent/car-freedom-6.webp" data-full="img/rent/full/car-freedom-6.webp" alt="Freedom Cannon: кабина водителя">
+            </div>
+            <button class="car__next" type="button" data-gallery-next aria-label="Следующее фото"><svg viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <span class="car__tag">Для больших историй</span>
+          <div class="car__head">
+            <h2 class="car__title">Freedom Cannon</h2>
+            <p class="car__lead" style="width:202px;">Больше пространства для больших путешествий</p>
+          </div>
+          <ul class="car__feats">
+            <li class="car__feat" data-tip="Коробка-автомат" style="left:15px; top:394px; width:38px;"><img src="img/rent/ic-auto.webp" alt="Коробка-автомат"></li>
+            <li class="car__feat" data-tip="4 спальных места" style="left:55px; top:393px; width:45px;"><img src="img/rent/ic-bed.webp" alt="4 спальных места"></li>
+            <li class="car__feat" data-tip="Биотуалет" style="left:107px; top:398px; width:36px;"><img src="img/rent/ic-toilet.webp" alt="Биотуалет"></li>
+            <li class="car__feat" data-tip="Кухня" style="left:150px; top:394px; width:40px;"><img src="img/rent/ic-kitchen.webp" alt="Кухня"></li>
+          </ul>
+          <button class="car__more" type="button" aria-expanded="false" aria-controls="car-freedom-details"><span data-more-label>Подробнее</span><svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M.5.5 5 5 9.5.5" stroke="currentColor"/></svg></button>
+          <!-- описания пока нет в макете — место под него подготовлено, текст впишем, когда пришлет заказчик -->
+          <div class="car__details" id="car-freedom-details">
+            <p class="car__about">Жилой модуль на&nbsp;базе пикапа Great Wall Cannon с&nbsp;автоматической коробкой: просторный салон с&nbsp;обеденной зоной, полноценная кухня и&nbsp;отдельный санузел. Удобен для&nbsp;компании до&nbsp;4&nbsp;человек.</p>
+            <h3 class="car__h" style="left:0; top:95px;">Оснащение автодома и мебели:</h3>
+            <ul class="car__list" style="left:25px; top:120px; width:218px;">
+              <li>Обеденный стол</li><li>Мягкие диваны</li><li>Шкафы над окнами</li><li>Окна с&nbsp;жалюзи</li><li>Светодиодная подсветка</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:95px;">Спальные места:</h3>
+            <ul class="car__list" style="left:333px; top:120px; width:218px;">
+              <li>4 спальных места</li><li>Двуспальная кровать над кабиной</li><li>Откидная полка над столом</li><li>Обеденная зона раскладывается в&nbsp;кровать</li>
+            </ul>
+            <h3 class="car__h" style="left:2px; top:225px;">Ванная комната:</h3>
+            <ul class="car__list" style="left:25px; top:250px; width:240px;">
+              <li>Отдельный санузел</li><li>Биотуалет</li><li>Умывальник со&nbsp;смесителем и&nbsp;душевой лейкой</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:225px;">Кухня:</h3>
+            <ul class="car__list" style="left:332px; top:250px; width:218px;">
+              <li>Рабочая поверхность с&nbsp;мойкой</li><li>Индукционная плита</li><li>Холодильник</li><li>Шкафы и&nbsp;выдвижные ящики</li>
+            </ul>
+          </div>
+          <p class="car__price"><span class="car__price-sum"><small>от</small> 250&nbsp;$</span><span class="car__price-per">/ сутки</span></p>
+          <button class="car__choose" type="button" data-choose aria-pressed="false">Выбрать</button>
+        </article>
+
+        <!-- Forland S2 -->
+        <article class="car" data-car="forland-s2" data-name="Forland S2" data-price="250" data-reveal style="--open-h:900px; --rd:.1s;">
+          <div class="car__gallery">
+            <div class="car__track">
+              <img class="car__photo" src="img/rent/car-s2.webp" alt="Автодом Forland S2 на горной дороге">
+              <span class="car__photo car__photo--empty"></span>
+            </div>
+            <button class="car__next" type="button" data-gallery-next aria-label="Следующее фото"><svg viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <span class="car__tag">Для новых открытий</span>
+          <div class="car__head">
+            <h2 class="car__title">Forland S2</h2>
+            <p class="car__lead" style="width:220px;">Проходимый и автономный для диких маршрутов</p>
+          </div>
+          <ul class="car__feats">
+            <li class="car__feat" data-tip="Коробка-автомат" style="left:15px; top:394px; width:38px;"><img src="img/rent/ic-auto.webp" alt="Коробка-автомат"></li>
+            <li class="car__feat" data-tip="Спальные места" style="left:55px; top:393px; width:45px;"><img src="img/rent/ic-bed.webp" alt="Спальные места"></li>
+            <li class="car__feat" data-tip="Душевая зона" style="left:105px; top:394px; width:40px;"><img src="img/rent/ic-shower.webp" alt="Душевая зона"></li>
+            <li class="car__feat" data-tip="Кухня" style="left:150px; top:394px; width:40px;"><img src="img/rent/ic-kitchen.webp" alt="Кухня"></li>
+          </ul>
+          <button class="car__more" type="button" aria-expanded="false" aria-controls="car-s2-details"><span data-more-label>Подробнее</span><svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M.5.5 5 5 9.5.5" stroke="currentColor"/></svg></button>
+          <!-- описания пока нет в макете — место под него подготовлено, текст впишем, когда пришлет заказчик -->
+          <div class="car__details car__details--soon" id="car-s2-details">
+            <p class="car__about">Подробное описание этого автодома скоро появится.</p>
+            <h3 class="car__h" style="left:0; top:95px;">Оснащение автодома и мебели:</h3>
+            <ul class="car__list" style="left:25px; top:120px; width:218px;"><li>уточняется</li></ul>
+            <h3 class="car__h" style="left:313px; top:95px;">Спальные места:</h3>
+            <ul class="car__list" style="left:333px; top:120px; width:218px;"><li>уточняется</li></ul>
+            <h3 class="car__h" style="left:2px; top:200px;">Ванная комната:</h3>
+            <ul class="car__list" style="left:25px; top:225px; width:240px;"><li>уточняется</li></ul>
+            <h3 class="car__h" style="left:313px; top:200px;">Кухня:</h3>
+            <ul class="car__list" style="left:332px; top:225px; width:218px;"><li>уточняется</li></ul>
+          </div>
+          <p class="car__price"><span class="car__price-sum"><small>от</small> 250&nbsp;$</span><span class="car__price-per">/ сутки</span></p>
+          <button class="car__choose" type="button" data-choose aria-pressed="false">Выбрать</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. ПОСУТОЧНАЯ АРЕНДА СНАРЯЖЕНИЯ ============
+       Координаты — от верха блока (в макете блок начинается на 1390px). -->
+  <section class="section rent-gear" id="gear">
+    <div class="stage">
+      <img class="rent-cloud-wide" src="img/rent/cloud-wide.webp" alt="" style="left:1029px; top:120px;">
+      <img class="rent-cloud rent-cloud--blur" src="img/rent/clouds.webp" alt="" style="left:-194px; top:678.4px; opacity:.8;">
+      <img class="rent-cloud" src="img/rent/clouds.webp" alt="" style="left:708px; top:1343.2px; opacity:.66;">
+      <img class="rent-cloud" src="img/rent/clouds.webp" alt="" style="left:-188px; top:2328.8px; opacity:.9;">
+      <img class="rent-mountains" src="img/rent/mountains.webp" alt="">
+      <img class="rent-cloud rent-cloud--blur" src="img/rent/clouds.webp" alt="" style="left:948.7px; top:2533.1px; opacity:.8; width:480.99px; height:160.33px; transform:rotate(-1.26deg);">
+      <div class="rent-shade"></div>
+
+      <h2 class="gear-title" data-reveal>Посуточная аренда</h2>
+      <h3 class="gear-sub" data-reveal style="left:435px; top:176px; --rd:.1s;">Кемпинг и отдых на природе</h3>
+
+      <!-- кемпинг -->
+      <article class="gear" data-item="table" data-title="Складной туристический стол" data-price="2" style="left:175.5px; top:247.2px;" data-reveal>
+        <img class="gear__img" src="img/rent/eq-table.webp" alt="Складной туристический стол" style="left:25px; top:48px; width:326px; height:260px;">
+        <h4 class="gear__title">Складной туристический стол</h4>
+        <p class="gear__text" style="top:413px; width:345px;">Компактный и&nbsp;устойчивый стол для обедов, приготовления еды и&nbsp;отдыха на&nbsp;природе. Легко складывается и&nbsp;не&nbsp;занимает много места при перевозке.</p>
+        <p class="gear__price">2&nbsp;$<span class="price-per">/ сутки</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="chair" data-title="Кемпинговое кресло" data-price="1" data-reveal style="left:518.7px; top:247.2px; --rd:.1s;">
+        <img class="gear__img" src="img/rent/eq-chair.webp" alt="Кемпинговое кресло" style="left:60px; top:0; width:257px; height:315px;">
+        <h4 class="gear__title" style="width:213px;">Кемпинговое кресло</h4>
+        <p class="gear__text" style="top:413px; width:345px;">Удобное складное кресло для отдыха у&nbsp;озера, возле костровой зоны или на&nbsp;стоянке. Подходит для кемпинга, рыбалки и&nbsp;пикников.</p>
+        <p class="gear__price">1&nbsp;$<span class="price-per">/ сутки</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="tent" data-title="Туристическая палатка" data-price="5" data-reveal style="left:861.9px; top:247.2px; --rd:.2s;">
+        <img class="gear__img" src="img/rent/eq-tent.webp" alt="Туристическая палатка" style="left:8px; top:73px; width:380px; height:210px;">
+        <h4 class="gear__title">Туристическая палатка</h4>
+        <p class="gear__text" style="top:413px; width:345px;">Палатка для самостоятельных путешествий и&nbsp;ночевок на&nbsp;природе. Подходит для кемпинга на&nbsp;берегу Иссык-Куля и&nbsp;в&nbsp;других разрешенных местах отдыха.</p>
+        <p class="gear__price">5&nbsp;$<span class="price-per">/ сутки</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="sleeping-bag" data-title="Спальный мешок" data-price="3" style="left:175.5px; top:781.6px;" data-reveal>
+        <img class="gear__img" src="img/rent/eq-sleeping-bag.webp" alt="Спальный мешок" style="left:38px; top:64px; width:284px; height:221px;">
+        <h4 class="gear__title">Спальный мешок</h4>
+        <p class="gear__text" style="top:413px; width:345px;">Туристический спальный мешок для ночевок в&nbsp;палатке. Подбирается с&nbsp;учетом сезона и&nbsp;температурных условий путешествия.</p>
+        <p class="gear__price">3&nbsp;$<span class="price-per">/ сутки</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="mat" data-title="Туристический коврик" data-price="1" data-reveal style="left:518.7px; top:781.6px; --rd:.1s;">
+        <img class="gear__img" src="img/rent/eq-mat.webp" alt="Туристический коврик" style="left:20px; top:29px; width:351px; height:275px;">
+        <h4 class="gear__title" style="width:245px;">Туристический коврик</h4>
+        <p class="gear__text" style="top:413px; width:345px;">Легкий теплоизоляционный коврик для комфортного сна в&nbsp;палатке и&nbsp;отдыха на&nbsp;природе.</p>
+        <p class="gear__price">1&nbsp;$<span class="price-per">/ сутки</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="lantern" data-title="Походный фонарь" data-price="0" data-reveal style="left:861.9px; top:781.6px; --rd:.2s;">
+        <img class="gear__img" src="img/rent/eq-lantern.webp" alt="Походный фонарь" style="left:113px; top:10px; width:164px; height:275px;">
+        <h4 class="gear__title">Походный фонарь</h4>
+        <p class="gear__text" style="top:413px; width:345px;">Переносной фонарь для освещения палатки, кемпинговой зоны и&nbsp;пространства возле автомобиля в&nbsp;вечернее время.</p>
+        <p class="gear__price gear__price--ask">Цена уточняется</p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="grill" data-title="Мангал / переносной гриль" data-price="0" style="left:175.5px; top:1316px;" data-reveal>
+        <img class="gear__img" src="img/rent/eq-grill.webp" alt="Переносной гриль" style="left:40px; top:23px; width:316px; height:284px;">
+        <h4 class="gear__title" style="width:295px;">Мангал / переносной гриль</h4>
+        <p class="gear__text" style="top:413px; width:330px;">Компактное оборудование для приготовления мяса, рыбы и&nbsp;овощей на&nbsp;открытом воздухе. Подходит для пикников и&nbsp;кемпинга в&nbsp;специально разрешенных местах.</p>
+        <p class="gear__price gear__price--ask">Цена уточняется</p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+
+      <!-- активный отдых -->
+      <h3 class="gear-sub" style="left:543.2px; top:1850.4px;" data-reveal>Активный отдых</h3>
+      <article class="gear" data-item="bike" data-title="Велосипед" data-price="0" style="left:173.1px; top:1918.4px;" data-reveal>
+        <img class="gear__img" src="img/rent/eq-bike.webp" alt="Велосипед" style="left:22px; top:48px; width:359px; height:262px;">
+        <h4 class="gear__title">Велосипед</h4>
+        <p class="gear__text" style="left:22px; top:381px; width:330px;">Велосипед для прогулок по&nbsp;живописным маршрутам Кыргызстана, поездок вдоль Иссык-Куля и&nbsp;знакомства с&nbsp;окрестностями. Подходит для самостоятельных велопрогулок и&nbsp;активного отдыха во&nbsp;время путешествия.</p>
+        <p class="gear__price gear__price--ask">Цена уточняется</p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="sup" data-title="SUP-борд" data-price="10" data-reveal style="left:516.3px; top:1918.4px; --rd:.1s;">
+        <img class="gear__img" src="img/rent/eq-sup.webp" alt="SUP-борд с веслом" style="left:15px; top:34px; width:366px; height:250px;">
+        <h4 class="gear__title">SUP-борд</h4>
+        <p class="gear__text" style="left:22px; top:381px; width:330px;">Надувная доска для прогулок по&nbsp;спокойной воде. Отлично подходит для летнего отдыха на&nbsp;Иссык-Куле и&nbsp;других разрешенных водоемах при подходящей погоде.</p>
+        <p class="gear__price">10&nbsp;$<span class="price-per">/ сутки</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="fishing" data-title="Рыболовный комплект" data-price="0" data-reveal style="left:859.5px; top:1918.4px; --rd:.2s;">
+        <img class="gear__img" src="img/rent/eq-fishing.webp" alt="Рыболовный комплект" style="left:70px; top:20px; width:256px; height:278px;">
+        <h4 class="gear__title" style="width:215px;">Рыболовный комплект</h4>
+        <p class="gear__text" style="left:23px; top:408px; width:330px;">Спиннинговый комплект: спиннинг, катушка, леска или шнур, набор искусственных приманок, поводки, подсак, аксессуары и&nbsp;чехол.</p>
+        <p class="gear__price gear__price--ask">Цена уточняется</p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="poles" data-title="Треккинговые палки" data-price="0" style="left:173.1px; top:2446.4px;" data-reveal>
+        <img class="gear__img" src="img/rent/eq-poles.webp" alt="Треккинговые палки" style="left:54px; top:11px; width:280px; height:316px;">
+        <h4 class="gear__title" style="width:229px;">Треккинговые палки</h4>
+        <p class="gear__text" style="left:23px; top:408px; width:330px;">Регулируемые палки для пеших прогулок, горных маршрутов и&nbsp;треккинга. Помогают поддерживать устойчивость на&nbsp;пересеченной местности.</p>
+        <p class="gear__price gear__price--ask">Цена уточняется</p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+
+      <!-- готовые комплекты -->
+      <h3 class="gear-sub" style="left:519.1px; top:2990.4px;" data-reveal>Готовые комплекты</h3>
+      <article class="kit" data-item="kit-camping" data-title="Набор «Кемпинг»" data-price="0" style="left:128.6px; top:3068.8px;" data-reveal>
+        <img class="kit__img" src="img/rent/set-camping.webp" alt="Палатка, спальные мешки, коврики и фонарь" style="left:87px; top:5px; width:258px; height:258px;">
+        <h4 class="kit__title">Набор «Кемпинг»</h4>
+        <p class="kit__label">Состав:</p>
+        <p class="kit__list" style="width:347px;">1 туристическая палатка, 2&nbsp;спальных мешка, 2&nbsp;коврика и&nbsp;1&nbsp;походный фонарь.</p>
+        <p class="kit__text" style="top:394px; width:391px;">Все необходимое для самостоятельных ночевок на&nbsp;природе. Подходит для путешествий по&nbsp;Кыргызстану, кемпинга у&nbsp;озера и&nbsp;отдыха вдали от&nbsp;города.</p>
+        <div class="cart-ctl" data-cart style="left:327px;"></div>
+      </article>
+      <article class="kit" data-item="kit-picnic" data-title="Набор «Пикник»" data-price="0" data-reveal style="left:499px; top:3068.8px; --rd:.1s;">
+        <img class="kit__img" src="img/rent/set-picnic.webp" alt="Складной стол, два кресла и переносной гриль" style="left:84px; top:-15px; width:284px; height:284px;">
+        <h4 class="kit__title">Набор «Пикник»</h4>
+        <p class="kit__label">Состав:</p>
+        <p class="kit__list" style="width:347px;">1 складной туристический стол, 2&nbsp;кемпинговых кресла и&nbsp;1&nbsp;переносной гриль.</p>
+        <p class="kit__text" style="top:400px; width:381px;">Готовый комплект для комфортного отдыха на&nbsp;природе. Подходит для пикников, семейных поездок и&nbsp;остановок во&nbsp;время путешествия.</p>
+        <div class="cart-ctl" data-cart style="left:320px;"></div>
+      </article>
+      <article class="kit" data-item="kit-bike" data-title="Набор «Велопрогулка»" data-price="0" data-reveal style="left:869.4px; top:3068.8px; --rd:.2s;">
+        <img class="kit__img" src="img/rent/set-bike.webp" alt="Два велосипеда, шлемы и замки" style="left:101px; top:10px; width:253px; height:253px;">
+        <h4 class="kit__title">Набор «Велопрогулка»</h4>
+        <p class="kit__label">Состав:</p>
+        <p class="kit__list" style="width:258px;">2 велосипеда, 2&nbsp;защитных шлема и&nbsp;2&nbsp;велосипедных замка.</p>
+        <p class="kit__text" style="top:400px; width:381px;">Комплект для самостоятельных велосипедных прогулок, исследования окрестностей Иссык-Куля и&nbsp;активного отдыха вдвоем.</p>
+        <div class="cart-ctl" data-cart style="left:321px;"></div>
+      </article>
+
+      <p class="rent-note">Все оборудование предоставляется при наличии. Комплектация, сезонность, стоимость, размер залога и&nbsp;условия использования уточняются при бронировании. Оборудование можно арендовать дополнительно к&nbsp;автодому или отдельно с&nbsp;получением на&nbsp;базе Tian Way, за&nbsp;исключением опций, привязанных к&nbsp;конкретному автомобилю.</p>
+    </div>
+  </section>
+
+  <!-- подвал — в разработке -->
+</main>
+
+<script src="js/main.js?v=20261118l"></script>
+<script src="js/rent-store.js?v=20261118b"></script>
+<script src="js/rent-availability.js?v=20261118a"></script>
+<script src="js/rent.js?v=20261118d"></script>
+</body>
+</html>

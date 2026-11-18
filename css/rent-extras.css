@@ -1,0 +1,159 @@
+/* =========================================================
+   Tian Way — страница «Соберите автодом под себя» (rent-extras.html)
+   Общее — css/style.css; цвета аренды и кнопка «В корзину → − 1 +» — css/rent.css.
+   Координаты — из макета Figma (Desktop - 65; положения прокрутки — 68, 69, 70).
+   ========================================================= */
+
+.rx .stage { height: 1024px; background: var(--beige); }
+.rx-topo { left: -28px; top: 657px; width: 1552px; height: 361px; object-fit: cover; opacity: .76; pointer-events: none; }
+/* в макете — по левому краю над карточками; на сайте выровнен по центру (блок «больше воздуха» в конце) */
+.rx-title {
+  left: 63px; top: 87px; white-space: nowrap;
+  font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: var(--rent-ink);
+}
+
+/* ---------- список услуг со своей прокруткой ---------- */
+.rx-list {
+  left: 63px; top: 236px; width: 726px; height: 788px; padding: 5px 12px 162px 0;
+  overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; outline: none;
+  /* низ списка мягко растворяется — карточки не обрываются резко у края экрана */
+  -webkit-mask-image: linear-gradient(#000 calc(100% - 70px), transparent);
+  mask-image: linear-gradient(#000 calc(100% - 70px), transparent);
+}
+.rx-list::-webkit-scrollbar { display: none; }
+
+.svc {
+  position: relative; width: 714px; height: 292px; border-radius: 10px;
+  background: var(--rent-card); box-shadow: 4px 4px 4px rgba(0, 0, 0, .25);
+  transition: background-color .3s ease;
+}
+.svc + .svc { margin-top: 31px; }
+.svc > * { position: absolute; }
+.svc__photo { left: 0; top: 0; width: 331px; height: 292px; border-radius: 10px; object-fit: cover; }
+.svc__photo--empty { background: #172941; }
+/* снаряжение из каталога (rent.html): фото без фона — целиком, по центру светлой подложки */
+.svc__photo--item { box-sizing: border-box; display: grid; place-items: center; padding: 26px; overflow: hidden; background: #f1e7d9; }
+.svc__photo--item img { width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; }
+.svc__body { left: 357px; top: 30px; width: 300px; }
+.svc__title { width: 213px; margin: 0; font: 600 34px/.99 var(--font-display); text-transform: uppercase; color: var(--rent-ink); transition: color .3s ease; }
+.svc[data-item="sv-route"] .svc__title { width: 286px; }
+.svc--gear .svc__title { width: 300px; }   /* у снаряжения названия длиннее */
+.svc__text { width: 223px; margin-top: 21px; font: 400 16px/1.375 var(--font-body); color: #000; transition: color .3s ease; }
+.svc__price { left: 360px; top: 230px; font: 600 34px/.99 var(--font-display); color: var(--rent-ink); white-space: nowrap; transition: color .3s ease; }
+.svc__price--ask { font-size: 24px; line-height: 1.4; }   /* цены нет в таблице заказчика — «Цена уточняется» */
+.svc .cart-ctl { left: 594px; top: 228px; }
+
+/* кнопка и счетчик на светлой карточке — оранжевые */
+.svc .cart-add { background: var(--orange-map); }
+.svc .cart-add:hover, .svc .cart-add:focus-visible { background: var(--orange-map); }
+.svc .cart-qty { background: rgba(222, 72, 17, .97); }
+.svc .cart-qty__val, .svc .cart-qty__btn { color: #fff; }
+
+/* наведение (и фокус с клавиатуры): карточка становится оранжевой, кнопка — светлой */
+.svc:hover, .svc:focus-within { background: var(--orange-map); }
+.svc:hover .svc__title, .svc:hover .svc__text, .svc:hover .svc__price,
+.svc:focus-within .svc__title, .svc:focus-within .svc__text, .svc:focus-within .svc__price { color: var(--paper); }
+.svc:hover .cart-add, .svc:focus-within .cart-add,
+.svc:hover .cart-qty, .svc:focus-within .cart-qty { background: #e9dfc4; }
+.svc:hover .cart-add, .svc:focus-within .cart-add,
+.svc:hover .cart-qty__val, .svc:hover .cart-qty__btn,
+.svc:focus-within .cart-qty__val, .svc:focus-within .cart-qty__btn { color: var(--orange-map); }
+
+/* ---------- ползунок ---------- */
+.rx-bar { left: 817px; top: 244px; width: 14px; height: 661px; border-radius: 10px; background: #e9dcc2; cursor: pointer; }
+.rx-bar__thumb {
+  position: absolute; left: 0; top: 0; width: 14px; height: 81px; border-radius: 10px; background: var(--orange-map);
+  cursor: grab; transition: background-color .2s ease;
+}
+.rx-bar__thumb:hover, .rx-bar.is-dragging .rx-bar__thumb { background: #c33d0c; }
+.rx-bar.is-dragging .rx-bar__thumb { cursor: grabbing; }
+.rx-bar.is-hidden { display: none; }
+
+/* ---------- ваше бронирование ---------- */
+.rx-book {
+  left: 871px; top: 236px; width: 516px; height: 669px; border-radius: 10px;
+  background: var(--rent-card); box-shadow: 4px 4px 4px rgba(0, 0, 0, .25);
+}
+.rx-book > * { position: absolute; }
+.rx-book__title { left: 34px; top: 25px; margin: 0; font: 600 34px/.99 var(--font-display); text-transform: uppercase; color: var(--rent-ink); }
+.rx-book__cap { top: 81px; font: 300 20px/.94 var(--font-display); color: var(--rent-ink); }
+.rx-book__date { top: 112px; width: 130px; font: 700 16px/1.366 var(--font-body); color: #000; }
+.rx-book__date b { display: block; font-size: 24px; }
+.rx-book__date.is-empty { color: rgba(0, 0, 0, .4); font-weight: 400; font-size: 14px; }
+.rx-book__date.is-empty b { color: #000; font-weight: 700; }
+.rx-book__vline { left: 151px; top: 81px; height: 87px; border-left: 1px solid rgba(0, 0, 0, .15); }
+.rx-book__stats {
+  left: 330px; top: 77px; width: 151px; height: 97px; border-radius: 7px; background: rgba(241, 231, 217, .71);
+  display: grid; grid-template-columns: 75px 76px; align-items: center;
+}
+.rx-book__stats p { text-align: center; font: 400 16px/1.2 var(--font-body); color: #000; }
+.rx-book__stats p + p { border-left: 1px solid rgba(0, 0, 0, .15); }
+.rx-book__stats b { display: block; font: 400 36px/1.2 var(--font-body); }
+.rx-book__line { left: 34px; width: 440px; border-top: 1px solid rgba(0, 0, 0, .15); }
+.rx-book__car, .rx-book__total {
+  left: 34px; width: 440px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  font: 600 24px/.94 var(--font-display); color: var(--rent-ink);
+}
+.rx-book__car { top: 217px; }
+.rx-book__car [data-b-car] b { font-weight: 600; text-transform: uppercase; }
+.rx-book__car.is-empty [data-b-car] { color: rgba(52, 47, 47, .45); }
+.rx-book__car a { color: var(--orange-map); font: 500 15px/1 var(--font-body); text-decoration: underline; text-underline-offset: 3px; }
+.rx-book__sum { font-size: 20px; white-space: nowrap; }
+.rx-book__h { left: 34px; top: 290px; margin: 0; font: 600 24px/.94 var(--font-display); text-transform: uppercase; color: var(--rent-ink); }
+/* список услуг — высота как в макете; если не помещается, низ «растворяется»
+   и справа видна оранжевая полоса прокрутки */
+.rx-book__rows {
+  left: 34px; top: 330px; width: 424px; height: 178px; margin: 0; padding: 0; list-style: none;
+  overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none;
+}
+.rx-book__rows::-webkit-scrollbar { display: none; }
+.rx-book__rows.has-more { -webkit-mask-image: linear-gradient(#000 calc(100% - 46px), transparent); mask-image: linear-gradient(#000 calc(100% - 46px), transparent); }
+.rx-book__bar { left: 469px; top: 334px; width: 5px; height: 170px; border-radius: 3px; background: #e9dcc2; cursor: pointer; }
+.rx-book__bar.is-hidden { display: none; }
+.rx-book__thumb { position: absolute; left: 0; top: 0; width: 5px; border-radius: 3px; background: var(--orange-map); cursor: grab; transition: background-color .2s ease; }
+.rx-book__thumb:hover, .rx-book__bar.is-dragging .rx-book__thumb { background: #c33d0c; }
+.rx-book__bar.is-dragging .rx-book__thumb { cursor: grabbing; }
+.rx-book__rows li {
+  display: grid; grid-template-columns: 1fr 34px 84px; align-items: baseline; padding-top: 8px; height: 44.5px;
+  font: 400 16px/.94 var(--font-body); color: var(--rent-ink);
+  animation: row-in .35s cubic-bezier(.2, .7, .2, 1);
+}
+@keyframes row-in { from { opacity: 0; translate: 0 -6px; } }
+.rx-book__rows li b { font: 600 20px/.94 var(--font-display); white-space: nowrap; text-align: right; }
+/* цены еще нет — спокойная серая подпись вместо суммы */
+/* сам <b> со шрифтом суммы — строка стоит на той же линии, что и строки с ценой */
+.rx-book__rows li b.is-ask span { font: 400 13px/1 var(--font-body); color: rgba(0, 0, 0, .45); }
+.rx-book__rows .is-empty { display: block; height: auto; font-size: 14px; line-height: 1.4; color: rgba(0, 0, 0, .45); animation: none; }
+.rx-book__total { top: 522px; text-transform: uppercase; }
+.rx-book__total [data-b-total].is-bump { animation: qty-bump .35s ease; }
+.rx-book__btn {
+  left: 34px; top: 582px; width: 440px; height: 55px; border-radius: 10px;
+  display: grid; place-items: center; background: var(--orange-map);
+  font: 700 20px/1 var(--font-body); color: #fff8f8;
+  transition: translate .25s ease, box-shadow .25s ease;
+}
+.rx-book__btn:hover, .rx-book__btn:focus-visible { translate: 0 -3px; box-shadow: 0 8px 14px rgba(0, 0, 0, .22); outline: none; }
+.rx-book__hint { left: 34px; top: 643px; width: 440px; text-align: center; font: 400 13px/1.3 var(--font-body); color: rgba(0, 0, 0, .6); }
+.rx-book__hint a { color: var(--orange-map); text-decoration: underline; text-underline-offset: 2px; }
+.rx-book__hint.is-flash { animation: hint-flash .6s ease; }
+@keyframes hint-flash { 30% { color: var(--orange-map); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .svc, .svc__title, .svc__text, .svc__price, .rx-book__btn { transition: none; }
+  .rx-book__rows li, .rx-book__total [data-b-total].is-bump, .rx-book__hint.is-flash { animation: none; }
+}
+
+
+/* =========================================================
+   БОЛЬШЕ ВОЗДУХА (вариант Б, как на главной — см. конец css/style.css)
+   Заголовки меньше, вставные фото и марки меньше; на однотонном фоне
+   содержимое собрано к центру (по бокам больше фона), узоры — как были.
+   Уменьшение — свойством scale, сдвиг — margin (не мешает анимациям).
+   ========================================================= */
+/* заголовок и все под ним подняты (заголовок на 32px, список/ползунок/бронирование на 60px), рисунок гор на месте;
+   карточки услуг и «Ваше бронирование» меньше (.8), вся группа «список + ползунок + бронирование» по центру экрана;
+   список и ползунок удлинены на величину подъема — низ списка по-прежнему у рисунка */
+.rx-title { scale: .72; transform-origin: 0 0; margin: -32px 0 0 213px; }
+.rx-list { scale: .8; transform-origin: 50% 0; margin: -60px 0 0 50.8px; height: 961.3px; }
+.rx-bar { scale: .9; transform-origin: 50% 0; margin: -60px 0 0 -25.5px; height: 727.7px; }
+.rx-book { scale: .8; transform-origin: 50% 0; margin: -60px 0 0 -81.8px; }
