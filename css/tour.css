@@ -161,3 +161,21 @@ html.reveal-on .tour__lines {
 @media (prefers-reduced-motion: reduce) {
   .tday, .tday__photo, .tour-days__track, .tour-btn, .tour-btn__arrow { transition: none !important; }
 }
+
+
+/* =========================================================
+   БОЛЬШЕ ВОЗДУХА (вариант Б, как на главной — см. конец css/style.css)
+   Заголовки меньше, вставные фото и марки меньше; на однотонном фоне
+   содержимое собрано к центру (по бокам больше фона), узоры — как были.
+   Уменьшение — свойством scale, сдвиг — margin (не мешает анимациям).
+   ========================================================= */
+/* первый экран и программа — на фото: заголовок меньше, значки меньше, ленту дней чуть меньше */
+.tour__title { scale: .8; transform-origin: 0 0; }
+.tour-chip__ico { scale: .85; }
+.tour-days { scale: .94; transform-origin: 50% 0; }
+.tour-arrow--prev { scale: .94; margin-left: 39.8px; }
+.tour-arrow--next { scale: .94; margin-left: -39.8px; }
+/* «Что входит в стоимость» — однотонный фон: собираем к центру */
+.tour__price-title { scale: .9; transform-origin: 0 0; margin-left: 66.5px; }
+.tour-incl:not(.tour-incl--no) { scale: .9; transform-origin: 0 0; margin-left: 66.5px; }
+.tour-incl--no { scale: .9; transform-origin: 0 0; margin-left: 6.6px; }

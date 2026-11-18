@@ -55,7 +55,7 @@ html.reveal-on .fish__tag { animation: fish-tag-in .7s cubic-bezier(.3, 1.5, .5,
 .fish__lines { left: -173px; top: 748px; width: 2172px; height: 724px; pointer-events: none; }
 .fish__stamp-horses { left: 859.2px; top: 1114.2px; width: 314.2px; height: 187.9px; object-fit: cover; transform: rotate(11.42deg); filter: blur(2px); pointer-events: none; }
 .fish__stamp-eagle { left: 1012px; top: 1610.7px; width: 140px; height: 87px; object-fit: cover; transform: rotate(-13.26deg); pointer-events: none; }
-.fish__stamp-tw { left: 302.1px; top: 1279.6px; width: 175.8px; height: 93.2px; overflow: hidden; transform: rotate(-7.2deg); pointer-events: none; }
+.fish__stamp-tw { left: 229.1px; top: 1274.6px; width: 175.8px; height: 93.2px; overflow: hidden; transform: rotate(-7.2deg); pointer-events: none; }
 .fish__stamp-tw img { position: absolute; left: -7.31%; top: -23.96%; width: 115.19%; height: 144.8%; }
 /* карточки и марки над ними: марки не мешают наведению на карточку */
 .fcard { z-index: 1; }
@@ -127,3 +127,27 @@ html.reveal-on .fish__tag { animation: fish-tag-in .7s cubic-bezier(.3, 1.5, .5,
   .fcard, .fcard__photo img, .fish__tag { transition: none !important; animation: none !important; }
   .fish-form, .fish-form > *, .fish-done, .fish-done > *, .fish-dd .ask-dd__btn { animation: none !important; }
 }
+
+
+/* =========================================================
+   БОЛЬШЕ ВОЗДУХА (вариант Б, как на главной — см. конец css/style.css)
+   Заголовки меньше, вставные фото и марки меньше; на однотонном фоне
+   содержимое собрано к центру (по бокам больше фона), узоры — как были.
+   Уменьшение — свойством scale, сдвиг — margin (не мешает анимациям).
+   ========================================================= */
+.fish__title { scale: .72; transform-origin: 50% 0; margin-top: -40px; } /* поднят на 40px */
+.fish__tag { scale: .75; margin-left: -2.2px; margin-top: -94.3px; }   /* наклейка поверх нижней строки заголовка, как в макете: движется и уменьшается вместе с ним */
+.fish__intro { scale: .9; transform-origin: 50% 0; margin-left: -1.2px; margin-top: -87px; }
+.fcard--fishing { scale: .846; transform-origin: 50% 0; margin-left: 45.9px; margin-top: -87px; }
+.fcard--hunting { scale: .846; transform-origin: 50% 0; margin-left: -49.7px; margin-top: -87px; }
+/* марки уменьшаются вместе со своей карточкой/формой и стоят относительно нее как в макете */
+.fish__stamp-red { scale: .846; margin-left: 90.2px; margin-top: -105.3px; }      /* у карточки «Рыбалка» */
+.fish__stamp-round { scale: .846; margin-left: -78.9px; margin-top: -128.1px; }  /* у карточки «Охота» */
+.fish-panel { scale: .846; transform-origin: 50% 0; margin-left: 1.8px; margin-top: -147px; }
+.fish__stamp-horses { scale: .846; margin-left: -45.7px; margin-top: -157.5px; }  /* марки — у формы */
+.fish__stamp-eagle { scale: .846; margin-left: -55.8px; margin-top: -226.2px; }
+.fish__stamp-tw { scale: .846; margin-left: 62px; margin-top: -174.9px; }
+/* под заголовком все поднято: текст и карточки с марками — на 87px, форма с марками и линии гор — на 147px;
+   под формой оставлено 107px фона, как в макете */
+.fish__lines { margin-top: -147px; }
+.fish .stage { height: 1670px; }   /* было 1921px */

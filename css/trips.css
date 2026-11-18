@@ -212,3 +212,41 @@
   .tcard, .tcard__photo, .tcard__stamp, .tcard__stamp-tw, .tp-cards__track { transition: none !important; }
   .tp-form, .tp-form > *, .tp-done, .tp-done > * { animation: none !important; }
 }
+
+
+/* =========================================================
+   БОЛЬШЕ ВОЗДУХА (вариант Б, как на главной — см. конец css/style.css)
+   Заголовки меньше, вставные фото и марки меньше; на однотонном фоне
+   содержимое собрано к центру (по бокам больше фона), узоры — как были.
+   Уменьшение — свойством scale, сдвиг — margin (не мешает анимациям).
+   ========================================================= */
+/* первый экран (фото) — только заголовок */
+/* первый экран ровно по высоте окна (как в макете — фото на весь экран): высота блока = высота окна в единицах макета;
+   фото обрезается снизу, верх с горами сохраняется. Не ниже 700px, чтобы кнопки не упирались в край */
+.tp-hero .stage { height: max(700px, calc(100vh / var(--page-scale, 1))); }
+.tp-hero__bg, .tp-hero__shade { height: calc(100% + 2px); }
+.tp-hero__bg { object-position: 50% 0; }
+.tp-hero__title { scale: .8; transform-origin: 0 0; }
+/* «Куда поехать в этом сезоне» */
+.tp-season__title { scale: .72; transform-origin: 50% 0; }
+.tp-tabs { scale: .9; transform-origin: 50% 0; }
+.tp-cards { scale: .9; transform-origin: 50% 0; }
+/* как в макете: три карточки целиком, четвертая выглядывает и уходит за правый край страницы.
+   «Окно» ленты шире на 80px с каждой стороны — после уменьшения на .9 оно снова от края до края страницы
+   (иначе четвертая карточка обрезалась посреди страницы); лента внутри сдвинута на те же 80px */
+.tp-cards { left: -80px; width: 1600px; }
+.tp-cards__track { margin-left: 80px; }
+.tp-arrow--prev { scale: .9; margin-left: 66.1px; }
+.tp-arrow--next { scale: .9; margin-left: -66.1px; }
+/* «Соберем путешествие под вас» */
+.tp-season .stage { height: 960px; }   /* меньше пустого места перед формой (было 1040px) */
+.tp-custom__title { scale: .72; transform-origin: 0 100%; margin: -75.8px 0 0 66.2px; } /* верх вровень с верхом формы, левый край — как у текста (как в макете) */
+.tp-custom__sub { scale: .9; transform-origin: 0 0; margin: -82px 0 0 66.2px; }
+/* фото, марки и оранжевые линии — под текстом с теми же промежутками, что в макете */
+.tp-custom__photo { scale: .792; margin-left: 75.4px; margin-top: -132.4px; }
+.tp-custom__stamp-eagle { scale: .792; margin-left: 126.9px; margin-top: -161.2px; }
+.tp-custom__stamp-tw { scale: .792; margin-left: 28.5px; margin-top: -101.3px; }
+.tp-custom__lines { margin-top: -132px; }
+.tp-custom .stage { height: 880px; }  /* было 1069px: под формой фона примерно как в макете */
+/* форма чуть меньше (было .846), правый край на прежнем месте */
+.tp-panel { scale: .8; transform-origin: 50% 0; margin-left: -36.1px; }

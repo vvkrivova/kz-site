@@ -28,7 +28,10 @@ BISHKEK = dict(photo='img/tours/day-1-bishkek.webp', alt='Бишкек: мече
                text='Встреча, знакомство с&nbsp;Кыргызстаном<br>и переезд на северный берег озера')
 CHOLPON = dict(photo='img/tours/day-2-cholpon-ata.webp', pos='tday__photo--top', alt='Петроглифы Чолпон-Аты',
                text='Петроглифы, прогулки у озера и отдых')
-KYRCHYN = dict(photo='img/tours/day-3-kyrchyn.webp', pos='tday__photo--y16', alt='Кони на зеленом склоне Кырчына')
+KARAKOL = dict(photo='img/tours/day-4-karakol.webp', alt='Деревянный собор в Караколе',
+               text='Город, культура и горы')
+# Правило: фото и описание берем из готового дня, только если день совпадает полностью
+# (то же название). Частичное совпадение (например, «Кырчын» и «Кырчын → Каракол») — оставляем одно название.
 
 PROGRAMS = [
     {
@@ -45,7 +48,7 @@ PROGRAMS = [
         'days': [
             dict(title=f'Бишкек {ARROW} Иссык-Куль', **BISHKEK),
             dict(title='Чолпон-Ата', **CHOLPON),
-            dict(title='Кырчын', text='Конная прогулка и национальная кухня', **KYRCHYN),
+            dict(title='Кырчын'),
             dict(title='Григорьевское ущелье'),
             dict(title='Балыкчы'),
             dict(title=f'Балыкчы {ARROW} Бишкек'),
@@ -65,7 +68,7 @@ PROGRAMS = [
         'days': [
             dict(title=f'Бишкек {ARROW} Иссык-Куль', **BISHKEK),
             dict(title=f'Чолпон-Ата {ARROW} Каракол'),
-            dict(title='Каракол'),
+            dict(title='Каракол', **KARAKOL),
             dict(title='Ак-Суу'),
             dict(title='Джети-Огуз'),
             dict(title=f'Ала-Арча {ARROW} Бишкек'),
