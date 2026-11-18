@@ -24,9 +24,9 @@
       document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20261119e">
-  <link rel="stylesheet" href="css/rent.css?v=20261119b">
-  <link rel="stylesheet" href="css/rent-booking.css?v=20261119c">
+  <link rel="stylesheet" href="css/style.css?v=20261119g">
+  <link rel="stylesheet" href="css/rent.css?v=20261119f">
+  <link rel="stylesheet" href="css/rent-booking.css?v=20261119i">
 </head>
 <body>
 <main class="page">
@@ -88,12 +88,19 @@
           <p class="rb-error" data-rb-error role="alert" hidden></p>
         </form>
 
-        <div class="rb-done" data-rb-done hidden>
-          <b>Спасибо, заявка на&nbsp;бронирование отправлена!</b>
-          <span>Мы проверим наличие автодома на&nbsp;ваши даты и&nbsp;свяжемся с&nbsp;вами, чтобы подтвердить бронирование. Обычно это занимает не&nbsp;больше дня.</span>
-          <a class="rb-home" href="index.html">На главную</a>
-        </div>
       </div>
+      <!-- благодарность после отправки — на всю страницу, как в макете (Desktop - 96) и как «Спасибо» на главной;
+           показывает js/rent-booking.js: у блока .rb появляется класс is-done -->
+      <div class="rb-thanks" data-rb-done hidden>
+        <div class="rb-thanks__panel"></div>
+        <img class="rb-thanks__check" src="img/check-circle.webp" alt="">
+        <img class="rb-thanks__rays-l" src="img/rays-left.webp" alt="">
+        <img class="rb-thanks__rays-r" src="img/rays-right.webp" alt="">
+        <h2 class="rb-thanks__title">Спасибо, заявка отправлена</h2>
+        <p class="rb-thanks__text">Мы получили вашу заявку и&nbsp;скоро свяжемся с&nbsp;вами, чтобы уточнить детали поездки.</p>
+        <a class="rb-thanks__home" href="index.html">Перейти на&nbsp;главную страницу</a>
+      </div>
+
       <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
       <footer class="footer footer--light">
         <a class="footer__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo-footer-light.webp" alt="Tian Way"></a>
@@ -109,6 +116,7 @@
           <a href="#">Публичная оферта</a>
           <span>© 2026 «Tian Way». Все права защищены</span>
         </div>
+        <p class="footer__note">Meta признана экстремистской организацией и&nbsp;запрещена в&nbsp;РФ</p>
       </footer>
     </div>
   </section>
@@ -117,6 +125,6 @@
 
 <script src="js/main.js?v=20261118s"></script>
 <script src="js/rent-store.js?v=20261118b"></script>
-<script src="js/rent-booking.js?v=20261118f"></script>
+<script src="js/rent-booking.js?v=20261119c"></script>
 </body>
 </html>
