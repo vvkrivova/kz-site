@@ -130,12 +130,26 @@ const rbSummary = (function () {
       notes: f.notes.value.trim(),
     });
 
-    form.classList.add('is-hiding');
-    setTimeout(() => {
-      form.hidden = true;
-      form.classList.remove('is-hiding');
-      done.hidden = false;
-      done.classList.add('is-showing');
-    }, 300);
+    showThanks();
   });
+
+  /* ---------- переход к «Спасибо» ----------
+     Вся страница превращается в экран «Спасибо» (как в макете): заголовок и обе карточки плавно растворяются
+     (чуть вверх, с легким размытием — css/rent-booking.css), страница плавно уезжает наверх, затем появляется плашка.
+     При «уменьшить движение» — сразу экран «Спасибо». */
+  const section = document.querySelector('.rb');
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finish = () => {
+    form.hidden = true;
+    done.hidden = false;
+    section.classList.remove('is-leaving');
+    section.classList.add('is-done');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+  const showThanks = () => {
+    if (reduce) { finish(); return; }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    section.classList.add('is-leaving');
+    setTimeout(finish, 600);
+  };
 })();
