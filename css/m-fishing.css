@@ -1,0 +1,82 @@
+/* =========================================================
+   Tian Way — «Рыбалка и охота» (fishing.html), МОБИЛЬНАЯ ВЕРСИЯ (телефоны, экран уже 768px)
+   Подключается с media="(max-width: 767px)" после css/fishing.css и css/m-common.css.
+   Координаты — из мобильного макета Figma («Frame 157», ширина 402px); вся страница — один холст.
+   Размеры шрифтов — ровно как в макете.
+   ========================================================= */
+
+.fish .stage { height: 1520px; }
+
+/* ---------- заголовок ---------- */
+.fish__title { left: 60px; top: 84px; width: 294px; font-size: 36px; }
+.fish__tag { left: 101.45px; top: 149.34px; width: 210.84px; height: 26.17px; border-radius: 4px; transform: rotate(-2.36deg); font-size: 10px; }
+.fish__intro { left: 42px; top: 202.5px; width: 328px; font-size: 12px; }
+
+/* ---------- карточки «Рыбалка» и «Охота» — друг под другом ---------- */
+.fcard--fishing { left: 66px; top: 284px; width: 271px; height: 245px; }
+.fcard--hunting { left: 65px; top: 556px; width: 271px; height: 250px; }
+.fcard__body { width: 271px; }
+.fcard--fishing .fcard__body { top: 15px; height: 230px; }
+.fcard--hunting .fcard__body { top: 6px; height: 244px; }
+.fcard__photo { height: 128px; }
+.fcard--hunting .fcard__photo { height: 127px; }
+.fcard__title { left: 15px; top: 144px; font-size: 24px; }
+.fcard__text { left: 15px; top: 179px; width: 234px; font-size: 12px; }
+.fcard--hunting .fcard__title { left: 15px; top: 139px; }
+.fcard--hunting .fcard__text { left: 15px; top: 171px; width: 206px; }
+.fcard__text br { display: none; }
+
+/* ---------- марки и линии ---------- */
+.fish__stamp-red { left: 27.06px; top: 347.68px; width: 65.78px; height: 71.98px; }
+.fish__stamp-round { left: 274.81px; top: 657.03px; width: 79.51px; height: 76.52px; }
+.fish__lines { left: -407px; top: 680px; width: 1293px; height: 431px; opacity: .89; }
+.fish__stamp-horses { left: 287.38px; top: 914.15px; width: 109.13px; height: 65.26px; }
+.fish__stamp-eagle { left: 14.17px; top: 1350.71px; width: 72.46px; height: 44.79px; }
+.fish__stamp-tw { display: none; }   /* в мобильном макете ее нет */
+
+/* ---------- форма ---------- */
+.fish-panel { left: 41px; top: 847px; width: 321px; height: 527px; }
+.fish-label { font-size: 20px; line-height: 118%; letter-spacing: .8px; }
+#fish-what-label { left: 24px !important; top: 27px !important; width: 105px; white-space: normal; }
+#fish-people-label { left: 189px !important; top: 27px !important; width: 90px; white-space: normal; }
+#fish-dates-label { left: 24px !important; top: 136px !important; }
+.fish-label[for="fish-name"] { left: 24px !important; top: 221px !important; }
+.fish-label[for="fish-contact"] { left: 23px !important; top: 306px !important; }
+
+.fish-dd .ask-dd__btn { height: 35px; gap: 8px; padding: 0 12px 0 14px; border-radius: 5.93px; font-size: 14px; }
+.fish-dd .ask-dd__chev { width: 16px; height: 7px; }
+.fish-dd:not(.fish-dd--num) { left: 23px !important; top: 88px !important; width: 119px !important; }
+.fish-dd--num { left: 189px !important; top: 88px !important; width: 72px !important; }
+.fish-dd--num .ask-dd__btn { padding: 0 12px 0 20px; }
+.fish-dd--num .ask-dd__chev { width: 14px; height: 7px; }
+.fish-dd .ask-dd__list { width: 170px; }
+.fish-dd--num .ask-dd__list { width: 90px; }
+
+.fish-dates { left: 23px !important; top: 173px !important; width: 270px; height: 35px; padding: 0 13px; font-size: 14px; }
+.fish-dates .ask-dd__chev { width: 14px; height: 7px; }
+.fish-dates span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fish-field { width: 270px; height: 35px; padding: 0 13px; font-size: 14px; }
+#fish-name { left: 23px !important; top: 258px !important; }
+#fish-contact { left: 23px !important; top: 343px !important; }
+.fish-field::placeholder { font-size: 13px; }
+
+.fish-error { left: 23px; top: 383px; width: 275px; font-size: 10px; white-space: normal; }
+.fish-submit { left: 23px; top: 401px; width: 270px; height: 40px; font-size: 16px; }
+.fish-consent { left: 19px; top: 456px; gap: 15px; }
+.fish-consent .trip-consent__box { width: 18px; height: 18px; margin-top: 2px; }
+.fish-consent .trip-consent__box::after { inset: 3px; }
+.fish-consent .trip-consent__text { width: 249px; font-size: 10px; font-weight: 600; }
+
+/* календарь — под полем дат, по центру плашки (он шире плашки) */
+.fish-calendar { left: 12.75px; top: 214px; }
+
+/* «Спасибо» — бежевая карточка из мобильного макета (общий вид — .done-card в css/m-common.css):
+   плашка сжимается до 346×325, страница под ней короче на 202px (подвал стоит от низа) */
+.fish-done { left: 27px; top: 20px; color: #000; }
+.fish:has(.fish-done:not([hidden])) .fish-panel { left: 28px; width: 346px; height: 325px; }
+.fish:has(.fish-done:not([hidden])) .stage { height: 1318px; }
+.fish:has(.fish-done:not([hidden])) .fish__stamp-eagle { top: 1148.71px; }   /* у нижнего левого угла карточки, как у плашки формы */
+
+/* подвал в этом макете — с отступом 36px слева и справа */
+.footer__logo, .footer__phone, .footer__mail, .footer__social, .footer__note { left: 36px; }
+.footer__links { right: 36px; top: 30px; }

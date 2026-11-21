@@ -1,0 +1,76 @@
+/* =========================================================
+   Tian Way — «Соберите автодом под себя» (rent-extras.html), МОБИЛЬНАЯ ВЕРСИЯ (телефоны, экран уже 768px)
+   Подключается с media="(max-width: 767px)" после css/rent-extras.css и css/m-common.css.
+   Координаты — из мобильного макета Figma («Frame 155», ширина 402px); вся страница — один холст.
+   Услуги на телефоне — горизонтальная лента со своим ползунком снизу (js/rent-extras.js, listScroll).
+   Размеры шрифтов — ровно как в макете.
+   ========================================================= */
+
+.rx .stage { height: 1010px; }   /* «Ваше бронирование» (до 874) + 40px + подвал */
+.rx-topo { display: none; }       /* в мобильном макете рисунка гор нет */
+.rx-title { left: 48px; top: 25px; width: 305px; white-space: normal; text-align: center; font-size: 36px; line-height: 114.04%; }
+
+/* ---------- услуги: лента вбок ---------- */
+.rx-list {
+  left: 0; top: 130px; width: 402px; height: 296px; padding: 0 28px 12px;
+  display: flex; gap: 20px; overflow-x: auto; overflow-y: hidden; scroll-padding: 0 28px;
+  -webkit-mask-image: none; mask-image: none;
+}
+.svc { flex: none; width: 215px; height: 284px; }
+.svc + .svc { margin-top: 0; }
+.svc__photo { width: 215px; height: 132px; border-radius: 6px; }
+.svc__body { left: 13px; top: 146px; width: 192px; }
+.svc__title, .svc[data-item="sv-route"] .svc__title, .svc--gear .svc__title { width: 185px; font-size: 20px; }
+.svc__title br, .svc__text br { display: none; }
+.svc__text { width: 192px; margin-top: 11px; font-size: 10px; line-height: normal; }
+.svc__price { left: 13px; top: 246px; font-size: 16px; }
+.svc__price--ask { top: 240px; width: 80px; font-size: 10px; line-height: 1.15; white-space: normal; }
+.price-per { margin-left: 3px; font-size: 8px; }
+.svc .cart-ctl { left: 135px; top: 239px; width: 74px; height: 29px; scale: none; }
+.cart-add { border-radius: 5px; font-size: 11px; }
+.cart-qty { left: 0; top: 2px; width: 74px; height: 25px; }
+.cart-qty__btn { width: 24px; height: 25px; }
+.cart-qty__btn svg { width: 9px; height: 9px; }
+.cart-qty__val { min-width: 14px; font-size: 14px; }
+.svc__photo--item { padding: 12px; }
+
+/* ползунок — горизонтальная полоса под лентой (тонкая дорожка, толстый оранжевый бегунок) */
+.rx-bar {
+  left: 35px; top: 437px; width: 357px; height: 10px; border-radius: 0;
+  background: linear-gradient(transparent 2.5px, #e7d9c3 2.5px 7.5px, transparent 7.5px);
+}
+.rx-bar__thumb { width: 41px; height: 10px; }
+
+/* ---------- ваше бронирование ---------- */
+.rx-book { left: 28px; top: 470px; width: 341px; height: 404px; }
+.rx-book__title { left: 20px; top: 19px; font-size: 26px; }
+.rx-book__cap { top: 60px; font-size: 11px; }
+.rx-book__cap:first-of-type { left: 21px !important; }            /* «Заезд» */
+.rx-book__vline + .rx-book__cap { left: 122px !important; }       /* «Выезд» */
+.rx-book__date { top: 73px; width: 90px; font-size: 12px; }
+.rx-book__date b { font-size: 20px; }
+.rx-book__date.is-empty { font-size: 10px; }
+.rx-book__date[data-b-from] { left: 20px !important; }
+.rx-book__date[data-b-to] { left: 122px !important; }
+.rx-book__vline { left: 107px; top: 60px; height: 52px; }
+.rx-book__stats { left: 215px; top: 60px; width: 107px; height: 56px; grid-template-columns: 53px 54px; }
+.rx-book__stats p { font-size: 11px; }
+.rx-book__stats b { font-size: 20px; }
+.rx-book__line { left: 20px; width: 302px; }
+.rx-book__line[style*="193px"] { top: 134.5px !important; }   /* под датами */
+.rx-book__line[style*="268px"] { top: 176px !important; }     /* под автодомом */
+.rx-book__car, .rx-book__total { left: 20px; width: 294px; font-size: 16px; }
+.rx-book__car { top: 147px; }
+.rx-book__car a { font-size: 11px; }
+.rx-book__sum { font-size: 14px; }
+.rx-book__h { left: 20px; top: 191px; font-size: 16px; }
+.rx-book__rows { left: 21px; top: 214px; width: 293px; height: 82px; }
+.rx-book__rows li { grid-template-columns: 1fr 28px 64px; height: 26px; padding-top: 6px; font-size: 13px; }
+.rx-book__rows li b { font-size: 14px; }
+.rx-book__rows li b.is-ask span { font-size: 9px; }
+.rx-book__rows .is-empty { font-size: 11px; }
+.rx-book__bar { left: 318px; top: 218px; width: 4px; height: 76px; }
+.rx-book__thumb { width: 4px; }
+.rx-book__total { top: 305px; padding-top: 12px; border-top: 1px solid rgba(0, 0, 0, .15); }   /* в макете над итогом — линия */
+.rx-book__btn { left: 21px; top: 350px; width: 293px; height: 39px; border-radius: 6px; font-size: 14px; }
+.rx-book__hint { left: 21px; top: 391px; width: 293px; font-size: 9px; }

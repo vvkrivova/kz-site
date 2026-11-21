@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
   <title>Tian Way — Кыргызстан на автодоме</title>
   <meta name="description" content="Путешествия на автодоме по Кыргызстану: аренда автодомов, готовые туры, рыбалка и охота.">
   <meta name="theme-color" content="#353f2b">
@@ -28,14 +28,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
   <!-- масштаб считаем ДО отрисовки страницы, чтобы при обновлении она не «прыгала» -->
   <script>
-    document.documentElement.style.setProperty('--page-scale', (document.documentElement.clientWidth / 1440).toFixed(5));
-    // появление первого экрана: прячем его до загрузки картинок (запускает js/main.js; через 4 с — в любом случае)
+    // телефоны (уже 768px) — мобильный макет шириной 402px (css/m-common.css), остальные — 1440px
+    (function () { var w = document.documentElement.clientWidth; document.documentElement.style.setProperty('--page-scale', (w / (w < 768 ? 402 : 1440)).toFixed(5)); })();
+    // появление первого экрана: прячем его до загрузки картинок (запускает js/home.js; через 4 с — в любом случае)
     // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
     var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
     var twBack = !!twNav && twNav.type === 'back_forward';
     if (twBack) document.documentElement.classList.add('nav-back');
     if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
-      // анимации 2 и 8: блоки ниже первого экрана скрыты, пока не дойдут до экрана (показывает js/main.js)
+      // анимации 2 и 8: блоки ниже первого экрана скрыты, пока не дойдут до экрана (показывает js/home.js)
       document.documentElement.classList.add('reveal-on');
       document.documentElement.classList.add('hero-wait');
       setTimeout(function () {
@@ -44,7 +45,11 @@
       }, 4000);
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20261119g">
+  <link rel="stylesheet" href="css/style.css?v=70d81683">
+  <link rel="stylesheet" href="css/home.css?v=0bc9f048">
+  <!-- мобильная версия (телефоны): те же элементы, координаты из мобильного макета Figma (Frame 151, ширина 402px) -->
+  <link rel="stylesheet" href="css/m-common.css?v=ff82ba90" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-home.css?v=873f2d47" media="(max-width: 767px)">
 </head>
 <body>
 <main class="page">
@@ -66,11 +71,11 @@
       </header>
 
       <h1 class="hero__title">Кыргызстан на автодоме</h1>
-      <p class="hero__subtitle">Для тех, кто выбирает свободу<br>в путешествиях — без компромисса с комфортом</p>
+      <p class="hero__subtitle">Для тех, кто выбирает свободу <br>в путешествиях — без компромисса с комфортом</p>
 
       <div class="hero__actions">
         <a class="btn btn--light" href="#formats">Выбрать формат</a>
-        <a class="btn btn--orange" href="rent.html">Посмотреть автодом</a>
+        <a class="btn btn--orange" href="rent.html"><span class="d-only">Посмотреть автодом</span><span class="m-only">Арендовать автодом</span></a>
       </div>
 
       <!-- коллаж -->
@@ -94,22 +99,22 @@
       <h2 class="formats__title">Выбери формат путешествия</h2>
 
       <article class="format-card format-card--rv">
-        <h3 class="format-card__title">Аренда<br>автодома</h3>
-        <p class="format-card__text">Выбираете автодом, даты<br>и собираете поездку<br>под себя.</p>
+        <h3 class="format-card__title">Аренда <br>автодома</h3>
+        <p class="format-card__text">Выбираете автодом, даты <br>и собираете поездку <br>под себя.</p>
         <div class="format-card__img"><img src="img/card-rv.webp" alt="Автодомы у озера"></div>
       </article>
       <a class="format-btn format-btn--rv" href="rent.html">Аренда автодома</a>
 
       <article class="format-card format-card--tours">
-        <h3 class="format-card__title">Готовые<br>путешествия</h3>
-        <p class="format-card__text">Организуем путешествие<br>под вас, вашу семью<br>или компанию.</p>
+        <h3 class="format-card__title">Готовые <br>путешествия</h3>
+        <p class="format-card__text">Организуем путешествие <br>под вас, вашу семью <br>или компанию.</p>
         <div class="format-card__img"><img src="img/card-tours.webp" alt="Беркутчи на лошадях в степи"></div>
       </article>
       <a class="format-btn format-btn--tours" href="trips.html">Подобрать путешествие</a>
 
       <article class="format-card format-card--fishing">
-        <h3 class="format-card__title">Рыбалка<br>и охота</h3>
-        <p class="format-card__text">Отдельные программы для тех,<br>кто едет в Кыргызстан прежде<br>всего за рыбалкой или охотой.</p>
+        <h3 class="format-card__title">Рыбалка <br>и охота</h3>
+        <p class="format-card__text">Отдельные программы для тех, <br>кто едет в Кыргызстан прежде <br>всего за рыбалкой или охотой.</p>
         <div class="format-card__img"><img src="img/card-fishing.webp" alt="Рыбак на горном озере"></div>
       </article>
       <a class="format-btn format-btn--fishing" href="fishing.html">Смотреть программы</a>
@@ -122,10 +127,12 @@
   <!-- ============ 3. ПЕРВЫЙ РАЗ ЗА РУЛЕМ АВТОДОМА? ============ -->
   <section class="section first">
     <div class="stage">
-      <div class="first__bg"><img src="img/first-bg.webp" alt="Горный серпантин в ущелье"></div>
+      <img class="m-only first__cloud" src="img/cloud-2.webp" alt=""><!-- только на телефоне: облако за горой, как в макете -->
+      <div class="first__bg"><picture><source media="(max-width: 767px)" srcset="img/m/first-bg.webp"><img src="img/first-bg.webp" alt="Горный серпантин в ущелье"></picture></div>
       <img class="first__edge" src="img/svg/torn-edge.svg" alt="">
       <div class="first__shade"></div>
       <h2 class="first__title">Первый раз&nbsp;за&nbsp;рулем автодома?</h2>
+      <img class="m-only first__road" src="img/m/first-road.webp" alt=""><!-- только на телефоне: извилистая дорога между шагами -->
 
       <span class="first__spot first__spot--1"></span>
       <span class="first__spot first__spot--2"></span>
@@ -134,31 +141,31 @@
 
       <!-- 4 шага: координаты из макета, относительно группы -->
       <div class="first-step first-step--right" data-sign="4" style="left:444px; top:738px; width:331px;">
-        <h3 class="first-step__title" style="left:0; width:295px;">Показываем<br>и рассказываем</h3>
-        <p class="first-step__text" style="left:48px; width:244px;">Перед выездом спокойно разбираем управление<br>и все оборудование в машине</p>
+        <h3 class="first-step__title" style="left:0; width:295px;">Показываем <br>и рассказываем</h3>
+        <p class="first-step__text" style="left:48px; width:244px;">Перед выездом спокойно разбираем управление <br>и все оборудование в машине</p>
         <span class="first-step__line" style="left:331px; top:46px;"></span>
       </div>
       <div class="first-step" data-sign="3" style="left:945px; top:644px; width:270px;">
         <h3 class="first-step__title" style="left:40px; width:174px;">Проезжаем первые километры вместе</h3>
-        <p class="first-step__text" style="left:40px; width:230px;">Сначала проезжаем пробный круг вместе — без спешки<br>и сложных дорог</p>
+        <p class="first-step__text" style="left:40px; width:230px;">Сначала проезжаем пробный круг вместе — без спешки <br>и сложных дорог</p>
         <span class="first-step__line" style="left:0; top:45px;"></span>
       </div>
       <div class="first-step first-step--right" data-sign="2" style="left:819px; top:411px; width:343px;">
-        <h3 class="first-step__title" style="left:0; width:295px;">Передаем там,<br>где удобно</h3>
+        <h3 class="first-step__title" style="left:0; width:295px;">Передаем там, <br>где удобно</h3>
         <p class="first-step__text" style="left:33px; width:259px;">Возможность доставки машины / передачи в удобной точке — если подтверждено операционно</p>
         <span class="first-step__line" style="left:343px; top:39px;"></span>
       </div>
       <div class="first-step" data-sign="1" style="left:835px; top:219px; width:297px;">
-        <h3 class="first-step__title" style="left:40px; width:174px;">Остаемся<br>на связи</h3>
+        <h3 class="first-step__title" style="left:40px; width:174px;">Остаемся <br>на связи</h3>
         <p class="first-step__text" style="left:40px; width:257px;">На протяжении всей поездки: остаемся на связи по вопросам машины и маршрута</p>
         <span class="first-step__line" style="left:0; top:45px;"></span>
       </div>
 
       <!-- значки-указатели: data-sign связывает значок с его текстом (наведение на любой — качается значок) -->
-      <div class="first__stamp first__stamp--1" data-sign="1"><img src="img/retro-stamps.webp" alt=""></div>
-      <div class="first__stamp first__stamp--2" data-sign="2"><img src="img/retro-stamps.webp" alt=""></div>
-      <div class="first__stamp first__stamp--3" data-sign="3"><img src="img/retro-stamps.webp" alt=""></div>
-      <div class="first__stamp first__stamp--4" data-sign="4"><img src="img/retro-stamps.webp" alt=""></div>
+      <div class="first__stamp first__stamp--1" data-sign="1"><img src="img/retro-stamps-blank.webp" alt=""></div>
+      <div class="first__stamp first__stamp--2" data-sign="2"><img src="img/retro-stamps-blank.webp" alt=""></div>
+      <div class="first__stamp first__stamp--3" data-sign="3"><img src="img/retro-stamps-blank.webp" alt=""></div>
+      <div class="first__stamp first__stamp--4" data-sign="4"><img src="img/retro-stamps-blank.webp" alt=""></div>
 
       <!-- элементы, заходящие на следующий блок -->
       <div class="deco first__topo"><img src="img/topo-lines.webp" alt=""></div>
@@ -173,9 +180,10 @@
     <div class="stage">
       <img class="routes__topo" src="img/topo-lines.webp" alt="">
       <h2 class="routes__title">Куда на автодоме реально проехать</h2>
-      <p class="routes__text">Не просто отмечаем красивые места на карте. Мы сами проезжаем направления и фиксируем то, что важно именно для автодома: дорогу, реальное время в пути, стоянки, воду, топливо, связь<br>и сезонные ограничения</p>
+      <p class="routes__text">Не просто отмечаем красивые места на карте. Мы сами проезжаем направления и фиксируем то, что важно именно для автодома: дорогу, реальное время в пути, стоянки, воду, топливо, связь <br>и сезонные ограничения</p>
 
       <img class="routes__mountains" src="img/map-mountains-bottom.webp" alt="">
+      <img class="m-only routes__edge" src="img/svg/torn-edge.svg" alt=""><!-- только на телефоне: рваный край внизу блока -->
 
       <!-- коллаж справа сверху -->
             <div class="deco routes__photo-bw"><img src="img/map/photo-bw-eagle.webp" alt="Беркут над горами Тянь-Шаня"></div>
@@ -227,7 +235,7 @@
       <img class="reviews__label" src="img/label-real-experience.webp" alt="">
 
       <div class="review review--a" data-review-slot="0">
-        <!-- фото и марки: у каждого отзыва свой набор (data-pics), он переезжает вместе с отзывом — js/main.js -->
+        <!-- фото и марки: у каждого отзыва свой набор (data-pics), он переезжает вместе с отзывом — js/home.js -->
         <img class="review__pic review__pic--lake" data-pics="fishers" src="img/review-lake.webp" alt="Берег горного озера с деревьями">
         <article class="review__card">
           <img class="review__quote" src="img/icon-quote.webp" alt="">
@@ -249,7 +257,7 @@
       </div>
 
       <div class="review review--b" data-review-slot="1">
-        <!-- фото и марки: у каждого отзыва свой набор (data-pics), он переезжает вместе с отзывом — js/main.js -->
+        <!-- фото и марки: у каждого отзыва свой набор (data-pics), он переезжает вместе с отзывом — js/home.js -->
         <img class="review__pic review__pic--lake" data-pics="fishers" src="img/review-lake.webp" alt="Берег горного озера с деревьями" hidden>
         <article class="review__card">
           <img class="review__quote" src="img/icon-quote.webp" alt="">
@@ -287,31 +295,31 @@
       <p class="faq__sub">Коротко отвечаем на то, что обычно хочется понять до бронирования</p>
       <span class="faq__note">Мы рядом</span>
 
-      <div class="faq-item" style="top:192px;">
+      <div class="faq-item" data-i="1" style="top:192px;">
         <span class="faq-item__num" style="left:3px;">01</span>
-        <h3 class="faq-item__q" style="top:-3px;">Я никогда<br>не водил автодом.<br>Я справлюсь?</h3>
+        <h3 class="faq-item__q" style="top:-3px;">Я никогда <br>не водил автодом. <br>Я справлюсь?</h3>
         <span class="faq-item__line" style="left:362px; top:0;"></span>
         <p class="faq-item__a" style="left:395px; top:0; width:340px;">Перед&nbsp;выдачей покажем управление и&nbsp;оборудование, а&nbsp;первые километры проедем вместе. Автодом больше обычной машины, поэтому здесь важнее спокойно привыкнуть к&nbsp;габаритам, чем&nbsp;иметь опыт именно с&nbsp;автодомами.</p>
       </div>
-      <span class="faq__divider" style="left:563.4px; top:356.5px; width:852px;"></span>
-      <div class="faq-item" style="top:403.2px;">
+      <span class="faq__divider" data-i="1" style="left:563.4px; top:356.5px; width:852px;"></span>
+      <div class="faq-item" data-i="2" style="top:403.2px;">
         <span class="faq-item__num">02</span>
         <h3 class="faq-item__q" style="top:-3px;">А&nbsp;если машина сломается в&nbsp;дороге?</h3>
         <span class="faq-item__line" style="left:365px; top:-5px;"></span>
         <p class="faq-item__a" style="left:395px; top:-5px; width:345px;">Вы&nbsp;не&nbsp;остаетесь с&nbsp;проблемой один на&nbsp;один. Мы&nbsp;заранее пропишем, как&nbsp;действуем при&nbsp;неисправности, когда можем решить вопрос на&nbsp;месте и&nbsp;в&nbsp;каких случаях возможна замена машины</p>
       </div>
-      <span class="faq__divider" style="left:563.4px; top:536.9px; width:852px;"></span>
-      <div class="faq-item" style="top:585.6px;">
+      <span class="faq__divider" data-i="2" style="left:563.4px; top:536.9px; width:852px;"></span>
+      <div class="faq-item" data-i="3" style="top:585.6px;">
         <span class="faq-item__num">03</span>
         <h3 class="faq-item__q" style="top:-3px;">Что если испортится погода или дорога станет непроходимой?</h3>
         <span class="faq-item__line" style="left:365px; top:0;"></span>
-        <p class="faq-item__a" style="left:396px; top:-3px; width:345px;">Если&nbsp;условия на&nbsp;участке изменились, помогаем скорректировать дорогу и&nbsp;выбрать безопасный вариант из&nbsp;доступных.<br><br>Именно поэтому в&nbsp;маршрутах отдельно отмечаем сезонность и&nbsp;участки, которые зависят от&nbsp;погоды.</p>
+        <p class="faq-item__a" style="left:396px; top:-3px; width:345px;">Если&nbsp;условия на&nbsp;участке изменились, помогаем скорректировать дорогу и&nbsp;выбрать безопасный вариант из&nbsp;доступных. <br><br>Именно поэтому в&nbsp;маршрутах отдельно отмечаем сезонность и&nbsp;участки, которые зависят от&nbsp;погоды.</p>
       </div>
-      <span class="faq__divider" style="left:568.8px; top:759.7px; width:846px;"></span>
+      <span class="faq__divider" data-i="3" style="left:568.8px; top:759.7px; width:846px;"></span>
 
       <a class="faq__more" href="faq.html">Смотреть еще вопросы <svg class="btn-icon btn-icon--faq" width="20" height="6" viewBox="0 0 20 6" aria-hidden="true"><path d="M0.5 2.38672C0.223858 2.38672 0 2.61058 0 2.88672C0 3.16286 0.223858 3.38672 0.5 3.38672L0.5 2.88672L0.5 2.38672ZM0.5 2.88672L0.5 3.38672L15 3.38672V2.88672V2.38672L0.5 2.38672L0.5 2.88672ZM19.5 2.88672L14.5 -3.26633e-05V5.77347L19.5 2.88672Z" fill="currentColor"/></svg></a>
       <span class="faq__more-line"></span>
-      <p class="faq__ask">Не&nbsp;нашли ответ?<br>Напишите нам&nbsp;— подскажем</p>
+      <p class="faq__ask">Не&nbsp;нашли ответ? <br>Напишите нам&nbsp;— подскажем</p>
       <a class="faq__ask-btn" href="faq.html#ask" aria-label="Задать свой вопрос"><img src="img/svg/faq-circle-arrow.svg" alt=""></a>
 
       <img class="faq__route" src="img/map/dashed-route.webp" alt="">
@@ -325,13 +333,15 @@
   <section class="section trip" id="trip">
     <div class="stage">
       <img class="trip__bg" src="img/form-bg.webp" alt="">
+      <div class="m-only trip__fade"></div><!-- только на телефоне: затемнение под подвалом -->
+      <img class="m-only trip__route" src="img/map/dashed-route.webp" alt=""><!-- только на телефоне: пунктир под заголовком -->
       <div class="trip__topo"><img src="img/topo-lines.webp" alt=""></div>
       <img class="trip__photo" src="img/hero-photo-rv.webp" alt="">
       <img class="trip__stamp-red" src="img/stamp-red.webp" alt="">
       <div class="trip__panel"></div>
 
       <h2 class="trip__title">Соберем поездку под вас</h2>
-      <p class="trip__sub">Не обязательно знать точные даты, маршрут или программу.<br>Расскажите, что примерно хотите — мы предложим подходящий вариант.</p>
+      <p class="trip__sub">Не обязательно знать точные даты, маршрут или программу. <br>Расскажите, что примерно хотите — мы предложим подходящий вариант.</p>
 
       <form class="trip-form" data-trip-form novalidate>
         <!-- Шаг 1 -->
@@ -342,12 +352,12 @@
           <label class="trip-option" style="left:365px; top:413px;">
             <input type="radio" name="kind" value="Аренда автодома">
             <b>Аренда автодома</b>
-            <span>Хочу выбрать машину<br>и собрать поездку самостоятельно</span>
+            <span>Хочу выбрать машину <br>и собрать поездку самостоятельно</span>
           </label>
           <label class="trip-option" style="left:723px; top:412px;">
             <input type="radio" name="kind" value="Готовое путешествие">
             <b>Готовое путешествие</b>
-            <span>Хочу, чтобы вы помогли собрать и организовать поездку под меня<br>или нашу компанию</span>
+            <span>Хочу, чтобы вы помогли собрать и организовать поездку под меня <br>или нашу компанию</span>
           </label>
           <label class="trip-option" style="left:365px; top:613px;">
             <input type="radio" name="kind" value="Рыбалка и охота">
@@ -457,10 +467,17 @@
     <div class="ov-photo-bw"><img src="img/photo-bw-horses.webp" alt=""></div>
     <div class="ov-lines-b"><img src="img/lines-hero.webp" alt=""></div>
     <div class="ov-clouds"><img src="img/clouds-set.webp" alt=""></div>
+    <!-- только на телефоне: лента под первым экраном (готовые картинки из Figma) -->
+    <div class="m-only ov-m-tape"><img src="img/m/tape-1.webp" alt=""><img src="img/m/tape-2.webp" alt=""></div>
+    <!-- только на телефоне: круглая марка первого экрана — поверх ленты, как в мобильном макете -->
+    <div class="m-only ov-m-stamp-round"><img src="img/stamp-round-logo.webp" alt=""></div>
   </div>
 
 </main>
 
-<script src="js/main.js?v=20261118s"></script>
+<script src="js/main.js?v=9548d0a4"></script>
+<script src="data/routes.js?v=c2243b3b"></script>
+<script src="data/reviews.js?v=0f3d1fd4"></script>
+<script src="js/home.js?v=8aaee9bd"></script>
 </body>
 </html>

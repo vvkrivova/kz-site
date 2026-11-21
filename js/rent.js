@@ -158,7 +158,7 @@ const rentSearch = (function () {
    Сам поиск — только по кнопке «Найти» (кроме возврата «Назад»: тогда показываем прежние результаты).
    Если даты или гостей поменяли вручную — результаты убираются, пока снова не нажмут «Найти».
    Порядок групп задается свойством order в сетке .cars (карточки в разметке не переставляются).
-   Вместимость и занятые даты — в js/rent-availability.js. */
+   Вместимость и занятые даты — в data/rent-availability.js. */
 const NEXT_PAGE = 'rent-extras.html'; // следующий шаг — «Соберите автодом под себя»
 const carsBox = document.getElementById('cars');
 const DAY = 86400000;
@@ -390,7 +390,18 @@ const bookModal = (function () {
     // «Подробнее» / «Скрыть описание»
     const more = card.querySelector('.car__more');
     const label = more.querySelector('[data-more-label]');
+    // высота раскрытой карточки: на компьютере — из разметки (--open-h), на телефоне описание идет одной колонкой
+    // (css/m-rent.css) — считаем по его настоящей высоте: верх описания + высота + 96 (отступ и строка с ценой)
+    const details = card.querySelector('.car__details');
+    const baseOpenH = card.style.getPropertyValue('--open-h');
+    const phone = window.matchMedia('(max-width: 767px)');
+    const fitOpenH = () => {
+      card.style.setProperty('--open-h', phone.matches ? `${details.offsetTop + details.offsetHeight + 96}px` : baseOpenH);
+    };
+    fitOpenH();
+    phone.addEventListener('change', fitOpenH);
     more.addEventListener('click', () => {
+      fitOpenH();
       const open = card.classList.toggle('is-open');
       more.setAttribute('aria-expanded', String(open));
       label.textContent = open ? 'Скрыть описание' : 'Подробнее';

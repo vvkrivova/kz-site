@@ -1,0 +1,85 @@
+/* =========================================================
+   Tian Way — итоговая страница бронирования (rent-booking.html), МОБИЛЬНАЯ ВЕРСИЯ (телефоны, экран уже 768px)
+   Подключается с media="(max-width: 767px)" после css/rent-booking.css и css/m-common.css.
+   Координаты — из мобильного макета Figma («Frame 158», «Спасибо» — «Frame 159», ширина 402px).
+   «Ваше бронирование» и «Заказчик» идут друг под другом потоком (сводка растет вместе со списком услуг).
+   Размеры шрифтов — ровно как в макете.
+   ========================================================= */
+
+.rb .stage { height: auto; padding: 140px 0 136px 30px; }
+.rb-topo { display: none; }   /* в мобильном макете рисунка гор нет */
+.rb-title { left: 48px; top: 25px; width: 305px; font-size: 36px; line-height: 114.04%; }
+
+/* ---------- ваше бронирование ---------- */
+.rb-sum { width: 341px; min-height: 0; padding: 216px 27px 12px 21px; }
+.rb-sum__head { height: 216px; }
+.rb-sum__title { left: 20px; top: 19px; font-size: 26px; }
+.rb-sum__cap { top: 60px; font-size: 11px; }
+.rb-sum__cap:first-of-type { left: 21px !important; }          /* «Заезд» */
+.rb-sum__vline + .rb-sum__cap { left: 122px !important; }      /* «Выезд» */
+.rb-sum__date { top: 75px; width: 90px; font-size: 12px; }
+.rb-sum__date b { font-size: 20px; }
+.rb-sum__date.is-empty { font-size: 10px; }
+.rb-sum__date[data-s-from] { left: 20px !important; }
+.rb-sum__date[data-s-to] { left: 122px !important; }
+.rb-sum__vline { left: 107px; top: 60px; height: 52px; }
+.rb-sum__stats { left: 215px; top: 60px; width: 107px; height: 56px; }
+.rb-sum__stats p { font-size: 11px; }
+.rb-sum__stats p + p { padding: 2px 0; }
+.rb-sum__stats b { font-size: 20px; }
+.rb-sum__line { left: 20px; width: 302px; }
+.rb-sum__line[style*="290px"] { top: 134.5px !important; }   /* под датами */
+.rb-sum__line[style*="390px"] { top: 176px !important; }     /* под автодомом */
+.rb-sum__car { left: 20px; top: 147px; width: 294px; font-size: 16px; }
+.rb-sum__car a { font-size: 11px; }
+.rb-sum__money { font-size: 14px; }
+.rb-sum__h { left: 20px; top: 191px; font-size: 16px; }
+.rb-sum__rows li { grid-template-columns: 1fr 28px 64px; height: 25.5px; padding-top: 2px; font-size: 13px; }
+.rb-sum__rows li b { font-size: 14px; }
+.rb-sum__rows li b.is-ask span { font-size: 9px; }
+.rb-sum__rows .is-empty { padding: 2px 0 6px; font-size: 11px; }
+/* итог — оранжевая полоса чуть шире текста карточки, как в макете */
+.rb-sum__total { height: 33px; margin: 9px -9px 0 -3px; padding: 0 11px 0 13px; border-radius: 6px; font-size: 16px; }
+
+/* условия — заголовки со стрелкой и линией между ними (текстов пока нет) */
+.rb-term, .rb-term + .rb-term, .rb-term.rb-term--last { min-height: 0; }
+.rb-term { position: relative; padding-bottom: 15px; margin-bottom: 19px; border-bottom: 1px solid rgba(0, 0, 0, .15); }
+.rb-sum__total + .rb-term { margin-top: 19px; }
+.rb-term.rb-term--last { margin-bottom: 0; padding-bottom: 6px; border-bottom: 0; }
+.rb-term__h { font-size: 16px; }
+.rb-term__h::after {
+  content: ""; position: absolute; right: 2px; top: 5px; width: 14px; height: 6px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='6' viewBox='0 0 14 6' fill='none'%3E%3Cpath d='M.5.5 7 5.5 13.5.5' stroke='%23000'/%3E%3C/svg%3E") no-repeat;
+}
+.rb-term__text { margin-top: 8px; font-size: 11px; }
+.rb-term__text:empty { display: none; }
+
+/* ---------- заказчик — под сводкой ---------- */
+.rb-client { position: relative; left: 0; top: 0; width: 340px; height: 428px; margin-top: 26px; }
+.rb-form__title { left: 15px; top: 17px; font-size: 26px; }
+.rb-field { width: 154px; height: 46px; padding: 0 12px; font-size: 12px; }
+.rb-field[name="name"]    { left: 11px !important;  top: 59px !important; }
+.rb-field[name="surname"] { left: 173px !important; top: 59px !important; }
+.rb-field[name="phone"]   { left: 11px !important;  top: 120px !important; }
+.rb-field[name="email"]   { left: 173px !important; top: 120px !important; }
+.rb-field--notes { left: 11px !important; top: 181px !important; width: 316px; height: 87px; padding: 12px 9px; }
+.rb-field::placeholder { font-size: 12px; }
+.rb-field[name="phone"] { padding: 0 9px; }
+.rb-field[name="phone"]::placeholder { font-size: 11px; }   /* «Телефон или Telegram» целиком */
+.rb-consent { left: 11px; top: 290px; gap: 12px; }
+.rb-consent .trip-consent__box { width: 14px; height: 14px; margin-top: 2px; }
+.rb-consent .trip-consent__box::after { inset: 2px; }
+.rb-consent .trip-consent__text { width: 283px; font-size: 9px; font-weight: 600; }
+.rb-submit { left: 11px; top: 359px; width: 316px; height: 45px; border-radius: 5px; font: 700 16px/1 var(--font-body); }
+.rb-error { left: 11px; top: 407px; width: 316px; height: auto; font-size: 10px; }
+.rb-hint { font-size: 9px; }
+
+/* ---------- «Спасибо» (Frame 159): без плашки, темный текст, прямая кнопка ---------- */
+.rb.is-done .stage { height: 620px; padding: 0; }
+.rb-thanks__panel { display: none; }
+.rb-thanks__check  { left: 158px; top: 224px; width: 73px; height: 67px; content: url(../img/m/check-dark.webp); }   /* на светлом фоне — темная галочка из мобильного макета */
+.rb-thanks__rays-l { left: 124px; top: 230px; width: 44.6px; height: 36.6px; }
+.rb-thanks__rays-r { left: 221px; top: 244px; width: 51.4px; height: 36.6px; }
+.rb-thanks__title { left: 41px; top: 307px; width: 320px; white-space: nowrap; font-size: 20px; color: #000; }
+.rb-thanks__text { left: 77px; top: 336px; width: 248px; font-size: 10px; color: #000; }
+.rb-thanks__home { left: 118.6px; top: 380px; width: 165px; height: 30px; border-radius: 3px; rotate: none; font-size: 10px; }

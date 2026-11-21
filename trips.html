@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
   <title>Готовые путешествия — Tian Way</title>
   <meta name="description" content="Готовые путешествия на автодоме по Кыргызстану: Иссык-Куль, Каракол, Новый год в горах. Или соберем поездку под ваши даты, темп и интересы.">
   <meta name="theme-color" content="#353f2b">
@@ -14,7 +14,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
   <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
   <script>
-    document.documentElement.style.setProperty('--page-scale', (document.documentElement.clientWidth / 1440).toFixed(5));
+    // телефоны (уже 768px) — мобильный макет шириной 402px (css/m-common.css), остальные — 1440px
+    (function () { var w = document.documentElement.clientWidth; document.documentElement.style.setProperty('--page-scale', (w / (w < 768 ? 402 : 1440)).toFixed(5)); })();
     // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
     var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
     var twBack = !!twNav && twNav.type === 'back_forward';
@@ -23,8 +24,11 @@
       document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20261119g">
-  <link rel="stylesheet" href="css/trips.css?v=20261119f">
+  <link rel="stylesheet" href="css/style.css?v=70d81683">
+  <link rel="stylesheet" href="css/trips.css?v=7100dcd9">
+  <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 153, ширина 402px) -->
+  <link rel="stylesheet" href="css/m-common.css?v=ff82ba90" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-trips.css?v=0e7cb116" media="(max-width: 767px)">
 </head>
 <body>
 <main class="page">
@@ -36,13 +40,18 @@
       <div class="tp-hero__shade"></div>
       <div class="tp-hero__gradient"></div>
 
-      <header class="header">
+      <!-- на десктопе этой страницы в шапке только логотип (header--logo-only); телефон и соцсети видны на телефоне -->
+      <header class="header header--logo-only">
         <a class="header__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo.webp" alt="Tian Way"></a>
+        <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/social-instagram.webp" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/social-whatsapp.webp" alt=""></a>
+        <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/social-telegram.webp" alt=""></a>
       </header>
 
       <h1 class="tp-hero__title" data-reveal>Готовые путешествия</h1>
       <p class="tp-hero__sub" data-reveal style="--rd:.12s">Собираем путешествия по Кыргызстану для одного человека, пары, семьи или компании — под ваши даты, темп и интересы</p>
-      <a class="tp-btn tp-btn--orange tp-hero__btn-trips" href="#season" data-reveal style="--rd:.24s">Посмотреть путешествия</a>
+      <a class="tp-btn tp-btn--orange tp-hero__btn-trips" href="#season" data-reveal style="--rd:.24s"><span class="d-only">Посмотреть путешествия</span><span class="m-only">Смотреть путешествия</span></a>
       <a class="tp-btn tp-btn--light tp-hero__btn-custom" href="#custom" data-reveal style="--rd:.3s">Собрать под себя</a>
     </div>
   </section>
@@ -50,7 +59,7 @@
   <!-- ============ 2. КУДА ПОЕХАТЬ В ЭТОМ СЕЗОНЕ ============ -->
   <section class="section tp-season" id="season">
     <div class="stage">
-      <img class="tp-season__topo" src="img/trips/topo-season.svg" alt="">
+      <picture class="tp-season__topo"><source media="(max-width: 767px)" srcset="img/m/trips-topo.svg"><img src="img/trips/topo-season.svg" alt=""></picture>
       <h2 class="tp-season__title" data-reveal>Куда поехать в&nbsp;этом сезоне</h2>
 
       <!-- вкладки сезонов: data-season-tab совпадает с data-seasons у карточек -->
@@ -73,6 +82,7 @@
             <p class="tcard__desc">Размеренное путешествие по северному побережью Иссык-Куля: отдых у озера, конные прогулки, горные ущелья, традиционная кухня и рыбалка.</p>
             <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.webp" alt=""></span>
             <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price m-only"><img src="img/m/icon-price.webp" alt=""></span>
             <span class="tcard__meta tcard__meta--days">6 дней</span>
             <span class="tcard__meta tcard__meta--locs">5 локаций</span>
             <span class="tcard__meta tcard__meta--price">от 1 150 $</span>
@@ -87,6 +97,7 @@
             <p class="tcard__desc">Путешествие к заснеженным вершинам Тянь-Шаня: зимние пейзажи Иссык-Куля, горнолыжный отдых в Караколе, красные скалы и горячие источники.</p>
             <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.webp" alt=""></span>
             <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price m-only"><img src="img/m/icon-price.webp" alt=""></span>
             <span class="tcard__meta tcard__meta--days">6 дней</span>
             <span class="tcard__meta tcard__meta--locs">5 локаций</span>
             <span class="tcard__meta tcard__meta--price">от 0 000 $</span>
@@ -95,11 +106,12 @@
 
           <article class="tcard" data-seasons="now summer offseason">
             <div class="tcard__body"></div>
-            <img class="tcard__photo" src="img/trips/trip-issyk-ring.webp" alt="Красные скалы и зеленая долина у Иссык-Куля" style="left:19.5px; top:-63.2px; width:333.9px; height:250.2px; transform:rotate(5.64deg);">
+            <img class="tcard__photo" src="img/trips/trip-issyk-ring-postcard.webp" alt="Закат над Иссык-Кулем — винтажная открытка" style="left:54px; top:-95px; width:303px; height:303px;">
             <h3 class="tcard__title">Большое кольцо Иссык-Куля</h3>
             <p class="tcard__desc">Полноценное путешествие вокруг Иссык-Куля: горные ущелья, каньоны, национальная кухня и знакомство с кыргызскими традициями.</p>
             <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.webp" alt=""></span>
             <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price m-only"><img src="img/m/icon-price.webp" alt=""></span>
             <span class="tcard__meta tcard__meta--days">8 дней</span>
             <span class="tcard__meta tcard__meta--locs">5 локаций</span>
             <span class="tcard__meta tcard__meta--price">от 1 600 $</span>
@@ -115,6 +127,7 @@
             <p class="tcard__desc">Высокогорное озеро и кочевая культура</p>
             <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.webp" alt=""></span>
             <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price m-only"><img src="img/m/icon-price.webp" alt=""></span>
             <span class="tcard__meta tcard__meta--days">6 дней</span>
             <span class="tcard__meta tcard__meta--locs">5 локаций</span>
             <span class="tcard__meta tcard__meta--price">от 1 150 $</span>
@@ -136,7 +149,7 @@
   <!-- ============ 3. СОБЕРЕМ ПУТЕШЕСТВИЕ ПОД ВАС ============ -->
   <section class="section tp-custom" id="custom" data-center=".tp-panel">
     <div class="stage">
-      <img class="tp-custom__topo" src="img/trips/topo-form.svg" alt="">
+      <picture class="tp-custom__topo"><source media="(max-width: 767px)" srcset="img/m/trips-topo.svg"><img src="img/trips/topo-form.svg" alt=""></picture>
       <img class="tp-custom__lines" src="img/lines-hero.webp" alt="">
 
       <h2 class="tp-custom__title" data-reveal>Соберем путешествие под&nbsp;вас</h2>
@@ -164,7 +177,7 @@
             </ul>
           </div>
 
-          <span class="tp-label" id="tp-people-label" style="left:374px; top:44px;">Сколько человек?</span>
+          <span class="tp-label" id="tp-people-label" style="left:374px; top:44px;"><span class="d-only">Сколько человек?</span><span class="m-only">Сколько едет?</span></span>
           <div class="ask-dd tp-dd tp-dd--num" data-dd style="left:374px; top:102px; width:87px;">
             <input type="hidden" name="people" value="2">
             <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="tp-people-label">
@@ -217,10 +230,15 @@
           </div>
         </form>
 
-        <div class="tp-done" data-tp-done hidden>
+        <div class="tp-done done-card" data-tp-done hidden>
           <b>Спасибо, заявка отправлена!</b>
           <span>Подготовим предложение и свяжемся с вами в ближайшее время — обычно в течение дня.</span>
           <button class="tp-again" type="button" data-tp-again>Отправить еще одну</button>
+          <!-- только на телефоне: галочка с лучиками над текстом (как у «Спасибо» на главной) -->
+          <div class="done-icon m-only" aria-hidden="true"><img src="img/check-circle.webp" alt=""><img src="img/rays-left.webp" alt=""><img src="img/rays-right.webp" alt=""></div>
+          <!-- только на телефоне (мобильный макет): «Следующий шаг» и кнопка на главную вместо «Отправить еще одну» -->
+          <div class="done-next m-only"><img src="img/folded-map.webp" alt=""><b>Следующий шаг</b><span>Мы свяжемся с вами и поможем собрать подходящий вариант поездки.</span></div>
+          <a class="done-home m-only" href="index.html">Перейти на главную страницу</a>
         </div>
       </div>
       <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
@@ -245,7 +263,7 @@
 
 </main>
 
-<script src="js/main.js?v=20261118s"></script>
-<script src="js/trips.js?v=20261118b"></script>
+<script src="js/main.js?v=9548d0a4"></script>
+<script src="js/trips.js?v=09e88a84"></script>
 </body>
 </html>

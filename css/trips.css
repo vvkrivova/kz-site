@@ -22,6 +22,8 @@
 /* =========================================================
    1. ПЕРВЫЙ ЭКРАН
    ========================================================= */
+/* в шапке этой страницы по макету только логотип (телефон и соцсети показывает мобильная версия) */
+.header--logo-only .header__phone, .header--logo-only .header__social { display: none; }
 .tp-hero .stage { height: 889px; background: var(--beige); }
 .tp-hero__bg { left: -41px; top: -2px; width: 1546px; height: 870px; object-fit: cover; }
 .tp-hero__shade { left: -41px; top: -2px; width: 1546px; height: 870px; background: rgba(0, 0, 0, .2); }
@@ -43,6 +45,7 @@
    ========================================================= */
 .tp-season .stage { height: 1040px; background: var(--beige); }
 .tp-season__topo { left: 0; top: 0; width: 1440px; height: 1036px; pointer-events: none; }
+.tp-season__topo img, .tp-custom__topo img { display: block; width: 100%; height: 100%; } /* узор — <picture>: на телефоне свой рисунок */
 .tp-season__title {
   left: 102px; top: 69px; width: 1235px; margin: 0; text-align: center;
   font: 600 96px/.94 var(--font-display); text-transform: uppercase; color: #000;
@@ -60,7 +63,10 @@
 .tp-tab.is-active:hover { color: #fff; }
 
 /* лента карточек: окно на всю ширину, карточки внутри «дорожки», которая сдвигается стрелками */
-.tp-cards { left: 0; top: 300px; width: 1440px; height: 700px; overflow: hidden; overflow: clip; }
+.tp-cards {
+  left: 0; top: 300px; width: 1440px; height: 700px; overflow: hidden; overflow: clip;
+  --cards-step: 404; --cards-visible: 3; /* шаг ленты (карточка 372 + промежуток 32) и сколько карточек видно — читает js/trips.js */
+}
 .tp-cards__track {
   position: absolute; left: 61px; top: 105px; height: 569px;
   transition: translate .7s cubic-bezier(.65, 0, .35, 1);

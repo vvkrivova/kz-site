@@ -48,81 +48,29 @@
   window.addEventListener('hashchange', center);
 })();
 
-/* ---------- 2. Форма «Не нашли ответ?» ----------
-   Пока без реальной отправки: проверяем поля и показываем благодарность. */
+/* ---------- 2. Форма «Не нашли ответ?» — общая логика leadForm (js/main.js) ---------- */
 (function askForm() {
   const form = document.querySelector('[data-ask-form]');
   if (!form) return;
-  const errorEl = form.querySelector('[data-ask-error]');
-  const done = document.querySelector('[data-ask-done]');
-  const fields = { question: form.elements.question, name: form.elements.name, contact: form.elements.contact };
-  const LABELS = { question: 'вопрос', name: 'имя', contact: 'контакты' };
-
-  const clearErrors = () => {
-    errorEl.hidden = true;
-    Object.values(fields).forEach((f) => f.classList.remove('is-invalid'));
-  };
-  Object.values(fields).forEach((f) => f.addEventListener('input', clearErrors));
-  form.elements.consent.addEventListener('change', () => { errorEl.hidden = true; });
-
-  // «вопрос, имя и контакты»
+  const LABELS = { name: 'имя', contact: 'контакты' };
+  // «имя и контакты»
   const humanJoin = (list) => (list.length > 1 ? `${list.slice(0, -1).join(', ')} и ${list[list.length - 1]}` : list[0]);
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    clearErrors();
-    const missing = Object.keys(fields).filter((k) => !fields[k].value.trim());
-    if (missing.length) {
-      errorEl.textContent = `Укажите ${humanJoin(missing.map((k) => LABELS[k]))}, чтобы мы могли ответить.`;
-      errorEl.hidden = false;
-      missing.forEach((k) => fields[k].classList.add('is-invalid'));
-      fields[missing[0]].focus({ preventScroll: true });
-      return;
-    }
-    if (!form.elements.consent.checked) {
-      errorEl.textContent = 'Нужно согласие на обработку персональных данных.';
-      errorEl.hidden = false;
-      return;
-    }
-
-    // данные вопроса — пригодятся, когда подключим отправку на почту / в Telegram
-    console.info('Вопрос с сайта (отправка еще не подключена):', {
+  leadForm({
+    form,
+    error: form.querySelector('[data-ask-error]'),
+    done: document.querySelector('[data-ask-done]'),
+    again: document.querySelector('[data-ask-again]'),
+    // вопрос — необязательный: обязательны только имя и контакты
+    fields: { name: form.elements.name, contact: form.elements.contact },
+    missingText: (missing) => `Укажите ${humanJoin(missing.map((k) => LABELS[k]))}, чтобы мы могли ответить.`,
+    title: 'Вопрос с сайта',
+    data: () => ({
       topic: form.elements.topic.value,
-      question: fields.question.value.trim(),
-      name: fields.name.value.trim(),
-      contact: fields.contact.value.trim(),
-    });
-
-    // форма плавно уходит, на ее месте появляется благодарность
-    form.classList.add('is-hiding');
-    setTimeout(() => {
-      form.hidden = true;
-      form.classList.remove('is-hiding');
-      done.hidden = false;
-      done.classList.add('is-showing');
-    }, 300);
-  });
-
-  // порядок, в котором поля формы выплывают при возвращении (сверху вниз)
-  [...form.children].forEach((el, i) => el.style.setProperty('--si', i));
-
-  // «Задать еще вопрос»: благодарность плавно уходит вверх,
-  // поля формы по очереди выплывают снизу — зеркально отправке
-  let againTimer;
-  document.querySelector('[data-ask-again]').addEventListener('click', () => {
-    clearTimeout(againTimer);
-    done.classList.remove('is-showing');
-    done.classList.add('is-hiding');
-    againTimer = setTimeout(() => {
-      done.hidden = true;
-      done.classList.remove('is-hiding');
-      form.reset();
-      clearErrors();
-      form.hidden = false;
-      form.classList.add('is-showing');
-      fields.question.focus({ preventScroll: true });
-      // снимаем класс после анимации, чтобы ее можно было повторить в следующий раз
-      againTimer = setTimeout(() => form.classList.remove('is-showing'), 1200);
-    }, 300);
+      question: form.elements.question.value.trim(),
+      name: form.elements.name.value.trim(),
+      contact: form.elements.contact.value.trim(),
+    }),
+    againMs: 1200,
+    focusAfterAgain: form.elements.question,
   });
 })();

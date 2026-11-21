@@ -4,28 +4,35 @@
    ========================================================= */
 
 /* ---------- Лента «Программа тура по дням» ----------
-   Видно три карточки целиком, следующая выглядывает справа (как в макете).
+   На компьютере видно три карточки целиком, следующая выглядывает справа; на телефоне — одна (как в макетах).
+   Шаг ленты и число видимых карточек — из CSS (--days-step, --days-visible у .tour-days).
    Стрелки сдвигают ленту на одну карточку; лишняя стрелка прячется. */
 (function tourDays() {
   const track = document.querySelector('[data-days-track]');
   if (!track) return;
-  const STEP = 398;   // ширина карточки 372 + промежуток 26 (из макета)
-  const VISIBLE = 3;
+  const box = track.closest('.tour-days');
+  const cssNum = (name, fallback) => parseFloat(getComputedStyle(box).getPropertyValue(name)) || fallback;
   const days = [...track.querySelectorAll('.tday')];
   const prev = document.querySelector('[data-days-prev]');
   const next = document.querySelector('[data-days-next]');
-  const max = Math.max(0, days.length - VISIBLE);
   let index = 0;
 
-  days.forEach((d, i) => { d.style.left = `${i * STEP}px`; });
-  function update() {
+  function update(instant) {
+    const STEP = cssNum('--days-step', 398);
+    const max = Math.max(0, days.length - cssNum('--days-visible', 3));
+    index = Math.min(index, max);
+    days.forEach((d, i) => { d.style.left = `${i * STEP}px`; });
+    if (instant) track.style.transition = 'none';
     track.style.translate = `${-index * STEP}px 0`;
+    if (instant) { void track.offsetWidth; track.style.transition = ''; }
     prev.hidden = index === 0;
     next.hidden = index >= max;
   }
   prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
-  next.addEventListener('click', () => { index = Math.min(max, index + 1); update(); });
-  update();
+  next.addEventListener('click', () => { index += 1; update(); });
+  update(true);
+  // телефон ↔ компьютер (поворот экрана, изменение окна): другой шаг ленты — переставляем без анимации
+  window.matchMedia('(max-width: 767px)').addEventListener('change', () => update(true));
 })();
 
 /* ---------- Оранжевые линии над горами рисуются, когда их становится видно ----------

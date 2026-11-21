@@ -1,0 +1,13 @@
+{
+  "_readme": "Контакты и подписи в шапке и подвале всех страниц. После правки запустить: python3 tools/build.py",
+  "phone": "+996 500 192 445",
+  "phone_tel": "+996500192445",
+  "email": "autokemperkg@gmail.com",
+  "instagram": "https://www.instagram.com/tian_way/",
+  "whatsapp": "https://wa.me/79272082971",
+  "telegram": "https://t.me/tianway",
+  "privacy_url": "#",
+  "offer_url": "#",
+  "copyright": "© 2026 «Tian Way». Все права защищены",
+  "meta_note": "Meta признана экстремистской организацией и запрещена в РФ"
+}
