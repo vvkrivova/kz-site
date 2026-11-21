@@ -1,0 +1,81 @@
+/* =========================================================
+   Tian Way — страницы туров (tour-issyk-ring / -north / -winter), МОБИЛЬНАЯ ВЕРСИЯ (телефоны, экран уже 768px)
+   Подключается в templates/tour.html с media="(max-width: 767px)" после css/tour.css и css/m-common.css.
+   Координаты — из мобильного макета Figma («Frame 154», «Большое кольцо», ширина 402px); вся страница — один холст.
+   Карточки дней выше макета на 24px (наши описания дней длиннее — до 4 строк), поэтому все,
+   что ниже ленты дней, опущено на 24px относительно макета.
+   Размеры шрифтов — ровно как в макете.
+   ========================================================= */
+
+.tour .stage { height: 2039px; }   /* 2016 по макету + 24 (карточки дней выше) */
+
+/* ---------- фоны ---------- */
+.tour__hero-bg, .tour__hero-shade { left: -76px; top: -1px; width: 732px; height: 606px; }
+.tour__hero-gradient { left: 0; top: -1px; width: 402px; height: 583px; }
+.tour__spot--top, .tour__lines, .tour__logo { display: none; }   /* в мобильном макете их нет */
+/* описание под названием — в макете отдельным слоем поверх фрейма (1214:3864) */
+.tour__lead { left: 43px; top: 271px; width: 329px; font: 500 15px/19px var(--font-body); color: #e9dcc2; }   /* строки чуть плотнее макета (20px) — у «Северного берега» текст длиннее (8 строк) и должен уместиться над плашками */
+.tour__tear { left: 0; top: 525.5px; width: 402px; height: 101px; }
+.tour__topo { left: -70.41px; top: 545.74px; width: 254.65px; height: 180.1px; transform: rotate(7.44deg); opacity: .61; }
+.tour__panorama { left: -1917px; top: 546px; width: 2612px; height: 1494px; filter: blur(2.6px); }
+.tour__panorama-gradient { left: 0; top: 1921px; width: 402px; height: 119px; background: linear-gradient(rgba(0, 0, 0, 0), #000); }
+
+/* ---------- 1. название, плашки, «Подобрать даты» ---------- */
+.tour__title { left: 44px; top: 114px; width: 318px; font-size: 48px; line-height: 101.86%; letter-spacing: 1.44px; }
+
+.tour-chip { top: 428px; height: 40px; border-radius: 4px; font-size: 13px; }
+.tour-chip--days { left: 42px; width: 106px; padding-left: 49px; }
+.tour-chip--start { left: 160px; width: 167px; padding-left: 49px; }
+.tour-chip__ico { scale: none; }
+.tour-chip__ico--days { left: 7px; top: 5px; width: 33px; height: 30px; }
+.tour-chip__ico--start { left: 14px; top: 7px; width: 21px; height: 25px; }
+
+.tour-btn { font: 600 12px/1 var(--font-body); }
+.tour-btn--dates {
+  left: 42px; top: 484px; width: 148px; height: 35px; padding-left: 9px; border-radius: 4px;
+  background: var(--orange); color: var(--sand); box-shadow: 6px 7px 4px rgba(0, 0, 0, .25);
+}
+.tour-btn__arrow { left: 118px; top: 13px; width: 20px; height: 7px; }
+
+/* ---------- 2. программа по дням: видна одна карточка, следующая выглядывает справа ---------- */
+.tour__program-title { left: 44px; top: 622px; width: 303px; font: 600 48px/1 var(--font-display); color: #000; }
+.tour-days { left: 0; top: 700px; width: 402px; height: 350px; --days-step: 292; --days-visible: 1; }
+.tour-days__track { left: 44px; top: 42px; height: 301px; }
+.tday { width: 273px; height: 301px; }
+.tday__photo { width: 273px; height: 148px; }
+.tday--short::before { left: 10px; top: -4px; font-size: 140px; }
+.tday__num { left: 15px; top: 160px; font-size: 16px; }   /* на 7px ниже макета — отступ от фото */
+.tday__title { left: 15px; top: 189px; width: 243px; gap: 4px 10px; font-size: 20px; }
+.tday__arrow { width: 25px; height: 8px; }
+.tday__text { left: 15px; top: 223px; width: 243px; font-size: 13px; }
+
+.tour-arrow { top: 865px; width: 35px; height: 35px; }
+.tour-arrow svg { width: 15px; height: 10px; }
+.tour-arrow--next { left: 348px; }
+.tour-arrow--prev { left: 18px; }
+
+/* ---------- 3. что входит в стоимость: белые плашки на фото ---------- */
+.tour__price-title { left: 42px; top: 1082px; width: 279px; font: 600 48px/1 var(--font-display); color: #fff; }
+/* «больше воздуха» десктопа (scale и сдвиг у плашек) на телефоне не нужно; плашки — над темным пятном у «Готовы к путешествию?» */
+.tour-incl:not(.tour-incl--no), .tour-incl--no { scale: none; margin: 0; z-index: 1; }
+.tour-incl { left: 28px; top: 1203px; width: 352px; height: 223px; padding: 14px 0 0 21px; border-radius: 11px; background: #fffaf2; }
+.tour-incl--no { left: 109px; top: 1442px; width: 271px; height: 160px; padding: 11px 0 0 23px; }
+.tour-incl__head { font: 700 24px/33px var(--font-body); color: #353f2b; }
+.tour-incl--no .tour-incl__head { color: #73260a; }
+.tour-incl__list { margin-top: 16px; }
+.tour-incl__list li { margin-bottom: 9px; padding-left: 31px; font: 400 15px/20px var(--font-body); }
+.tour-incl__list--yes li::before { left: -1px; top: 3px; width: 16px; height: 10px; background-size: contain; }
+.tour-incl__list--no li::before { left: 0; top: 10px; width: 16.65px; height: 1.7px; }
+/* марка и фото автодома — поверх края плашки «Не включено» */
+.tour__stamp-red { left: 9.17px; top: 1410.34px; width: 96.47px; height: 105.56px; transform: rotate(20.05deg); filter: blur(.9px); z-index: 2; }
+.tour__photo-rv { left: 51.62px; top: 1495.48px; width: 68.18px; height: 102.27px; object-fit: cover; transform: rotate(-7.3deg); z-index: 2; }
+
+/* ---------- 4. готовы к путешествию? + подвал ---------- */
+.tour__spot--cta { left: -194px; top: 1580px; width: 699px; height: 355px; background: rgba(0, 0, 0, .67); filter: blur(118px); }
+.tour__cta-title { left: 44px; top: 1690px; width: 360px; font: 600 36px/.94 var(--font-display); }
+.tour__cta-text { left: 43px; top: 1779px; width: 344px; font-size: 15px; }
+.tour-btn--cta { left: 40px; top: 1840px; width: 248px; height: 41px; border-radius: 4px; font-size: 15px; }
+
+/* подвал в этом макете — с отступом 35px слева и 29px справа */
+.footer__logo, .footer__phone, .footer__mail, .footer__social, .footer__note { left: 35px; }
+.footer__links { right: 29px; top: 34px; }

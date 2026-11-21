@@ -1,0 +1,131 @@
+/* =========================================================
+   Tian Way — «Готовые путешествия» (trips.html), МОБИЛЬНАЯ ВЕРСИЯ (телефоны, экран уже 768px)
+   Подключается с media="(max-width: 767px)" после css/trips.css и css/m-common.css.
+   Координаты — из мобильного макета Figma («Frame 153», ширина 402px), в каждом блоке — от верха блока:
+   первый экран 0–548, «Куда поехать в этом сезоне» 548–1348, «Соберем путешествие» 1348–2513 (с подвалом).
+   Размеры шрифтов — ровно как в макете.
+   ========================================================= */
+
+/* =========================================================
+   1. ПЕРВЫЙ ЭКРАН (0–548)
+   ========================================================= */
+/* в мобильном макете в шапке есть телефон и соцсети (на десктопе этой страницы — только логотип) */
+.header--logo-only .header__phone, .header--logo-only .header__social { display: block; }
+.tp-hero .stage { height: 548px; }
+.tp-hero__bg, .tp-hero__shade { left: -188px; top: 0; width: 972px; height: 548px; }
+.tp-hero__bg { object-position: 50% 50%; }
+.tp-hero__shade { background: rgba(0, 0, 0, .4); }
+.tp-hero__gradient { display: none; }
+.tp-hero__title { left: 36px; top: 159px; width: 308px; font-size: 48px; letter-spacing: 1.44px; }
+.tp-hero__sub { left: 37px; top: 269px; width: 298px; margin: 0; font: 500 15px/normal var(--font-body); color: #e9dcc2; }   /* в макете — отдельным слоем поверх фрейма (1214:3846) */
+.tp-btn { height: 35px; border-radius: 4px; font: 600 12px/1 var(--font-body); }
+.tp-hero__btn-trips { left: 36px; top: 364px; width: 155px; background: var(--orange); color: var(--sand); box-shadow: 6px 7px 4px rgba(0, 0, 0, .25); }
+.tp-hero__btn-custom { left: 201px; top: 364px; width: 129px; }
+.tp-hero__btn-trips:hover, .tp-hero__btn-trips:focus-visible { background: var(--sand); color: var(--orange); }
+
+/* =========================================================
+   2. КУДА ПОЕХАТЬ В ЭТОМ СЕЗОНЕ (548–1348)
+   ========================================================= */
+.tp-season .stage { height: 800px; }
+/* узор линий — один рисунок на два блока (в макете он идет от карточек до формы) */
+.tp-season__topo { left: 0; top: -175.7px; width: 402px; height: 1491px; }
+.tp-season__title { left: 36px; top: 25px; width: 329px; font-size: 48px; line-height: 1; }
+
+/* вкладки: в макете три (Сейчас, Лето, Межсезонье), у нас четыре — по ширине текста, по центру */
+.tp-tabs { left: 0; top: 146px; width: 402px; height: 36px; display: flex; justify-content: center; gap: 7px; }
+.tp-tab { position: static; width: auto !important; height: 36px; padding: 0 13px; border-radius: 6px; font-size: 14px; }
+
+/* лента: видна одна карточка, соседние — за краем экрана */
+.tp-cards { left: 0; top: 0; width: 402px; height: 800px; --cards-step: 402; --cards-visible: 1; }
+/* слой ленты растянут на весь блок и лежит поверх вкладок — пустые места пропускают нажатия (иначе вкладки не нажимаются) */
+.tp-cards { pointer-events: none; }
+.tp-cards > * { pointer-events: auto; }
+.tp-cards__track { left: 49px; top: 289px; height: 466px; margin-left: 0; }
+.tcard { width: 317px; height: 466px; }
+.tcard__body { width: 317px; height: 411px; }
+.tcard__title { left: 27px; bottom: 278px; width: 200px; font-size: 24px; line-height: .94; }
+.tcard__desc { left: 27px; top: 200px; width: 264px; font-size: 15px; line-height: .94; color: #3f3d3d; }
+.tcard__ico--days { left: 27px; top: 295px; }
+.tcard__ico--locs { left: 127px; top: 297px; }
+.tcard__ico--price { left: 230px; top: 297px; width: 61px; height: 61px; }
+.tcard__ico--price img { left: 0; top: 0; width: 100%; height: 100%; }
+.tcard__meta { top: 356px; font-weight: 400; }
+.tcard__meta--days { left: 32px; }
+.tcard__meta--locs { left: 121px; }
+.tcard__meta--price { left: 209.5px; }
+.tcard__btn { left: 4px; top: 423px; width: 312px; height: 42.69px; border-radius: 6px; background: var(--orange-map); color: #fff; font-size: 15px; }
+
+/* фото и марки карточек: у первой — из макета, у остальных — так же уменьшены и сдвинуты (как первая к десктопу) */
+.tcard:nth-child(1) .tcard__photo { left: 40.27px !important; top: -60.08px !important; width: 238px !important; height: 178.81px !important; }
+.tcard:nth-child(1) .tcard__stamp-tw { left: 21.55px !important; top: -74.53px !important; width: 102.77px !important; height: 54.53px !important; }
+.tcard:nth-child(2) .tcard__photo { left: 54.95px !important; top: -62.1px !important; width: 197.84px !important; height: 197.84px !important; }
+.tcard:nth-child(2) .tcard__stamp { left: 225.76px !important; top: 75.15px !important; width: 63.54px !important; height: 69.52px !important; }
+.tcard:nth-child(3) .tcard__photo { left: 57.58px !important; top: -94.42px !important; width: 235.37px !important; height: 235.37px !important; }   /* открытка из нового макета (Desktop 93), без поворота */
+.tcard:nth-child(4) .tcard__photo { left: 41.82px !important; top: -81.44px !important; width: 209.73px !important; height: 209.73px !important; }
+.tcard:nth-child(4) .tcard__stamp { left: 15.49px !important; top: 87.04px !important; width: 102.45px !important; height: 61.29px !important; }
+
+/* стрелки — по бокам карточки, на уровне текста */
+.tp-arrow { top: 498px; width: 36px; height: 36px; }
+.tp-arrow svg { width: 15px; height: 10px; }
+.tp-arrow--next { left: 348px; }
+.tp-arrow--prev { left: 18px; }
+
+/* =========================================================
+   3. СОБЕРЕМ ПУТЕШЕСТВИЕ ПОД ВАС (1348–2513) + подвал
+   ========================================================= */
+.tp-custom .stage { height: 984px; }   /* анкета компактнее макета на 181px (решение заказчицы) */
+.tp-custom__topo { left: 0; top: -975.7px; width: 402px; height: 1491px; }
+.tp-custom__lines, .tp-custom__photo { display: none; }
+.tp-custom__title { left: 58px; top: 22px; width: 286px; text-align: center; font-size: 48px; }
+.tp-custom__sub { left: 42px; top: 184px; width: 313px; text-align: center; font-size: 15px; }
+/* марки — поверх зеленой плашки, справа от поля дат (анкета компактнее — подняты на 25–28px, под полем «Сколько едет?») */
+.tp-custom__stamp-eagle { left: 251.7px; top: 404px; width: 111.59px; height: 68.99px; transform: rotate(12.66deg); z-index: 1; }
+.tp-custom__stamp-tw { left: 289.66px; top: 364px; width: 124.86px; height: 66.22px; transform: rotate(-7.2deg); z-index: 1; }
+
+.tp-panel { left: 9px; top: 271px; width: 387px; height: 584px; background: #515027; }
+.tp-label { font-size: 18px; line-height: 22px; letter-spacing: .7px; }
+#tp-where-label { left: 26px !important; top: 20px !important; }
+#tp-people-label { left: 221px !important; top: 20px !important; width: 144px; text-align: center; }
+#tp-dates-label { left: 26px !important; top: 100px !important; }
+.tp-label[for="tp-wishes"] { left: 25px !important; top: 180px !important; }
+.tp-label[for="tp-name"] { left: 26px !important; top: 296px !important; }
+.tp-label[for="tp-contact"] { left: 26px !important; top: 376px !important; }
+
+.tp-dd .ask-dd__btn { height: 34px; padding: 0 12px 0 13px; border-radius: 5.93px; font-size: 15px; }
+.tp-dd .ask-dd__chev { width: 18px; height: 9px; }
+.tp-dd:not(.tp-dd--num) { left: 25px !important; top: 52px !important; width: 175px !important; }
+.tp-dd--num { left: 264px !important; top: 52px !important; width: 59px !important; }
+.tp-dd--num .ask-dd__btn { gap: 6px; padding: 0 8px 0 14px; font-size: 16px; }
+.tp-dd--num .ask-dd__chev { width: 14px; height: 7px; }
+.tp-dd .ask-dd__list { width: 200px; }
+.tp-dd--num .ask-dd__list { width: 90px; }
+
+.tp-dates { left: 26px !important; top: 132px !important; width: 215px; height: 34px; gap: 6px; padding: 0 9px; font-size: 14px; }
+.tp-dates span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tp-dates:not(.is-filled) span { font-size: 13px; }
+.tp-dates .lead-days { display: none; }   /* «· 7 дней» не помещается — на телефоне только даты */
+.tp-dates .ask-dd__chev { width: 18px; height: 9px; }
+.tp-field { font-size: 15px; }
+#tp-wishes { left: 25px !important; top: 212px !important; width: 340px; height: 70px; padding: 9px 12px; }
+#tp-name { left: 25px !important; top: 328px !important; width: 340px; height: 34px; padding: 0 12px; }
+#tp-contact { left: 25px !important; top: 408px !important; width: 340px; height: 34px; padding: 0 12px; }
+.tp-field::placeholder { font-size: 13px; }
+
+.tp-error { left: 26px; top: 447px; font-size: 11px; white-space: normal; width: 335px; }
+.tp-submit { left: 26px; top: 466px; width: 339px; height: 40px; border-radius: 6px; font-size: 15px; }
+.tp-consent { left: 35px; top: 520px; gap: 13px; }
+.tp-consent .trip-consent__box { width: 23px; height: 23px; }
+.tp-consent .trip-consent__box::after { inset: 4px; }
+.tp-consent .trip-consent__text { width: 289px; font-size: 10px; font-weight: 300; }
+
+/* календарь — под полем дат, по центру плашки */
+.tp-calendar { left: 45.5px; top: 170px; }
+
+/* «Спасибо» — зеленая карточка из мобильного макета (общий вид — .done-card в css/m-common.css):
+   плашка сжимается до 346×368, блок под ней короче на 397px */
+.tp-done { left: 27px; top: 41px; color: #f1e7d9; }
+.tp-custom:has(.tp-done:not([hidden])) .tp-panel { left: 28px; width: 346px; height: 368px; }
+.tp-custom:has(.tp-done:not([hidden])) .stage { height: 768px; }
+/* марки — на правый верхний угол карточки (на высокой плашке они стояли на месте текста «Спасибо») */
+.tp-custom:has(.tp-done:not([hidden])) .tp-custom__stamp-tw { left: 282px; top: 238px; }
+.tp-custom:has(.tp-done:not([hidden])) .tp-custom__stamp-eagle { left: 278px; top: 290px; }

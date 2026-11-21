@@ -122,42 +122,51 @@ const rentBooking = (function () {
 RentStore.cartControls(document, () => { if (rentBooking) rentBooking.render(); });
 
 /* ---------- 3. Список услуг: своя прокрутка и оранжевый ползунок ----------
-   Колесико и тачпад крутят сам список; ползунок можно тянуть мышью, клик по дорожке — прыжок туда. */
+   Колесико и тачпад крутят сам список; ползунок можно тянуть мышью, клик по дорожке — прыжок туда.
+   На компьютере список и ползунок вертикальные, на телефоне (css/m-rent-extras.css) — горизонтальные. */
 (function listScroll() {
   const list = document.querySelector('[data-rx-list]');
   const bar = document.querySelector('[data-rx-bar]');
   if (!list || !bar) return;
   const thumb = bar.querySelector('[data-rx-thumb]');
+  const phone = window.matchMedia('(max-width: 767px)');
+  // по какой оси листаем: на телефоне — вбок
+  const ax = () => (phone.matches
+    ? { pos: 'scrollLeft', full: 'scrollWidth', view: 'clientWidth', size: 'offsetWidth', rect: 'width', start: 'left', client: 'clientX', tr: 'translateX', delta: (e) => e.deltaX || e.deltaY }
+    : { pos: 'scrollTop', full: 'scrollHeight', view: 'clientHeight', size: 'offsetHeight', rect: 'height', start: 'top', client: 'clientY', tr: 'translateY', delta: (e) => e.deltaY });
   // во сколько раз дорожка ползунка на экране меньше/больше, чем в макете
   // (масштаб страницы × уменьшение блока из css/rent-extras.css)
-  const scale = () => (bar.offsetHeight ? bar.getBoundingClientRect().height / bar.offsetHeight : 0) || 1;
-  const range = () => Math.max(0, list.scrollHeight - list.clientHeight);
-  const track = () => bar.clientHeight - thumb.offsetHeight;
+  const scale = () => { const a = ax(); return (bar[a.size] ? bar.getBoundingClientRect()[a.rect] / bar[a.size] : 0) || 1; };
+  const range = () => { const a = ax(); return Math.max(0, list[a.full] - list[a.view]); };
+  const track = () => { const a = ax(); return bar[a.view] - thumb[a.size]; };
 
   const sync = () => {
-    const r = range();
+    const a = ax(); const r = range();
     bar.classList.toggle('is-hidden', r < 2);
-    thumb.style.transform = `translateY(${r ? (list.scrollTop / r) * track() : 0}px)`;
+    thumb.style.transform = `${a.tr}(${r ? (list[a.pos] / r) * track() : 0}px)`;
   };
   list.addEventListener('scroll', sync, { passive: true });
   window.addEventListener('resize', sync);
+  phone.addEventListener('change', sync);
   sync();
 
   // колесико над ползунком тоже крутит список
-  bar.addEventListener('wheel', (e) => { e.preventDefault(); list.scrollTop += e.deltaY; }, { passive: false });
+  bar.addEventListener('wheel', (e) => { e.preventDefault(); const a = ax(); list[a.pos] += a.delta(e); }, { passive: false });
 
   // перетаскивание ползунка (координаты мыши — в пикселях экрана, страница масштабирована)
-  let startY = 0; let startTop = 0;
+  let start = 0; let startPos = 0;
   thumb.addEventListener('pointerdown', (e) => {
     e.preventDefault(); e.stopPropagation();
+    const a = ax();
     thumb.setPointerCapture(e.pointerId);
-    startY = e.clientY; startTop = list.scrollTop;
+    start = e[a.client]; startPos = list[a.pos];
     bar.classList.add('is-dragging');
   });
   thumb.addEventListener('pointermove', (e) => {
     if (!bar.classList.contains('is-dragging')) return;
-    const dy = (e.clientY - startY) / scale();
-    list.scrollTop = startTop + (dy / track()) * range();
+    const a = ax();
+    const d = (e[a.client] - start) / scale();
+    list[a.pos] = startPos + (d / track()) * range();
   });
   const end = () => bar.classList.remove('is-dragging');
   thumb.addEventListener('pointerup', end);
@@ -166,8 +175,9 @@ RentStore.cartControls(document, () => { if (rentBooking) rentBooking.render(); 
   // клик по дорожке — список плавно едет так, чтобы ползунок встал под курсор
   bar.addEventListener('pointerdown', (e) => {
     if (e.target === thumb) return;
-    const y = (e.clientY - bar.getBoundingClientRect().top) / scale() - thumb.offsetHeight / 2;
+    const a = ax();
+    const p = (e[a.client] - bar.getBoundingClientRect()[a.start]) / scale() - thumb[a.size] / 2;
     const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    list.scrollTo({ top: Math.max(0, Math.min(1, y / track())) * range(), behavior: reduce ? 'auto' : 'smooth' });
+    list.scrollTo({ [a.start]: Math.max(0, Math.min(1, p / track())) * range(), behavior: reduce ? 'auto' : 'smooth' });
   });
 })();

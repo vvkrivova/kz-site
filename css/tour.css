@@ -22,6 +22,7 @@
 
 /* «рваный» край: бежевый блок «Что входит в стоимость» поверх фото */
 .tour__tear { left: 0; top: 1027.5px; width: 1440px; height: 279px; pointer-events: none; }
+.tour__tear img { display: block; width: 100%; height: 100%; } /* <picture>: на телефоне свой рисунок края */
 .tour__topo { left: -175px; top: 985px; width: 713px; height: 504px; overflow: hidden; transform: rotate(7.4deg); pointer-events: none; }
 .tour__topo img { position: absolute; left: 0; top: 0; width: 100.41%; height: 100.04%; }
 
@@ -89,7 +90,10 @@ html.reveal-on .tour__lines {
   font: 400 64px/.94 var(--font-display); text-transform: uppercase; color: var(--beige);
 }
 /* окно ленты на всю ширину; карточки внутри «дорожки», которая сдвигается стрелками */
-.tour-days { left: 0; top: 743px; width: 1440px; height: 430px; overflow: hidden; overflow: clip; }
+.tour-days {
+  left: 0; top: 743px; width: 1440px; height: 430px; overflow: hidden; overflow: clip;
+  --days-step: 398; --days-visible: 3; /* шаг ленты (карточка 372 + промежуток 26) и сколько карточек видно — читает js/tour.js */
+}
 .tour-days__track { position: absolute; left: 58px; top: 20px; height: 383px; transition: translate .7s cubic-bezier(.65, 0, .35, 1); }
 .tday {
   position: absolute; top: 0; width: 372px; height: 383px; overflow: hidden;

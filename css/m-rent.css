@@ -1,0 +1,148 @@
+/* =========================================================
+   Tian Way — «Аренда автодома» (rent.html), МОБИЛЬНАЯ ВЕРСИЯ (телефоны, экран уже 768px)
+   Подключается с media="(max-width: 767px)" после css/rent.css и css/m-common.css.
+   Координаты — из мобильного макета Figma («Frame 152», ширина 402px):
+   «Выберите свой автодом» — от верха страницы, «Посуточная аренда» — от верха своего блока (в макете он с 860px).
+   Карточки автодомов — те же, что на компьютере, уменьшенные свойством zoom (361 / 604):
+   размеры внутри них записаны в единицах компьютерной карточки (шрифт 40px ≈ 24px на экране).
+   Размеры шрифтов — ровно как в макете.
+   ========================================================= */
+
+/* =========================================================
+   1. ВЫБЕРИТЕ СВОЙ АВТОДОМ
+   ========================================================= */
+.rent-top .stage { padding: 277px 0 14px 25px; }
+.rent-top .stage > img.rent-cloud:nth-of-type(1) { left: -296px !important; top: 235px !important; width: 444px; height: 148px; }
+.rent-top .stage > img.rent-cloud:nth-of-type(2) { left: 252px !important; top: -29px !important; width: 432px; height: 144px; }
+.rent-top .stage > img.rent-cloud:nth-of-type(3) { display: none; }
+.rent-title { left: 86px; top: 25px; width: 238px; font-size: 36px; }
+
+/* ---------- поиск ---------- */
+.rent-search { width: 402px; }
+.rs-label { top: 129px; font-size: 16px; }
+#rs-dates-label { left: 29px !important; }
+#rs-guests-label { left: 247px !important; }
+.rs-label[for="rs-promo"] { left: 29px !important; top: 226px; }
+.rs-field { top: 160px; height: 40px; padding: 0 10px; border-width: 1px; border-radius: 6px; font-size: 14px; }
+.rs-dates { left: 29px !important; width: 196px !important; padding-right: 12px; }
+.rs-chev { width: 15px; height: 7px; }
+.rs-dd { left: 247px !important; top: 160px !important; width: 123px !important; }
+.rs-dd .ask-dd__btn { height: 40px; gap: 6px; padding: 0 10px 0 13px; border-width: 1px; border-radius: 6px; font-size: 14px; }
+.rs-dd .ask-dd__list { width: 150px; }
+.rs-dd .ask-dd__opt { font-size: 14px; }
+.rs-promo { left: 107px !important; top: 214px; width: 145px !important; }
+.rs-find { left: 266px; top: 217px; width: 104px; height: 36px; border-radius: 6px; font-size: 16px; }
+.rs-hint { left: 120px; top: 258px; width: 250px; font-size: 9px; text-align: right; white-space: nowrap; }   /* одной строкой, по правому краю кнопки «Найти» */
+/* календарь — под полями, по центру экрана */
+.rs-cal-wrap { left: 52.75px; top: 206px; transform: none; }
+
+/* ---------- автодомы: одна колонка ---------- */
+.cars { zoom: .5977; grid-template-columns: 604px; row-gap: 25px; }
+.car__tag { font-size: 16.73px; }
+.car__head { gap: 25px; }
+.car__title { font-size: 40.15px; }
+.car__lead { margin-top: 0; font-size: 16.73px; }
+/* описание — на ширину макета (у нас текст чуть длиннее) */
+.car[data-car="forland-s1"] .car__lead { width: 262px !important; }
+.car[data-car="freedom-cannon"] .car__lead { width: 222px !important; }
+.car[data-car="forland-s2"] .car__lead { width: 240px !important; }
+.car__more { font-size: 16.73px; }
+.car__price { right: 137px; top: 391.5px; }
+.car__price-sum small, .car__price-per { font-size: 11.7px; }
+.car__choose { left: 480px; top: 391.5px; width: 112px; height: 39.7px; font-size: 18.4px; }
+.cars.is-searched .car:not(.is-off) .car__choose { left: 426px; width: 166px; }
+.cars.is-searched .car:not(.is-off) .car__price { right: 192px; }
+
+/* раскрытое описание — одной колонкой, списком, как в мобильном макете (карточка «Forland S1» справа от «Frame 152»):
+   абзац 10px Light, подзаголовки 11px SemiBold, пункты 10px через 14px с оранжевыми точками.
+   Размеры — в единицах компьютерной карточки (1px макета = 1,673, т. к. карточка уменьшена zoom 361/604).
+   Высота раскрытой карточки (--open-h) у каждого автодома своя — под длину его списков. */
+.car__details { width: 555px; height: auto; }
+.car__details > * { position: static; left: auto !important; top: auto !important; width: auto !important; }
+.car__about { font: 300 16.73px/normal var(--font-body); }
+.car__h { margin-top: 20px; font: 600 18.4px/normal var(--font-body); white-space: normal; }
+.car__list { margin-top: 13px; padding-left: 38.5px; font: 400 16.73px/23.4px var(--font-body); }
+.car__list li::before { left: -18.5px; top: 9.2px; width: 5px; height: 5px; }
+
+/* =========================================================
+   2. ПОСУТОЧНАЯ АРЕНДА (от верха блока; в макете — с 860px)
+   ========================================================= */
+.rent-gear .stage { height: 3466px; }
+.rent-gear .stage > img:nth-of-type(1) { display: none; }   /* широкое облако — в мобильном макете его нет */
+.rent-gear .stage > img:nth-of-type(2) { left: -238px !important; top: 116px !important; width: 645px; height: 215px; opacity: 1 !important; filter: none; }
+.rent-gear .stage > img:nth-of-type(3) { left: 184px !important; top: 1267px !important; width: 327px; height: 109px; opacity: 1 !important; }
+.rent-gear .stage > img:nth-of-type(4) { left: -152.59px !important; top: 1961.63px !important; width: 354px; height: 118px; opacity: 1 !important; }
+.rent-gear .stage > img:nth-of-type(6) { left: 148px !important; top: 2916px !important; width: 417px !important; height: 139px !important; opacity: .66 !important; filter: none; transform: none !important; }
+.rent-mountains { left: -484px; top: 2998px; width: 1159px; height: 468px; object-position: 50% 58%; }   /* та же полоса кадра, что в макете (там 388px), и до низа страницы */
+.rent-shade { left: -308px; top: 3287px; width: 1720px; height: 179px; }
+
+.gear-title { left: 39px; top: 27px; font-size: 36px; }
+.gear-sub { font-size: 18px; }
+.rent-gear .stage > h3:nth-of-type(1) { left: 62px !important; top: 87px !important; }
+.rent-gear .stage > h3:nth-of-type(2) { left: 118px !important; top: 1604px !important; }
+.rent-gear .stage > h3:nth-of-type(3) { left: 100px !important; top: 2394px !important; }
+
+/* ---------- карточки снаряжения: две колонки ---------- */
+.gear { width: 172px; height: 342px; }
+.gear__title { top: auto; bottom: 159px; left: 13px; width: 140px !important; font-size: 20px; }   /* низ названия — на одной линии у всех карточек */
+.gear__text { left: 13px !important; top: 193px !important; width: 151px !important; font-size: 10px; line-height: normal; }
+.gear[data-item="bike"] .gear__title, .gear[data-item="sup"] .gear__title { bottom: 186px; }   /* название в одну строку — выше, как в макете */
+.gear[data-item="bike"] .gear__text, .gear[data-item="sup"] .gear__text { top: 169px !important; }
+.gear__price { left: 16px; top: 306px; font-size: 16px; }
+.gear__price--ask { top: 301px; width: 66px; font-size: 10px; line-height: 1.15; white-space: normal; }
+.price-per { margin-left: 3px; font-size: 8px; }
+.gear .cart-ctl { left: 85px; top: 299px; }
+
+.gear[data-item="table"]        { left: 19px !important;  top: 146px !important; }
+.gear[data-item="chair"]        { left: 212px !important; top: 146px !important; }
+.gear[data-item="tent"]         { left: 20px !important;  top: 505px !important; }
+.gear[data-item="sleeping-bag"] { left: 208px !important; top: 505px !important; }
+.gear[data-item="mat"]          { left: 20px !important;  top: 864px !important; }
+.gear[data-item="lantern"]      { left: 208px !important; top: 864px !important; }
+.gear[data-item="grill"]        { left: 20px !important;  top: 1223px !important; }
+.gear[data-item="bike"]         { left: 21px !important;  top: 1654px !important; }
+.gear[data-item="sup"]          { left: 209px !important; top: 1654px !important; }
+.gear[data-item="fishing"]      { left: 21px !important;  top: 2013px !important; }
+.gear[data-item="poles"]        { left: 209px !important; top: 2013px !important; }
+/* фото снаряжения — места из макета */
+.gear[data-item="table"] .gear__img        { left: 24px !important; top: 14px !important; width: 125px !important; height: 99px !important; }
+.gear[data-item="chair"] .gear__img        { left: 36px !important; top: 9px !important;  width: 102px !important; height: 125px !important; }
+.gear[data-item="tent"] .gear__img         { left: 0 !important;    top: 27px !important; width: 172px !important; height: 95px !important; }
+.gear[data-item="sleeping-bag"] .gear__img { left: 11px !important; top: 27px !important; width: 142px !important; height: 111px !important; }
+.gear[data-item="mat"] .gear__img          { left: 10px !important; top: 18px !important; width: 150px !important; height: 118px !important; }
+.gear[data-item="lantern"] .gear__img      { left: 47px !important; top: 9px !important;  width: 73px !important;  height: 122px !important; }
+.gear[data-item="grill"] .gear__img        { left: 24px !important; top: 11px !important; width: 124px !important; height: 112px !important; }
+.gear[data-item="bike"] .gear__img         { left: 6px !important;  top: 6px !important;  width: 160px !important; height: 117px !important; }
+.gear[data-item="sup"] .gear__img          { left: 16px !important; top: 13px !important; width: 150px !important; height: 103px !important; }
+.gear[data-item="fishing"] .gear__img      { left: 22px !important; top: 4px !important;  width: 125px !important; height: 136px !important; }
+.gear[data-item="poles"] .gear__img        { left: 22px !important; top: 4px !important;  width: 121px !important; height: 136px !important; }
+
+/* ---------- готовые комплекты ---------- */
+.kit { width: 172px; height: 395px; border-radius: 10px; box-shadow: 4px 4px 4px rgba(0, 0, 0, .25); }
+.kit[data-item="kit-camping"] { left: 20px !important;  top: 2444px !important; }
+.kit[data-item="kit-picnic"]  { left: 209px !important; top: 2449px !important; }
+.kit[data-item="kit-bike"]    { left: 21px !important;  top: 2857px !important; }
+.kit[data-item="kit-camping"] .kit__img { left: 24px !important; top: 0 !important;  width: 128px !important; height: 128px !important; }
+.kit[data-item="kit-picnic"] .kit__img  { left: 28px !important; top: 0 !important;  width: 123px !important; height: 123px !important; }
+.kit[data-item="kit-bike"] .kit__img    { left: 32px !important; top: 11px !important; width: 106px !important; height: 106px !important; }
+.kit__title { top: auto; bottom: 232px; left: 13px; width: 150px; font-size: 20px; line-height: .99; white-space: normal; }
+.kit__label { left: 13px; top: 182px; font-size: 10px; line-height: 14px; font-weight: 700; }
+.kit__list { left: 61px; top: 183px; width: 100px !important; font-size: 8px; line-height: 11px; }
+.kit__text { left: 14px; top: 237px !important; width: 145px !important; font-size: 10px; line-height: normal; }
+.kit .cart-ctl { left: 88px !important; top: 348px; }
+
+/* «В корзину» / «− 1 +» — размер из макета (74×29) */
+.gear .cart-ctl, .kit .cart-ctl { width: 74px; height: 29px; scale: none; }
+.cart-add { border-radius: 5px; font-size: 11px; }
+.cart-qty { left: 0; top: 2px; width: 74px; height: 25px; }
+.cart-qty__btn { width: 24px; height: 25px; }
+.cart-qty__btn svg { width: 9px; height: 9px; }
+.cart-qty__val { min-width: 14px; font-size: 14px; }
+
+/* ---------- внизу: «Вернуться в начало», примечание, подвал ---------- */
+.rent-back {
+  left: 135px; top: 3271px; width: 132px; height: 31px; border: 1px solid var(--orange-map); border-radius: 4px;
+  display: grid !important; place-items: center; background: rgba(241, 231, 217, .89);
+  font: 600 11px/1 var(--font-body); color: var(--orange-map);
+}
+.rent-note { left: 19px; top: 3316px; width: 370px; margin: 0; font-size: 8px; line-height: normal; }

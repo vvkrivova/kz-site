@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
   <title>Зимний маршрут: Иссык-Куль — Tian Way</title>
   <meta name="description" content="Зимнее путешествие на 6 дней вокруг Иссык-Куля: горнолыжный Каракол, горячие источники Ак-Суу, красные скалы Джети-Огуза. Старт в Бишкеке.">
   <meta name="theme-color" content="#353f2b">
@@ -14,7 +14,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
   <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
   <script>
-    document.documentElement.style.setProperty('--page-scale', (document.documentElement.clientWidth / 1440).toFixed(5));
+    // телефоны (уже 768px) — мобильный макет шириной 402px (css/m-common.css), остальные — 1440px
+    (function () { var w = document.documentElement.clientWidth; document.documentElement.style.setProperty('--page-scale', (w / (w < 768 ? 402 : 1440)).toFixed(5)); })();
     // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
     var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
     var twBack = !!twNav && twNav.type === 'back_forward';
@@ -23,12 +24,15 @@
       document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20261119g">
-  <link rel="stylesheet" href="css/tour.css?v=20261119f">
+  <link rel="stylesheet" href="css/style.css?v=70d81683">
+  <link rel="stylesheet" href="css/tour.css?v=64493d42">
+  <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 154, ширина 402px) -->
+  <link rel="stylesheet" href="css/m-common.css?v=ff82ba90" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-tour.css?v=e0231a14" media="(max-width: 767px)">
 </head>
 <body>
 <main class="page">
-  <!-- страница собрана скриптом tools/build_tours.py из шаблона tour-issyk-ring.html — правьте данные там -->
+  <!-- страница собрана скриптом tools/build_tours.py: данные — data/tours.json, оформление — templates/tour.html -->
   <!-- вся страница — один «холст» 1440×2246 из макета: фото и линии заходят из блока в блок -->
   <section class="section tour" id="top">
     <div class="stage">
@@ -40,11 +44,19 @@
       <div class="tour__spot tour__spot--top"></div>
       <img class="tour__panorama" src="img/tours/issyk-ring-panorama.webp" alt="">
       <div class="tour__panorama-gradient"></div>
-      <img class="tour__tear" src="img/tours/torn-edge.svg" alt="">
+      <picture class="tour__tear"><source media="(max-width: 767px)" srcset="img/m/tour-tear.svg"><img src="img/tours/torn-edge.svg" alt=""></picture>
       <div class="tour__topo"><img src="img/topo-lines.webp" alt=""></div>
 
       <!-- логотип — ведет на главную (в макете его нет; поставлен меньше, чтобы не задевать заголовок) -->
       <a class="tour__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo.webp" alt="Tian Way"></a>
+      <!-- на телефоне — шапка как на других страницах (логотип, телефон, соцсети), по мобильному макету -->
+      <header class="header m-only">
+        <a class="header__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo.webp" alt="Tian Way"></a>
+        <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/social-instagram.webp" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/social-whatsapp.webp" alt=""></a>
+        <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/social-telegram.webp" alt=""></a>
+      </header>
 
       <!-- 1. Название и короткое описание -->
       <h1 class="tour__title" data-reveal>Зимний маршрут<br>Иссык-Куль</h1>
@@ -118,6 +130,9 @@
           <li>Организационные расходы</li>
         </ul>
       </div>
+      <!-- марка и фото у «Не включено» — только на телефоне (есть в мобильном макете) -->
+      <img class="tour__stamp-red m-only" src="img/stamp-red.webp" alt="">
+      <img class="tour__photo-rv m-only" src="img/hero-photo-rv.webp" alt="">
       <div class="tour-incl tour-incl--no" data-reveal style="--rd:.2s">
         <h3 class="tour-incl__head">Не включено</h3>
         <ul class="tour-incl__list tour-incl__list--no">
@@ -130,7 +145,7 @@
       <!-- 4. Готовы к путешествию? -->
       <img class="tour__lines" src="img/lines-hero.webp" alt="">
       <div class="tour__spot tour__spot--cta"></div>
-      <h2 class="tour__cta-title" data-reveal>Готовы к путешествию?</h2>
+      <h2 class="tour__cta-title" data-reveal>Готовы к&nbsp;путешествию?</h2>
       <p class="tour__cta-text" data-reveal style="--rd:.1s">Оставьте заявку — подберем подходящие даты, уточним детали и&nbsp;рассчитаем стоимость</p>
       <a class="tour-btn tour-btn--cta" href="trips.html?trip=karakol#custom" data-reveal style="--rd:.2s">Подобрать даты путешествия</a>
       <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
@@ -155,7 +170,7 @@
 
 </main>
 
-<script src="js/main.js?v=20261118s"></script>
-<script src="js/tour.js?v=20261117k"></script>
+<script src="js/main.js?v=9548d0a4"></script>
+<script src="js/tour.js?v=d2bc3164"></script>
 </body>
 </html>

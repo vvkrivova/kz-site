@@ -1,0 +1,95 @@
+/* =========================================================
+   Tian Way — «Вопросы и ответы» (faq.html), МОБИЛЬНАЯ ВЕРСИЯ (телефоны, экран уже 768px)
+   Подключается с media="(max-width: 767px)" после css/faq.css и css/m-common.css.
+   Координаты — из мобильного макета Figma («Frame 156», ширина 402px).
+   Вопросы идут друг под другом «потоком» (высота ответа у каждого своя — страница сама подстраивается);
+   форма «Не нашли ответ?», марка и линии стоят от низа страницы, как в макете.
+   Размеры шрифтов — ровно как в макете.
+   ========================================================= */
+
+/* высота страницы — по содержимому: сверху 248px до первого вопроса, снизу — форма и подвал (как в макете) */
+.faqp .stage { height: auto; padding: 248px 0 715px; }   /* низ — под форму (544px) и подвал */
+
+/* ---------- фон ---------- */
+.faqp__topo-l { left: -127.47px; top: -104.96px; width: 292.01px; height: 207.28px; }
+.faqp__topo-r { left: 297.64px; top: -20.83px; width: 161.53px; height: 114.67px; }
+.faqp__compass { left: 364.65px; top: 53.19px; width: 28.26px; height: 28.55px; }
+.faqp__coords { left: 340.65px; top: 26.89px; width: 27.61px; height: 10.91px; }
+/* линии у формы: место — как в макете (низ уходит за левый край над подвалом). Плашка короче макета на 117px,
+   и верх линий вылезал бы над ней на вопросы — срезаем все, что выше ее верха (срез на 12px ниже верха — концы прячутся за плашкой). Срез задан в координатах самой
+   картинки до поворота (−51.9°): прямая «верх плашки» в них наклонная — точки (0; −695) и (1158.74; 782.7). */
+.faqp__lines-ask { top: auto; bottom: 374.8px; left: -354.88px; width: 1158.74px; height: 386.25px; transform: rotate(-51.9deg);
+  clip-path: polygon(0 -695px, 1158.74px 782.7px, 1158.74px 2000px, 0 2000px); }
+/* верх линий — отдельной копией: стоит относительно верха плашки, как в макете (на 117px ниже нижней копии),
+   и срезан на 150px ниже верха плашки (ниже он спрятан за плашкой, а дальше перечеркивал бы подвал);
+   прямая среза в координатах картинки — точки (0; −661) и (1158.74; 816.7) */
+.faqp__lines-ask--top { bottom: 257.8px; clip-path: polygon(0 -2000px, 1158.74px -2000px, 1158.74px 816.7px, 0 -661px); }
+.faqp__route { left: -72.73px; top: 805.74px; width: 235.56px; height: 69.11px; }
+.faqp__photo { display: none; }   /* в мобильном макете фото нет */
+.faqp__stamp { top: auto; bottom: 537.3px; left: 314.61px; width: 81.91px; height: 78.83px; }
+
+/* ---------- шапка: оранжевый логотип ---------- */
+.faqp__header .header__logo { left: 29px; top: 27px; }
+.faqp__logo { width: 45px; height: 32px; }
+
+/* ---------- заголовок ---------- */
+.faqp__title { left: 90px; top: 84px; width: 229px; margin: 0; font-size: 48px; letter-spacing: -.48px; }
+.faqp__note { left: 74.14px; top: 70.86px; width: 83px; height: 30px; font-size: 24px; }
+.faqp__sub { left: 109px; top: 193px; width: 191px; margin: 0; font-size: 11px; }
+
+/* ---------- вопросы: номер, вопрос, черта, ответ (и кнопка под ответом) ---------- */
+.qa {
+  position: relative; top: auto !important; left: 0; width: 402px; height: auto; padding-left: 29px;
+  display: grid; grid-template-columns: 27px 127px 14px 1px 13px 172px; align-items: start;
+}
+.qa > * { position: static; }
+.qa__num { grid-column: 1; grid-row: 1; margin-top: 1px; font-size: 11px; }
+.qa__q { grid-column: 2; grid-row: 1; width: auto !important; font-size: 11px; line-height: .94; }
+.qa__line { grid-column: 4; grid-row: 1; width: .5px; height: 97px; }
+.qa__a { grid-column: 6; grid-row: 1; width: auto; margin: 0; font-size: 8px; line-height: normal; }
+.qa__btn { grid-column: 6; grid-row: 2; width: 175px !important; height: 20px; margin-top: 14px; border-radius: 3px; font-size: 8px; }
+.faqp__divider { position: relative; display: block; top: auto !important; left: 23px; width: 355px; margin: 12px 0; }
+
+/* ---------- «Не нашли ответ?» ----------
+   Компактнее мобильного макета (решение заказчицы, ноябрь 2026): подписи 16px вместо 20, поля 32px, окно вопроса ниже —
+   плашка 544px вместо 661 (марка и линии вокруг сдвинуты вместе с ее верхом). */
+.ask { top: auto; bottom: 128px; left: 29px; width: 346px; height: 544px; }
+.ask__title { left: 33px; top: 26px; width: 290px; font-size: 32px; line-height: 40px; white-space: nowrap; }
+.ask__sub { left: 33px; top: 72px; width: 203px; margin: 0; font-size: 11px; }
+.ask__label { font-size: 16px; line-height: 20px; letter-spacing: .6px; }
+#ask-topic-label { left: 33px !important; top: 116px !important; }
+.ask__label[for="ask-question"] { left: 33px !important; top: 184px !important; }
+.ask__label[for="ask-name"] { left: 33px !important; top: 284px !important; }
+.ask__label[for="ask-contact"] { left: 33px !important; top: 352px !important; }
+.ask .ask-dd { left: 33px !important; top: 140px !important; width: 289px; }
+.ask .ask-dd__btn { height: 32px; padding: 0 13px; font-size: 12px; }
+.ask .ask-dd__chev { width: 16px; height: 7px; }
+.ask .ask-dd__list { width: 289px; }
+.ask__field { width: 289px; height: 32px; padding: 0 9px; font-size: 12px; }
+.ask__textarea { left: 33px !important; top: 208px !important; height: 64px; padding: 9px; }
+#ask-name { left: 33px !important; top: 308px !important; }
+#ask-contact { left: 33px !important; top: 376px !important; }
+.ask__field::placeholder { font-size: 12px; }
+.ask__error { left: 33px; top: 413px; width: 289px; font-size: 9px; line-height: 1; white-space: normal; }   /* до двух строк — между полем «Контакты» и кнопкой */
+.ask__submit { left: 33px; top: 434px; width: 289px; height: 34px; border-radius: 4px; font-size: 12px; }
+.ask__consent { left: 36px !important; top: 482px !important; width: 286px; gap: 12px; }
+.ask__consent .trip-consent__box { width: 17px; height: 17px; margin-top: 3px; }
+.ask__consent .trip-consent__box::after { inset: 3px; }
+.ask__consent .trip-consent__text { width: 257px; font-size: 8px; font-weight: 600; }
+
+/* «Спасибо» — зеленая карточка из мобильного макета (общий вид — .done-card в css/m-common.css) */
+.ask__done { left: 27px; top: 41px; color: #f1e7d9; }
+
+/* подвал в этом макете — с отступом 30px слева */
+.footer__logo, .footer__phone, .footer__mail, .footer__social, .footer__note { left: 30px; }
+.footer__links { right: 30px; }
+
+/* ---------- после отправки: плашка по содержимому (без заголовка «Не нашли ответ?») ----------
+   Плашка стоит от низа страницы — ее высота и отступ страницы снизу уменьшаются на одно и то же (544 → 368, −176px),
+   поэтому верх плашки остается на месте; марка — на ее правом верхнем углу. */
+.faqp:has(.ask__done:not([hidden])) .stage { padding-bottom: 539px; }
+.faqp:has(.ask__done:not([hidden])) .ask { height: 368px; }
+.faqp:has(.ask__done:not([hidden])) .ask__title,
+.faqp:has(.ask__done:not([hidden])) .ask__sub { display: none; }
+.faqp:has(.ask__done:not([hidden])) .faqp__stamp { bottom: 433px; }   /* на правом верхнем углу плашки */
+.faqp:has(.ask__done:not([hidden])) .faqp__lines-ask { display: none; }   /* длинные линии рассчитаны на высокую плашку — с короткой перечеркивают то вопросы, то подвал */
