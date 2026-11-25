@@ -25,12 +25,18 @@
       document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=70d81683">
-  <link rel="stylesheet" href="css/rent.css?v=1a704e92">
-  <link rel="stylesheet" href="css/rent-booking.css?v=1fc4b182">
+  <link rel="stylesheet" href="css/style.css?v=4aa5dd6a">
+  <link rel="stylesheet" href="css/rent.css?v=3e623120">
+  <link rel="stylesheet" href="css/rent-booking.css?v=6934479c">
   <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 158 и «Спасибо» — Frame 159, ширина 402px) -->
-  <link rel="stylesheet" href="css/m-common.css?v=ff82ba90" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-common.css?v=ed977104" media="(max-width: 767px)">
   <link rel="stylesheet" href="css/m-rent-booking.css?v=32596dba" media="(max-width: 767px)">
+  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/rent-booking.html">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent-booking.html">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/rent-booking.html">
+  <script src="js/lang-detect.js?v=0faf9613"></script>
+  <!-- /языки -->
 </head>
 <body>
 <main class="page">
@@ -40,6 +46,15 @@
        Высота блока по содержимому: чем больше услуг, тем длиннее левая карточка. -->
   <section class="section rb" id="top">
     <div class="stage">
+      <!-- язык lang--corner -->
+      <div class="lang lang--corner" data-lang>
+        <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+        <ul class="lang__list">
+          <li><a href="rent-booking.html" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+          <li><a href="en/rent-booking.html" hreflang="en" data-lang-link lang="en">English</a></li>
+        </ul>
+      </div>
+      <!-- /язык -->
       <img class="rb-topo" src="img/topo-mountains.svg" alt="">
 
       <h1 class="rb-title" data-reveal><span class="d-only">Итоговая страница бронирования</span><span class="m-only">Страница бронирования</span></h1>
@@ -120,15 +135,14 @@
           <a href="#">Публичная оферта</a>
           <span>© 2026 «Tian Way». Все права защищены</span>
         </div>
-        <p class="footer__note">Meta признана экстремистской организацией и&nbsp;запрещена в&nbsp;РФ</p>
       </footer>
     </div>
   </section>
 
 </main>
 
-<script src="js/main.js?v=9548d0a4"></script>
-<script src="js/rent-store.js?v=21c6e62f"></script>
-<script src="js/rent-booking.js?v=018fa526"></script>
+<script src="js/main.js?v=cb2b8409"></script>
+<script src="js/rent-store.js?v=14be7b92"></script>
+<script src="js/rent-booking.js?v=0abf4d3d"></script>
 </body>
 </html>

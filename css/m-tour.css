@@ -77,5 +77,8 @@
 .tour-btn--cta { left: 40px; top: 1840px; width: 248px; height: 41px; border-radius: 4px; font-size: 15px; }
 
 /* подвал в этом макете — с отступом 35px слева и 29px справа */
-.footer__logo, .footer__phone, .footer__mail, .footer__social, .footer__note { left: 35px; }
+.footer__logo, .footer__phone, .footer__mail, .footer__social { left: 35px; }
 .footer__links { right: 29px; top: 34px; }
+
+/* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — как самый верх и самый низ страницы на телефоне */
+:root { --edge-top: #2d3c49; --edge-bottom: #000000; }

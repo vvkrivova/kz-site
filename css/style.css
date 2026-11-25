@@ -73,6 +73,35 @@ body { overflow: clip; }
 .header__social--wa { left: 1334px; top: 49px; width: 24px; height: 25px; }
 .header__social--tg { left: 1364px; top: 49px; width: 24px; height: 25px; }
 
+/* переключатель языка (выбран вариант «В»: глобус + RU/EN, по нажатию — список); разметка — templates/lang-switch.html,
+   ссылки ведут на ту же страницу в другой версии (русская — tianway.kg/…, английская — tianway.kg/en/…) */
+.lang { left: 1050px; top: 49px; z-index: 6; color: var(--sand); }
+.lang__btn {
+  display: flex; align-items: center; gap: 6px; height: 26px; padding: 0; border: 0; background: none; color: inherit;
+  font: 600 16px/1 var(--font-body); cursor: pointer; transition: opacity .2s ease;
+}
+.lang__btn:hover, .lang__btn:focus-visible { opacity: .75; outline: none; }
+.lang__globe { width: 20px; height: 20px; flex: none; }
+.lang__ch { width: 10px; height: 6px; flex: none; transition: rotate .25s ease; }
+.lang.is-open .lang__ch { rotate: 180deg; }
+.lang__cur::before { content: "RU"; }
+html[lang="en"] .lang__cur::before { content: "EN"; }
+.lang__list {
+  position: absolute; left: -8px; top: calc(100% + 8px); width: 132px; margin: 0; padding: 6px 0; list-style: none;
+  border-radius: 8px; background: #fdf8f1; box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+  opacity: 0; visibility: hidden; translate: 0 -4px; transition: opacity .2s ease, translate .2s ease, visibility 0s .2s;
+}
+.lang.is-open .lang__list { opacity: 1; visibility: visible; translate: 0 0; transition: opacity .2s ease, translate .2s ease; }
+.lang__list a { display: flex; justify-content: space-between; padding: 9px 14px; font: 500 15px/1 var(--font-body); color: #2a2320; text-decoration: none; }
+.lang__list a:hover, .lang__list a:focus-visible { background: rgba(222, 72, 17, .08); outline: none; }
+html[lang="ru"] .lang__list a[hreflang="ru"], html[lang="en"] .lang__list a[hreflang="en"] { color: var(--orange-map); font-weight: 700; }
+html[lang="ru"] .lang__list a[hreflang="ru"]::after, html[lang="en"] .lang__list a[hreflang="en"]::after { content: "✓"; }
+/* на страницах, где в шапке только логотип (путешествия), и на обложке тура — справа, где обычно иконки */
+.header--logo-only .lang { left: 1318px; }
+.lang--tour { position: absolute; left: auto; right: 58px; top: 34px; z-index: 3; }
+/* на страницах аренды шапки нет (как в макете) — переключатель в правом верхнем углу, темный на светлом фоне */
+.lang--corner { position: absolute; left: auto; right: 58px; top: 40px; z-index: 6; color: #2a2320; }
+
 /* =========================================================
    ФОРМЫ: согласие на обработку данных, анимации «Спасибо», календарь дат
    ========================================================= */
@@ -294,7 +323,7 @@ html.reveal-on [data-reveal]:not(.is-in) { opacity: 0; }
   font: 400 20px/1 var(--font-body); text-align: left; cursor: pointer;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
-.ask-dd__btn span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ask-dd__btn span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }   /* 1.3 — чтобы не обрезались хвостики букв (g, y в английской версии) */
 .ask-dd__chev { flex: none; width: 20px; height: 10px; transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
 .ask-dd.is-open .ask-dd__chev { transform: rotate(180deg); }
 .ask-dd__btn:focus-visible, .ask-dd.is-open .ask-dd__btn { border-color: var(--orange-map); box-shadow: 0 0 0 2px rgba(222, 72, 17, .35); }
@@ -340,12 +369,12 @@ html.reveal-on [data-reveal]:not(.is-in) { opacity: 0; }
 .header__logo { top: 34px; }
 
 /* ---------- Подвал (одинаковый на всех страницах) ----------
-   Стоит внизу последнего блока страницы (.footer внутри его .stage); высота подвала 210px (с пометкой про Meta),
+   Стоит внизу последнего блока страницы (.footer внутри его .stage); высота подвала 190px,
    над ним ~100px от последней плашки/текста — высота блока подобрана для каждой страницы в ее css.
    Расположение — как в макете (страницы «Вопросы» и «Путешествия»), размеры уменьшены.
    footer--light — на светлом фоне (оранжевый логотип, черный текст), footer--dark — на темном.
    */
-.footer { left: 0; right: 0; top: auto; bottom: 0; height: 210px; z-index: 3; color: #000; }
+.footer { left: 0; right: 0; top: auto; bottom: 0; height: 190px; z-index: 3; color: #000; }
 .footer--dark { color: var(--sand); }
 .footer > * { position: absolute; }
 /* шрифт, логотип и иконки меньше, чем в макете (24px, 87px, 45px), — так спокойнее и гармоничнее */
@@ -365,10 +394,11 @@ html.reveal-on [data-reveal]:not(.is-in) { opacity: 0; }
    низ копирайта — на одной линии с низом иконок (строки 68, 101, 134; иконки 126–156px) */
 .footer__links a, .footer__phone, .footer__mail { text-decoration: none; }
 .footer__links a { color: inherit; }
-/* пометка про Meta (Instagram) — мелкой бледной строкой под иконками */
-.footer__note { left: 81px; top: 168px; margin: 0; font: 400 12px/16px var(--font-body); opacity: .6; white-space: nowrap; }
-.footer--dark .footer__note { opacity: .8; } /* на темном фоне и фото — чуть ярче, иначе теряется */
 .footer__links a:hover, .footer__links a:focus-visible, .footer__phone:hover, .footer__phone:focus-visible,
 .footer__mail:hover, .footer__mail:focus-visible { text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) { .footer__social a { transition: none; } }
 
+
+/* лента, которую тянут пальцем или мышью (swipeable в js/main.js): без выделения текста, едет без задержки */
+.is-dragging, .is-dragging * { user-select: none; -webkit-user-select: none; cursor: grabbing; }
+.is-dragging [data-cards-track], .is-dragging[data-cards-track], .is-dragging [data-days-track], .is-dragging[data-days-track], .is-dragging .car__track, .is-dragging .tcard { transition: none !important; }

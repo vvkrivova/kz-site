@@ -30,6 +30,21 @@
   }
   prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
   next.addEventListener('click', () => { index += 1; update(); });
+  // ленту дней можно тянуть мышью или пальцем: едет за пальцем, при отпускании листается на один день
+  swipeable(track, {
+    move(dx) {
+      const STEP = cssNum('--days-step', 398);
+      const max = Math.max(0, days.length - cssNum('--days-visible', 3));
+      const edge = (index === 0 && dx > 0) || (index >= max && dx < 0);
+      track.style.translate = `${-index * STEP + (edge ? dx * 0.3 : dx)}px 0`;
+    },
+    end(dx) {
+      const max = Math.max(0, days.length - cssNum('--days-visible', 3));
+      if (dx < -40 && index < max) index += 1;
+      else if (dx > 40 && index > 0) index -= 1;
+      update();
+    },
+  });
   update(true);
   // телефон ↔ компьютер (поворот экрана, изменение окна): другой шаг ленты — переставляем без анимации
   window.matchMedia('(max-width: 767px)').addEventListener('change', () => update(true));

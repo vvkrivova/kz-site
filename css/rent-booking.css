@@ -5,7 +5,7 @@
    ========================================================= */
 
 /* высота по содержимому: левая карточка растет вместе со списком услуг */
-.rb .stage { height: auto; padding: 305px 0 284px 58px; background: var(--beige); } /* снизу — подвал 210px и ~100px над ним */
+.rb .stage { height: auto; padding: 305px 0 264px 58px; background: var(--beige); } /* снизу — подвал 190px и ~100px над ним */
 .rb-topo { left: -275px; bottom: 0; width: 1956px; height: 440px; object-fit: cover; opacity: .76; pointer-events: none; }
 /* линии-горы здесь — вектор (img/topo-mountains.svg): четкие при растяжении; чуть размыты, чтобы не спорить с карточками */
 .rb-topo { filter: blur(1px); }
@@ -113,7 +113,7 @@
    Как в макете (Desktop - 96, 1440×1024) и как «Спасибо» в форме на главной: оливковая плашка,
    галочка с лучами (те же картинки и анимации, что на главной — css/style.css), наклонная оранжевая кнопка.
    Все по центру страницы (720px); линии-горы — на месте из макета, под ними подвал. */
-.rb.is-done .stage { height: 1234px; padding: 0; } /* 1024 по макету + подвал 210px */
+.rb.is-done .stage { height: 1214px; padding: 0; } /* 1024 по макету + подвал 190px */
 .rb.is-done :is(.rb-title, .rb-sum, .rb-client) { display: none; }
 .rb.is-done .rb-topo { left: -28px; top: 657px; bottom: auto; width: 1552px; height: 361px; }
 .rb-thanks[hidden] { display: none; }
@@ -174,3 +174,6 @@
 .rb-title { scale: .72; transform-origin: 50% 0; margin-top: -20px; }
 .rb-sum { scale: .72; transform-origin: 50% 0; margin: -105px 0 -301px 82.6px; }
 .rb-client { scale: .72; transform-origin: 50% 0; margin: -105px 0 0 -100.8px; }
+
+/* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — бежевый сверху и снизу */
+:root { --edge-top: #f1e7d9; --edge-bottom: #f1e7d9; }

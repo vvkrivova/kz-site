@@ -4,7 +4,7 @@
    Координаты — из макета Figma (Desktop - 65; положения прокрутки — 68, 69, 70).
    ========================================================= */
 
-.rx .stage { height: 1256px; background: var(--beige); } /* подвал — 100px ниже списка (946) + 210px */
+.rx .stage { height: 1236px; background: var(--beige); } /* подвал — 100px ниже списка (946) + 190px */
 .rx-topo { left: -28px; top: 657px; width: 1552px; height: 361px; object-fit: cover; opacity: .76; pointer-events: none; }
 .rx-topo { filter: blur(1px); } /* линии-горы — вектор, чуть размыты, как на странице бронирования */
 /* в макете — по левому краю над карточками; на сайте выровнен по центру (блок «больше воздуха» в конце) */
@@ -41,7 +41,8 @@
 .svc--gear .svc__title { width: 300px; }   /* у снаряжения названия длиннее */
 .svc__text { width: 223px; margin-top: 21px; font: 400 16px/1.375 var(--font-body); color: #000; transition: color .3s ease; }
 .svc__price { left: 360px; top: 230px; font: 600 34px/.99 var(--font-display); color: var(--rent-ink); white-space: nowrap; transition: color .3s ease; }
-.svc__price--ask { font-size: 24px; line-height: 1.4; }   /* цены нет в таблице заказчика — «Цена уточняется» */
+.svc__price--ask { font-size: 24px; line-height: 1.4; }
+.svc__price small { font-size: 18px; }   /* «от» перед ценой */   /* цены нет в таблице заказчика — «Цена уточняется» */
 .svc .cart-ctl { left: 594px; top: 228px; }
 
 /* кнопка и счетчик на светлой карточке — оранжевые */
@@ -158,3 +159,6 @@
 .rx-list { scale: .8; transform-origin: 50% 0; margin: -60px 0 0 50.8px; height: 961.3px; }
 .rx-bar { scale: .9; transform-origin: 50% 0; margin: -60px 0 0 -25.5px; height: 727.7px; }
 .rx-book { scale: .8; transform-origin: 50% 0; margin: -60px 0 0 -81.8px; }
+
+/* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — бежевый сверху и снизу */
+:root { --edge-top: #f1e7d9; --edge-bottom: #f1e7d9; }

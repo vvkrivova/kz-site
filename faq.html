@@ -24,11 +24,17 @@
       document.documentElement.classList.add('reveal-on'); // вопросы появляются при прокрутке
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=70d81683">
-  <link rel="stylesheet" href="css/faq.css?v=bb29e1ec">
+  <link rel="stylesheet" href="css/style.css?v=4aa5dd6a">
+  <link rel="stylesheet" href="css/faq.css?v=d8fa4b30">
   <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 156, ширина 402px) -->
-  <link rel="stylesheet" href="css/m-common.css?v=ff82ba90" media="(max-width: 767px)">
-  <link rel="stylesheet" href="css/m-faq.css?v=b6afd551" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-common.css?v=ed977104" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-faq.css?v=02d534ba" media="(max-width: 767px)">
+  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/faq.html">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/faq.html">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/faq.html">
+  <script src="js/lang-detect.js?v=0faf9613"></script>
+  <!-- /языки -->
 </head>
 <body>
 <main class="page">
@@ -47,9 +53,19 @@
       <header class="header faqp__header">
         <a class="header__logo" href="index.html" aria-label="Tian Way — на главную"><span class="faqp__logo"></span></a>
         <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="header__call m-only" href="tel:+996500192445" aria-label="Позвонить: +996 500 192 445"><img src="img/social-phone.svg" alt=""></a>
         <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/social-instagram.webp" alt=""></a>
         <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/social-whatsapp.webp" alt=""></a>
         <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/social-telegram.webp" alt=""></a>
+        <!-- язык -->
+        <div class="lang" data-lang>
+          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+          <ul class="lang__list">
+            <li><a href="faq.html" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+            <li><a href="en/faq.html" hreflang="en" data-lang-link lang="en">English</a></li>
+          </ul>
+        </div>
+        <!-- /язык -->
       </header>
 
       <!-- заголовок -->
@@ -175,14 +191,13 @@
           <a href="#">Публичная оферта</a>
           <span>© 2026 «Tian Way». Все права защищены</span>
         </div>
-        <p class="footer__note">Meta признана экстремистской организацией и&nbsp;запрещена в&nbsp;РФ</p>
       </footer>
     </div>
   </section>
 
 </main>
 
-<script src="js/main.js?v=9548d0a4"></script>
-<script src="js/faq.js?v=05f6f114"></script>
+<script src="js/main.js?v=cb2b8409"></script>
+<script src="js/faq.js?v=3a5cb817"></script>
 </body>
 </html>

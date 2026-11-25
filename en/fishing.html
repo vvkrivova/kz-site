@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
+  <title>Fishing and hunting in Kyrgyzstan — Tian Way</title>
+  <meta name="description" content="Fishing and hunting programmes in Kyrgyzstan’s most scenic regions: wild rivers and lakes, experienced guides, gear and support. Leave a request and we’ll tell you about formats and routes.">
+  <meta name="theme-color" content="#353f2b">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="../img/meta/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
+  <script>
+    // телефоны (уже 768px) — мобильный макет шириной 402px (css/m-common.css), остальные — 1440px
+    (function () { var w = document.documentElement.clientWidth; document.documentElement.style.setProperty('--page-scale', (w / (w < 768 ? 402 : 1440)).toFixed(5)); })();
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css?v=4aa5dd6a">
+  <link rel="stylesheet" href="../css/fishing.css?v=eaa13c32">
+  <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 157, ширина 402px) -->
+  <link rel="stylesheet" href="../css/m-common.css?v=ed977104" media="(max-width: 767px)">
+  <link rel="stylesheet" href="../css/m-fishing.css?v=0f768abe" media="(max-width: 767px)">
+  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/fishing.html">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/fishing.html">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/fishing.html">
+  <script src="../js/lang-detect.js?v=0faf9613"></script>
+  <!-- /языки -->
+</head>
+<body>
+<main class="page">
+  <section class="section fish" id="top">
+    <div class="stage">
+
+      <!-- шапка — как на главной -->
+      <header class="header">
+        <a class="header__logo" href="index.html" aria-label="Tian Way — home"><img src="../img/logo.webp" alt="Tian Way"></a>
+        <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="header__call m-only" href="tel:+996500192445" aria-label="Call: +996 500 192 445"><img src="../img/social-phone.svg" alt=""></a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+        <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        <!-- язык -->
+        <div class="lang" data-lang>
+          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Site language"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+          <ul class="lang__list">
+            <li><a href="../fishing.html" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+            <li><a href="fishing.html" hreflang="en" data-lang-link lang="en">English</a></li>
+          </ul>
+        </div>
+        <!-- /язык -->
+      </header>
+
+      <!-- заголовок -->
+      <h1 class="fish__title" data-reveal>Fishing & hunting<br>in Kyrgyzstan</h1>
+      <p class="fish__tag">This page is still in progress, but...</p>
+      <p class="fish__intro" data-reveal style="--rd:.2s">We already have fishing and hunting programmes in the most scenic regions of Kyrgyzstan. Leave your contacts and we’ll tell you about possible formats and routes.</p>
+
+      <!-- две карточки: по клику — выбор в форме и прокрутка к ней -->
+      <a class="fcard fcard--fishing" href="#request" data-pick="Fishing" data-reveal style="--rd:.1s">
+        <span class="fcard__body"></span>
+        <span class="fcard__photo"><img src="../img/fishing/fishing.webp" alt="Anglers with rods on the shore of a mountain lake"></span>
+        <span class="fcard__title">Fishing</span>
+        <span class="fcard__text">Wild rivers and lakes, experienced guides, gear and&nbsp;well-planned multi-day programmes</span>
+      </a>
+      <a class="fcard fcard--hunting" href="#request" data-pick="Hunting" data-reveal style="--rd:.22s">
+        <span class="fcard__body"></span>
+        <span class="fcard__photo"><img src="../img/fishing/hunting.webp" alt="Hunter with a rifle in a snowy field"></span>
+        <span class="fcard__title">Hunting</span>
+        <span class="fcard__text">Hunting in the mountains of Kyrgyzstan — <br>with guides, preparation <br>and all permits in order</span>
+      </a>
+      <img class="fish__stamp-red" src="../img/stamp-red.webp" alt="">
+      <img class="fish__stamp-round" src="../img/stamp-round-logo.webp" alt="">
+
+      <!-- линии и марки вокруг формы -->
+      <img class="fish__lines" src="../img/lines-hero.webp" alt="">
+      <img class="fish__stamp-horses" src="../img/stamp-horses.webp" alt="">
+
+      <!-- форма -->
+      <div class="fish-panel" id="request" data-center data-reveal style="--rd:.1s">
+        <form class="fish-form" data-fish-form novalidate>
+          <span class="fish-label" id="fish-what-label" style="left:61px; top:39px;">Interested in?</span>
+          <div class="ask-dd fish-dd" data-dd style="left:61px; top:97px; width:195px;">
+            <input type="hidden" name="what" value="Рыбалка">
+            <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="fish-what-label">
+              <span data-dd-value>Fishing</span>
+              <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+            </button>
+            <ul class="ask-dd__list" role="listbox" aria-labelledby="fish-what-label">
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:0">Fishing</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:1">Hunting</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">Fishing and hunting</li>
+            </ul>
+          </div>
+
+          <span class="fish-label" id="fish-people-label" style="left:377px; top:39px;">How many people?</span>
+          <div class="ask-dd fish-dd fish-dd--num" data-dd style="left:377px; top:97px; width:88px;">
+            <input type="hidden" name="people" value="2">
+            <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="fish-people-label">
+              <span data-dd-value>2</span>
+              <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+            </button>
+            <ul class="ask-dd__list" role="listbox" aria-labelledby="fish-people-label">
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">1</li>
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:1">2</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">3</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">4</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:4">5</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:5">6+</li>
+            </ul>
+          </div>
+
+          <span class="fish-label" id="fish-dates-label" style="left:61px; top:168px;">When would you like to go?</span>
+          <button class="fish-dates" type="button" data-fish-dates aria-labelledby="fish-dates-label" style="left:61px; top:226px;">
+            <span data-fish-dates-value>Choose your travel dates</span>
+            <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+          </button>
+          <input type="hidden" name="dates" value="">
+
+          <label class="fish-label" for="fish-name" style="left:61px; top:297px;">Your name</label>
+          <input class="fish-field" id="fish-name" name="name" type="text" autocomplete="name" style="left:61px; top:355px;">
+          <label class="fish-label" for="fish-contact" style="left:357px; top:297px;">Contacts</label>
+          <input class="fish-field" id="fish-contact" name="contact" type="text" autocomplete="tel" placeholder="Phone or Telegram" style="left:357px; top:355px;">
+
+          <p class="fish-error" data-fish-error role="alert" hidden></p>
+
+          <button class="fish-submit" type="submit">Send request</button>
+
+          <label class="trip-consent fish-consent">
+            <input type="checkbox" name="consent">
+            <span class="trip-consent__box"></span>
+            <span class="trip-consent__text">I agree to the processing of my personal data under the&nbsp;<a href="#">Data Processing Consent</a>&nbsp;and have read the&nbsp;<a href="#">Privacy Policy</a>.</span>
+          </label>
+
+          <!-- календарь (общий, логика — rangeCalendar в js/main.js) -->
+          <div class="calendar fish-calendar" data-calendar hidden>
+            <button class="calendar__nav calendar__nav--prev" type="button" data-cal-prev aria-label="Previous month"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M5.63025 1.05127L1.31434 4.50401C0.963631 4.78458 0.963632 5.318 1.31435 5.59857L5.63025 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <button class="calendar__nav calendar__nav--next" type="button" data-cal-next aria-label="Next month"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1.05127 1.05127L5.36718 4.50401C5.71789 4.78458 5.71789 5.318 5.36717 5.59857L1.05127 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <div class="calendar__month" data-cal-month="0"></div>
+            <div class="calendar__month calendar__month--right" data-cal-month="1"></div>
+            <p class="calendar__summary" data-cal-summary>Choose check-in and check-out dates</p>
+            <button class="calendar__apply" type="button" data-cal-apply>Apply</button>
+          </div>
+        </form>
+
+        <div class="fish-done done-card" data-fish-done hidden>
+          <b>Thank you, request sent!</b>
+          <span>We’ll tell you about formats and routes and get in touch shortly — usually within a day.</span>
+          <button class="fish-again" type="button" data-fish-again>Send another one</button>
+          <!-- только на телефоне: галочка с лучиками над текстом (как у «Спасибо» после бронирования — плашка светлая) -->
+          <div class="done-icon m-only" aria-hidden="true"><img src="../img/m/check-dark.webp" alt=""><img src="../img/rays-left.webp" alt=""><img src="../img/rays-right.webp" alt=""></div>
+          <!-- только на телефоне (мобильный макет): «Следующий шаг» и кнопка на главную вместо «Отправить еще одну» -->
+          <div class="done-next m-only"><img src="../img/folded-map.webp" alt=""><b>Next step</b><span>We’ll get in touch and help you put together the right trip.</span></div>
+          <a class="done-home m-only" href="index.html">Go to the home page</a>
+        </div>
+      </div>
+
+      <img class="fish__stamp-eagle" src="../img/trips/stamp-eagle.webp" alt="">
+      <div class="fish__stamp-tw"><img src="../img/trips/stamp-tianway-rect.webp" alt=""></div>
+      <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
+      <footer class="footer footer--dark">
+        <a class="footer__logo" href="index.html" aria-label="Tian Way — home"><img src="../img/logo-footer-dark.webp" alt="Tian Way"></a>
+        <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+          <a href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+          <a href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        </div>
+        <div class="footer__links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Public Offer</a>
+          <span>© 2026 Tian Way. All rights reserved</span>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="../data/i18n/en-scripts.js?v=f1dae27c"></script>
+  <script src="../js/main.js?v=cb2b8409"></script>
+<script src="../js/fishing.js?v=2af3be35"></script>
+</body>
+</html>

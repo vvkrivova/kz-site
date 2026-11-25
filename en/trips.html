@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
+  <title>Ready-made trips — Tian Way</title>
+  <meta name="description" content="Ready-made motorhome trips in Kyrgyzstan: Issyk-Kul, Karakol, winter mountains. Or we’ll plan a trip around your dates, pace and interests.">
+  <meta name="theme-color" content="#353f2b">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="../img/meta/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
+  <script>
+    // телефоны (уже 768px) — мобильный макет шириной 402px (css/m-common.css), остальные — 1440px
+    (function () { var w = document.documentElement.clientWidth; document.documentElement.style.setProperty('--page-scale', (w / (w < 768 ? 402 : 1440)).toFixed(5)); })();
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css?v=4aa5dd6a">
+  <link rel="stylesheet" href="../css/trips.css?v=542d8d73">
+  <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 153, ширина 402px) -->
+  <link rel="stylesheet" href="../css/m-common.css?v=ed977104" media="(max-width: 767px)">
+  <link rel="stylesheet" href="../css/m-trips.css?v=a7a115cf" media="(max-width: 767px)">
+  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/trips.html">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/trips.html">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/trips.html">
+  <script src="../js/lang-detect.js?v=0faf9613"></script>
+  <!-- /языки -->
+</head>
+<body>
+<main class="page">
+
+  <!-- ============ 1. ГОТОВЫЕ ПУТЕШЕСТВИЯ ============ -->
+  <section class="section tp-hero" id="top">
+    <div class="stage">
+      <img class="tp-hero__bg" src="../img/trips/trips-hero-bg.webp" alt="Green mountain valley with a trail and snowy peaks">
+      <div class="tp-hero__shade"></div>
+      <div class="tp-hero__gradient"></div>
+
+      <!-- на десктопе этой страницы в шапке только логотип (header--logo-only); телефон и соцсети видны на телефоне -->
+      <header class="header header--logo-only">
+        <a class="header__logo" href="index.html" aria-label="Tian Way — home"><img src="../img/logo.webp" alt="Tian Way"></a>
+        <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="header__call m-only" href="tel:+996500192445" aria-label="Call: +996 500 192 445"><img src="../img/social-phone.svg" alt=""></a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+        <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        <!-- язык -->
+        <div class="lang" data-lang>
+          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Site language"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+          <ul class="lang__list">
+            <li><a href="../trips.html" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+            <li><a href="trips.html" hreflang="en" data-lang-link lang="en">English</a></li>
+          </ul>
+        </div>
+        <!-- /язык -->
+      </header>
+
+      <h1 class="tp-hero__title" data-reveal>Ready-made trips</h1>
+      <p class="tp-hero__sub" data-reveal style="--rd:.12s">We plan trips around Kyrgyzstan for solo travellers, couples, families and groups — around your dates, pace and interests</p>
+      <a class="tp-btn tp-btn--orange tp-hero__btn-trips" href="#season" data-reveal style="--rd:.24s"><span class="d-only">See the trips</span><span class="m-only">See trips</span></a>
+      <a class="tp-btn tp-btn--light tp-hero__btn-custom" href="#custom" data-reveal style="--rd:.3s">Plan my own</a>
+    </div>
+  </section>
+
+  <!-- ============ 2. КУДА ПОЕХАТЬ В ЭТОМ СЕЗОНЕ ============ -->
+  <section class="section tp-season" id="season">
+    <div class="stage">
+      <picture class="tp-season__topo"><source media="(max-width: 767px)" srcset="../img/m/trips-topo.svg"><img src="../img/trips/topo-season.svg" alt=""></picture>
+      <h2 class="tp-season__title" data-reveal>Where to go this&nbsp;season</h2>
+
+      <!-- вкладки сезонов: data-season-tab совпадает с data-seasons у карточек -->
+      <div class="tp-tabs" role="tablist" aria-label="Season" data-reveal style="--rd:.1s">
+        <button class="tp-tab is-active" type="button" role="tab" aria-selected="true" data-season-tab="now" style="left:320px; width:152px;">Now</button>
+        <button class="tp-tab" type="button" role="tab" aria-selected="false" data-season-tab="winter" style="left:497px; width:152px;">Winter</button>
+        <button class="tp-tab" type="button" role="tab" aria-selected="false" data-season-tab="summer" style="left:675px; width:152px;">Summer</button>
+        <button class="tp-tab" type="button" role="tab" aria-selected="false" data-season-tab="offseason" style="left:853px; width:216px;">Off-season</button>
+      </div>
+
+      <!-- лента карточек: сдвигается стрелками, карточки фильтруются по сезону -->
+      <div class="tp-cards" data-cards>
+        <div class="tp-cards__track" data-cards-track>
+
+          <article class="tcard" data-seasons="now summer offseason">
+            <div class="tcard__body"></div>
+            <img class="tcard__photo" src="../img/trips/trip-issyk-north.webp" alt="Sunset over Issyk-Kul" style="left:31.7px; top:-50.8px; width:306.4px; height:230.2px; transform:rotate(5.13deg);">
+            <div class="tcard__stamp-tw" style="left:7.6px; top:-69.4px; width:132.3px; height:70.2px; transform:rotate(8.72deg);"><img src="../img/trips/stamp-tianway-rect.webp" alt=""></div>
+            <h3 class="tcard__title">Northern shore of Issyk-Kul</h3>
+            <p class="tcard__desc">An unhurried journey along the northern shore of Issyk-Kul: lakeside rest, horse rides, mountain gorges, traditional food and fishing.</p>
+            <span class="tcard__ico tcard__ico--days"><img src="../img/trips/icon-clock.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--locs"><img src="../img/icon-pin.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price"><img src="../img/m/icon-price.webp" alt=""></span>
+            <span class="tcard__meta tcard__meta--days">6 days</span>
+            <span class="tcard__meta tcard__meta--locs">5 locations</span>
+            <span class="tcard__meta tcard__meta--price">from $1,150</span>
+            <a class="tcard__btn" href="tour-issyk-north.html">See the programme</a>
+          </article>
+
+          <article class="tcard" data-seasons="now winter">
+            <div class="tcard__body"></div>
+            <img class="tcard__photo" src="../img/trips/trip-karakol-winter.webp" alt="Snowy Karakol at sunset" style="left:50.6px; top:-53.4px; width:254.7px; height:254.7px; transform:rotate(-3.04deg);">
+            <img class="tcard__stamp" src="../img/stamp-red.webp" alt="" style="left:270.5px; top:123.3px; width:81.8px; height:89.5px; transform:rotate(-3.33deg);">
+            <h3 class="tcard__title">Winter Karakol</h3>
+            <p class="tcard__desc">A journey to the snowy peaks of the Tien Shan: winter landscapes of Issyk-Kul, skiing in Karakol, red rocks and hot springs.</p>
+            <span class="tcard__ico tcard__ico--days"><img src="../img/trips/icon-clock.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--locs"><img src="../img/icon-pin.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price"><img src="../img/m/icon-price.webp" alt=""></span>
+            <span class="tcard__meta tcard__meta--days">6 days</span>
+            <span class="tcard__meta tcard__meta--locs">5 locations</span>
+            <span class="tcard__meta tcard__meta--price">from $0,000</span>
+            <a class="tcard__btn" href="tour-issyk-winter.html">See the programme</a>
+          </article>
+
+          <article class="tcard" data-seasons="now summer offseason">
+            <div class="tcard__body"></div>
+            <img class="tcard__photo" src="../img/trips/trip-issyk-ring-postcard.webp" alt="Sunset over Issyk-Kul — a vintage postcard" style="left:54px; top:-95px; width:303px; height:303px;">
+            <h3 class="tcard__title">Great Issyk-Kul loop</h3>
+            <p class="tcard__desc">A full journey around Issyk-Kul: mountain gorges, canyons, national cuisine and Kyrgyz traditions.</p>
+            <span class="tcard__ico tcard__ico--days"><img src="../img/trips/icon-clock.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--locs"><img src="../img/icon-pin.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price"><img src="../img/m/icon-price.webp" alt=""></span>
+            <span class="tcard__meta tcard__meta--days">8 days</span>
+            <span class="tcard__meta tcard__meta--locs">5 locations</span>
+            <span class="tcard__meta tcard__meta--price">from $1,600</span>
+            <a class="tcard__btn" href="tour-issyk-ring.html">See the programme</a>
+          </article>
+
+
+        </div>
+      </div>
+
+      <button class="tp-arrow tp-arrow--prev" type="button" data-cards-prev aria-label="Previous trips" hidden>
+        <svg width="24" height="16" viewBox="0 0 24 16" fill="none" aria-hidden="true"><path d="M23 8H2M8.5 1.5 2 8l6.5 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="tp-arrow tp-arrow--next" type="button" data-cards-next aria-label="Next trips">
+        <svg width="24" height="16" viewBox="0 0 24 16" fill="none" aria-hidden="true"><path d="M1 8h21M15.5 1.5 22 8l-6.5 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ 3. СОБЕРЕМ ПУТЕШЕСТВИЕ ПОД ВАС ============ -->
+  <section class="section tp-custom" id="custom" data-center=".tp-panel">
+    <div class="stage">
+      <picture class="tp-custom__topo"><source media="(max-width: 767px)" srcset="../img/m/trips-topo.svg"><img src="../img/trips/topo-form.svg" alt=""></picture>
+      <img class="tp-custom__lines" src="../img/lines-hero.webp" alt="">
+
+      <h2 class="tp-custom__title" data-reveal>We’ll plan a trip for&nbsp;you</h2>
+      <p class="tp-custom__sub" data-reveal style="--rd:.12s">Like the ready-made ideas but want something of your own? Tell us how you see your perfect road — we’ll prepare an offer.</p>
+
+      <img class="tp-custom__photo" src="../img/trips/photo-bw-eagle-hunter.webp" alt="Eagle hunters with a golden eagle and riders in a mountain valley">
+      <img class="tp-custom__stamp-eagle" src="../img/trips/stamp-eagle.webp" alt="">
+      <div class="tp-custom__stamp-tw"><img src="../img/trips/stamp-tianway-rect.webp" alt=""></div>
+
+      <div class="tp-panel" data-reveal style="--rd:.15s">
+        <form class="tp-form" data-tp-form novalidate>
+          <span class="tp-label" id="tp-where-label" style="left:61px; top:44px;">Where to?</span>
+          <div class="ask-dd tp-dd" data-dd style="left:61px; top:102px; width:244px;">
+            <input type="hidden" name="where" value="Зимний Каракол">
+            <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="tp-where-label">
+              <span data-dd-value>Winter Karakol</span>
+              <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+            </button>
+            <ul class="ask-dd__list" role="listbox" aria-labelledby="tp-where-label">
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">Northern shore</li>
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:1">Winter Karakol</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">Great loop</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">My own route</li>
+            </ul>
+          </div>
+
+          <span class="tp-label" id="tp-people-label" style="left:374px; top:44px;"><span class="d-only">How many people?</span><span class="m-only">How many people?</span></span>
+          <div class="ask-dd tp-dd tp-dd--num" data-dd style="left:374px; top:102px; width:87px;">
+            <input type="hidden" name="people" value="2">
+            <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="tp-people-label">
+              <span data-dd-value>2</span>
+              <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+            </button>
+            <ul class="ask-dd__list" role="listbox" aria-labelledby="tp-people-label">
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">1</li>
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:1">2</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">3</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">4</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:4">5</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:5">6+</li>
+            </ul>
+          </div>
+
+          <span class="tp-label" id="tp-dates-label" style="left:61px; top:173px;">How many days?</span>
+          <button class="tp-dates" type="button" data-tp-dates aria-labelledby="tp-dates-label" style="left:61px; top:231px;">
+            <span data-tp-dates-value>Choose your travel dates</span>
+            <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+          </button>
+          <input type="hidden" name="dates" value="">
+
+          <label class="tp-label" for="tp-wishes" style="left:61px; top:300px;">Your wishes</label>
+          <textarea class="tp-field tp-field--area" id="tp-wishes" name="wishes" style="left:61px; top:358px;"></textarea>
+
+          <label class="tp-label" for="tp-name" style="left:61px; top:477px;">Your name</label>
+          <input class="tp-field" id="tp-name" name="name" type="text" autocomplete="name" style="left:61px; top:535px;">
+          <label class="tp-label" for="tp-contact" style="left:357px; top:477px;">Contacts</label>
+          <input class="tp-field" id="tp-contact" name="contact" type="text" autocomplete="tel" placeholder="Phone or Telegram" style="left:357px; top:535px;">
+
+          <p class="tp-error" data-tp-error role="alert" hidden></p>
+
+          <button class="tp-submit" type="submit">Send request</button>
+
+          <label class="trip-consent tp-consent">
+            <input type="checkbox" name="consent">
+            <span class="trip-consent__box"></span>
+            <span class="trip-consent__text">I agree to the processing of my personal data under the&nbsp;<a href="#">Data Processing Consent</a>&nbsp;and have read the&nbsp;<a href="#">Privacy Policy</a>.</span>
+          </label>
+
+          <!-- календарь (общий с формой на главной, логика — rangeCalendar в js/main.js) -->
+          <div class="calendar tp-calendar" data-calendar hidden>
+            <button class="calendar__nav calendar__nav--prev" type="button" data-cal-prev aria-label="Previous month"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M5.63025 1.05127L1.31434 4.50401C0.963631 4.78458 0.963632 5.318 1.31435 5.59857L5.63025 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <button class="calendar__nav calendar__nav--next" type="button" data-cal-next aria-label="Next month"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1.05127 1.05127L5.36718 4.50401C5.71789 4.78458 5.71789 5.318 5.36717 5.59857L1.05127 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <div class="calendar__month" data-cal-month="0"></div>
+            <div class="calendar__month calendar__month--right" data-cal-month="1"></div>
+            <p class="calendar__summary" data-cal-summary>Choose check-in and check-out dates</p>
+            <button class="calendar__apply" type="button" data-cal-apply>Apply</button>
+          </div>
+        </form>
+
+        <div class="tp-done done-card" data-tp-done hidden>
+          <b>Thank you, request sent!</b>
+          <span>We’ll prepare an offer and get in touch shortly — usually within a day.</span>
+          <button class="tp-again" type="button" data-tp-again>Send another one</button>
+          <!-- только на телефоне: галочка с лучиками над текстом (как у «Спасибо» на главной) -->
+          <div class="done-icon m-only" aria-hidden="true"><img src="../img/check-circle.webp" alt=""><img src="../img/rays-left.webp" alt=""><img src="../img/rays-right.webp" alt=""></div>
+          <!-- только на телефоне (мобильный макет): «Следующий шаг» и кнопка на главную вместо «Отправить еще одну» -->
+          <div class="done-next m-only"><img src="../img/folded-map.webp" alt=""><b>Next step</b><span>We’ll get in touch and help you put together the right trip.</span></div>
+          <a class="done-home m-only" href="index.html">Go to the home page</a>
+        </div>
+      </div>
+      <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
+      <footer class="footer footer--light">
+        <a class="footer__logo" href="index.html" aria-label="Tian Way — home"><img src="../img/logo-footer-light.webp" alt="Tian Way"></a>
+        <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+          <a href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+          <a href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        </div>
+        <div class="footer__links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Public Offer</a>
+          <span>© 2026 Tian Way. All rights reserved</span>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="../data/i18n/en-scripts.js?v=f1dae27c"></script>
+  <script src="../js/main.js?v=cb2b8409"></script>
+<script src="../js/trips.js?v=4bb6e781"></script>
+</body>
+</html>

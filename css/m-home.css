@@ -262,7 +262,7 @@ html.hero-play .ov-m-stamp-round { animation: hero-drop .7s cubic-bezier(.2, .7,
 .faq__divider[data-i="2"] { top: 311.52px !important; }
 .faq__divider[data-i="3"] { top: 444.52px !important; }
 
-.faq__more { left: 39px; top: 472px; width: 135px; height: 27px; padding-left: 9px; border-radius: 4px; font-size: 10px; }
+.faq__more { left: 39px; top: 472px; width: 135px; height: 27px; padding: 0; justify-content: center; border-radius: 4px; font-size: 10px; }   /* стрелка на телефоне скрыта — текст по центру */
 .faq__more .btn-icon { display: none; }
 .faq__more-line { left: 199px; top: 472px; height: 34px; }
 .faq__ask { left: 214px; top: 477px; width: 123px; font-size: 8px; }
@@ -360,3 +360,11 @@ html.hero-play .ov-m-stamp-round { animation: hero-drop .7s cubic-bezier(.2, .7,
 .trip-done__next img { width: 100px; height: 75px; }
 .trip-done__next b { left: 96px; top: 14px; font-size: 12px; }
 .trip-done__next span { left: 96px; top: 34px; width: 190px; font-size: 10px; }
+
+/* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — как самый верх и самый низ страницы на телефоне */
+:root { --edge-top: #9f8753; --edge-bottom: #000000; }
+
+/* английская версия (en/index.html): заголовки длиннее русских — чуть меньше, чтобы не переносились на лишнюю строку */
+html[lang="en"] .hero__title { font-size: 44px; }
+html[lang="en"] .routes__title { font-size: 32px; }
+html[lang="en"] .format-card--tours .format-card__text { width: 176px; }   /* английский текст шире — не заезжает на фото */

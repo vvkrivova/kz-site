@@ -10,7 +10,7 @@ const rbSummary = (function () {
   const $ = (q) => box.querySelector(q);
   const showDate = (el, d) => {
     el.classList.toggle('is-empty', !d);
-    if (!d) { el.innerHTML = '<b>—</b>дата не выбрана'; return; }
+    if (!d) { el.innerHTML = t('<b>—</b>дата не выбрана'); return; }
     const p = RentStore.dayParts(d);
     el.innerHTML = `<b>${p.day}</b>${p.rest}`;
   };
@@ -23,22 +23,24 @@ const rbSummary = (function () {
     $('[data-s-guests]').textContent = sm.guests.n;
     $('[data-s-guests-word]').textContent = sm.guests.word;
     $('[data-s-nights]').textContent = sm.nights || '—';
-    $('[data-s-nights-word]').textContent = sm.nights ? plural(sm.nights, 'ночь', 'ночи', 'ночей') : 'ночей';
+    $('[data-s-nights-word]').textContent = sm.nights ? plural(sm.nights, 'ночь', 'ночи', 'ночей') : t('ночей');
 
     const sum = $('[data-s-car-sum]');
     $('[data-s-car-row]').classList.toggle('is-empty', !sm.car);
     if (sm.car) {
-      $('[data-s-car]').innerHTML = `Автодом <b>${esc(sm.car.name)}</b>`;
-      sum.textContent = money(sm.car.sum);
-      sum.title = sm.nights ? `${money(sm.car.price)} × ${sm.nights} ${plural(sm.nights, 'сутки', 'суток', 'суток')}` : 'цена за сутки';
+      $('[data-s-car]').innerHTML = t('Автодом <b>{name}</b>', { name: esc(sm.car.name) });
+      // у автодома без цены (data-price="0") — «уточняется», как у снаряжения без цены
+      sum.textContent = sm.car.price ? money(sm.car.sum) : t('уточняется');
+      sum.title = !sm.car.price ? t('цену уточнит менеджер')
+        : sm.nights ? `${money(sm.car.price)} × ${sm.nights} ${plural(sm.nights, 'сутки', 'суток', 'суток')}` : t('цена за сутки');
     } else {
-      $('[data-s-car]').innerHTML = 'Автодом не&nbsp;выбран';
-      sum.innerHTML = '<a href="rent.html#cars">Выбрать</a>';
+      $('[data-s-car]').innerHTML = t('Автодом не&nbsp;выбран');
+      sum.innerHTML = t('<a href="rent.html#cars">Выбрать</a>');
     }
 
-    $('[data-s-rows]').innerHTML = sm.items.map((it) => `<li><span>${esc(it.title)}</span><span>${it.qty}x</span><b${it.price ? '' : ' class="is-ask"'} title="${RentStore.sumHint(it, sm.nights)}">${it.price ? money(it.sum) : '<span>уточняется</span>'}</b></li>`).join('')
-      || '<li class="is-empty">Дополнительные услуги не выбраны — <a href="rent-extras.html">добавить</a></li>';
-    $('[data-s-total]').textContent = money(sm.total);
+    $('[data-s-rows]').innerHTML = sm.items.map((it) => `<li><span>${esc(t(it.title))}</span><span>${it.qty}x</span><b${it.price ? '' : ' class="is-ask"'} title="${esc(RentStore.sumHint(it, sm.nights))}">${RentStore.rowSum(it, sm.nights)}</b></li>`).join('')
+      || t('<li class="is-empty">Дополнительные услуги не выбраны — <a href="rent-extras.html">добавить</a></li>');
+    $('[data-s-total]').textContent = RentStore.totalText(sm);
     return sm;
   }
 
@@ -94,14 +96,14 @@ const rbSummary = (function () {
     // не выбран автодом или даты — это не поле формы, поэтому сообщение рядом с кнопкой
     const sm = RentStore.summary();
     if (sm.missing) {
-      errorEl.innerHTML = `${{ 'автодом': 'Не выбран автодом', 'даты поездки': 'Не выбраны даты поездки', 'количество гостей': 'Не выбрано количество гостей' }[sm.missing]} — <a href="rent.html">вернуться к выбору</a>`;
+      errorEl.innerHTML = `${t({ 'автодом': 'Не выбран автодом', 'даты поездки': 'Не выбраны даты поездки', 'количество гостей': 'Не выбрано количество гостей' }[sm.missing])} — <a href="rent.html">${t('вернуться к выбору')}</a>`;
       errorEl.hidden = false;
       return;
     }
 
     // проверяем все поля сразу и подписываем каждое, что не так
     const bad = [];
-    const check = (el, msg) => { if (msg) { setError(el, msg); bad.push(el); } else clearError(el); };
+    const check = (el, msg) => { if (msg) { setError(el, t(msg)); bad.push(el); } else clearError(el); };
     const phoneDigits = f.phone.value.replace(/\D/g, '').length;
     const isTelegram = /\p{L}/u.test(f.phone.value);   // есть буквы — это ник или ссылка Telegram, цифры не считаем
     const email = f.email.value.trim();

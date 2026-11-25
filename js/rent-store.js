@@ -41,14 +41,11 @@ window.RentStore = (function () {
       });
     },
     // 1 250 $ — цены аренды в долларах; пробел между тысячами неразрывный
-    money: (n) => `${String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} $`,
+    // в английской версии — $1,250
+    money: (n) => (LANG === 'en') ? `$${Math.round(n).toLocaleString('en-US')}` : `${String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} $`,
 
-    plural(n, one, few, many) {
-      const m10 = n % 10; const m100 = n % 100;
-      if (m10 === 1 && m100 !== 11) return one;
-      if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
-      return many;
-    },
+    // слово для числа — общее для сайта (js/main.js): по-русски три формы, по-английски одна/много
+    plural: (n, one, few, many) => plural(n, one, few, many),
 
     /* Сводка бронирования — одна на все страницы, чтобы итог везде совпадал.
        Все посуточно: автодом — цена за сутки × ночи; снаряжение и услуги — цена за сутки × количество × ночи
@@ -63,22 +60,41 @@ window.RentStore = (function () {
       const total = (car ? car.sum : 0) + items.reduce((a, it) => a + it.sum, 0);
       return {
         dates, nights, car, items, total, promo: s.promo || '',
-        guests: { n: g ? g[1] : '—', word: g ? g[2] : 'гостей', text: s.guests || '' },
+        guests: { n: g ? g[1] : '—', word: t(g ? g[2] : 'гостей'), text: s.guests || '' },
         missing: !s.car ? 'автодом' : !dates ? 'даты поездки' : !g ? 'количество гостей' : '',
       };
     },
 
+    /* итог для показа: если цена автодома еще не известна (price 0, «Цена уточняется»), к сумме дописываем «+ автодом»;
+       если ничего с ценой не выбрано — «уточняется» */
+    totalText(sm) {
+      const askCar = sm.car && !sm.car.price;
+      if (!askCar) return this.money(sm.total);
+      return sm.total ? t('{sum} + автодом', { sum: this.money(sm.total) }) : t('уточняется');
+    },
+
     /* «21» и «Декабря, пн» — как в макете */
     dayParts(d) {
-      const M = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
-      const W = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+      const M = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'].map((w) => t(w));
+      const W = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'].map((w) => t(w));
       return { day: d.getDate(), rest: `${M[d.getMonth()]}, ${W[d.getDay()]}` };
+    },
+
+    /* подпись вместо суммы у позиций без цены за сутки (data-price="0"):
+       data-label — «бесплатно», «от 50 $»; data-free-from — бесплатно только от N суток (меньше — «уточняется») */
+    rowLabel(it, nights) {
+      if (it.freeFrom && nights && nights < it.freeFrom) return t('уточняется');
+      return t(it.label || 'уточняется');
+    },
+    /* сумма строки для «Вашего бронирования»: число — или подпись (rowLabel) */
+    rowSum(it, nights) {
+      return it.price ? this.money(it.sum) : `<span>${this.esc(this.rowLabel(it, nights))}</span>`;
     },
 
     /* подсказка к сумме строки: «2 $ × 2 шт. × 5 суток» */
     sumHint(it, nights) {
-      if (!it.price) return 'цену уточнит менеджер';
-      return `${this.money(it.price)} × ${it.qty} шт. × ${nights ? `${nights} ${this.plural(nights, 'сутки', 'суток', 'суток')}` : '1 сутки (даты не выбраны)'}`;
+      if (!it.price) return t(it.note || 'цену уточнит менеджер');
+      return `${this.money(it.price)} × ${it.qty} ${t('шт.')} × ${nights ? `${nights} ${this.plural(nights, 'сутки', 'суток', 'суток')}` : t('1 сутки (даты не выбраны)')}`;
     },
 
     esc: (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])),
@@ -95,12 +111,15 @@ window.RentStore = (function () {
       root.querySelectorAll('[data-cart]').forEach((ctl) => {
         const card = ctl.closest('[data-item]');
         const id = card.dataset.item;
-        const info = { title: card.dataset.title, price: Number(card.dataset.price) };
-        ctl.innerHTML = `<button class="cart-add" type="button">В корзину</button>
-          <div class="cart-qty" role="group" aria-label="${info.title}: количество">
-            <button class="cart-qty__btn" type="button" data-dec aria-label="Убрать одну">${minus}</button>
+        const info = {
+          title: card.dataset.title, price: Number(card.dataset.price),
+          label: card.dataset.label || '', note: card.dataset.note || '', freeFrom: Number(card.dataset.freeFrom) || 0,
+        };
+        ctl.innerHTML = `<button class="cart-add" type="button">${t('В корзину')}</button>
+          <div class="cart-qty" role="group" aria-label="${info.title}: ${t('количество')}">
+            <button class="cart-qty__btn" type="button" data-dec aria-label="${t('Убрать одну')}">${minus}</button>
             <span class="cart-qty__val" aria-live="polite"></span>
-            <button class="cart-qty__btn" type="button" data-inc aria-label="Добавить еще">${plus}</button>
+            <button class="cart-qty__btn" type="button" data-inc aria-label="${t('Добавить еще')}">${plus}</button>
           </div>`;
         const add = ctl.querySelector('.cart-add');
         const val = ctl.querySelector('.cart-qty__val');

@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
+  <title>Tian Way — Kyrgyzstan by motorhome</title>
+  <meta name="description" content="Motorhome travel in Kyrgyzstan: motorhome rental, ready-made tours, fishing and hunting.">
+  <meta name="theme-color" content="#353f2b">
+
+  <!-- иконки во вкладке браузера и на телефоне -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="../img/meta/apple-touch-icon.png">
+
+  <!-- превью ссылки в мессенджерах и соцсетях.
+       ВАЖНО: когда появится домен, заменить адреса на полные, например https://tianway.kg/img/meta/og-image.jpg -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Tian Way">
+  <meta property="og:title" content="Kyrgyzstan by motorhome — Tian Way">
+  <meta property="og:description" content="For those who choose freedom in travel — with no compromise on comfort. Motorhome rental, ready-made tours, fishing and hunting.">
+  <meta property="og:image" content="https://tianway.kg/img/meta/og-image.jpg">
+  <meta property="og:image:width" content="https://tianway.kg/1200">
+  <meta property="og:image:height" content="https://tianway.kg/630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем ДО отрисовки страницы, чтобы при обновлении она не «прыгала» -->
+  <script>
+    // телефоны (уже 768px) — мобильный макет шириной 402px (css/m-common.css), остальные — 1440px
+    (function () { var w = document.documentElement.clientWidth; document.documentElement.style.setProperty('--page-scale', (w / (w < 768 ? 402 : 1440)).toFixed(5)); })();
+    // появление первого экрана: прячем его до загрузки картинок (запускает js/home.js; через 4 с — в любом случае)
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      // анимации 2 и 8: блоки ниже первого экрана скрыты, пока не дойдут до экрана (показывает js/home.js)
+      document.documentElement.classList.add('reveal-on');
+      document.documentElement.classList.add('hero-wait');
+      setTimeout(function () {
+        var h = document.documentElement;
+        if (h.classList.contains('hero-wait')) { h.classList.remove('hero-wait'); h.classList.add('hero-play'); }
+      }, 4000);
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css?v=4aa5dd6a">
+  <link rel="stylesheet" href="../css/home.css?v=70c6192b">
+  <!-- мобильная версия (телефоны): те же элементы, координаты из мобильного макета Figma (Frame 151, ширина 402px) -->
+  <link rel="stylesheet" href="../css/m-common.css?v=ed977104" media="(max-width: 767px)">
+  <link rel="stylesheet" href="../css/m-home.css?v=c60e7239" media="(max-width: 767px)">
+  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/">
+  <script src="../js/lang-detect.js?v=0faf9613"></script>
+  <!-- /языки -->
+</head>
+<body>
+<main class="page">
+
+  <!-- ============ 1. ПЕРВЫЙ ЭКРАН ============ -->
+  <section class="section hero" id="top">
+    <div class="stage">
+      <img class="hero__bg" src="../img/hero-bg.webp" alt="">
+      <div class="hero__bg-shade"></div>
+      <img class="hero__lines" src="../img/lines-hero.webp" alt="">
+      <img class="hero__top-shade" src="../img/hero-top-shade.webp" alt="">
+
+      <header class="header">
+        <a class="header__logo" href="#top"><img src="../img/logo.webp" alt="Tian Way"></a>
+        <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="header__call m-only" href="tel:+996500192445" aria-label="Call: +996 500 192 445"><img src="../img/social-phone.svg" alt=""></a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+        <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        <!-- язык -->
+        <div class="lang" data-lang>
+          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Site language"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+          <ul class="lang__list">
+            <li><a href="../index.html" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+            <li><a href="index.html" hreflang="en" data-lang-link lang="en">English</a></li>
+          </ul>
+        </div>
+        <!-- /язык -->
+      </header>
+
+      <h1 class="hero__title">Kyrgyzstan by motorhome</h1>
+      <p class="hero__subtitle">For those who choose freedom <br>in travel — with no compromise on comfort</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--light" href="#formats">Choose a format</a>
+        <a class="btn btn--orange" href="rent.html"><span class="d-only">See the motorhome</span><span class="m-only">Rent a motorhome</span></a>
+      </div>
+
+      <!-- коллаж -->
+      <img class="deco hero__photo-rv" src="../img/hero-photo-rv.webp" alt="Motorhome in the mountains of Kyrgyzstan at sunset">
+      <img class="deco hero__stamp-red" src="../img/stamp-red.webp" alt="">
+      <img class="deco hero__stamp-horses" src="../img/stamp-horses.webp" alt="">
+      <div class="deco hero__photo-bw"><img src="../img/photo-bw-horses.webp" alt="Horses and yurts in the mountain steppe"></div>
+      <img class="deco hero__stamp-round" src="../img/stamp-round-logo.webp" alt="">
+    </div>
+  </section>
+
+  <!-- ============ 2. ВЫБЕРИ ФОРМАТ ============ -->
+  <section class="section formats" id="formats" data-center=".formats__panel">
+    <div class="stage">
+      <img class="formats__cloud-1" src="../img/cloud-1.webp" alt="">
+      <div class="formats__valley"><img src="../img/mountain-valley.webp" alt=""></div>
+      <img class="formats__cloud-2" src="../img/cloud-2.webp" alt="">
+      <div class="formats__panel"></div>
+      <img class="formats__lines" src="../img/lines-format.webp" alt="">
+
+      <h2 class="formats__title">Choose your travel format</h2>
+
+      <article class="format-card format-card--rv">
+        <h3 class="format-card__title">Motorhome <br>rental</h3>
+        <p class="format-card__text">Pick a motorhome <br>and dates, plan your trip.</p>
+        <div class="format-card__img"><img src="../img/card-rv.webp" alt="Motorhomes by the lake"></div>
+      </article>
+      <a class="format-btn format-btn--rv" href="rent.html">Motorhome rental</a>
+
+      <article class="format-card format-card--tours">
+        <h3 class="format-card__title">Ready-made <br>trips</h3>
+        <p class="format-card__text">We’ll plan a trip <br>for you, your family <br>or your group.</p>
+        <div class="format-card__img"><img src="../img/card-tours.webp" alt="Eagle hunters on horseback in the steppe"></div>
+      </article>
+      <a class="format-btn format-btn--tours" href="trips.html">Find a trip</a>
+
+      <article class="format-card format-card--fishing">
+        <h3 class="format-card__title">Fishing <br>and hunting</h3>
+        <p class="format-card__text">Dedicated programmes for those <br>who come to Kyrgyzstan first <br>of all for fishing or hunting.</p>
+        <div class="format-card__img"><img src="../img/card-fishing.webp" alt="Angler on a mountain lake"></div>
+      </article>
+      <a class="format-btn format-btn--fishing" href="fishing.html">See programmes</a>
+
+      <div class="formats__clouds-a"><img src="../img/clouds-set.webp" alt=""></div>
+      <div class="formats__clouds-b"><img src="../img/clouds-set.webp" alt=""></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. ПЕРВЫЙ РАЗ ЗА РУЛЕМ АВТОДОМА? ============ -->
+  <section class="section first">
+    <div class="stage">
+      <img class="m-only first__cloud" src="../img/cloud-2.webp" alt=""><!-- только на телефоне: облако за горой, как в макете -->
+      <div class="first__bg"><picture><source media="(max-width: 767px)" srcset="../img/m/first-bg.webp"><img src="../img/first-bg.webp" alt="Mountain serpentine road in a gorge"></picture></div>
+      <img class="first__edge" src="../img/svg/torn-edge.svg" alt="">
+      <div class="first__shade"></div>
+      <h2 class="first__title">First time driving a&nbsp;motorhome?</h2>
+      <img class="m-only first__road" src="../img/m/first-road.webp" alt=""><!-- только на телефоне: извилистая дорога между шагами -->
+
+      <span class="first__spot first__spot--1"></span>
+      <span class="first__spot first__spot--2"></span>
+      <span class="first__spot first__spot--3"></span>
+      <span class="first__spot first__spot--4"></span>
+
+      <!-- 4 шага: координаты из макета, относительно группы -->
+      <div class="first-step first-step--right" data-sign="4" style="left:444px; top:738px; width:331px;">
+        <h3 class="first-step__title" style="left:0; width:295px;">We show <br>and explain</h3>
+        <p class="first-step__text" style="left:48px; width:244px;">Before you set off, we calmly go through <br>the controls and equipment</p>
+        <span class="first-step__line" style="left:331px; top:46px;"></span>
+      </div>
+      <div class="first-step" data-sign="3" style="left:945px; top:644px; width:270px;">
+        <h3 class="first-step__title" style="left:40px; width:174px;">First kilometres together</h3>
+        <p class="first-step__text" style="left:40px; width:230px;">First we drive a test loop together — no rush <br>and no difficult roads</p>
+        <span class="first-step__line" style="left:0; top:45px;"></span>
+      </div>
+      <div class="first-step first-step--right" data-sign="2" style="left:819px; top:411px; width:343px;">
+        <h3 class="first-step__title" style="left:0; width:295px;">Handover <br>where you like</h3>
+        <p class="first-step__text" style="left:33px; width:259px;">Delivery or handover at a convenient point — if confirmed operationally</p>
+        <span class="first-step__line" style="left:343px; top:39px;"></span>
+      </div>
+      <div class="first-step" data-sign="1" style="left:835px; top:219px; width:297px;">
+        <h3 class="first-step__title" style="left:40px; width:174px;">We stay <br>in touch</h3>
+        <p class="first-step__text" style="left:40px; width:257px;">Throughout the trip we stay in touch about the vehicle and the route</p>
+        <span class="first-step__line" style="left:0; top:45px;"></span>
+      </div>
+
+      <!-- значки-указатели: data-sign связывает значок с его текстом (наведение на любой — качается значок) -->
+      <div class="first__stamp first__stamp--1" data-sign="1"><img src="../img/retro-stamps-blank.webp" alt=""></div>
+      <div class="first__stamp first__stamp--2" data-sign="2"><img src="../img/retro-stamps-blank.webp" alt=""></div>
+      <div class="first__stamp first__stamp--3" data-sign="3"><img src="../img/retro-stamps-blank.webp" alt=""></div>
+      <div class="first__stamp first__stamp--4" data-sign="4"><img src="../img/retro-stamps-blank.webp" alt=""></div>
+
+      <!-- элементы, заходящие на следующий блок -->
+      <div class="deco first__topo"><img src="../img/topo-lines.webp" alt=""></div>
+      <img class="deco first__stamp-red" src="../img/stamp-red.webp" alt="">
+      <div class="deco first__photo-bw"><img src="../img/photo-bw-horses.webp" alt=""></div>
+      <div class="deco first__route"><img src="../img/map/route-first.svg?v=3" alt=""></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. КУДА НА АВТОДОМЕ РЕАЛЬНО ПРОЕХАТЬ ============ -->
+  <section class="section routes" id="routes">
+    <div class="stage">
+      <img class="routes__topo" src="../img/topo-lines.webp" alt="">
+      <h2 class="routes__title">Where a motorhome can really go</h2>
+      <p class="routes__text">We don’t just mark pretty places on a map. We drive the routes ourselves and record what matters for a motorhome: the road, real travel time, campsites, water, fuel, mobile coverage and seasonal restrictions</p>
+
+      <img class="routes__mountains" src="../img/map-mountains-bottom.webp" alt="">
+      <img class="m-only routes__edge" src="../img/svg/torn-edge.svg" alt=""><!-- только на телефоне: рваный край внизу блока -->
+
+      <!-- коллаж справа сверху -->
+            <div class="deco routes__photo-bw"><img src="../img/map/photo-bw-eagle.webp" alt="Golden eagle over the Tien Shan mountains"></div>
+      <img class="deco routes__photo-sunset" src="../img/map/photo-sunset-rv.webp" alt="Motorhome in a mountain valley at sunset">
+      <img class="deco routes__stamp-round" src="../img/map/stamp-round-logo.webp" alt="">
+      <img class="deco routes__stamp-horses" src="../img/map/stamp-horses.webp" alt="">
+      <img class="deco routes__stamp-red" src="../img/map/stamp-red.webp" alt="">
+      <img class="deco routes__route-top" src="../img/map/route-top.svg" alt="">
+      <img class="deco routes__dot routes__dot--1" src="../img/map/route-dot.svg" alt="">
+      <img class="deco routes__dot routes__dot--2" src="../img/map/route-dot.svg" alt="">
+      <img class="deco routes__dot routes__dot--3" src="../img/map/route-dot.svg" alt="">
+      <div class="deco routes__pin"><img src="../img/map/dashed-route.webp" alt=""></div>
+
+      <!-- карта -->
+      <img class="routes__map" src="../img/map/kg-map.webp?v=2" alt="Map of Kyrgyzstan with route points">
+      <div class="routes__layer" data-routes-layer></div>
+      <img class="routes__underline" src="../img/map/underline.svg" alt="">
+
+      <!-- карточка направления -->
+      <article class="route-card" data-route-card aria-live="polite">
+        <div class="route-card__top">
+          <span class="route-card__label">Ready-made trips</span>
+          <div class="route-card__nav">
+            <button class="route-card__arrow route-card__arrow--prev" type="button" data-route-prev aria-label="Previous route"><img src="../img/map/arrow-prev.svg" alt=""></button>
+            <button class="route-card__arrow" type="button" data-route-next aria-label="Next route"><img src="../img/map/arrow-next.svg" alt=""></button>
+            <span class="route-card__counter" data-route-counter>1/3</span>
+          </div>
+        </div>
+        <h3 class="route-card__title" data-route-title></h3>
+        <p class="route-card__desc" data-route-desc></p>
+        <dl class="route-card__rows">
+          <div class="route-row"><span class="route-row__icon route-row__icon--days"><img src="../img/icons-sprite.webp" alt=""></span><dt>Number of days</dt><dd data-route-days></dd></div>
+          <div class="route-row"><span class="route-row__icon route-row__icon--fun"><img src="../img/icons-sprite.webp" alt=""></span><dt>Highlights</dt><dd data-route-fun></dd></div>
+          <div class="route-row"><span class="route-row__icon route-row__icon--food"><img src="../img/map/icon-food.webp" alt=""></span><dt>Meals</dt><dd data-route-food></dd></div>
+          <div class="route-row"><span class="route-row__icon route-row__icon--season"><img src="../img/icons-sprite.webp" alt=""></span><dt>Season</dt><dd data-route-season></dd></div>
+          <div class="route-row"><span class="route-row__icon route-row__icon--who"><img src="../img/icons-sprite.webp" alt=""></span><dt>Who it’s for</dt><dd data-route-who></dd></div>
+        </dl>
+        <a class="route-card__btn" href="#">See the programme</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 5. УЖЕ ЕЗДИЛИ С TIAN WAY ============ -->
+  <section class="section reviews" id="reviews">
+    <div class="stage">
+      <img class="reviews__brush" src="../img/brushstroke.webp" alt="">
+      <img class="reviews__topo" src="../img/topo-mountains.svg" alt="">
+      <h2 class="reviews__title">Guest stories</h2>
+      <img class="reviews__label" src="../img/label-real-experience.en.webp" alt="">
+
+      <div class="review review--a" data-review-slot="0">
+        <!-- фото и марки: у каждого отзыва свой набор (data-pics), он переезжает вместе с отзывом — js/home.js -->
+        <img class="review__pic review__pic--lake" data-pics="fishers" src="../img/review-lake.webp" alt="Mountain lake shore with trees">
+        <article class="review__card">
+          <img class="review__quote" src="../img/icon-quote.webp" alt="">
+          <h3 class="review__name" data-review-name></h3>
+          <div class="review__pin"><img src="../img/icon-pin.webp" alt=""></div>
+          <p class="review__trip" data-review-trip></p>
+          <div class="review__cal"><img src="../img/icons-sprite.webp" alt=""></div>
+          <span class="review__days" data-review-days></span>
+          <p class="review__text" data-review-text></p>
+          <button class="review__more" type="button" data-review-open>Read the full review</button>
+        </article>
+        <img class="review__pic review__pic--friends" data-pics="fishers" src="../img/review-friends.webp" alt="Four friends in the mountains">
+        <img class="review__pic review__pic--round-f" data-pics="fishers" src="../img/stamp-round-logo.webp" alt="">
+        <img class="review__pic review__pic--horses" data-pics="fishers" src="../img/stamp-horses.webp" alt="">
+        <img class="review__pic review__pic--red" data-pics="kirill" src="../img/stamp-red.webp" alt="" hidden>
+        <img class="review__pic review__pic--fisher" data-pics="kirill" src="../img/review-fisher.webp" alt="Angler with a big fish on the lake shore" hidden>
+        <img class="review__pic review__pic--round-k" data-pics="kirill" src="../img/stamp-round-logo.webp" alt="" hidden>
+        <img class="review__pic review__pic--camels" data-pics="kirill" src="../img/review-camels.webp" alt="Camels in the steppe by the mountains" hidden>
+      </div>
+
+      <div class="review review--b" data-review-slot="1">
+        <!-- фото и марки: у каждого отзыва свой набор (data-pics), он переезжает вместе с отзывом — js/home.js -->
+        <img class="review__pic review__pic--lake" data-pics="fishers" src="../img/review-lake.webp" alt="Mountain lake shore with trees" hidden>
+        <article class="review__card">
+          <img class="review__quote" src="../img/icon-quote.webp" alt="">
+          <h3 class="review__name" data-review-name></h3>
+          <div class="review__pin"><img src="../img/icon-pin.webp" alt=""></div>
+          <p class="review__trip" data-review-trip></p>
+          <div class="review__cal"><img src="../img/icons-sprite.webp" alt=""></div>
+          <span class="review__days" data-review-days></span>
+          <p class="review__text" data-review-text></p>
+          <button class="review__more" type="button" data-review-open>Read the full review</button>
+        </article>
+        <img class="review__pic review__pic--friends" data-pics="fishers" src="../img/review-friends.webp" alt="Four friends in the mountains" hidden>
+        <img class="review__pic review__pic--round-f" data-pics="fishers" src="../img/stamp-round-logo.webp" alt="" hidden>
+        <img class="review__pic review__pic--horses" data-pics="fishers" src="../img/stamp-horses.webp" alt="" hidden>
+        <img class="review__pic review__pic--red" data-pics="kirill" src="../img/stamp-red.webp" alt="">
+        <img class="review__pic review__pic--fisher" data-pics="kirill" src="../img/review-fisher.webp" alt="Angler with a big fish on the lake shore">
+        <img class="review__pic review__pic--round-k" data-pics="kirill" src="../img/stamp-round-logo.webp" alt="">
+        <img class="review__pic review__pic--camels" data-pics="kirill" src="../img/review-camels.webp" alt="Camels in the steppe by the mountains">
+      </div>
+
+      <button class="reviews__arrow reviews__arrow--next" type="button" data-review-next aria-label="Next review"><img src="../img/svg/arrow-right-long.svg" alt=""></button>
+      <button class="reviews__arrow reviews__arrow--prev" type="button" data-review-prev aria-label="Previous review"><img src="../img/svg/arrow-left-long.svg" alt=""></button>
+    </div>
+  </section>
+
+  <!-- ============ 6. ОСТАЛИСЬ ВОПРОСЫ? ============ -->
+  <section class="section faq" id="faq">
+    <div class="stage">
+      <img class="faq__topo" src="../img/topo-lines.webp" alt="">
+      <div class="faq__mountains"><img src="../img/topo-mountains.svg" alt=""></div>
+      <img class="faq__compass" src="../img/compass.webp" alt="">
+      <img class="faq__coords" src="../img/compass-coords.webp" alt="">
+
+      <h2 class="faq__title">Any questions?</h2>
+      <p class="faq__sub">Short answers to what people usually want to know before booking</p>
+      <span class="faq__note">We’re here</span>
+
+      <div class="faq-item" data-i="1" style="top:192px;">
+        <span class="faq-item__num" style="left:3px;">01</span>
+        <h3 class="faq-item__q" style="top:-3px;">Never driven <br>a motorhome. <br>Can I do it?</h3>
+        <span class="faq-item__line" style="left:362px; top:0;"></span>
+        <p class="faq-item__a" style="left:395px; top:0; width:340px;">Before&nbsp;handover we’ll show you the controls and&nbsp;equipment, and&nbsp;drive the first kilometres together. A motorhome is bigger than a regular car, so what matters most is getting used to its size calmly, not&nbsp;previous motorhome experience.</p>
+      </div>
+      <span class="faq__divider" data-i="1" style="left:563.4px; top:356.5px; width:852px;"></span>
+      <div class="faq-item" data-i="2" style="top:403.2px;">
+        <span class="faq-item__num">02</span>
+        <h3 class="faq-item__q" style="top:-3px;">What&nbsp;if the vehicle breaks&nbsp;down?</h3>
+        <span class="faq-item__line" style="left:365px; top:-5px;"></span>
+        <p class="faq-item__a" style="left:395px; top:-5px; width:345px;">You&nbsp;won’t be left alone with&nbsp;the problem. We&nbsp;agree in advance what we do in&nbsp;case of a fault, when we can fix it on&nbsp;the spot and&nbsp;when the vehicle can be replaced</p>
+      </div>
+      <span class="faq__divider" data-i="2" style="left:563.4px; top:536.9px; width:852px;"></span>
+      <div class="faq-item" data-i="3" style="top:585.6px;">
+        <span class="faq-item__num">03</span>
+        <h3 class="faq-item__q" style="top:-3px;">What if the weather turns bad or a road becomes impassable?</h3>
+        <span class="faq-item__line" style="left:365px; top:0;"></span>
+        <p class="faq-item__a" style="left:396px; top:-3px; width:345px;">If&nbsp;conditions on&nbsp;a section change, we help adjust the route and&nbsp;choose a safe option from&nbsp;those available. <br><br>That’s why our routes note seasonality and&nbsp;the sections that depend on&nbsp;the weather.</p>
+      </div>
+      <span class="faq__divider" data-i="3" style="left:568.8px; top:759.7px; width:846px;"></span>
+
+      <a class="faq__more" href="faq.html">See more questions <svg class="btn-icon btn-icon--faq" width="20" height="6" viewBox="0 0 20 6" aria-hidden="true"><path d="M0.5 2.38672C0.223858 2.38672 0 2.61058 0 2.88672C0 3.16286 0.223858 3.38672 0.5 3.38672L0.5 2.88672L0.5 2.38672ZM0.5 2.88672L0.5 3.38672L15 3.38672V2.88672V2.38672L0.5 2.38672L0.5 2.88672ZM19.5 2.88672L14.5 -3.26633e-05V5.77347L19.5 2.88672Z" fill="currentColor"/></svg></a>
+      <span class="faq__more-line"></span>
+      <p class="faq__ask">Didn’t find an&nbsp;answer? <br>Write to us&nbsp;— we’ll help</p>
+      <a class="faq__ask-btn" href="faq.html#ask" aria-label="Ask your question"><img src="../img/svg/faq-circle-arrow.svg" alt=""></a>
+
+      <img class="faq__route" src="../img/map/dashed-route.webp" alt="">
+      <img class="faq__photo" src="../img/hero-photo-rv.webp" alt="">
+      <img class="faq__stamp-horses" src="../img/stamp-horses.webp" alt="">
+      <img class="faq__stamp-round" src="../img/stamp-round-logo.webp" alt="">
+    </div>
+  </section>
+
+  <!-- ============ 7. СОБЕРЕМ ПОЕЗДКУ ПОД ВАС ============ -->
+  <section class="section trip" id="trip">
+    <div class="stage">
+      <img class="trip__bg" src="../img/form-bg.webp" alt="">
+      <div class="m-only trip__fade"></div><!-- только на телефоне: затемнение под подвалом -->
+      <img class="m-only trip__route" src="../img/map/dashed-route.webp" alt=""><!-- только на телефоне: пунктир под заголовком -->
+      <div class="trip__topo"><img src="../img/topo-lines.webp" alt=""></div>
+      <img class="trip__photo" src="../img/hero-photo-rv.webp" alt="">
+      <img class="trip__stamp-red" src="../img/stamp-red.webp" alt="">
+      <div class="trip__panel"></div>
+
+      <h2 class="trip__title">We’ll plan a trip for you</h2>
+      <p class="trip__sub">You don’t need to know exact dates, route or programme. <br>Tell us roughly what you want — we’ll suggest the right option.</p>
+
+      <form class="trip-form" data-trip-form novalidate>
+        <!-- Шаг 1 -->
+        <div class="trip-step" data-step="1">
+          <h3 class="trip-step__title" style="left:420px; top:303px;">What kind of holiday?</h3>
+          <p class="trip-step__hint" style="left:420px; top:352px;">Choose a direction — we’ll sort out the rest together.</p>
+
+          <label class="trip-option" style="left:365px; top:413px;">
+            <input type="radio" name="kind" value="Аренда автодома">
+            <b>Motorhome rental</b>
+            <span>I want to choose a vehicle <br>and plan the trip myself</span>
+          </label>
+          <label class="trip-option" style="left:723px; top:412px;">
+            <input type="radio" name="kind" value="Готовое путешествие">
+            <b>Ready-made trip</b>
+            <span>I’d like you to help plan and organise a trip for me <br>or our group</span>
+          </label>
+          <label class="trip-option" style="left:365px; top:613px;">
+            <input type="radio" name="kind" value="Рыбалка и охота">
+            <b>Fishing and hunting</b>
+            <span>I’m interested in a dedicated programme</span>
+          </label>
+          <label class="trip-option" style="left:723px; top:613px;">
+            <input type="radio" name="kind" value="Пока не знаю">
+            <b>Not sure yet</b>
+            <span>I’ll tell you what kind of holiday I want, and you’ll suggest an option</span>
+          </label>
+
+          <button class="trip-btn trip-btn--next" type="button" data-trip-next disabled style="left:579.62px; top:814px; width:232.38px;">Continue <svg class="btn-icon btn-icon--arrow" width="35" height="12" viewBox="0 0 35 12" aria-hidden="true"><path d="M1 4.77344C0.447715 4.77344 0 5.22115 0 5.77344C0 6.32572 0.447715 6.77344 1 6.77344V5.77344V4.77344ZM1 5.77344V6.77344H25.1964V5.77344V4.77344H1V5.77344ZM34.1964 5.77344L24.1964 -6.53267e-05V11.5469L34.1964 5.77344Z" fill="currentColor"/></svg></button>
+        </div>
+
+        <!-- Шаг 2 -->
+        <div class="trip-step" data-step="2" hidden>
+          <h3 class="trip-step__title" style="left:409px; top:304px;">Tell us a little about the trip</h3>
+          <p class="trip-step__hint" style="left:464px; top:352px;">It’s fine if you don’t know the exact dates yet.</p>
+
+          <div class="trip-box" style="left:402px; top:398px; width:389px; height:134px;">
+            <b class="trip-box__title">When are you planning?</b>
+            <button class="trip-chip" type="button" data-dates-toggle style="left:25px; top:64px; width:164px;"><span data-dates-label>Choose dates</span></button>
+            <button class="trip-chip" type="button" data-dates-unknown style="left:200px; top:64px; width:157px;">Not sure yet</button>
+          </div>
+
+          <div class="trip-box" style="left:800px; top:398px; width:213px; height:134px;">
+            <b class="trip-box__title">How many?</b>
+            <button class="trip-counter__btn trip-counter__btn--minus" type="button" data-count-minus aria-label="Fewer"></button>
+            <output class="trip-counter__value" data-count>4</output>
+            <button class="trip-counter__btn trip-counter__btn--plus" type="button" data-count-plus aria-label="More"></button>
+          </div>
+
+          <div class="trip-box" style="left:401px; top:548px; width:611px; height:149px; border-radius:20px;">
+            <b class="trip-box__title" style="top:22.6px;">Contact details</b>
+            <label class="trip-input" style="left:21px; top:69px; width:193px;"><input type="text" name="name" placeholder="Name" autocomplete="name"></label>
+            <label class="trip-input" style="left:227px; top:69px; width:247px;"><input type="text" name="phone" placeholder="Phone or Telegram" autocomplete="tel"></label>
+            <p class="trip-field-error" data-contact-error role="alert" hidden></p>
+          </div>
+
+          <label class="trip-consent" style="left:422px; top:715px;">
+            <input type="checkbox" name="consent">
+            <span class="trip-consent__box"></span>
+            <span class="trip-consent__text">I agree to the processing of my personal data under the&nbsp;<a href="#">Data Processing Consent</a>&nbsp;and have read the&nbsp;<a href="#">Privacy Policy</a>.</span>
+          </label>
+          <p class="trip-error" data-trip-error hidden></p>
+
+          <button class="trip-btn trip-btn--back" type="button" data-trip-back style="left:510px; top:813px; width:181px;"><svg class="btn-icon btn-icon--arrow" width="35" height="12" viewBox="0 0 35 12" aria-hidden="true"><path d="M33.1965 4.77344C33.7488 4.77344 34.1965 5.22115 34.1965 5.77344C34.1965 6.32572 33.7488 6.77344 33.1965 6.77344V5.77344V4.77344ZM33.1965 5.77344V6.77344H9.0001V5.77344V4.77344H33.1965V5.77344ZM0.000102997 5.77344L10.0001 -6.53267e-05V11.5469L0.000102997 5.77344Z" fill="currentColor"/></svg> Back</button>
+          <button class="trip-btn trip-btn--send" type="submit" style="left:723px; top:813px; width:155px;">Send</button>
+
+          <!-- календарь -->
+          <div class="calendar" data-calendar hidden>
+            <button class="calendar__nav calendar__nav--prev" type="button" data-cal-prev aria-label="Previous month"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M5.63025 1.05127L1.31434 4.50401C0.963631 4.78458 0.963632 5.318 1.31435 5.59857L5.63025 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <button class="calendar__nav calendar__nav--next" type="button" data-cal-next aria-label="Next month"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1.05127 1.05127L5.36718 4.50401C5.71789 4.78458 5.71789 5.318 5.36717 5.59857L1.05127 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <div class="calendar__month" data-cal-month="0"></div>
+            <div class="calendar__month calendar__month--right" data-cal-month="1"></div>
+            <p class="calendar__summary" data-cal-summary>Choose check-in and check-out dates</p>
+            <button class="calendar__apply" type="button" data-cal-apply>Apply</button>
+          </div>
+        </div>
+
+        <!-- Шаг 3 -->
+        <div class="trip-step" data-step="3" hidden>
+          <img class="trip-done__check" src="../img/check-circle.webp" alt="">
+          <img class="trip-done__rays-l" src="../img/rays-left.webp" alt="">
+          <img class="trip-done__rays-r" src="../img/rays-right.webp" alt="">
+          <h3 class="trip-done__title">Thank you, request sent</h3>
+          <p class="trip-done__text">We’ve received your request and will contact you soon to agree on dates, route and trip format.</p>
+          <div class="trip-done__next">
+            <img src="../img/folded-map.webp" alt="">
+            <b>Next step</b>
+            <span>We’ll write to you and help put together the right trip.</span>
+          </div>
+        </div>
+
+        <div class="trip-progress" aria-hidden="true">
+          <span data-progress="1"></span><span data-progress="2"></span><span data-progress="3"></span>
+        </div>
+      </form>
+
+      <img class="trip__stamp-horses" src="../img/stamp-horses.webp" alt="">
+      <div class="trip__photo-bw"><img src="../img/photo-bw-horses.webp" alt=""></div>
+      <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
+      <footer class="footer footer--dark">
+        <a class="footer__logo" href="index.html" aria-label="Tian Way — home"><img src="../img/logo-footer-dark.webp" alt="Tian Way"></a>
+        <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+          <a href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+          <a href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        </div>
+        <div class="footer__links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Public Offer</a>
+          <span>© 2026 Tian Way. All rights reserved</span>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- элементы коллажа, лежащие поверх стыков блоков (координаты страницы) -->
+  <div class="page-overlay" aria-hidden="true">
+    <div class="ov-lines-a"><img src="../img/lines-hero.webp" alt=""></div>
+    <div class="ov-tape"><img src="../img/torn-tape-rendered.webp" alt=""></div>
+    <div class="ov-photo-bw"><img src="../img/photo-bw-horses.webp" alt=""></div>
+    <div class="ov-lines-b"><img src="../img/lines-hero.webp" alt=""></div>
+    <div class="ov-clouds"><img src="../img/clouds-set.webp" alt=""></div>
+    <!-- только на телефоне: лента под первым экраном (готовые картинки из Figma) -->
+    <div class="m-only ov-m-tape"><img src="../img/m/tape-1.webp" alt=""><img src="../img/m/tape-2.webp" alt=""></div>
+    <!-- только на телефоне: круглая марка первого экрана — поверх ленты, как в мобильном макете -->
+    <div class="m-only ov-m-stamp-round"><img src="../img/stamp-round-logo.webp" alt=""></div>
+  </div>
+
+</main>
+
+<script src="../data/i18n/en-scripts.js?v=f1dae27c"></script>
+  <script src="../js/main.js?v=cb2b8409"></script>
+<script src="../data/routes.en.js?v=68ffa7f4"></script>
+<script src="../data/reviews.en.js?v=4e7d6a3f"></script>
+<script src="../js/home.js?v=8ffd9e9b"></script>
+</body>
+</html>

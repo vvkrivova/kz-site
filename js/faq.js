@@ -52,9 +52,9 @@
 (function askForm() {
   const form = document.querySelector('[data-ask-form]');
   if (!form) return;
-  const LABELS = { name: 'имя', contact: 'контакты' };
+  const LABELS = { name: t('имя'), contact: t('контакты') };
   // «имя и контакты»
-  const humanJoin = (list) => (list.length > 1 ? `${list.slice(0, -1).join(', ')} и ${list[list.length - 1]}` : list[0]);
+  const humanJoin = (list) => (list.length > 1 ? `${list.slice(0, -1).join(', ')} ${t('и')} ${list[list.length - 1]}` : list[0]);
   leadForm({
     form,
     error: form.querySelector('[data-ask-error]'),
@@ -62,7 +62,7 @@
     again: document.querySelector('[data-ask-again]'),
     // вопрос — необязательный: обязательны только имя и контакты
     fields: { name: form.elements.name, contact: form.elements.contact },
-    missingText: (missing) => `Укажите ${humanJoin(missing.map((k) => LABELS[k]))}, чтобы мы могли ответить.`,
+    missingText: (missing) => t('Укажите {what}, чтобы мы могли ответить.', { what: humanJoin(missing.map((k) => LABELS[k])) }),
     title: 'Вопрос с сайта',
     data: () => ({
       topic: form.elements.topic.value,
@@ -73,4 +73,20 @@
     againMs: 1200,
     focusAfterAgain: form.elements.question,
   });
+})();
+
+/* ---------- Оранжевая линия-маршрут на телефоне ----------
+   Вопросы на телефоне идут потоком (высота каждого — по тексту), а линия стоит сама по себе.
+   Чтобы она не наезжала на текст (например, в английской версии ответы короче и вопросы выше),
+   ставим ее от 4-го вопроса: на 63.74px ниже его верха — как в русской версии по макету. На компьютере — из css. */
+(function routeNearQuestion() {
+  const route = document.querySelector('.faqp__route');
+  const qs = document.querySelectorAll('.faqp .qa');
+  if (!route || qs.length < 4) return;
+  const phone = window.matchMedia('(max-width: 767px)');
+  const place = () => { route.style.top = phone.matches ? `${qs[3].offsetTop + 63.74}px` : ''; };
+  place();
+  phone.addEventListener('change', place);
+  window.addEventListener('load', place);
+  window.addEventListener('resize', place);
 })();

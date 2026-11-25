@@ -5,6 +5,27 @@
    Главная — js/home.js (подключается после этого файла), остальные страницы — js/<страница>.js.
    ========================================================= */
 
+/* ---------- Язык страницы и перевод надписей скриптов ----------
+   Русская версия — главная; на английских страницах (папка en/) перед этим файлом подключен
+   data/i18n/en-scripts.js — словарь window.TW_I18N «русский → английский» (из data/i18n/en-scripts.json).
+   t('текст') — перевод (или сам текст, если перевода нет); t('Занят {when}', { when }) — с подстановкой.
+   plural(n, 'ночь', 'ночи', 'ночей') — слово для числа: по-русски три формы, по-английски одна/много. */
+const LANG = document.documentElement.lang === 'en' ? 'en' : 'ru';
+// английские страницы лежат в папке en/ — картинки, которые подставляют скрипты, ищем уровнем выше
+const SITE_ROOT = LANG === 'en' ? '../' : '';
+function t(text, vars) {
+  let r = (window.TW_I18N && window.TW_I18N[text]) || text;
+  if (vars) r = r.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
+  return r;
+}
+function plural(n, one, few, many) {
+  if (LANG === 'en') return t(n === 1 ? one : many);
+  const m10 = n % 10; const m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
+}
+
 /* ---------- 0. Прокрутка при открытии страницы ----------
    • Обновление страницы — всегда в самое начало (браузер иначе вернул бы туда, где человек был,
      а якорь в адресе, например #formats после «Выбрать формат», снова прокрутил бы к блоку).
@@ -52,8 +73,11 @@
     const gutter = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--page-gutter')) || 0;
     const scale = (document.documentElement.clientWidth - gutter * 2) / DESIGN_WIDTH;
     document.documentElement.style.setProperty('--page-scale', scale.toFixed(5));
-    // высота документа = реальная высота страницы после масштабирования
-    document.body.style.height = `${Math.ceil(page.offsetHeight * scale)}px`;
+    // высота документа = реальная высота страницы после масштабирования, с округлением вниз:
+    // при округлении вверх под нижней картинкой оставалась доля пикселя фона — светлая полоска
+    // на стыке с цветом поля при «оттягивании» страницы (edgeColors)
+    // (высота — точная, из getBoundingClientRect уже с масштабом; offsetHeight округлен до целого и давал лишнюю долю пикселя)
+    document.body.style.height = `${Math.floor(page.getBoundingClientRect().height)}px`;
   };
   apply();
   window.addEventListener('resize', apply);
@@ -67,19 +91,14 @@
    два месяца, выбор диапазона, предпросмотр под курсором, «Применить».
    toggle — кнопка/поле, которое открывает календарь; onApply(from, to) — выбранные даты. */
 function rangeCalendar(cal, { toggle, onApply } = {}) {
-  const MONTHS = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
-  const MONTHS_GEN = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-  const WD = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+  const MONTHS = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'].map((w) => t(w));
+  const MONTHS_GEN = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'].map((w) => t(w));
+  const WD = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'].map((w) => t(w));
   const today = new Date(); today.setHours(0, 0, 0, 0);
   let view = new Date(today.getFullYear(), today.getMonth(), 1);
   let from = null; let to = null;
 
-  const nightsWord = (n) => {
-    const m10 = n % 10; const m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return 'ночь';
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'ночи';
-    return 'ночей';
-  };
+  const nightsWord = (n) => plural(n, 'ночь', 'ночи', 'ночей');
   const fmtLong = (d) => `${d.getDate()} ${MONTHS_GEN[d.getMonth()]} ${d.getFullYear()}`;
   const fmtShort = (d) => `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}`;
 
@@ -161,12 +180,12 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
       btn.style.setProperty('--i', inside || isEnd ? String(++i) : '0');
     });
 
-    let text = 'Выберите даты заезда и выезда';
+    let text = t('Выберите даты заезда и выезда');
     if (a !== null && b !== null) {
       const n = Math.round((b - a) / 86400000);
       text = `${fmtLong(new Date(a))} — ${fmtLong(new Date(b))}, ${n} ${nightsWord(n)}`;
     } else if (a !== null) {
-      text = `${fmtLong(new Date(a))} — выберите дату выезда`;
+      text = t('{date} — выберите дату выезда', { date: fmtLong(new Date(a)) });
     }
     if (summary.textContent !== text) summary.textContent = text;
     applyBtn.disabled = !(from && to);
@@ -381,7 +400,7 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
    }) */
 function leadForm(o) {
   const { form, error: errorEl, done, fields } = o;
-  const defaultMissing = (missing) => (missing.length > 1 ? 'Укажите имя и контакты, чтобы мы могли связаться с вами.'
+  const defaultMissing = (missing) => t(missing.length > 1 ? 'Укажите имя и контакты, чтобы мы могли связаться с вами.'
     : missing[0] === 'name' ? 'Укажите имя, чтобы мы знали, как к вам обращаться.'
       : 'Укажите телефон или Telegram, чтобы мы могли связаться с вами.');
   const missingText = o.missingText || defaultMissing;
@@ -393,12 +412,7 @@ function leadForm(o) {
     datesPlaceholder = value.textContent;
     const pad = (n) => String(n).padStart(2, '0');
     const fmt = (d) => `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()}`;
-    const daysWord = (n) => {
-      const m10 = n % 10; const m100 = n % 100;
-      if (m10 === 1 && m100 !== 11) return 'день';
-      if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'дня';
-      return 'дней';
-    };
+    const daysWord = (n) => plural(n, 'день', 'дня', 'дней');
     calendar = rangeCalendar(cal, {
       toggle: btn,
       onApply(from, to) {
@@ -440,7 +454,7 @@ function leadForm(o) {
       return;
     }
     if (!form.elements.consent.checked) {
-      errorEl.textContent = 'Нужно согласие на обработку персональных данных.';
+      errorEl.textContent = t('Нужно согласие на обработку персональных данных.');
       errorEl.hidden = false;
       return;
     }
@@ -484,3 +498,108 @@ function leadForm(o) {
     }, 300);
   });
 }
+
+/* ---------- Листание лент пальцем, мышью и тачпадом (swipeable) ----------
+   Ленты со стрелками (путешествия, дни тура, фото автодомов, отзывы, маршруты) можно тянуть вбок.
+   area — что тянем; move(dx) — во время движения (dx — сдвиг в единицах макета, с учетом масштаба страницы),
+   end(dx) — при отпускании: решает, листать ли (обычно |dx| > 40). move можно не передавать — тогда лента
+   не едет за пальцем, а просто листается при отпускании. Вертикальная прокрутка страницы пальцем не мешает:
+   жест считается листанием, только если он заметно больше вбок, чем вверх-вниз. После перетаскивания
+   клик (по фото, кнопке) не срабатывает — чтобы не открывать фото случайно. */
+function swipeable(area, { move, end }) {
+  if (!area) return;
+  const scale = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--page-scale')) || 1;
+  area.style.touchAction = 'pan-y';                                  // вертикальную прокрутку оставляем браузеру
+  area.addEventListener('dragstart', (e) => e.preventDefault());     // картинки не «утаскиваются» мышью
+  let x0 = null; let y0 = 0; let dx = 0; let id = null; let dragging = false;
+  area.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    x0 = e.clientX; y0 = e.clientY; dx = 0; id = e.pointerId; dragging = false;
+  });
+  area.addEventListener('pointermove', (e) => {
+    if (x0 === null || e.pointerId !== id) return;
+    const mx = e.clientX - x0; const my = e.clientY - y0;
+    if (!dragging) {
+      if (Math.abs(mx) > 8 && Math.abs(mx) > Math.abs(my) * 1.2) {
+        dragging = true;
+        try { area.setPointerCapture(id); } catch (err) { /* уже отпустили */ }
+        area.classList.add('is-dragging');
+      } else if (Math.abs(my) > 10) { x0 = null; return; }           // это прокрутка страницы — не мешаем
+      else return;
+    }
+    dx = mx / scale();
+    if (move) move(dx);
+  });
+  const finish = (cancel) => {
+    if (x0 === null) return;
+    x0 = null;
+    if (!dragging) return;
+    dragging = false;
+    area.classList.remove('is-dragging');
+    end(cancel ? 0 : dx);
+    // клик сразу после перетаскивания гасим (браузер присылает его вслед за отпусканием)
+    const stop = (ev) => { ev.preventDefault(); ev.stopPropagation(); };
+    area.addEventListener('click', stop, true);
+    setTimeout(() => area.removeEventListener('click', stop, true), 80);
+  };
+  area.addEventListener('pointerup', () => finish(false));
+  area.addEventListener('pointercancel', () => finish(true));
+
+  // тачпад (два пальца вбок) и горизонтальное колесико мыши: один жест — одна карточка.
+  // Тачпад присылает события еще долго после жеста (инерция), поэтому следующий шаг — только после паузы.
+  // Вертикальную прокрутку не трогаем; горизонтальную гасим, чтобы браузер не уходил «Назад» по жесту.
+  let sum = 0; let locked = false; let quiet = null;
+  area.addEventListener('wheel', (e) => {
+    const k = e.deltaMode === 1 ? 16 : 1;                             // колесико в строках → в пиксели
+    const wx = e.deltaX * k; const wy = e.deltaY * k;
+    if (Math.abs(wx) <= Math.abs(wy)) return;
+    e.preventDefault();
+    clearTimeout(quiet);
+    quiet = setTimeout(() => { locked = false; sum = 0; }, 200);
+    if (locked) return;
+    sum += wx;
+    if (Math.abs(sum) < 30) return;
+    locked = true;
+    end(sum > 0 ? -41 : 41);                                         // как перетаскивание влево/вправо
+    sum = 0;
+  }, { passive: false });
+}
+
+/* ---------- Цвет полей при «оттягивании» страницы (edgeColors) ----------
+   Когда страницу тянут дальше края (резиночка на Mac, iPhone), браузер показывает фон под страницей.
+   Чтобы там не было белой полосы, красим фон html: в верхней половине страницы — цветом самого верха,
+   в нижней — цветом самого низа. Цвета — переменные --edge-top / --edge-bottom в css страницы
+   (на телефоне — в css/m-<страница>.css). */
+(function edgeColors() {
+  const root = document.documentElement;
+  const css = getComputedStyle(root);
+  let last = '';
+  function paint() {
+    const top = css.getPropertyValue('--edge-top').trim();
+    const bottom = css.getPropertyValue('--edge-bottom').trim();
+    if (!top || !bottom) return;
+    const color = window.scrollY + window.innerHeight / 2 < root.scrollHeight / 2 ? top : bottom;
+    if (color !== last) { root.style.backgroundColor = color; last = color; }
+  }
+  window.addEventListener('scroll', paint, { passive: true });
+  window.addEventListener('resize', () => { last = ''; paint(); });
+  paint();
+})();
+
+/* ---------- Переключатель языка (глобус в шапке) ----------
+   Кнопка открывает список «Русский / English»; выбор запоминается в браузере (tw-lang) —
+   js/lang-detect.js потом сразу показывает выбранную версию. Закрывается кликом мимо и клавишей Esc. */
+(function langSwitch() {
+  document.querySelectorAll('[data-lang]').forEach((box) => {
+    const btn = box.querySelector('.lang__btn');
+    const set = (open) => { box.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); };
+    btn.addEventListener('click', (e) => { e.stopPropagation(); set(!box.classList.contains('is-open')); });
+    document.addEventListener('click', (e) => { if (!box.contains(e.target)) set(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+    box.querySelectorAll('[data-lang-link]').forEach((a) => a.addEventListener('click', (e) => {
+      try { localStorage.setItem('tw-lang', a.hreflang); } catch (err) { /* приватный режим — просто перейдем */ }
+      // та же страница, то же место (#раздел) — в другой версии
+      if (location.hash) { e.preventDefault(); location.href = a.href.split('#')[0] + location.hash; }
+    }));
+  });
+}());

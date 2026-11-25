@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
+  <title>Motorhome rental — Tian Way</title>
+  <meta name="description" content="Motorhome rental in Kyrgyzstan: Forland S1, Freedom Cannon, Toyota Prado with a camper trailer. Daily rental of camping and outdoor gear.">
+  <meta name="theme-color" content="#353f2b">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="../img/meta/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
+  <script>
+    // телефоны (уже 768px) — мобильный макет шириной 402px (css/m-common.css), остальные — 1440px
+    (function () { var w = document.documentElement.clientWidth; document.documentElement.style.setProperty('--page-scale', (w / (w < 768 ? 402 : 1440)).toFixed(5)); })();
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css?v=4aa5dd6a">
+  <link rel="stylesheet" href="../css/rent.css?v=3e623120">
+  <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 152, ширина 402px) -->
+  <link rel="stylesheet" href="../css/m-common.css?v=ed977104" media="(max-width: 767px)">
+  <link rel="stylesheet" href="../css/m-rent.css?v=293fce17" media="(max-width: 767px)">
+  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/rent.html">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent.html">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/rent.html">
+  <script src="../js/lang-detect.js?v=0faf9613"></script>
+  <!-- /языки -->
+</head>
+<body>
+<main class="page">
+
+  <!-- ============ 1. ВЫБЕРИТЕ СВОЙ АВТОДОМ ============
+       Высота блока не фиксирована: карточка «Подробнее» раскрывается и сдвигает все, что ниже. -->
+  <section class="section rent-top" id="top">
+    <div class="stage">
+      <!-- язык lang--corner -->
+      <div class="lang lang--corner" data-lang>
+        <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Site language"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+        <ul class="lang__list">
+          <li><a href="../rent.html" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+          <li><a href="rent.html" hreflang="en" data-lang-link lang="en">English</a></li>
+        </ul>
+      </div>
+      <!-- /язык -->
+      <img class="rent-cloud" src="../img/rent/clouds.webp" alt="" style="left:-696px; top:11px; opacity:.66;">
+      <img class="rent-cloud rent-cloud--blur" src="../img/rent/clouds.webp" alt="" style="left:1009px; top:-147px; opacity:.8;">
+      <img class="rent-cloud" src="../img/rent/clouds.webp" alt="" style="left:-454px; top:742px;">
+
+      <h1 class="rent-title" data-reveal>Choose your motorhome</h1>
+
+      <!-- поиск: даты, гости, промокод. Выбор запоминается и переходит на следующие шаги бронирования -->
+      <form class="rent-search" data-rent-search action="rent-extras.html" novalidate data-reveal style="--rd:.12s">
+        <span class="rs-label" id="rs-dates-label" style="left:95px;">Check-in date <span class="rs-label__dash">—</span> check-out</span>
+        <button class="rs-field rs-dates" type="button" data-rs-dates aria-labelledby="rs-dates-label" aria-expanded="false" style="left:93px; width:402px;">
+          <span class="rs-dates__value" data-rs-dates-value>Choose dates</span>
+          <svg class="rs-chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M1.5 1.5 10 8.5l8.5-7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <span class="rs-label" id="rs-guests-label" style="left:534px;">Number of guests</span>
+        <div class="ask-dd rs-dd" data-dd style="left:530px; top:263px; width:264px;">
+          <input type="hidden" name="guests" value="">
+          <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="rs-guests-label">
+            <span data-dd-value>Select</span>
+            <svg class="ask-dd__chev rs-chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M1.5 1.5 10 8.5l8.5-7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="ask-dd__list" role="listbox" aria-labelledby="rs-guests-label">
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">1 guest</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:1">2 guests</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">3 guests</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">4 guests</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:4">5 guests</li>
+            <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:5">6 guests</li>
+          </ul>
+        </div>
+
+        <label class="rs-label" for="rs-promo" style="left:829px;">Promo code</label>
+        <input class="rs-field rs-promo" id="rs-promo" name="promo" type="text" autocomplete="off" spellcheck="false" style="left:829px; width:264px;">
+
+        <button class="rs-find" type="submit">Search</button>
+        <p class="rs-hint" data-rs-hint role="status" hidden></p>
+
+        <!-- календарь (общий для всех форм сайта, логика — rangeCalendar в js/main.js); здесь он крупнее, как в макете -->
+        <div class="rs-cal-wrap">
+          <div class="calendar rs-calendar" data-calendar hidden>
+            <button class="calendar__nav calendar__nav--prev" type="button" data-cal-prev aria-label="Previous month"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M5.63025 1.05127L1.31434 4.50401C0.963631 4.78458 0.963632 5.318 1.31435 5.59857L5.63025 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <button class="calendar__nav calendar__nav--next" type="button" data-cal-next aria-label="Next month"><svg class="btn-icon btn-icon--chevron" width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1.05127 1.05127L5.36718 4.50401C5.71789 4.78458 5.71789 5.318 5.36717 5.59857L1.05127 9.05127" stroke="currentColor" stroke-width="2.10257" stroke-linecap="round"/></svg></button>
+            <div class="calendar__month" data-cal-month="0"></div>
+            <div class="calendar__month calendar__month--right" data-cal-month="1"></div>
+            <p class="calendar__summary" data-cal-summary>Choose check-in and check-out dates</p>
+            <button class="calendar__apply" type="button" data-cal-apply>Apply</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- автодомы: две колонки; «Подробнее» раскрывает карточку вниз -->
+      <div class="cars" id="cars">
+
+        <!-- Forland S1 -->
+        <article class="car" data-car="forland-s1" data-name="Forland S1" data-price="250" data-reveal style="--open-h:1003px; --rd:.1s;">
+          <div class="car__gallery">
+            <div class="car__track">
+              <img class="car__photo" src="../img/rent/car-s1.webp" alt="Forland S1 motorhome in a pine forest clearing">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-s1-2.webp" data-full="../img/rent/full/car-s1-2.webp" alt="Forland S1: dining area">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-s1-3.webp" data-full="../img/rent/full/car-s1-3.webp" alt="Forland S1: kitchen">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-s1-4.webp" data-full="../img/rent/full/car-s1-4.webp" alt="Forland S1: interior">
+              <img class="car__photo" src="../img/rent/car-s1-5.webp" data-full="../img/rent/full/car-s1-5.webp" alt="Forland S1: sleeping area">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-s1-6.webp" data-full="../img/rent/full/car-s1-6.webp" alt="Forland S1: bathroom">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-s1-7.webp" data-full="../img/rent/full/car-s1-7.webp" alt="Forland S1: driver’s cab">
+            </div>
+            <button class="car__prev" type="button" data-gallery-prev aria-label="Previous photo" hidden><svg viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M14 5H1M5 1 1 5l4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="car__next" type="button" data-gallery-next aria-label="Next photo"><svg viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <span class="car__tag">Popular choice</span>
+          <div class="car__head">
+            <h2 class="car__title">Forland S1</h2>
+            <p class="car__lead" style="width:241px;">Versatile and comfortable for a group of up to 6&nbsp;people</p>
+          </div>
+          <ul class="car__feats">
+            <li class="car__feat" data-tip="Automatic transmission" style="left:19px; top:393px; width:38px;"><img src="../img/rent/ic-auto.webp" alt="Automatic transmission"></li>
+            <li class="car__feat" data-tip="Sleeps 6" style="left:59px; top:392px; width:45px;"><img src="../img/rent/ic-bed.webp" alt="Sleeps 6"></li>
+            <li class="car__feat" data-tip="Shower" style="left:109px; top:393px; width:40px;"><img src="../img/rent/ic-shower.webp" alt="Shower"></li>
+            <li class="car__feat" data-tip="Kitchen" style="left:154px; top:393px; width:40px;"><img src="../img/rent/ic-kitchen.webp" alt="Kitchen"></li>
+          </ul>
+          <button class="car__more" type="button" aria-expanded="false" aria-controls="car-s1-details"><span data-more-label>More details</span><svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M.5.5 5 5 9.5.5" stroke="currentColor"/></svg></button>
+          <div class="car__details" id="car-s1-details">
+            <p class="car__about">A motorhome where every detail is designed for a calm and&nbsp;comfortable journey: the automatic gearbox takes over the routine of driving so you can focus on&nbsp;the road, while assistants such as cruise control and&nbsp;a rear-view camera noticeably reduce fatigue and&nbsp;make manoeuvring easier.</p>
+            <h3 class="car__h" style="left:0; top:95px;">Motorhome equipment and furniture:</h3>
+            <ul class="car__list" style="left:25px; top:120px; width:218px;">
+              <li>Folding table</li><li>Upholstered seats</li><li>Floor cabinets</li><li>TV</li><li>Air conditioning</li><li>Heating</li><li>Awning</li><li>Exterior lighting</li><li>Manual entry step</li><li>Bike mounts</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:95px;">Sleeping places:</h3>
+            <ul class="car__list" style="left:333px; top:120px; width:218px;">
+              <li>Sleeps 6</li><li>1 double bed 140×200&nbsp;cm</li><li>1 convertible bed made from&nbsp;the table and&nbsp;seats</li><li>Individual LED reading lights</li><li>Privacy curtains</li><li>Storage next to&nbsp;the beds</li>
+            </ul>
+            <h3 class="car__h" style="left:2px; top:328px;">Bathroom:</h3>
+            <ul class="car__list" style="left:25px; top:353px; width:240px;">
+              <li>Shower cabin</li><li>Washbasin with&nbsp;mirror and&nbsp;cabinet</li><li>Chemical toilet</li><li>Water heater for hot water</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:328px;">Kitchen:</h3>
+            <ul class="car__list" style="left:332px; top:353px; width:218px;">
+              <li>Worktop with&nbsp;sink</li><li>Induction hob (2&nbsp;zones)</li><li>Microwave</li><li>Fridge up&nbsp;to&nbsp;100&nbsp;L</li><li>Ventilation/extractor hood</li>
+            </ul>
+          </div>
+          <p class="car__price"><span class="car__price-sum"><small>from</small> $250</span><span class="car__price-per">/ day</span></p>
+          <button class="car__choose" type="button" data-choose aria-pressed="false">Select</button>
+        </article>
+
+        <!-- Freedom Cannon -->
+        <article class="car" data-car="freedom-cannon" data-name="Freedom Cannon" data-price="250" data-reveal style="--open-h:900px; --rd:.2s;">
+          <div class="car__gallery">
+            <div class="car__track">
+              <img class="car__photo" src="../img/rent/car-freedom.webp" alt="Freedom Cannon motorhome on the shore of a mountain lake">
+              <img class="car__photo" src="../img/rent/car-freedom-2.webp" data-full="../img/rent/full/car-freedom-2.webp" alt="Freedom Cannon: table and kitchen">
+              <img class="car__photo" src="../img/rent/car-freedom-3.webp" data-full="../img/rent/full/car-freedom-3.webp" alt="Freedom Cannon: dining area">
+              <img class="car__photo" src="../img/rent/car-freedom-4.webp" data-full="../img/rent/full/car-freedom-4.webp" alt="Freedom Cannon: sleeping area">
+              <img class="car__photo" src="../img/rent/car-freedom-5.webp" data-full="../img/rent/full/car-freedom-5.webp" alt="Freedom Cannon: bathroom">
+              <img class="car__photo" src="../img/rent/car-freedom-6.webp" data-full="../img/rent/full/car-freedom-6.webp" alt="Freedom Cannon: driver’s cab">
+            </div>
+            <button class="car__prev" type="button" data-gallery-prev aria-label="Previous photo" hidden><svg viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M14 5H1M5 1 1 5l4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="car__next" type="button" data-gallery-next aria-label="Next photo"><svg viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <span class="car__tag">For big stories</span>
+          <div class="car__head">
+            <h2 class="car__title">Freedom Cannon</h2>
+            <p class="car__lead" style="width:202px;">More space for bigger journeys</p>
+          </div>
+          <ul class="car__feats">
+            <li class="car__feat" data-tip="Automatic transmission" style="left:15px; top:394px; width:38px;"><img src="../img/rent/ic-auto.webp" alt="Automatic transmission"></li>
+            <li class="car__feat" data-tip="Sleeps 4" style="left:55px; top:393px; width:45px;"><img src="../img/rent/ic-bed.webp" alt="Sleeps 4"></li>
+            <li class="car__feat" data-tip="Chemical toilet" style="left:107px; top:398px; width:36px;"><img src="../img/rent/ic-toilet.webp" alt="Chemical toilet"></li>
+            <li class="car__feat" data-tip="Kitchen" style="left:150px; top:394px; width:40px;"><img src="../img/rent/ic-kitchen.webp" alt="Kitchen"></li>
+          </ul>
+          <button class="car__more" type="button" aria-expanded="false" aria-controls="car-freedom-details"><span data-more-label>More details</span><svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M.5.5 5 5 9.5.5" stroke="currentColor"/></svg></button>
+          <!-- описания пока нет в макете — место под него подготовлено, текст впишем, когда пришлет заказчик -->
+          <div class="car__details" id="car-freedom-details">
+            <p class="car__about">A living module built on&nbsp;a Great Wall Cannon pickup with&nbsp;automatic transmission: a spacious interior with&nbsp;a dining area, a full kitchen and&nbsp;a separate bathroom. Comfortable for&nbsp;a group of up&nbsp;to&nbsp;4&nbsp;people.</p>
+            <h3 class="car__h" style="left:0; top:95px;">Motorhome equipment and furniture:</h3>
+            <ul class="car__list" style="left:25px; top:120px; width:218px;">
+              <li>Dining table</li><li>Upholstered sofas</li><li>Cabinets above the windows</li><li>Windows with&nbsp;blinds</li><li>LED lighting</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:95px;">Sleeping places:</h3>
+            <ul class="car__list" style="left:333px; top:120px; width:218px;">
+              <li>Sleeps 4</li><li>Double bed over the cab</li><li>Fold-down shelf above the table</li><li>Dining area converts into&nbsp;a bed</li>
+            </ul>
+            <h3 class="car__h" style="left:2px; top:225px;">Bathroom:</h3>
+            <ul class="car__list" style="left:25px; top:250px; width:240px;">
+              <li>Separate bathroom</li><li>Chemical toilet</li><li>Washbasin with&nbsp;tap and&nbsp;shower head</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:225px;">Kitchen:</h3>
+            <ul class="car__list" style="left:332px; top:250px; width:218px;">
+              <li>Worktop with&nbsp;sink</li><li>Induction hob</li><li>Fridge</li><li>Cabinets and&nbsp;drawers</li>
+            </ul>
+          </div>
+          <p class="car__price"><span class="car__price-sum"><small>from</small> $250</span><span class="car__price-per">/ day</span></p>
+          <button class="car__choose" type="button" data-choose aria-pressed="false">Select</button>
+        </article>
+
+        <!-- Toyota Land Cruiser Prado 120 + кемпер-прицеп (текст — от заказчика, ноябрь 2026; фото и цены пока нет) -->
+        <article class="car" data-car="prado-camper" data-name="Toyota Prado" data-price="150" data-reveal style="--open-h:1120px; --rd:.2s;">
+          <div class="car__gallery">
+            <div class="car__track">
+              <img class="car__photo" src="../img/rent/car-prado.webp" alt="Toyota Prado with a camper trailer on a highway by red rocks">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-prado-2.webp" data-full="../img/rent/full/car-prado-2.webp" alt="Toyota Prado with a camper against snowy mountains">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-prado-3.webp" data-full="../img/rent/full/car-prado-3.webp" alt="Toyota Prado: front view">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-prado-4.webp" data-full="../img/rent/full/car-prado-4.webp" alt="Camper: kitchen and dining table">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-prado-5.webp" data-full="../img/rent/full/car-prado-5.webp" alt="Camper: interior">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-prado-6.webp" data-full="../img/rent/full/car-prado-6.webp" alt="Camper: entrance and kitchen">
+              <img class="car__photo car__photo--tall" src="../img/rent/car-prado-7.webp" data-full="../img/rent/full/car-prado-7.webp" alt="Camper: bathroom">
+            </div>
+            <button class="car__prev" type="button" data-gallery-prev aria-label="Previous photo" hidden><svg viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M14 5H1M5 1 1 5l4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="car__next" type="button" data-gallery-next aria-label="Next photo"><svg viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <span class="car__tag">Car + camper</span>
+          <div class="car__head">
+            <h2 class="car__title">Toyota Prado</h2>
+            <p class="car__lead" style="width:230px;">4WD SUV with&nbsp;a camper trailer</p>
+          </div>
+          <ul class="car__feats">
+            <li class="car__feat" data-tip="Automatic transmission" style="left:15px; top:394px; width:38px;"><img src="../img/rent/ic-auto.webp" alt="Automatic transmission"></li>
+            <li class="car__feat" data-tip="Sleeps 3–4" style="left:55px; top:393px; width:45px;"><img src="../img/rent/ic-bed.webp" alt="Sleeps 3–4"></li>
+            <li class="car__feat" data-tip="Toilet" style="left:107px; top:398px; width:36px;"><img src="../img/rent/ic-toilet.webp" alt="Toilet"></li>
+            <li class="car__feat" data-tip="Kitchen" style="left:150px; top:394px; width:40px;"><img src="../img/rent/ic-kitchen.webp" alt="Kitchen"></li>
+          </ul>
+          <button class="car__more" type="button" aria-expanded="false" aria-controls="car-prado-details"><span data-more-label>More details</span><svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M.5.5 5 5 9.5.5" stroke="currentColor"/></svg></button>
+          <div class="car__details" id="car-prado-details">
+            <p class="car__about">Freedom to travel with&nbsp;the comfort of your own home. Explore Kyrgyzstan behind&nbsp;the wheel of the legendary Toyota Land Cruiser Prado with&nbsp;a camper trailer: stop by&nbsp;lakes, discover scenic routes and&nbsp;enjoy nature without&nbsp;having to look for a hotel every day.</p>
+            <h3 class="car__h" style="left:0; top:95px;">Vehicle:</h3>
+            <ul class="car__list" style="left:25px; top:120px; width:240px;">
+              <li>Toyota Land Cruiser Prado 120, 2004</li><li>3.0&nbsp;L diesel engine</li><li>Automatic transmission</li><li>Four-wheel drive (4WD)</li><li>5 passenger seats</li><li>Rear-view camera and&nbsp;CarPlay</li><li>Roof cargo box</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:95px;">Camper:</h3>
+            <ul class="car__list" style="left:333px; top:120px; width:218px;">
+              <li>Sleeps 3&nbsp;adults or 2&nbsp;adults and&nbsp;2&nbsp;children</li><li>Large dining table</li><li>Upholstered benches along the walls</li><li>Wall cabinets and&nbsp;shelves</li><li>Windows on&nbsp;three sides&nbsp;— a bright interior</li><li>Lighting and&nbsp;power control panel</li>
+            </ul>
+            <h3 class="car__h" style="left:2px; top:333px;">Bathroom:</h3>
+            <ul class="car__list" style="left:25px; top:358px; width:240px;">
+              <li>Separate cubicle with&nbsp;a door</li><li>Chemical toilet</li><li>Stainless steel washbasin</li><li>Ventilation window and&nbsp;lighting</li>
+            </ul>
+            <h3 class="car__h" style="left:313px; top:333px;">Kitchen:</h3>
+            <ul class="car__list" style="left:332px; top:358px; width:218px;">
+              <li>Sink with&nbsp;tap</li><li>Worktop</li><li>Alpicool car fridge</li><li>Built-in microwave</li><li>Cabinets for dishes and&nbsp;food</li>
+            </ul>
+            <h3 class="car__h car__h--plus" style="left:0; top:481px;">Key advantage:</h3>
+            <p class="car__about car__about--plus" style="top:506px;">You can leave the camper at&nbsp;a campsite and&nbsp;explore the area by&nbsp;car without the trailer. Ideal for families, couples and&nbsp;small groups who want to travel at&nbsp;their own pace.</p>
+          </div>
+          <p class="car__price"><span class="car__price-sum"><small>from</small> $150</span><span class="car__price-per">/ day</span></p>
+          <button class="car__choose" type="button" data-choose aria-pressed="false">Select</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. ПОСУТОЧНАЯ АРЕНДА СНАРЯЖЕНИЯ ============
+       Координаты — от верха блока (в макете блок начинается на 1390px). -->
+  <section class="section rent-gear" id="gear">
+    <div class="stage">
+      <img class="rent-cloud-wide" src="../img/rent/cloud-wide.webp" alt="" style="left:1029px; top:120px;">
+      <img class="rent-cloud rent-cloud--blur" src="../img/rent/clouds.webp" alt="" style="left:-194px; top:678.4px; opacity:.8;">
+      <img class="rent-cloud" src="../img/rent/clouds.webp" alt="" style="left:708px; top:1343.2px; opacity:.66;">
+      <img class="rent-cloud" src="../img/rent/clouds.webp" alt="" style="left:-188px; top:2328.8px; opacity:.9;">
+      <img class="rent-mountains" src="../img/rent/mountains.webp" alt="">
+      <img class="rent-cloud rent-cloud--blur" src="../img/rent/clouds.webp" alt="" style="left:948.7px; top:2533.1px; opacity:.8; width:480.99px; height:160.33px; transform:rotate(-1.26deg);">
+      <div class="rent-shade"></div>
+
+      <h2 class="gear-title" data-reveal>Daily rental</h2>
+      <h3 class="gear-sub" data-reveal style="left:435px; top:176px; --rd:.1s;">Camping and outdoor gear</h3>
+
+      <!-- кемпинг -->
+      <article class="gear" data-item="table" data-title="Folding camping table" data-price="2" style="left:175.5px; top:247.2px;" data-reveal>
+        <img class="gear__img" src="../img/rent/eq-table.webp" alt="Folding camping table" style="left:25px; top:48px; width:326px; height:260px;">
+        <h4 class="gear__title">Folding camping table</h4>
+        <p class="gear__text" style="top:413px; width:345px;">A compact and&nbsp;sturdy table for meals, cooking and&nbsp;relaxing outdoors. Folds easily and&nbsp;takes up little space in transport.</p>
+        <p class="gear__price">$2<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="chair" data-title="Camping chair" data-price="1" data-reveal style="left:518.7px; top:247.2px; --rd:.1s;">
+        <img class="gear__img" src="../img/rent/eq-chair.webp" alt="Camping chair" style="left:60px; top:0; width:257px; height:315px;">
+        <h4 class="gear__title" style="width:213px;">Camping chair</h4>
+        <p class="gear__text" style="top:413px; width:345px;">A comfortable folding chair for relaxing by&nbsp;the lake, around the campfire or at&nbsp;the campsite. Great for camping, fishing and&nbsp;picnics.</p>
+        <p class="gear__price">$1<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="tent" data-title="Camping tent" data-price="5" data-reveal style="left:861.9px; top:247.2px; --rd:.2s;">
+        <img class="gear__img" src="../img/rent/eq-tent.webp" alt="Camping tent" style="left:8px; top:73px; width:380px; height:210px;">
+        <h4 class="gear__title">Camping tent</h4>
+        <p class="gear__text" style="top:413px; width:345px;">A tent for independent trips and&nbsp;nights outdoors. Suitable for camping on&nbsp;the shore of Issyk-Kul and&nbsp;at&nbsp;other permitted sites.</p>
+        <p class="gear__price">$5<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="sleeping-bag" data-title="Sleeping bag" data-price="3" style="left:175.5px; top:781.6px;" data-reveal>
+        <img class="gear__img" src="../img/rent/eq-sleeping-bag.webp" alt="Sleeping bag" style="left:38px; top:64px; width:284px; height:221px;">
+        <h4 class="gear__title">Sleeping bag</h4>
+        <p class="gear__text" style="top:413px; width:345px;">A camping sleeping bag for nights in&nbsp;a tent. Chosen to&nbsp;suit the season and&nbsp;temperatures of your trip.</p>
+        <p class="gear__price">$3<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="mat" data-title="Camping mat" data-price="1" data-reveal style="left:518.7px; top:781.6px; --rd:.1s;">
+        <img class="gear__img" src="../img/rent/eq-mat.webp" alt="Camping mat" style="left:20px; top:29px; width:351px; height:275px;">
+        <h4 class="gear__title" style="width:245px;">Camping mat</h4>
+        <p class="gear__text" style="top:413px; width:345px;">A light insulating mat for comfortable sleep in&nbsp;a tent and&nbsp;relaxing outdoors.</p>
+        <p class="gear__price">$1<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="lantern" data-title="Camping lantern" data-price="2" data-reveal style="left:861.9px; top:781.6px; --rd:.2s;">
+        <img class="gear__img" src="../img/rent/eq-lantern.webp" alt="Camping lantern" style="left:113px; top:10px; width:164px; height:275px;">
+        <h4 class="gear__title">Camping lantern</h4>
+        <p class="gear__text" style="top:413px; width:345px;">A rechargeable or battery LED lantern to&nbsp;light up the tent, campsite and&nbsp;the area around the vehicle in&nbsp;the evening.</p>
+        <p class="gear__price">$2<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="grill" data-title="Grill / portable barbecue" data-price="5" style="left:175.5px; top:1316px;" data-reveal>
+        <img class="gear__img" src="../img/rent/eq-grill.webp" alt="Portable grill" style="left:40px; top:23px; width:316px; height:284px;">
+        <h4 class="gear__title" style="width:295px;">Grill / portable barbecue</h4>
+        <p class="gear__text" style="top:413px; width:330px;">A folding grill with&nbsp;a grate and&nbsp;skewers for meat, fish and&nbsp;vegetables outdoors. For picnics and&nbsp;camping at&nbsp;permitted sites.</p>
+        <p class="gear__price">$5<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+
+      <!-- активный отдых -->
+      <h3 class="gear-sub" style="left:543.2px; top:1850.4px;" data-reveal>Active holidays</h3>
+      <article class="gear" data-item="bike" data-title="Bicycle" data-price="10" style="left:173.1px; top:1918.4px;" data-reveal>
+        <img class="gear__img" src="../img/rent/eq-bike.webp" alt="Bicycle" style="left:22px; top:48px; width:359px; height:262px;">
+        <h4 class="gear__title">Bicycle</h4>
+        <p class="gear__text" style="left:22px; top:381px; width:330px;">A bicycle for rides along&nbsp;the scenic routes of Kyrgyzstan, trips along Issyk-Kul and&nbsp;exploring the surroundings. Great for independent bike rides and&nbsp;active days during&nbsp;your trip.</p>
+        <p class="gear__price">$10<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="sup" data-title="SUP board" data-price="10" data-reveal style="left:516.3px; top:1918.4px; --rd:.1s;">
+        <img class="gear__img" src="../img/rent/eq-sup.webp" alt="SUP board with a paddle" style="left:15px; top:34px; width:366px; height:250px;">
+        <h4 class="gear__title">SUP board</h4>
+        <p class="gear__text" style="left:22px; top:381px; width:330px;">An inflatable board for paddling on&nbsp;calm water. Perfect for summer days on&nbsp;Issyk-Kul and&nbsp;other permitted lakes. Includes board, paddle, pump and&nbsp;life vest.</p>
+        <p class="gear__price">$10<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="fishing" data-title="Fishing kit" data-price="8" data-reveal style="left:859.5px; top:1918.4px; --rd:.2s;">
+        <img class="gear__img" src="../img/rent/eq-fishing.webp" alt="Fishing kit" style="left:70px; top:20px; width:256px; height:278px;">
+        <h4 class="gear__title" style="width:215px;">Fishing kit</h4>
+        <p class="gear__text" style="left:23px; top:408px; width:330px;">Spinning kit: rod, reel, line or braid, a set of lures, leaders, landing net, accessories and&nbsp;a case.</p>
+        <p class="gear__price">$8<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+      <article class="gear" data-item="poles" data-title="Trekking poles" data-price="3" style="left:173.1px; top:2446.4px;" data-reveal>
+        <img class="gear__img" src="../img/rent/eq-poles.webp" alt="Trekking poles" style="left:54px; top:11px; width:280px; height:316px;">
+        <h4 class="gear__title" style="width:229px;">Trekking poles</h4>
+        <p class="gear__text" style="left:23px; top:408px; width:330px;">Adjustable poles for hiking, mountain routes and&nbsp;trekking. They help you keep your balance on&nbsp;rough terrain. Price&nbsp;— per&nbsp;pair.</p>
+        <p class="gear__price">$3<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart></div>
+      </article>
+
+      <!-- готовые комплекты -->
+      <h3 class="gear-sub" style="left:519.1px; top:2990.4px;" data-reveal>Ready-made sets</h3>
+      <article class="kit" data-item="kit-camping" data-title="“Camping” set" data-price="20" style="left:128.6px; top:3068.8px;" data-reveal>
+        <img class="kit__img" src="../img/rent/set-camping.webp" alt="Tent, sleeping bags, mats and a lantern" style="left:87px; top:5px; width:258px; height:258px;">
+        <h4 class="kit__title">“Camping” set</h4>
+        <p class="kit__label">Includes:</p>
+        <p class="kit__list" style="width:347px;">1 camping tent, 2&nbsp;sleeping bags, 2&nbsp;mats and&nbsp;1&nbsp;camping lantern.</p>
+        <p class="kit__text" style="top:394px; width:391px;">Everything you need for independent nights outdoors. Great for trips around&nbsp;Kyrgyzstan, camping by&nbsp;a lake and&nbsp;getting away from&nbsp;the city.</p>
+        <p class="gear__price kit__price">$20<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart style="left:327px;"></div>
+      </article>
+      <article class="kit" data-item="kit-picnic" data-title="“Picnic” set" data-price="15" data-reveal style="left:499px; top:3068.8px; --rd:.1s;">
+        <img class="kit__img" src="../img/rent/set-picnic.webp" alt="Folding table, two chairs and a portable grill" style="left:84px; top:-15px; width:284px; height:284px;">
+        <h4 class="kit__title">“Picnic” set</h4>
+        <p class="kit__label">Includes:</p>
+        <p class="kit__list" style="width:347px;">1 folding camping table, 2&nbsp;camping chairs and&nbsp;1&nbsp;portable grill.</p>
+        <p class="kit__text" style="top:400px; width:381px;">A ready set for a comfortable time outdoors. Great for picnics, family trips and&nbsp;stops along&nbsp;the way.</p>
+        <p class="gear__price kit__price">$15<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart style="left:320px;"></div>
+      </article>
+      <article class="kit" data-item="kit-bike" data-title="“Bike ride” set" data-price="18" data-reveal style="left:869.4px; top:3068.8px; --rd:.2s;">
+        <img class="kit__img" src="../img/rent/set-bike.webp" alt="Two bicycles, helmets and locks" style="left:101px; top:10px; width:253px; height:253px;">
+        <h4 class="kit__title">“Bike ride” set</h4>
+        <p class="kit__label">Includes:</p>
+        <p class="kit__list" style="width:258px;">2 bicycles, 2&nbsp;helmets and&nbsp;2&nbsp;bike locks.</p>
+        <p class="kit__text" style="top:400px; width:381px;">A set for independent bike rides, exploring the area around Issyk-Kul and&nbsp;active days for&nbsp;two.</p>
+        <p class="gear__price kit__price">$18<span class="price-per">/ day</span></p>
+        <div class="cart-ctl" data-cart style="left:321px;"></div>
+      </article>
+
+      <!-- только на телефоне (есть в мобильном макете): к поиску в начало страницы -->
+      <a class="rent-back m-only" href="#top">Back to the top</a>
+      <p class="rent-note">All equipment is subject to availability. Specification, seasonality, price, deposit and&nbsp;terms of use are confirmed when booking. Equipment can be rented together with&nbsp;a motorhome or separately with&nbsp;pick-up at&nbsp;the Tian Way base, except for options tied to&nbsp;a specific vehicle.</p>
+      <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
+      <footer class="footer footer--dark">
+        <a class="footer__logo" href="index.html" aria-label="Tian Way — home"><img src="../img/logo-footer-dark.webp" alt="Tian Way"></a>
+        <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+          <a href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+          <a href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        </div>
+        <div class="footer__links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Public Offer</a>
+          <span>© 2026 Tian Way. All rights reserved</span>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="../data/i18n/en-scripts.js?v=f1dae27c"></script>
+  <script src="../js/main.js?v=cb2b8409"></script>
+<script src="../js/rent-store.js?v=14be7b92"></script>
+<script src="../data/rent-availability.js?v=048b21a1"></script>
+<script src="../js/rent.js?v=37895506"></script>
+</body>
+</html>

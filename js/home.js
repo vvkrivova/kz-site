@@ -29,7 +29,7 @@
   const layer = document.querySelector('[data-routes-layer]');
   if (!card || !layer) return;
 
-  const T = 'img/map/';
+  const T = SITE_ROOT + 'img/map/';
 
   // чёрточки пунктира каждого маршрута в порядке движения по маршруту:
   // [d, сдвиг x, сдвиг y, центр чёрточки x, центр y] — координаты из макета
@@ -202,12 +202,12 @@
     });
 
     route.labels.forEach((lb) => {
-      const t = lb.tail;
-      const appear = delayAt(t.x + t.w / 2, t.y + t.h / 2);
+      const tl = lb.tail;
+      const appear = delayAt(tl.x + tl.w / 2, tl.y + tl.h / 2);
       const tail = el('div', 'map-tail', {
-        left: px(t.x), top: px(t.y), width: px(t.w), height: px(t.h), transform: `rotate(${t.rot}deg)`, animationDelay: appear,
+        left: px(tl.x), top: px(tl.y), width: px(tl.w), height: px(tl.h), transform: `rotate(${tl.rot}deg)`, animationDelay: appear,
       });
-      const timg = el('img'); timg.src = T + t.src; timg.alt = '';
+      const timg = el('img'); timg.src = T + tl.src; timg.alt = '';
       tail.append(timg);
       layer.append(tail);
 
@@ -215,7 +215,7 @@
       const lines = lb.lines || [[lb.text]];
       lines.forEach(([text, w, h]) => {
         const line = el('span', 'map-label__line');
-        line.textContent = text;
+        line.textContent = t(text);
         if (w) { line.style.width = px(w); line.style.padding = '0'; line.style.textAlign = 'center'; }
         if (h) { line.style.height = px(h); line.style.lineHeight = px(h); }
         label.append(line);
@@ -261,6 +261,7 @@
 
   card.querySelector('[data-route-prev]').addEventListener('click', () => show(current - 1));
   card.querySelector('[data-route-next]').addEventListener('click', () => show(current + 1));
+  swipeable(card, { end(dx) { if (dx < -40) show(current + 1); else if (dx > 40) show(current - 1); } }); // листание пальцем/мышью
   fill(0);
 
   // маршрут рисуется только когда на экране видна сама карта (а не просто начало блока):
@@ -310,8 +311,8 @@
   const CARD_H = () => parseFloat(getComputedStyle(slots[0].querySelector('.review__card')).height) || 370;
   const MORE_TOP = () => parseFloat(getComputedStyle(slots[0].querySelector('[data-review-open]')).top) || 325;
   const STAGE_H = parseFloat(getComputedStyle(stage).height) || 1024; // обычная высота блока (из css/style.css)
-  const LABEL_OPEN = 'Читать отзыв полностью';
-  const LABEL_CLOSE = 'Свернуть отзыв';
+  const LABEL_OPEN = t('Читать отзыв полностью');
+  const LABEL_CLOSE = t('Свернуть отзыв');
   const grow = new Map();               // слот → насколько карточка сейчас выросла
   const timers = new Map();
 
@@ -408,6 +409,8 @@
   };
   document.querySelector('[data-review-next]').addEventListener('click', () => go(1));
   document.querySelector('[data-review-prev]').addEventListener('click', () => go(-1));
+  // листание отзывов пальцем/мышью — по карточкам отзывов
+  document.querySelectorAll('.review').forEach((r) => swipeable(r, { end(dx) { if (dx < -40) go(1); else if (dx > 40) go(-1); } }));
   render();
 })();
 
@@ -521,7 +524,7 @@
     unknownBtn.classList.toggle('is-active', datesUnknown);
     if (datesUnknown) {
       calendar.reset();
-      datesLabel.textContent = 'Выбрать даты';
+      datesLabel.textContent = t('Выбрать даты');
       datesBtn.classList.remove('is-active');
       closeCal();
     }
@@ -558,14 +561,14 @@
       bad.push(form.elements.phone);
     }
     if (contactMsg) {
-      contactErrorEl.textContent = contactMsg;
+      contactErrorEl.textContent = t(contactMsg);
       contactErrorEl.hidden = false;
       bad.forEach((input) => input.classList.add('is-invalid'));
       bad[0].focus({ preventScroll: true });
       return;
     }
     // согласие — сообщение под галочкой
-    if (!consent) { errorEl.textContent = 'Нужно согласие на обработку персональных данных.'; errorEl.hidden = false; return; }
+    if (!consent) { errorEl.textContent = t('Нужно согласие на обработку персональных данных.'); errorEl.hidden = false; return; }
 
     // данные заявки — пригодятся, когда подключим отправку на почту / в Telegram
     const data = {

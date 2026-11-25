@@ -97,6 +97,8 @@
 .tcard__ico--days img { left: -89.1%; top: -181.8%; width: 273.2%; height: 919.1%; }
 .tcard__ico--locs { left: 153px; top: 366px; width: 50px; height: 59px; }
 .tcard__ico--locs img { left: -50%; top: -46.3%; width: 206%; height: 187.5%; }
+.tcard__ico--price { left: 255px; top: 361px; width: 63px; height: 63px; }   /* «деньги» — над ценой */
+.tcard__ico--price img { left: 0; top: 0; width: 100%; height: 100%; }
 .tcard__meta { top: 425px; font: 500 14px/normal var(--font-body); color: #342f2f; white-space: nowrap; }
 .tcard__meta--days { left: 58px; }
 .tcard__meta--locs { left: 147px; }
@@ -253,6 +255,9 @@
 .tp-custom__stamp-eagle { scale: .792; margin-left: 126.9px; margin-top: -161.2px; }
 .tp-custom__stamp-tw { scale: .792; margin-left: 28.5px; margin-top: -101.3px; }
 .tp-custom__lines { margin-top: -132px; }
-.tp-custom .stage { height: 1046px; } /* подвал — 100px ниже формы (736) + 210px */  /* было 1069px: под формой фона примерно как в макете */
+.tp-custom .stage { height: 1026px; } /* подвал — 100px ниже формы (736) + 190px */  /* было 1069px: под формой фона примерно как в макете */
 /* форма чуть меньше (было .846), правый край на прежнем месте */
 .tp-panel { scale: .8; transform-origin: 50% 0; margin-left: -36.1px; }
+
+/* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — как самый верх и самый низ страницы */
+:root { --edge-top: #394651; --edge-bottom: #f1e7d9; }

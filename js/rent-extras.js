@@ -11,7 +11,7 @@ const rentBooking = (function () {
   const $ = (q) => box.querySelector(q);
   const showDate = (el, d) => {
     el.classList.toggle('is-empty', !d);
-    if (!d) { el.innerHTML = '<b>—</b>дата не выбрана'; return; }
+    if (!d) { el.innerHTML = t('<b>—</b>дата не выбрана'); return; }
     const p = RentStore.dayParts(d);
     el.innerHTML = `<b>${p.day}</b>${p.rest}`;
   };
@@ -69,29 +69,31 @@ const rentBooking = (function () {
     $('[data-b-guests]').textContent = sm.guests.n;
     $('[data-b-guests-word]').textContent = sm.guests.word;
     $('[data-b-nights]').textContent = sm.nights || '—';
-    $('[data-b-nights-word]').textContent = sm.nights ? plural(sm.nights, 'ночь', 'ночи', 'ночей') : 'ночей';
+    $('[data-b-nights-word]').textContent = sm.nights ? plural(sm.nights, 'ночь', 'ночи', 'ночей') : t('ночей');
 
     // автодом: цена за сутки × количество ночей (без дат — за одни сутки)
     const carRow = $('.rx-book__car');
     const sum = $('[data-b-car-sum]');
     carRow.classList.toggle('is-empty', !sm.car);
     if (sm.car) {
-      $('[data-b-car]').innerHTML = `Автодом <b>${esc(sm.car.name)}</b>`;
-      sum.textContent = money(sm.car.sum);
-      sum.title = sm.nights ? `${money(sm.car.price)} × ${sm.nights} ${plural(sm.nights, 'сутки', 'суток', 'суток')}` : 'цена за сутки';
+      $('[data-b-car]').innerHTML = t('Автодом <b>{name}</b>', { name: esc(sm.car.name) });
+      // у автодома без цены (data-price="0") — «уточняется», как у снаряжения без цены
+      sum.textContent = sm.car.price ? money(sm.car.sum) : t('уточняется');
+      sum.title = !sm.car.price ? t('цену уточнит менеджер')
+        : sm.nights ? `${money(sm.car.price)} × ${sm.nights} ${plural(sm.nights, 'сутки', 'суток', 'суток')}` : t('цена за сутки');
     } else {
-      $('[data-b-car]').innerHTML = 'Автодом не&nbsp;выбран';
-      sum.innerHTML = '<a href="rent.html#cars">Выбрать</a>';
+      $('[data-b-car]').innerHTML = t('Автодом не&nbsp;выбран');
+      sum.innerHTML = t('<a href="rent.html#cars">Выбрать</a>');
       sum.removeAttribute('title');
     }
 
     // услуги и снаряжение: цена за сутки × количество × ночи
-    $('[data-b-rows]').innerHTML = sm.items.map((it) => `<li><span>${esc(it.title)}</span><span>${it.qty}x</span><b${it.price ? '' : ' class="is-ask"'} title="${RentStore.sumHint(it, sm.nights)}">${it.price ? money(it.sum) : '<span>уточняется</span>'}</b></li>`).join('')
-      || '<li class="is-empty">Пока ничего не добавлено — выберите услуги в списке слева</li>';
+    $('[data-b-rows]').innerHTML = sm.items.map((it) => `<li><span>${esc(t(it.title))}</span><span>${it.qty}x</span><b${it.price ? '' : ' class="is-ask"'} title="${esc(RentStore.sumHint(it, sm.nights))}">${RentStore.rowSum(it, sm.nights)}</b></li>`).join('')
+      || t('<li class="is-empty">Пока ничего не добавлено — выберите услуги в списке слева</li>');
     rowsScroll.sync();
 
     const totalEl = $('[data-b-total]');
-    totalEl.textContent = money(sm.total);
+    totalEl.textContent = RentStore.totalText(sm);
     if (lastTotal !== null && lastTotal !== sm.total) {
       totalEl.classList.remove('is-bump'); void totalEl.offsetWidth; totalEl.classList.add('is-bump');
     }
@@ -100,7 +102,7 @@ const rentBooking = (function () {
     // подсказка, если чего-то не хватает для бронирования
     const hint = $('[data-b-hint]');
     hint.hidden = !sm.missing;
-    if (sm.missing) hint.innerHTML = `Чтобы забронировать, выберите ${sm.missing} — <a href="rent.html">к выбору автодома</a>`;
+    if (sm.missing) hint.innerHTML = t('Чтобы забронировать, выберите {what} — <a href="rent.html">к выбору автодома</a>', { what: t(sm.missing) });
     return { ok: !sm.missing };
   }
 

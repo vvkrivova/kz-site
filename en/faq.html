@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
+  <title>FAQ — Tian Way</title>
+  <meta name="description" content="Answers to common questions about motorhome travel in Kyrgyzstan: driving experience, routes, rental cost, booking and deposit.">
+  <meta name="theme-color" content="#353f2b">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="../img/meta/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
+  <script>
+    // телефоны (уже 768px) — мобильный макет шириной 402px (css/m-common.css), остальные — 1440px
+    (function () { var w = document.documentElement.clientWidth; document.documentElement.style.setProperty('--page-scale', (w / (w < 768 ? 402 : 1440)).toFixed(5)); })();
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('reveal-on'); // вопросы появляются при прокрутке
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css?v=4aa5dd6a">
+  <link rel="stylesheet" href="../css/faq.css?v=d8fa4b30">
+  <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 156, ширина 402px) -->
+  <link rel="stylesheet" href="../css/m-common.css?v=ed977104" media="(max-width: 767px)">
+  <link rel="stylesheet" href="../css/m-faq.css?v=02d534ba" media="(max-width: 767px)">
+  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/faq.html">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/faq.html">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/faq.html">
+  <script src="../js/lang-detect.js?v=0faf9613"></script>
+  <!-- /языки -->
+</head>
+<body>
+<main class="page">
+  <section class="section faqp">
+    <div class="stage faqp__stage">
+
+      <!-- фон -->
+      <img class="faqp__lines-ask" src="../img/lines-hero.webp" alt="">
+      <img class="faqp__lines-ask faqp__lines-ask--top m-only" src="../img/lines-hero.webp" alt=""><!-- только на телефоне: верх тех же линий у правого края, у заголовка формы -->
+      <img class="faqp__topo-r" src="../img/topo-lines.webp" alt="">
+      <img class="faqp__topo-l" src="../img/topo-lines.webp" alt="">
+      <img class="faqp__compass" src="../img/compass.webp" alt="">
+      <img class="faqp__coords" src="../img/compass-coords.webp" alt="">
+
+      <!-- шапка -->
+      <header class="header faqp__header">
+        <a class="header__logo" href="index.html" aria-label="Tian Way — home"><span class="faqp__logo"></span></a>
+        <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="header__call m-only" href="tel:+996500192445" aria-label="Call: +996 500 192 445"><img src="../img/social-phone.svg" alt=""></a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+        <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        <!-- язык -->
+        <div class="lang" data-lang>
+          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Site language"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+          <ul class="lang__list">
+            <li><a href="../faq.html" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+            <li><a href="faq.html" hreflang="en" data-lang-link lang="en">English</a></li>
+          </ul>
+        </div>
+        <!-- /язык -->
+      </header>
+
+      <!-- заголовок -->
+      <h1 class="faqp__title" data-reveal>Any questions?</h1>
+      <p class="faqp__sub" data-reveal style="--rd:.12s">Short answers to what people usually want to know before booking</p>
+      <span class="faqp__note" data-reveal style="--rd:.25s">We’re here</span>
+
+      <!-- 01 -->
+      <div class="qa" data-reveal style="top:363px;">
+        <span class="qa__num" style="left:109px; top:0;">01</span>
+        <h2 class="qa__q" style="left:203px; top:0; width:382px;">Do I need special experience to drive a motorhome?</h2>
+        <span class="qa__line" style="left:654px; top:-3px;"></span>
+        <p class="qa__a" style="left:714px; top:-3px;">No special motorhome experience is needed. Before the trip we’ll introduce you to the vehicle, explain how it handles and show you how to use the equipment and the living module.<br><br>For self-drive rental, the driver must be over 25, have at least 5 years of driving experience and hold a valid licence of the appropriate category.</p>
+      </div>
+      <span class="faqp__divider" data-reveal="line" style="top:640px;"></span>
+
+      <!-- 02 -->
+      <div class="qa" data-reveal style="top:688px;">
+        <span class="qa__num" style="left:107px; top:0;">02</span>
+        <h2 class="qa__q" style="left:203px; top:2px;">Can I travel on my own route?</h2>
+        <span class="qa__line" style="left:657px; top:0;"></span>
+        <p class="qa__a" style="left:717px; top:0;">Yes! You can choose one of the ready-made Tian Way routes or suggest your own destination.<br><br>We’ll help you check road access for your motorhome, take seasonal restrictions into account, find suitable campsites and plan your stops. Some mountain and hard-to-reach sections need to be agreed in advance.</p>
+      </div>
+      <span class="faqp__divider" data-reveal="line" style="top:967px;"></span>
+
+      <!-- 03 -->
+      <img class="faqp__route" src="../img/map/dashed-route.webp" alt="">
+      <div class="qa" data-reveal style="top:1015px;">
+        <span class="qa__num" style="left:107px; top:0;">03</span>
+        <h2 class="qa__q" style="left:203px; top:2px;">What does the motorhome rental include?</h2>
+        <span class="qa__line" style="left:657px; top:0;"></span>
+        <p class="qa__a" style="left:717px; top:0;">You get a travel-ready motorhome with a living module and equipment according to the chosen model’s specification.<br><br>The price also includes 250 km of mileage per rental day. Unused mileage carries over for the whole trip.<br><br>Extra camping gear can be rented separately. The exact list of included services and equipment is shown on each motorhome’s card.</p>
+        <a class="qa__btn" href="rent.html#gear" style="left:717px; top:388px; width:418px;">See gear rental</a>
+      </div>
+      <span class="faqp__divider" data-reveal="line" style="top:1463px;"></span>
+
+      <!-- 04 -->
+      <div class="qa" data-reveal style="top:1511px;">
+        <span class="qa__num" style="left:107px; top:0;">04</span>
+        <h2 class="qa__q" style="left:203px; top:2px;">How do I book a motorhome and what deposit is required?</h2>
+        <span class="qa__line" style="left:657px; top:0;"></span>
+        <p class="qa__a" style="left:717px; top:0;">To confirm a booking, a 30% prepayment of the rental cost is required.<br><br>The remaining 70% is paid before the trip starts. There is also a refundable $500 deposit, paid separately and returned after the motorhome’s condition and equipment are checked according to the contract.</p>
+        <a class="qa__btn" href="rent.html" style="left:717px; top:294px; width:296px;">See motorhomes</a>
+      </div>
+      <span class="faqp__divider" data-reveal="line" style="top:1874px;"></span>
+
+      <!-- 05 -->
+      <div class="qa" data-reveal style="top:1922px;">
+        <span class="qa__num" style="left:107px; top:0;">05</span>
+        <h2 class="qa__q" style="left:203px; top:2px;">How is a guided trip different from a regular rental?</h2>
+        <span class="qa__line" style="left:657px; top:0;"></span>
+        <p class="qa__a" style="left:717px; top:0;">With a self-drive rental you travel at your own pace, choose where to stop and plan your days as you like.<br><br>A Tian Way trip is a ready-made programme with a route, sights, activities and organisational support. Depending on the programme, we also arrange transport, accommodation and meals.<br><br>What’s included is listed in the description of each trip.</p>
+        <a class="qa__btn" href="trips.html" style="left:717px; top:419px; width:424px;">See ready-made trips</a>
+      </div>
+
+      <!-- Не нашли ответ? -->
+      <div class="ask" id="ask" data-reveal>
+        <h2 class="ask__title">Need an&nbsp;answer?</h2>
+        <p class="ask__sub">If you have questions, leave a&nbsp;request — we’ll get back to&nbsp;you</p>
+
+        <form class="ask__form" data-ask-form novalidate>
+          <span class="ask__label" id="ask-topic-label" style="left:688px; top:42px;">Interested in?</span>
+          <!-- свой выпадающий список (вариант 1 «Бумажный список»); выбранное значение — в скрытом поле topic -->
+          <div class="ask-dd" data-dd style="left:688px; top:102px;">
+            <input type="hidden" name="topic" value="Аренда автодома">
+            <button class="ask-dd__btn" type="button" id="ask-topic" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="ask-topic-label ask-topic">
+              <span data-dd-value>Motorhome rental</span>
+              <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
+            </button>
+            <ul class="ask-dd__list" role="listbox" aria-labelledby="ask-topic-label">
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:0">Motorhome rental</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:1">Ready-made trip</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">Fishing and hunting</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">Other</li>
+            </ul>
+          </div>
+
+          <label class="ask__label" for="ask-question" style="left:688px; top:165px;">What’s your question?</label>
+          <textarea class="ask__field ask__textarea" id="ask-question" name="question" placeholder="Write your question (optional)" style="left:688px; top:223px;"></textarea>
+
+          <label class="ask__label" for="ask-name" style="left:688px; top:343px;">Your name</label>
+          <input class="ask__field" id="ask-name" name="name" type="text" autocomplete="name" style="left:688px; top:401px;">
+          <label class="ask__label" for="ask-contact" style="left:970px; top:343px;">Contacts</label>
+          <input class="ask__field" id="ask-contact" name="contact" type="text" autocomplete="tel" placeholder="Phone or Telegram" style="left:970px; top:401px;">
+
+          <p class="ask__error" data-ask-error role="alert" hidden></p>
+
+          <button class="ask__submit" type="submit">Send request</button>
+
+          <label class="trip-consent ask__consent" style="left:688px; top:590px;">
+            <input type="checkbox" name="consent">
+            <span class="trip-consent__box"></span>
+            <span class="trip-consent__text">I agree to the processing of my personal data under the&nbsp;<a href="#">Data Processing Consent</a>&nbsp;and have read the&nbsp;<a href="#">Privacy Policy</a>.</span>
+          </label>
+        </form>
+
+        <div class="ask__done done-card" data-ask-done hidden>
+          <b>Thank you, question sent!</b>
+          <span>We’ll reply shortly — usually within a day.</span>
+          <button class="ask__again" type="button" data-ask-again>Ask another question</button>
+          <!-- только на телефоне: галочка с лучиками над текстом (как у «Спасибо» на главной) -->
+          <div class="done-icon m-only" aria-hidden="true"><img src="../img/check-circle.webp" alt=""><img src="../img/rays-left.webp" alt=""><img src="../img/rays-right.webp" alt=""></div>
+          <!-- только на телефоне (мобильный макет): «Следующий шаг» и кнопка на главную вместо «Отправить еще одну» -->
+          <div class="done-next m-only"><img src="../img/folded-map.webp" alt=""><b>Next step</b><span>We’ll get in touch and help you put together the right trip.</span></div>
+          <a class="done-home m-only" href="index.html">Go to the home page</a>
+        </div>
+      </div>
+
+      <img class="faqp__photo" src="../img/hero-photo-rv.webp" alt="Motorhome in the mountains at sunset">
+      <img class="faqp__stamp" src="../img/stamp-round-logo.webp" alt="">
+      <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
+      <footer class="footer footer--light">
+        <a class="footer__logo" href="index.html" aria-label="Tian Way — home"><img src="../img/logo-footer-light.webp" alt="Tian Way"></a>
+        <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+          <a href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+          <a href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        </div>
+        <div class="footer__links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Public Offer</a>
+          <span>© 2026 Tian Way. All rights reserved</span>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="../data/i18n/en-scripts.js?v=f1dae27c"></script>
+  <script src="../js/main.js?v=cb2b8409"></script>
+<script src="../js/faq.js?v=3a5cb817"></script>
+</body>
+</html>

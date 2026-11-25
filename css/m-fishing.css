@@ -78,5 +78,8 @@
 .fish:has(.fish-done:not([hidden])) .fish__stamp-eagle { top: 1148.71px; }   /* у нижнего левого угла карточки, как у плашки формы */
 
 /* подвал в этом макете — с отступом 36px слева и справа */
-.footer__logo, .footer__phone, .footer__mail, .footer__social, .footer__note { left: 36px; }
+.footer__logo, .footer__phone, .footer__mail, .footer__social { left: 36px; }
 .footer__links { right: 36px; top: 30px; }
+
+/* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — как самый верх и самый низ страницы на телефоне */
+:root { --edge-top: #353f2b; --edge-bottom: #353f2b; }

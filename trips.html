@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
   <title>Готовые путешествия — Tian Way</title>
-  <meta name="description" content="Готовые путешествия на автодоме по Кыргызстану: Иссык-Куль, Каракол, Новый год в горах. Или соберем поездку под ваши даты, темп и интересы.">
+  <meta name="description" content="Готовые путешествия на автодоме по Кыргызстану: Иссык-Куль, Каракол, зимние горы. Или соберем поездку под ваши даты, темп и интересы.">
   <meta name="theme-color" content="#353f2b">
   <link rel="icon" type="image/png" sizes="32x32" href="img/meta/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="img/meta/icon-192.png">
@@ -24,11 +24,17 @@
       document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=70d81683">
-  <link rel="stylesheet" href="css/trips.css?v=7100dcd9">
+  <link rel="stylesheet" href="css/style.css?v=4aa5dd6a">
+  <link rel="stylesheet" href="css/trips.css?v=542d8d73">
   <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 153, ширина 402px) -->
-  <link rel="stylesheet" href="css/m-common.css?v=ff82ba90" media="(max-width: 767px)">
-  <link rel="stylesheet" href="css/m-trips.css?v=0e7cb116" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-common.css?v=ed977104" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-trips.css?v=a7a115cf" media="(max-width: 767px)">
+  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/trips.html">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/trips.html">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/trips.html">
+  <script src="js/lang-detect.js?v=0faf9613"></script>
+  <!-- /языки -->
 </head>
 <body>
 <main class="page">
@@ -44,9 +50,19 @@
       <header class="header header--logo-only">
         <a class="header__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo.webp" alt="Tian Way"></a>
         <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="header__call m-only" href="tel:+996500192445" aria-label="Позвонить: +996 500 192 445"><img src="img/social-phone.svg" alt=""></a>
         <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/social-instagram.webp" alt=""></a>
         <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/social-whatsapp.webp" alt=""></a>
         <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/social-telegram.webp" alt=""></a>
+        <!-- язык -->
+        <div class="lang" data-lang>
+          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+          <ul class="lang__list">
+            <li><a href="trips.html" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+            <li><a href="en/trips.html" hreflang="en" data-lang-link lang="en">English</a></li>
+          </ul>
+        </div>
+        <!-- /язык -->
       </header>
 
       <h1 class="tp-hero__title" data-reveal>Готовые путешествия</h1>
@@ -82,7 +98,7 @@
             <p class="tcard__desc">Размеренное путешествие по северному побережью Иссык-Куля: отдых у озера, конные прогулки, горные ущелья, традиционная кухня и рыбалка.</p>
             <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.webp" alt=""></span>
             <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.webp" alt=""></span>
-            <span class="tcard__ico tcard__ico--price m-only"><img src="img/m/icon-price.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price"><img src="img/m/icon-price.webp" alt=""></span>
             <span class="tcard__meta tcard__meta--days">6 дней</span>
             <span class="tcard__meta tcard__meta--locs">5 локаций</span>
             <span class="tcard__meta tcard__meta--price">от 1 150 $</span>
@@ -97,7 +113,7 @@
             <p class="tcard__desc">Путешествие к заснеженным вершинам Тянь-Шаня: зимние пейзажи Иссык-Куля, горнолыжный отдых в Караколе, красные скалы и горячие источники.</p>
             <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.webp" alt=""></span>
             <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.webp" alt=""></span>
-            <span class="tcard__ico tcard__ico--price m-only"><img src="img/m/icon-price.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price"><img src="img/m/icon-price.webp" alt=""></span>
             <span class="tcard__meta tcard__meta--days">6 дней</span>
             <span class="tcard__meta tcard__meta--locs">5 локаций</span>
             <span class="tcard__meta tcard__meta--price">от 0 000 $</span>
@@ -111,28 +127,13 @@
             <p class="tcard__desc">Полноценное путешествие вокруг Иссык-Куля: горные ущелья, каньоны, национальная кухня и знакомство с кыргызскими традициями.</p>
             <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.webp" alt=""></span>
             <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.webp" alt=""></span>
-            <span class="tcard__ico tcard__ico--price m-only"><img src="img/m/icon-price.webp" alt=""></span>
+            <span class="tcard__ico tcard__ico--price"><img src="img/m/icon-price.webp" alt=""></span>
             <span class="tcard__meta tcard__meta--days">8 дней</span>
             <span class="tcard__meta tcard__meta--locs">5 локаций</span>
             <span class="tcard__meta tcard__meta--price">от 1 600 $</span>
             <a class="tcard__btn" href="tour-issyk-ring.html">Смотреть программу</a>
           </article>
 
-          <article class="tcard" data-seasons="now winter">
-            <div class="tcard__body"></div>
-            <!-- в макете фото отражено по горизонтали и чуть повернуто -->
-            <img class="tcard__photo" src="img/trips/trip-new-year.webp" alt="Юрты у горного озера" style="left:33.7px; top:-78.3px; width:270px; height:270px; transform:matrix(-.9983, -.0585, -.0585, .9983, 0, 0);">
-            <img class="tcard__stamp" src="img/stamp-horses.webp" alt="" style="left:-.2px; top:138.6px; width:131.9px; height:78.9px; transform:rotate(-7.82deg);">
-            <h3 class="tcard__title">Новый год</h3>
-            <p class="tcard__desc">Высокогорное озеро и кочевая культура</p>
-            <span class="tcard__ico tcard__ico--days"><img src="img/trips/icon-clock.webp" alt=""></span>
-            <span class="tcard__ico tcard__ico--locs"><img src="img/icon-pin.webp" alt=""></span>
-            <span class="tcard__ico tcard__ico--price m-only"><img src="img/m/icon-price.webp" alt=""></span>
-            <span class="tcard__meta tcard__meta--days">6 дней</span>
-            <span class="tcard__meta tcard__meta--locs">5 локаций</span>
-            <span class="tcard__meta tcard__meta--price">от 1 150 $</span>
-            <a class="tcard__btn" href="#">Смотреть программу</a>
-          </article>
 
         </div>
       </div>
@@ -172,8 +173,7 @@
               <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">Северный берег</li>
               <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:1">Зимний Каракол</li>
               <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">Большое кольцо</li>
-              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">Новый год</li>
-              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:4">Свой маршрут</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">Свой маршрут</li>
             </ul>
           </div>
 
@@ -256,14 +256,13 @@
           <a href="#">Публичная оферта</a>
           <span>© 2026 «Tian Way». Все права защищены</span>
         </div>
-        <p class="footer__note">Meta признана экстремистской организацией и&nbsp;запрещена в&nbsp;РФ</p>
       </footer>
     </div>
   </section>
 
 </main>
 
-<script src="js/main.js?v=9548d0a4"></script>
-<script src="js/trips.js?v=09e88a84"></script>
+<script src="js/main.js?v=cb2b8409"></script>
+<script src="js/trips.js?v=4bb6e781"></script>
 </body>
 </html>

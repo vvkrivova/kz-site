@@ -71,7 +71,7 @@ const rentSearch = (function () {
 
   // гости: список пишет выбранное в скрытое поле — следим за подписью кнопки
   new MutationObserver(() => {
-    if (ddValue.textContent.trim() === 'Выберите') return;
+    if (ddValue.textContent.trim() === t('Выберите')) return;
     guestsInput.value = ddValue.textContent.trim(); // на случай, если подпись сменилась раньше поля
     paintGuests();
     save();
@@ -168,11 +168,11 @@ const nightsBetween = (a, b) => Math.round((b - a) / DAY);
 const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
 const guestsWord = (n) => RentStore.plural(n, 'гость', 'гостя', 'гостей'); // 1 гость, 2 гостя, 5 гостей
 const nightsWord = (n) => RentStore.plural(n, 'ночь', 'ночи', 'ночей');
-const MONTHS = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+const MONTHS = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'].map((w) => t(w));
 const dayMonth = (d) => `${d.getDate()} ${MONTHS[d.getMonth()]}`;
 // «с 10 по 14 декабря» или «с 29 декабря по 2 января»
-const fromTo = (a, b) => `с ${a.getMonth() === b.getMonth() ? a.getDate() : dayMonth(a)} по ${dayMonth(b)}`;
-const MON = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+const fromTo = (a, b) => t('с {a} по {b}', { a: a.getMonth() === b.getMonth() ? a.getDate() : dayMonth(a), b: dayMonth(b) });
+const MON = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'].map((w) => t(w + '.'));
 // «12 — 16 дек» или «29 дек — 2 янв»
 const shortRange = (a, b) => (a.getMonth() === b.getMonth() ? `${a.getDate()} — ${b.getDate()} ${MON[b.getMonth()]}`
   : `${a.getDate()} ${MON[a.getMonth()]} — ${b.getDate()} ${MON[b.getMonth()]}`);
@@ -186,9 +186,9 @@ const busyOn = (card, from, to) => busyRanges(card).find(([a, b]) => from < b &&
 // почему автодом не подходит: { kind: 'seats' | 'busy', text } или null
 function carReason(card, dates, n) {
   const seats = carInfo(card).seats;
-  if (seats && n > seats) return { kind: 'seats', text: `Вмещает до ${seats} ${seats === 1 ? 'гостя' : 'гостей'}, а вас ${n}` };
+  if (seats && n > seats) return { kind: 'seats', text: t('Вмещает до {seats} {word}, а вас {n}', { seats, word: t(seats === 1 ? 'гостя' : 'гостей'), n }) };
   const b = busyOn(card, dates.from, dates.to);
-  if (b) return { kind: 'busy', text: `Занят ${fromTo(b[0], b[1])}` };
+  if (b) return { kind: 'busy', text: t('Занят {when}', { when: fromTo(b[0], b[1]) }) };
   return null;
 }
 
@@ -225,12 +225,14 @@ function paintCar(card, nights) {
   if (!price.dataset.base) price.dataset.base = price.innerHTML;
   const btn = card.querySelector('[data-choose]');
   if (nights) {
-    price.innerHTML = `<span class="car__price-sum">${RentStore.money(Number(card.dataset.price) * nights)}</span>`
-      + `<span class="car__price-per">за ${nights} ${nightsWord(nights)}</span>`;
-    btn.textContent = 'Забронировать';
+    price.innerHTML = Number(card.dataset.price)
+      ? `<span class="car__price-sum">${RentStore.money(Number(card.dataset.price) * nights)}</span>`
+        + `<span class="car__price-per">${t('за {n} {word}', { n: nights, word: nightsWord(nights) })}</span>`
+      : price.dataset.base; // цена еще не известна — «Цена уточняется»
+    btn.textContent = t('Забронировать');
   } else {
     price.innerHTML = price.dataset.base;
-    btn.textContent = 'Выбрать';
+    btn.textContent = t('Выбрать');
   }
 }
 
@@ -242,11 +244,11 @@ function paintAlt(card, reason, dates) {
   if (!alt) { alt = document.createElement('div'); alt.className = 'car__alt'; card.append(alt); }
   const len = nightsBetween(dates.from, dates.to);
   const opts = nearestFree(card, dates);
-  alt.innerHTML = `<p class="car__alt-text">Нет свободных дат ${fromTo(dates.from, dates.to)}</p>`
-    + (opts.length ? '<p class="car__alt-sub">Можно забронировать другие даты:</p><div class="car__alt-list">'
+  alt.innerHTML = `<p class="car__alt-text">${t('Нет свободных дат {when}', { when: fromTo(dates.from, dates.to) })}</p>`
+    + (opts.length ? `<p class="car__alt-sub">${t('Можно забронировать другие даты:')}</p><div class="car__alt-list">`
       + opts.map(([a, b]) => `<button class="car__alt-opt" type="button" data-from="${RentStore.toKey(a)}" data-to="${RentStore.toKey(b)}">`
-        + `<b>${shortRange(a, b)}</b><span>${len} ${nightsWord(len)} · ${RentStore.money(Number(card.dataset.price) * len)}</span></button>`).join('')
-      + '</div>' : '<p class="car__alt-sub">В ближайшие два месяца на такой срок занят</p>');
+        + `<b>${shortRange(a, b)}</b><span>${len} ${nightsWord(len)}${Number(card.dataset.price) ? ` · ${RentStore.money(Number(card.dataset.price) * len)}` : ''}</span></button>`).join('')
+      + '</div>' : `<p class="car__alt-sub">${t('В ближайшие два месяца на такой срок занят')}</p>`);
   card.style.setProperty('--alt-h', `${alt.offsetHeight + 24}px`);
 }
 
@@ -273,13 +275,13 @@ function runSearch() {
   const what = `${rentSearch ? rentSearch.datesText() : ''} · ${nights} ${nightsWord(nights)} · ${n} ${guestsWord(n)}`;
   const freeHead = carsHead('free');
   freeHead.style.order = '0';
-  freeHead.querySelector('.cars-head__title').textContent = free ? 'Свободны на ваши даты' : 'Свободных автодомов нет';
+  freeHead.querySelector('.cars-head__title').textContent = t(free ? 'Свободны на ваши даты' : 'Свободных автодомов нет');
   freeHead.querySelector('.cars-head__text').textContent = what;
   const offHead = carsHead('off');
   offHead.style.order = '2';
   offHead.hidden = !off || !free; // свободных нет — второй заголовок не нужен
-  offHead.querySelector('.cars-head__title').textContent = 'Не подошли под ваш запрос';
-  offHead.querySelector('.cars-head__text').textContent = 'Причина и ближайшие свободные даты — на карточке';
+  offHead.querySelector('.cars-head__title').textContent = t('Не подошли под ваш запрос');
+  offHead.querySelector('.cars-head__text').textContent = t('Причина и ближайшие свободные даты — на карточке');
   carsBox.classList.add('is-searched');
   searched = true;
   if (rentSearch) rentSearch.hideHint();
@@ -303,7 +305,7 @@ function clearSearch() {
 function criteriaChanged() {
   if (!searched) return;
   clearSearch();
-  if (rentSearch && searchReady()) rentSearch.showHint('Нажмите «Найти», чтобы обновить список');
+  if (rentSearch && searchReady()) rentSearch.showHint(t('Нажмите «Найти», чтобы обновить список'));
 }
 
 /* ---------- 2.1. Окошко-итог «Забронировать» ----------
@@ -317,19 +319,19 @@ const bookModal = (function () {
   box.setAttribute('aria-labelledby', 'rent-modal-title');
   box.innerHTML = `
     <div class="rent-modal__card">
-      <button class="rent-modal__close" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-      <h2 class="rent-modal__title" id="rent-modal-title">Ваше бронирование</h2>
+      <button class="rent-modal__close" type="button" aria-label="${t('Закрыть')}"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2 class="rent-modal__title" id="rent-modal-title">${t('Ваше бронирование')}</h2>
       <p class="rent-modal__car" data-m-car></p>
       <dl class="rent-modal__rows">
-        <div><dt>Даты</dt><dd data-m-dates></dd></div>
-        <div><dt>Гости</dt><dd data-m-guests></dd></div>
-        <div><dt data-m-rent-label>Аренда</dt><dd data-m-rent></dd></div>
+        <div><dt>${t('Даты')}</dt><dd data-m-dates></dd></div>
+        <div><dt>${t('Гости')}</dt><dd data-m-guests></dd></div>
+        <div><dt data-m-rent-label>${t('Аренда')}</dt><dd data-m-rent></dd></div>
       </dl>
-      <p class="rent-modal__total"><span>Итого</span><b data-m-total></b></p>
-      <p class="rent-modal__note">Снаряжение и дополнительные услуги можно добавить на следующем шаге</p>
+      <p class="rent-modal__total"><span>${t('Итого')}</span><b data-m-total></b></p>
+      <p class="rent-modal__note">${t('Снаряжение и дополнительные услуги можно добавить на следующем шаге')}</p>
       <div class="rent-modal__btns">
-        <a class="rent-modal__go" href="${NEXT_PAGE}" data-m-go>Оформить бронирование</a>
-        <button class="rent-modal__back" type="button" data-m-back>Вернуться к выбору</button>
+        <a class="rent-modal__go" href="${NEXT_PAGE}" data-m-go>${t('Оформить бронирование')}</a>
+        <button class="rent-modal__back" type="button" data-m-back>${t('Вернуться к выбору')}</button>
       </div>
     </div>`;
   document.body.append(box);
@@ -341,12 +343,13 @@ const bookModal = (function () {
     const dates = RentStore.dates(); const n = guestsCount();
     const nights = nightsBetween(dates.from, dates.to);
     const price = Number(card.dataset.price);
-    $('[data-m-car]').textContent = `Автодом ${card.dataset.name}`;
+    $('[data-m-car]').textContent = t('Автодом {name}', { name: card.dataset.name });
     $('[data-m-dates]').textContent = `${dates.from.getMonth() === dates.to.getMonth() ? dates.from.getDate() : dayMonth(dates.from)} — ${dayMonth(dates.to)}, ${nights} ${nightsWord(nights)}`;
     $('[data-m-guests]').textContent = `${n} ${guestsWord(n)}`;
-    $('[data-m-rent-label]').textContent = `${RentStore.money(price)} × ${nights} ${nightsWord(nights)}`;
-    $('[data-m-rent]').textContent = RentStore.money(price * nights);
-    $('[data-m-total]').textContent = RentStore.money(price * nights);
+    // автодом без цены (data-price="0") — «уточняется»: цену назовет менеджер
+    $('[data-m-rent-label]').textContent = price ? `${RentStore.money(price)} × ${nights} ${nightsWord(nights)}` : `${nights} ${nightsWord(nights)}`;
+    $('[data-m-rent]').textContent = price ? RentStore.money(price * nights) : t('уточняется');
+    $('[data-m-total]').textContent = price ? RentStore.money(price * nights) : t('уточняется');
     box.classList.add('is-open');
     document.documentElement.style.overflow = 'hidden';
     $('[data-m-go]').focus({ preventScroll: true });
@@ -357,6 +360,7 @@ const bookModal = (function () {
     if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
   $('[data-m-go]').addEventListener('click', () => {
+    if (!card) return; // окошко не открыто — автодом не выбран
     RentStore.update((s) => { s.car = { id: card.dataset.car, name: card.dataset.name, price: Number(card.dataset.price) }; });
   });
   $('[data-m-back]').addEventListener('click', close);
@@ -369,22 +373,40 @@ const bookModal = (function () {
 /* ---------- 2.2. Карточки: фото, «Подробнее», «Выбрать» / «Забронировать» ---------- */
 (function cars() {
   document.querySelectorAll('.car').forEach((card) => {
-    // фото: стрелка листает ленту по одному фото; на последнем стрелка поворачивается и возвращает к первому
+    // фото: стрелки листают ленту по одному фото (левая появляется, когда есть куда вернуться);
+    // на последнем правая стрелка поворачивается и возвращает к первому. Ленту можно тянуть мышью или пальцем.
     const next = card.querySelector('[data-gallery-next]');
+    const prev = card.querySelector('[data-gallery-prev]');
     const gallery = card.querySelector('.car__gallery');
     const track = card.querySelector('.car__track');
-    let idx = 0;
-    next.addEventListener('click', () => {
-      const photos = [...track.children];
-      const max = Math.max(0, track.scrollWidth - gallery.clientWidth); // дальше — пустое место за последним фото
-      const atEnd = card.classList.contains('is-shifted');
-      idx = atEnd ? 0 : Math.min(idx + 1, photos.length - 1);
-      const pos = Math.min(photos[idx].offsetLeft, max);
+    let pos = 0; // текущий сдвиг ленты
+    const maxPos = () => Math.max(0, track.scrollWidth - gallery.clientWidth); // дальше — пустое место за последним фото
+    const stops = () => [...new Set([...track.children].map((p) => Math.min(p.offsetLeft, maxPos())))]; // где может остановиться лента
+    function show(p, instant) {
+      pos = p;
+      if (instant) track.style.transition = 'none';
       track.style.transform = `translateX(${-pos}px)`;
-      const end = pos >= max - 1;
-      if (end) idx = photos.length - 1;
-      card.classList.toggle('is-shifted', end && pos > 0);
-      next.setAttribute('aria-label', end && pos > 0 ? 'К первому фото' : 'Следующее фото');
+      if (instant) { void track.offsetWidth; track.style.transition = ''; }
+      const end = pos > 0 && pos >= maxPos() - 1;
+      card.classList.toggle('is-shifted', end);
+      next.setAttribute('aria-label', t(end ? 'К первому фото' : 'Следующее фото'));
+      if (prev) prev.hidden = pos <= 0;
+    }
+    const nextStop = () => stops().find((s) => s > pos + 1);
+    const prevStop = () => stops().filter((s) => s < pos - 1).pop();
+    next.addEventListener('click', () => show(card.classList.contains('is-shifted') ? 0 : (nextStop() ?? pos)));
+    if (prev) prev.addEventListener('click', () => show(prevStop() ?? 0));
+    swipeable(gallery, {
+      move(dx) {
+        dx /= parseFloat(getComputedStyle(card.parentElement).zoom) || 1; // на телефоне карточка уменьшена (zoom) — фото идет ровно за пальцем
+        const edge = (pos <= 0 && dx > 0) || (pos >= maxPos() - 1 && dx < 0);
+        track.style.transform = `translateX(${-pos + (edge ? dx * 0.3 : dx)}px)`;
+      },
+      end(dx) {
+        if (dx < -40 && nextStop() !== undefined) show(nextStop());
+        else if (dx > 40 && pos > 0) show(prevStop() ?? 0);
+        else show(pos);
+      },
     });
 
     // «Подробнее» / «Скрыть описание»
@@ -404,7 +426,7 @@ const bookModal = (function () {
       fitOpenH();
       const open = card.classList.toggle('is-open');
       more.setAttribute('aria-expanded', String(open));
-      label.textContent = open ? 'Скрыть описание' : 'Подробнее';
+      label.textContent = t(open ? 'Скрыть описание' : 'Подробнее');
     });
 
     // «Выбрать» до поиска: спрашиваем даты и гостей и просим нажать «Найти» (сам поиск — только по кнопке);
@@ -412,7 +434,7 @@ const bookModal = (function () {
     const choose = card.querySelector('[data-choose]');
     choose.addEventListener('click', () => {
       if (!searched && rentSearch) {
-        rentSearch.showHint('Сначала выберите даты и количество гостей');
+        rentSearch.showHint(t('Сначала выберите даты и количество гостей'));
         rentSearch.require(() => rentSearch.askFind());
         return;
       }
@@ -425,7 +447,7 @@ const bookModal = (function () {
       if (!opt || !rentSearch) return;
       rentSearch.setDates(RentStore.fromKey(opt.dataset.from), RentStore.fromKey(opt.dataset.to));
       clearSearch();
-      rentSearch.askFind('Даты подставлены — нажмите «Найти»');
+      rentSearch.askFind(t('Даты подставлены — нажмите «Найти»'));
     });
   });
   // возврат «Назад» со следующего шага: поиск уже был — показываем его результаты такими, как были
@@ -445,12 +467,12 @@ RentStore.cartControls(document);
   box.className = 'lightbox';
   box.setAttribute('role', 'dialog');
   box.setAttribute('aria-modal', 'true');
-  box.setAttribute('aria-label', 'Фото автодома');
+  box.setAttribute('aria-label', t('Фото автодома'));
   box.innerHTML = `
     <img class="lightbox__img" alt="">
-    <button class="lightbox__btn lightbox__btn--prev" type="button" aria-label="Предыдущее фото">${icon('M15 5l-7 7 7 7')}</button>
-    <button class="lightbox__btn lightbox__btn--next" type="button" aria-label="Следующее фото">${icon('M9 5l7 7-7 7')}</button>
-    <button class="lightbox__btn lightbox__btn--close" type="button" aria-label="Закрыть">${icon('M6 6l12 12M18 6L6 18')}</button>
+    <button class="lightbox__btn lightbox__btn--prev" type="button" aria-label="${t('Предыдущее фото')}">${icon('M15 5l-7 7 7 7')}</button>
+    <button class="lightbox__btn lightbox__btn--next" type="button" aria-label="${t('Следующее фото')}">${icon('M9 5l7 7-7 7')}</button>
+    <button class="lightbox__btn lightbox__btn--close" type="button" aria-label="${t('Закрыть')}">${icon('M6 6l12 12M18 6L6 18')}</button>
     <p class="lightbox__cap"><span data-lb-cap></span><span class="lightbox__count" data-lb-count></span></p>`;
   document.body.append(box);
   const img = box.querySelector('.lightbox__img');

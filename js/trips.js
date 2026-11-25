@@ -43,6 +43,22 @@
   prev.addEventListener('click', () => { index -= 1; layout(); });
   next.addEventListener('click', () => { index += 1; layout(); });
 
+  // ленту можно тянуть мышью или пальцем: едет за пальцем, при отпускании листается на карточку (у краев — с сопротивлением)
+  swipeable(track, {
+    move(dx) {
+      const STEP = cssNum('--cards-step', 404);
+      const max = Math.max(0, shown.length - cssNum('--cards-visible', 3));
+      const edge = (index === 0 && dx > 0) || (index >= max && dx < 0);
+      track.style.translate = `${-index * STEP + (edge ? dx * 0.3 : dx)}px 0`;
+    },
+    end(dx) {
+      const max = Math.max(0, shown.length - cssNum('--cards-visible', 3));
+      if (dx < -40 && index < max) index += 1;
+      else if (dx > 40 && index > 0) index -= 1;
+      layout();
+    },
+  });
+
   tabs.forEach((tab) => tab.addEventListener('click', () => {
     if (tab.classList.contains('is-active')) return;
     tabs.forEach((t) => {
@@ -97,8 +113,8 @@
 /* ---------- 3. Переход со страницы тура: trips.html?trip=ring#custom ----------
    В форме сразу выбрано нужное путешествие в «Куда хочется?». */
 (function preselectTrip() {
-  const TRIPS = { north: 'Северный берег', karakol: 'Зимний Каракол', ring: 'Большое кольцо', newyear: 'Новый год' };
-  const name = TRIPS[new URLSearchParams(location.search).get('trip')];
+  const TRIPS = { north: 'Северный берег', karakol: 'Зимний Каракол', ring: 'Большое кольцо' };
+  const name = t(TRIPS[new URLSearchParams(location.search).get('trip')] || '');
   if (!name) return;
   const opt = [...document.querySelectorAll('.tp-form [data-dd] [role="option"]')]
     .find((o) => o.textContent.trim() === name);

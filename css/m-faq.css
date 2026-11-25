@@ -81,7 +81,7 @@
 .ask__done { left: 27px; top: 41px; color: #f1e7d9; }
 
 /* подвал в этом макете — с отступом 30px слева */
-.footer__logo, .footer__phone, .footer__mail, .footer__social, .footer__note { left: 30px; }
+.footer__logo, .footer__phone, .footer__mail, .footer__social { left: 30px; }
 .footer__links { right: 30px; }
 
 /* ---------- после отправки: плашка по содержимому (без заголовка «Не нашли ответ?») ----------
@@ -93,3 +93,6 @@
 .faqp:has(.ask__done:not([hidden])) .ask__sub { display: none; }
 .faqp:has(.ask__done:not([hidden])) .faqp__stamp { bottom: 433px; }   /* на правом верхнем углу плашки */
 .faqp:has(.ask__done:not([hidden])) .faqp__lines-ask { display: none; }   /* длинные линии рассчитаны на высокую плашку — с короткой перечеркивают то вопросы, то подвал */
+
+/* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — как самый верх и самый низ страницы на телефоне */
+:root { --edge-top: #f0e6d8; --edge-bottom: #f1e7d9; }

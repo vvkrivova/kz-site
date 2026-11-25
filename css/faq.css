@@ -23,7 +23,7 @@ body:has(.faqp) { background: var(--beige); }
   display: block; width: 77px; height: 51px; background: var(--orange-map);
   -webkit-mask: url(../img/logo.webp) center / contain no-repeat; mask: url(../img/logo.webp) center / contain no-repeat;
 }
-.faqp__header .header__phone { color: var(--orange-map); }
+.faqp__header .header__phone, .faqp__header .lang { color: var(--orange-map); }
 
 /* ---------- заголовок ---------- */
 .faqp__title {
@@ -146,8 +146,11 @@ body:has(.faqp) { background: var(--beige); }
 /* промежутки между вопросами одинаковые: 48px от ответа (или кнопки) до линии и 48px от линии до следующего вопроса,
    кнопки — в 44px под ответом (top вопросов, линий и кнопок — в faq.html);
    все, что ниже вопросов, поднято на 431px, страница на столько же короче */
-.faqp .stage { height: 3370px; }   /* было 3670px → 3239px; подвал — 100px ниже «Не нашли ответ?» (3060) + 210px */
+.faqp .stage { height: 3350px; }   /* было 3670px → 3239px; подвал — 100px ниже «Не нашли ответ?» (3060) + 190px */
 .faqp__lines-ask { margin-top: -431px; }
 /* шапка как на главной: логотип того же размера и на том же месте (было 77×51, left 52px, top 23px) */
 .faqp__header .header__logo { left: 58px; top: 34px; }
 .faqp__logo { width: 84px; height: 56px; }
+
+/* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — как самый верх и самый низ страницы */
+:root { --edge-top: #f0e6d8; --edge-bottom: #f1e7d9; }

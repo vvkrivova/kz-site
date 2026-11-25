@@ -10,7 +10,7 @@
    1. ПЕРВЫЙ ЭКРАН (0–548)
    ========================================================= */
 /* в мобильном макете в шапке есть телефон и соцсети (на десктопе этой страницы — только логотип) */
-.header--logo-only .header__phone, .header--logo-only .header__social { display: block; }
+.header--logo-only .header__call, .header--logo-only .header__social { display: block; }
 .tp-hero .stage { height: 548px; }
 .tp-hero__bg, .tp-hero__shade { left: -188px; top: 0; width: 972px; height: 548px; }
 .tp-hero__bg { object-position: 50% 50%; }
@@ -61,8 +61,6 @@
 .tcard:nth-child(2) .tcard__photo { left: 54.95px !important; top: -62.1px !important; width: 197.84px !important; height: 197.84px !important; }
 .tcard:nth-child(2) .tcard__stamp { left: 225.76px !important; top: 75.15px !important; width: 63.54px !important; height: 69.52px !important; }
 .tcard:nth-child(3) .tcard__photo { left: 57.58px !important; top: -94.42px !important; width: 235.37px !important; height: 235.37px !important; }   /* открытка из нового макета (Desktop 93), без поворота */
-.tcard:nth-child(4) .tcard__photo { left: 41.82px !important; top: -81.44px !important; width: 209.73px !important; height: 209.73px !important; }
-.tcard:nth-child(4) .tcard__stamp { left: 15.49px !important; top: 87.04px !important; width: 102.45px !important; height: 61.29px !important; }
 
 /* стрелки — по бокам карточки, на уровне текста */
 .tp-arrow { top: 498px; width: 36px; height: 36px; }
@@ -129,3 +127,6 @@
 /* марки — на правый верхний угол карточки (на высокой плашке они стояли на месте текста «Спасибо») */
 .tp-custom:has(.tp-done:not([hidden])) .tp-custom__stamp-tw { left: 282px; top: 238px; }
 .tp-custom:has(.tp-done:not([hidden])) .tp-custom__stamp-eagle { left: 278px; top: 290px; }
+
+/* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — как самый верх и самый низ страницы на телефоне */
+:root { --edge-top: #3b6581; --edge-bottom: #f1e7d9; }
