@@ -24,6 +24,17 @@
   let busy = null;
   let showTimers = []; // таймеры «по очереди выплывают» — отменяем при быстром переключении вкладок
 
+  // сдвиг ленты: обычно -index × шаг; если все карточки помещаются (их меньше, чем мест) — ставим их по центру «окна» ленты
+  function baseShift() {
+    const STEP = cssNum('--cards-step', 404);
+    const VISIBLE = cssNum('--cards-visible', 3);
+    if (cssNum('--cards-center', 0) && shown.length && shown.length <= VISIBLE) {
+      const width = (shown.length - 1) * STEP + shown[0].offsetWidth;
+      return (box.clientWidth - width) / 2 - track.offsetLeft;
+    }
+    return -index * STEP;
+  }
+
   // раскладываем видимые карточки слева направо; instant — без анимации сдвига
   function layout(instant) {
     const STEP = cssNum('--cards-step', 404);     // ширина карточки + промежуток
@@ -35,7 +46,9 @@
     });
     const max = Math.max(0, shown.length - VISIBLE);
     index = Math.min(index, max);
-    track.style.translate = `${-index * STEP}px 0`;
+    if (instant) track.style.transition = 'none';
+    track.style.translate = `${baseShift()}px 0`;
+    if (instant) { void track.offsetWidth; track.style.transition = ''; }
     prev.hidden = index === 0;
     next.hidden = index >= max;
   }
@@ -46,10 +59,9 @@
   // ленту можно тянуть мышью или пальцем: едет за пальцем, при отпускании листается на карточку (у краев — с сопротивлением)
   swipeable(track, {
     move(dx) {
-      const STEP = cssNum('--cards-step', 404);
       const max = Math.max(0, shown.length - cssNum('--cards-visible', 3));
       const edge = (index === 0 && dx > 0) || (index >= max && dx < 0);
-      track.style.translate = `${-index * STEP + (edge ? dx * 0.3 : dx)}px 0`;
+      track.style.translate = `${baseShift() + (edge ? dx * 0.3 : dx)}px 0`;
     },
     end(dx) {
       const max = Math.max(0, shown.length - cssNum('--cards-visible', 3));

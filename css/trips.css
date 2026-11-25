@@ -66,6 +66,7 @@
 .tp-cards {
   left: 0; top: 300px; width: 1440px; height: 700px; overflow: hidden; overflow: clip;
   --cards-step: 404; --cards-visible: 3; /* шаг ленты (карточка 372 + промежуток 32) и сколько карточек видно — читает js/trips.js */
+  --cards-center: 1; /* 1 — если карточек не больше, чем помещается, они стоят по центру страницы (на телефоне 0) */
 }
 .tp-cards__track {
   position: absolute; left: 61px; top: 105px; height: 569px;

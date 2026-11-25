@@ -36,7 +36,7 @@
 .tp-tab { position: static; width: auto !important; height: 36px; padding: 0 13px; border-radius: 6px; font-size: 14px; }
 
 /* лента: видна одна карточка, соседние — за краем экрана */
-.tp-cards { left: 0; top: 0; width: 402px; height: 800px; --cards-step: 402; --cards-visible: 1; }
+.tp-cards { left: 0; top: 0; width: 402px; height: 800px; --cards-step: 402; --cards-visible: 1; --cards-center: 0; }
 /* слой ленты растянут на весь блок и лежит поверх вкладок — пустые места пропускают нажатия (иначе вкладки не нажимаются) */
 .tp-cards { pointer-events: none; }
 .tp-cards > * { pointer-events: auto; }
