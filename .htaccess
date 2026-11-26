@@ -4,6 +4,10 @@ Options -MultiViews
 DirectoryIndex index.html
 RewriteEngine On
 
+# служебные файлы с точкой в начале имени (.ftp-deploy-sync-state.json автозагрузки и т. п.) — не показывать;
+# .well-known оставляем: через нее хостинг продлевает сертификат HTTPS
+RewriteRule (^|/)\.(?!well-known(/|$)) - [F,L]
+
 # старые адреса с .html перекидываем на короткие (301 — «страница переехала навсегда», так поймут и поисковики)
 RewriteCond %{THE_REQUEST} \s/+((?:en/)?)index\.html[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L]
