@@ -27,6 +27,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      PYTHONDONTWRITEBYTECODE: '1'   # без служебных файлов __pycache__ в репозитории
       FTP_SERVER: ${{ secrets.FTP_SERVER }}
       BITRIX_WEBHOOK: ${{ secrets.BITRIX_WEBHOOK }}
     steps:
