@@ -310,7 +310,16 @@
   // высота карточки и место «Читать отзыв полностью» — из CSS (на телефоне они другие, css/m-home.css)
   const CARD_H = () => parseFloat(getComputedStyle(slots[0].querySelector('.review__card')).height) || 370;
   const MORE_TOP = () => parseFloat(getComputedStyle(slots[0].querySelector('[data-review-open]')).top) || 325;
-  const STAGE_H = parseFloat(getComputedStyle(stage).height) || 1024; // обычная высота блока (из css/style.css)
+  // обычная высота блока — из CSS, каждый раз заново: у компьютера и телефона она разная, а окно могли сузить или повернуть
+  // (раньше бралась один раз при загрузке — после «Свернуть» на телефоне под отзывом оставалось пустое место)
+  const baseStageH = () => {
+    const s = stage.style; const prev = s.height;
+    s.transition = 'none'; s.height = '';
+    const h = stage.offsetHeight;
+    s.height = prev; void stage.offsetHeight; s.transition = '';
+    return h;
+  };
+  let stageTimer = 0;
   const LABEL_OPEN = t('Читать отзыв полностью');
   const LABEL_CLOSE = t('Свернуть отзыв');
   const grow = new Map();               // слот → насколько карточка сейчас выросла
@@ -325,10 +334,16 @@
   const syncStage = () => {
     const extra = Math.max(0, ...grow.values());
     const before = stage.offsetHeight;
-    const target = STAGE_H + extra;
+    const target = baseStageH() + extra;
+    clearTimeout(stageTimer);
     stage.style.height = `${target}px`;
-    if (target > before) setBodyHeight(page.offsetHeight - before + target);       // растем — сразу даем место
-    else setTimeout(() => setBodyHeight(page.offsetHeight), EXPAND_MS + 30);       // сжимаемся — после анимации
+    // узор «линии-горы» внизу блока едет вниз вместе с низом — иначе рвется стык с его продолжением в «Остались вопросы?»
+    stage.style.setProperty('--rev-grow', `${extra}px`);
+    if (target > before) { setBodyHeight(page.offsetHeight - before + target); return; } // растем — сразу даем место
+    stageTimer = setTimeout(() => {                                                      // сжимаемся — после анимации
+      if (!Math.max(0, ...grow.values())) stage.style.height = '';   // все свернуто — высота снова из CSS
+      setBodyHeight(page.offsetHeight);
+    }, EXPAND_MS + 30);
   };
   const expand = (slot) => {
     const card = slot.querySelector('.review__card');

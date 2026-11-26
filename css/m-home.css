@@ -215,7 +215,7 @@ html.hero-play .ov-m-stamp-round { animation: hero-drop .7s cubic-bezier(.2, .7,
 .review__cal { left: 199px; top: 64px; width: 34px; height: 30px; }
 .review__days { left: 239px; top: 76px; font-size: 10px; }
 .review__quote { left: 16px; top: 112px; width: 28px; height: 19px; }
-.review__text { left: 53px; top: 120px; width: 236px; font-size: 10px; }
+.review__text { left: 53px; top: 120px; width: 236px; font-size: 10px; line-height: normal; -webkit-line-clamp: 4; line-clamp: 4; }
 .review__more { top: 190px; right: 20px; font-size: 10px; }
 /* фото и марки — та же композиция, что у карточки на десктопе, уменьшенная вместе с карточкой (×0,509) */
 .review__pic--lake    { left: 53.35px;  top: 118.55px; width: 177.57px; height: 177.57px; }

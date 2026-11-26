@@ -314,7 +314,7 @@
 .review__cal img { left: -80.49%; top: -616.67%; width: 243.9%; height: 833.33%; }
 .review__days { left: 481px; top: 114px; font: 400 16px/.94 var(--font-body); color: var(--ink-2); white-space: nowrap; }
 .review__quote { left: 24px; top: 144px; width: 79px; height: 53px; object-fit: cover; }
-.review__text { left: 111px; top: 167px; width: 470px; font: 300 24px/normal var(--font-body); color: var(--ink); }
+.review__text { left: 111px; top: 167px; width: 470px; font: 300 20px/1.22 var(--font-body); color: var(--ink); } /* мельче макета (24px) — просьба заказчицы 27.11.2026; в свернутой карточке 5 строк */
 .review__more {
   top: 325px; right: 37px; padding: 0; border: 0; background: none; cursor: pointer;
   font: 300 16px/normal var(--font-body); color: var(--orange-map);
@@ -374,19 +374,22 @@
 }
 
 /* --- «Читать отзыв полностью»: карточка раскрывается вниз ---
-   Свернуто: текст сам обрезается до 4 строк с «...» — карточки одного размера при любой длине отзыва.
+   Свернуто: текст сам обрезается до 5 строк (на телефоне — до 4) с «...» — карточки одного размера при любой длине отзыва.
    Раскрыто: js/main.js плавно увеличивает высоту текста и карточки и опускает ссылку.
    Блок отзывов растет вместе с карточкой и отодвигает все, что ниже. */
 .review__text {
   white-space: pre-line;
-  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; line-clamp: 4; overflow: hidden;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; line-clamp: 5; overflow: hidden;
 }
 .review.is-unclamped .review__text { display: block; -webkit-line-clamp: unset; line-clamp: none; }
 .review__card { transition: height .5s cubic-bezier(.4, 0, .2, 1); }
 .review__more { transition: top .5s cubic-bezier(.4, 0, .2, 1); }
 .reviews .stage { transition: height .5s cubic-bezier(.4, 0, .2, 1); }
+/* узор внизу блока опускается на столько же, на сколько вырос блок (--rev-grow ставит js/home.js):
+   его продолжение — верх «Остались вопросы?» (.faq__mountains), стык не должен рваться */
+.reviews__topo { translate: 0 var(--rev-grow, 0px); transition: translate .5s cubic-bezier(.4, 0, .2, 1); }
 @media (prefers-reduced-motion: reduce) {
-  .review__card, .review__more, .reviews .stage { transition: none; }
+  .review__card, .review__more, .reviews .stage, .reviews__topo { transition: none; }
 }
 
 /* =========================================================
