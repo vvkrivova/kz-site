@@ -1,6 +1,7 @@
 # Настройки Pages CMS (https://pagescms.org) — панель, где заказчица сама правит сайт.
-# Разделы: «Программы туров» (data/tours.json → tour-*.html и карточки на trips.html),
-# «Аренда: цены и даты» (data/rent.json → rent.html, rent-extras.html, data/rent-availability.js),
+# Разделы: «Главная страница» (data/home.json), «Маршруты на главной» (data/routes.json),
+# «Отзывы на главной» (data/reviews.json), «Программы туров» (data/tours.json → tour-*.html и карточки на trips.html),
+# «Аренда: цены и даты» (data/rent.json → rent.html, rent-extras.html, data/rent-availability.js; там же тексты автодомов),
 # «Контакты» (data/site.json → шапка и подвал всех страниц).
 # После сохранения в панели GitHub сам собирает сайт и загружает его на хостинг: .github/workflows/build.yml
 # (уменьшает загруженные фото — tools/optimize_images.py, собирает страницы — tools/build.py).
@@ -15,6 +16,648 @@ media:
     rename: safe
 
 content:
+  - name: home
+    label: Главная страница
+    type: file
+    path: data/home.json
+    format: json
+    fields:
+      - name: _readme
+        type: string
+        hidden: true
+
+      - name: hero
+        label: "Первый экран"
+        type: object
+        fields:
+          - name: title
+            label: "Заголовок"
+            type: string
+            description: "До 30 знаков."
+            required: true
+            options:
+              maxlength: 30
+          - name: title_en
+            label: "Заголовок — английский"
+            type: string
+            description: "До 30 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 30
+          - name: subtitle
+            label: "Текст под заголовком"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 90 знаков."
+            required: true
+            options:
+              maxlength: 90
+          - name: subtitle_en
+            label: "Текст под заголовком — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 90 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 90
+
+      - name: formats
+        label: "Выбери формат путешествия"
+        type: object
+        fields:
+          - name: title
+            label: "Заголовок блока"
+            type: string
+            description: "До 30 знаков."
+            required: true
+            options:
+              maxlength: 30
+          - name: title_en
+            label: "Заголовок блока — английский"
+            type: string
+            description: "До 30 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 30
+          - name: rent_title
+            label: "Карточка «Аренда»: заголовок"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 20 знаков."
+            required: true
+            options:
+              maxlength: 20
+          - name: rent_title_en
+            label: "Карточка «Аренда»: заголовок — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 20 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 20
+          - name: rent_text
+            label: "Карточка «Аренда»: текст"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 65 знаков."
+            required: true
+            options:
+              maxlength: 65
+          - name: rent_text_en
+            label: "Карточка «Аренда»: текст — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 65 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 65
+          - name: tours_title
+            label: "Карточка «Путешествия»: заголовок"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 25 знаков."
+            required: true
+            options:
+              maxlength: 25
+          - name: tours_title_en
+            label: "Карточка «Путешествия»: заголовок — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 25 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 25
+          - name: tours_text
+            label: "Карточка «Путешествия»: текст"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 65 знаков."
+            required: true
+            options:
+              maxlength: 65
+          - name: tours_text_en
+            label: "Карточка «Путешествия»: текст — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 65 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 65
+          - name: fishing_title
+            label: "Карточка «Рыбалка»: заголовок"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 25 знаков."
+            required: true
+            options:
+              maxlength: 25
+          - name: fishing_title_en
+            label: "Карточка «Рыбалка»: заголовок — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 25 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 25
+          - name: fishing_text
+            label: "Карточка «Рыбалка»: текст"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 105 знаков."
+            required: true
+            options:
+              maxlength: 105
+          - name: fishing_text_en
+            label: "Карточка «Рыбалка»: текст — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 105 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 105
+
+      - name: first
+        label: "Первый раз за рулем автодома?"
+        type: object
+        fields:
+          - name: title
+            label: "Заголовок блока"
+            type: string
+            description: "До 40 знаков."
+            required: true
+            options:
+              maxlength: 40
+          - name: title_en
+            label: "Заголовок блока — английский"
+            type: string
+            description: "До 40 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 40
+          - name: step1_title
+            label: "Шаг 1: заголовок"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 30 знаков."
+            required: true
+            options:
+              maxlength: 30
+          - name: step1_title_en
+            label: "Шаг 1: заголовок — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 30 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 30
+          - name: step1_text
+            label: "Шаг 1: текст"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 85 знаков."
+            required: true
+            options:
+              maxlength: 85
+          - name: step1_text_en
+            label: "Шаг 1: текст — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 85 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 85
+          - name: step2_title
+            label: "Шаг 2: заголовок"
+            type: string
+            description: "До 40 знаков."
+            required: true
+            options:
+              maxlength: 40
+          - name: step2_title_en
+            label: "Шаг 2: заголовок — английский"
+            type: string
+            description: "До 40 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 40
+          - name: step2_text
+            label: "Шаг 2: текст"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 80 знаков."
+            required: true
+            options:
+              maxlength: 80
+          - name: step2_text_en
+            label: "Шаг 2: текст — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 80 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 80
+          - name: step3_title
+            label: "Шаг 3: заголовок"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 30 знаков."
+            required: true
+            options:
+              maxlength: 30
+          - name: step3_title_en
+            label: "Шаг 3: заголовок — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 30 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 30
+          - name: step3_text
+            label: "Шаг 3: текст"
+            type: text
+            description: "До 100 знаков."
+            required: true
+            options:
+              maxlength: 100
+          - name: step3_text_en
+            label: "Шаг 3: текст — английский"
+            type: text
+            description: "До 100 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 100
+          - name: step4_title
+            label: "Шаг 4: заголовок"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 20 знаков."
+            required: true
+            options:
+              maxlength: 20
+          - name: step4_title_en
+            label: "Шаг 4: заголовок — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 20 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 20
+          - name: step4_text
+            label: "Шаг 4: текст"
+            type: text
+            description: "До 90 знаков."
+            required: true
+            options:
+              maxlength: 90
+          - name: step4_text_en
+            label: "Шаг 4: текст — английский"
+            type: text
+            description: "До 90 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 90
+
+      - name: routes
+        label: "Куда на автодоме реально проехать"
+        type: object
+        fields:
+          - name: title
+            label: "Заголовок блока"
+            type: string
+            description: "До 40 знаков."
+            required: true
+            options:
+              maxlength: 40
+          - name: title_en
+            label: "Заголовок блока — английский"
+            type: string
+            description: "До 40 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 40
+          - name: text
+            label: "Текст под заголовком"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 240 знаков."
+            required: true
+            options:
+              maxlength: 240
+          - name: text_en
+            label: "Текст под заголовком — английский"
+            type: text
+            description: "До 240 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 240
+
+      - name: reviews
+        label: "Отзывы"
+        type: object
+        fields:
+          - name: title
+            label: "Заголовок блока"
+            type: string
+            description: "До 25 знаков."
+            required: true
+            options:
+              maxlength: 25
+          - name: title_en
+            label: "Заголовок блока — английский"
+            type: string
+            description: "До 25 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 25
+
+      - name: faq
+        label: "Остались вопросы?"
+        type: object
+        fields:
+          - name: title
+            label: "Заголовок блока"
+            type: string
+            description: "До 20 знаков."
+            required: true
+            options:
+              maxlength: 20
+          - name: title_en
+            label: "Заголовок блока — английский"
+            type: string
+            description: "До 20 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 20
+          - name: q1
+            label: "Вопрос 1"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 50 знаков."
+            required: true
+            options:
+              maxlength: 50
+          - name: q1_en
+            label: "Вопрос 1 — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 50 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 50
+          - name: a1
+            label: "Ответ 1"
+            type: text
+            description: "До 270 знаков."
+            required: true
+            options:
+              maxlength: 270
+          - name: a1_en
+            label: "Ответ 1 — английский"
+            type: text
+            description: "До 270 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 270
+          - name: q2
+            label: "Вопрос 2"
+            type: string
+            description: "До 40 знаков."
+            required: true
+            options:
+              maxlength: 40
+          - name: q2_en
+            label: "Вопрос 2 — английский"
+            type: string
+            description: "До 40 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 40
+          - name: a2
+            label: "Ответ 2"
+            type: text
+            description: "До 200 знаков."
+            required: true
+            options:
+              maxlength: 200
+          - name: a2_en
+            label: "Ответ 2 — английский"
+            type: text
+            description: "До 200 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 200
+          - name: q3
+            label: "Вопрос 3"
+            type: string
+            description: "До 70 знаков."
+            required: true
+            options:
+              maxlength: 70
+          - name: q3_en
+            label: "Вопрос 3 — английский"
+            type: string
+            description: "До 70 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 70
+          - name: a3
+            label: "Ответ 3"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 240 знаков."
+            required: true
+            options:
+              maxlength: 240
+          - name: a3_en
+            label: "Ответ 3 — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 240 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 240
+          - name: ask
+            label: "Надпись «Не нашли ответ?»"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 55 знаков."
+            required: true
+            options:
+              maxlength: 55
+          - name: ask_en
+            label: "Надпись «Не нашли ответ?» — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 55 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 55
+
+      - name: trip
+        label: "Соберем поездку под вас"
+        type: object
+        fields:
+          - name: title
+            label: "Заголовок блока"
+            type: string
+            description: "До 30 знаков."
+            required: true
+            options:
+              maxlength: 30
+          - name: title_en
+            label: "Заголовок блока — английский"
+            type: string
+            description: "До 30 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 30
+          - name: sub
+            label: "Текст под заголовком"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 145 знаков."
+            required: true
+            options:
+              maxlength: 145
+          - name: sub_en
+            label: "Текст под заголовком — английский"
+            type: text
+            description: "Строки — как на сайте: каждая с новой строки (Enter). До 145 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 145
+
+  - name: routes
+    label: Маршруты на главной
+    type: file
+    path: data/routes.json
+    format: json
+    fields:
+      - name: _readme
+        type: string
+        hidden: true
+      - name: routes
+        label: Маршруты
+        type: object
+        description: "Карточка справа от карты на главной. Три маршрута — у каждого свой пунктир на карте и своя страница программы."
+        list:
+          min: 3
+          max: 3
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: "Название"
+            type: text
+            description: "Название переносится на 2 строки, если нужно — Enter. Строки — как на сайте: каждая с новой строки (Enter). До 35 знаков."
+            required: true
+            options:
+              maxlength: 35
+          - name: title_en
+            label: "Название — английский"
+            type: text
+            description: "Название переносится на 2 строки, если нужно — Enter. До 35 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 35
+          - name: desc
+            label: "Описание"
+            type: text
+            description: "До 175 знаков."
+            required: true
+            options:
+              maxlength: 175
+          - name: desc_en
+            label: "Описание — английский"
+            type: text
+            description: "До 175 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 175
+          - name: days
+            label: "Количество дней"
+            type: string
+            description: "До 20 знаков."
+            required: true
+            options:
+              maxlength: 20
+          - name: days_en
+            label: "Количество дней — английский"
+            type: string
+            description: "До 20 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 20
+          - name: fun
+            label: "Впечатления"
+            type: text
+            description: "До 105 знаков."
+            required: true
+            options:
+              maxlength: 105
+          - name: fun_en
+            label: "Впечатления — английский"
+            type: text
+            description: "До 105 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 105
+          - name: food
+            label: "Питание"
+            type: text
+            description: "До 115 знаков."
+            required: true
+            options:
+              maxlength: 115
+          - name: food_en
+            label: "Питание — английский"
+            type: text
+            description: "До 115 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 115
+          - name: season
+            label: "Сезон"
+            type: string
+            description: "До 75 знаков."
+            required: true
+            options:
+              maxlength: 75
+          - name: season_en
+            label: "Сезон — английский"
+            type: string
+            description: "До 75 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 75
+          - name: who
+            label: "Для кого"
+            type: text
+            description: "До 105 знаков."
+            required: true
+            options:
+              maxlength: 105
+          - name: who_en
+            label: "Для кого — английский"
+            type: text
+            description: "До 105 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 105
+          - name: page
+            type: string
+            hidden: true
+          - name: path
+            type: string
+            hidden: true
+
+  - name: reviews
+    label: Отзывы на главной
+    type: file
+    path: data/reviews.json
+    format: json
+    fields:
+      - name: _readme
+        type: string
+        hidden: true
+      - name: reviews
+        label: Отзывы
+        type: object
+        description: "Два отзыва — у каждого свой набор фото на сайте. Порядок менять можно: фото переезжают вместе с отзывом."
+        list:
+          min: 2
+          max: 2
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: "Кто оставил отзыв"
+            type: string
+            description: "До 25 знаков."
+            required: true
+            options:
+              maxlength: 25
+          - name: name_en
+            label: "Кто оставил отзыв — английский"
+            type: string
+            description: "До 25 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 25
+          - name: trip
+            label: "Какое путешествие"
+            type: string
+            description: "До 75 знаков."
+            required: true
+            options:
+              maxlength: 75
+          - name: trip_en
+            label: "Какое путешествие — английский"
+            type: string
+            description: "До 75 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 75
+          - name: days
+            label: "Сколько дней"
+            type: string
+            description: "Например: 6 дней. До 10 знаков."
+            required: true
+            options:
+              maxlength: 10
+          - name: days_en
+            label: "Сколько дней — английский"
+            type: string
+            description: "Например: 6 дней. До 10 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 10
+          - name: text
+            label: "Текст отзыва"
+            type: text
+            description: "В карточке видно 4 строки, полностью — по «Читать отзыв полностью». До 1495 знаков."
+            required: true
+            options:
+              maxlength: 1495
+          - name: text_en
+            label: "Текст отзыва — английский"
+            type: text
+            description: "В карточке видно 4 строки, полностью — по «Читать отзыв полностью». До 1495 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 1495
+          - name: pics
+            type: string
+            hidden: true
+
   - name: tours
     label: Программы туров
     type: file
@@ -196,6 +839,92 @@ content:
                 label: Выезд
                 type: date
                 required: true
+          - name: tag
+            label: "Пометка над названием"
+            type: string
+            description: "Например: Популярный выбор. До 25 знаков."
+            required: true
+            options:
+              maxlength: 25
+          - name: tag_en
+            label: "Пометка над названием — английский"
+            type: string
+            description: "Например: Популярный выбор. До 25 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 25
+          - name: lead
+            label: "Коротко под названием"
+            type: string
+            description: "До 65 знаков."
+            required: true
+            options:
+              maxlength: 65
+          - name: lead_en
+            label: "Коротко под названием — английский"
+            type: string
+            description: "До 65 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 65
+          - name: about
+            label: "Описание («Подробнее»)"
+            type: text
+            description: "До 350 знаков."
+            required: true
+            options:
+              maxlength: 350
+          - name: about_en
+            label: "Описание («Подробнее») — английский"
+            type: text
+            description: "До 350 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 350
+          - name: sections
+            label: Списки в «Подробнее»
+            type: object
+            description: "Четыре списка стоят на фиксированных местах карточки: не добавляйте много пунктов и длинных строк, иначе списки наедут друг на друга."
+            list:
+              min: 4
+              max: 4
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: "Заголовок списка"
+                type: string
+                description: "До 40 знаков."
+                required: true
+                options:
+                  maxlength: 40
+              - name: title_en
+                label: "Заголовок списка — английский"
+                type: string
+                description: "До 40 знаков. Пусто — на английской странице будет русский текст."
+                options:
+                  maxlength: 40
+              - name: items
+                label: Пункты
+                type: object
+                list:
+                  min: 1
+                  max: 10
+                  collapsible:
+                    collapsed: false
+                    summary: "{text}"
+                fields:
+                  - name: text
+                    label: "Пункт"
+                    type: string
+                    description: "Один пункт — одна короткая строка. До 75 знаков."
+                    required: true
+                    options:
+                      maxlength: 75
+                  - name: text_en
+                    label: "Пункт — английский"
+                    type: string
+                    description: "Один пункт — одна короткая строка. До 75 знаков. Пусто — на английской странице будет русский текст."
+                    options:
+                      maxlength: 75
           - name: id
             type: string
             hidden: true

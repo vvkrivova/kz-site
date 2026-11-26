@@ -11,6 +11,8 @@ Tian Way — английская версия сайта (папка en/). За
     ссылки на другие страницы остаются как есть — ведут на английские страницы;
   • надписи, которые пишут скрипты (календарь, формы, корзина), — словарь data/i18n/en-scripts.json,
     из него собирается data/i18n/en-scripts.js и подключается на английских страницах перед js/main.js;
+  • тексты из панели (главная, автодома) — переводы из data/i18n/cms-en.json (собирает tools/build_content.py),
+    они важнее словаря en.json;
   • данные главной (отзывы, маршруты) — английские копии data/reviews.en.js, data/routes.en.js.
 
 Если для текста нет перевода — страница собирается с русским текстом, а сборка пишет, чего не хватает
@@ -206,6 +208,10 @@ def build_scripts_dict() -> None:
 
 def main() -> None:
     words = json.loads((ROOT / 'data' / 'i18n' / 'en.json').read_text(encoding='utf-8'))
+    # переводы текстов из панели (tools/build_content.py) — важнее словаря: их правят вместе с русским текстом
+    cms = ROOT / 'data' / 'i18n' / 'cms-en.json'
+    if cms.exists():
+        words.update(json.loads(cms.read_text(encoding='utf-8')))
     tr = Translator(words)
     (ROOT / 'en').mkdir(exist_ok=True)
     build_scripts_dict()

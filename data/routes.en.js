@@ -1,6 +1,7 @@
 /* =========================================================
-   Tian Way — МАРШРУТЫ на главной, английская версия (en/index.html).
-   Те же маршруты, что в data/routes.js, — при изменении русских поменять и здесь.
+   Tian Way — МАРШРУТЫ на главной, английская версия
+   ФАЙЛ СОБИРАЕТСЯ САМ из data/routes.json (tools/build_content.py) — руками не править,
+   тексты меняют в панели (Pages CMS) или в этом JSON-файле.
    ========================================================= */
 window.TW_ROUTES = [
   {
@@ -21,7 +22,7 @@ window.TW_ROUTES = [
     fun: 'Horse ride, fishing, cooking kuurdak, banya, lakeside walks and a mountain picnic.',
     food: 'Breakfasts and food activities as per the programme. Lunches and dinners are paid separately.',
     season: 'October — first half of November, as per the current programme.',
-    who: 'For those who love a calm holiday, nature and travel without long daily drives.',
+    who: 'For\u00a0those who love a calm holiday, nature and\u00a0travel without\u00a0long daily drives.',
     page: 'tour-issyk-north.html',
     path: 'r2',
   },

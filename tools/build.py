@@ -5,6 +5,8 @@ Tian Way — сборка сайта. Запускать после любых �
    оформление — templates/tour.html (tools/build_tours.py); там же длительность и цена на карточках trips.html.
    Цены и занятые даты аренды (rent.html, rent-extras.html, data/rent-availability.js) — data/rent.json
    (tools/build_rent.py).
+   Тексты из панели: главная (data/home.json), описания автодомов (data/rent.json), отзывы и маршруты
+   (data/reviews.json, data/routes.json) — tools/build_content.py.
 2. Шапка и подвал на всех страницах — из templates/header-contacts.html и templates/footer.html,
    контакты и подписи — data/site.json. У страницы остаются свои: логотип в шапке и цвет подвала
    (footer--light / footer--dark).
@@ -93,6 +95,7 @@ def stamp_versions() -> None:
 if __name__ == '__main__':
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_tours.py')], check=True)
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_rent.py')], check=True)
+    subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_content.py')], check=True)
     apply_layout()
     stamp_versions()
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_en.py')], check=True)

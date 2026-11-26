@@ -1,0 +1,79 @@
+{
+  "_readme": "Тексты главной страницы (index.html). Правятся в панели (Pages CMS). Перенос строки — новая строка в поле. После правки руками — python3 tools/build.py.",
+  "hero": {
+    "title": "Кыргызстан на автодоме",
+    "title_en": "Kyrgyzstan by motorhome",
+    "subtitle": "Для тех, кто выбирает свободу\nв путешествиях — без компромисса с комфортом",
+    "subtitle_en": "For those who choose freedom\nin travel — with no compromise on comfort"
+  },
+  "formats": {
+    "title": "Выбери формат путешествия",
+    "title_en": "Choose your travel format",
+    "rent_title": "Аренда\nавтодома",
+    "rent_title_en": "Motorhome\nrental",
+    "rent_text": "Выбираете автодом, даты\nи собираете поездку\nпод себя.",
+    "rent_text_en": "Pick a motorhome\nand dates, plan your trip.",
+    "tours_title": "Готовые\nпутешествия",
+    "tours_title_en": "Ready-made\ntrips",
+    "tours_text": "Организуем путешествие\nпод вас, вашу семью\nили компанию.",
+    "tours_text_en": "We’ll plan a trip\nfor you, your family\nor your group.",
+    "fishing_title": "Рыбалка\nи охота",
+    "fishing_title_en": "Fishing\nand hunting",
+    "fishing_text": "Отдельные программы для тех,\nкто едет в Кыргызстан прежде\nвсего за рыбалкой или охотой.",
+    "fishing_text_en": "Dedicated programmes for those\nwho come to Kyrgyzstan first\nof all for fishing or hunting."
+  },
+  "first": {
+    "title": "Первый раз за рулем автодома?",
+    "title_en": "First time driving a motorhome?",
+    "step1_title": "Показываем\nи рассказываем",
+    "step1_title_en": "We show\nand explain",
+    "step1_text": "Перед выездом спокойно разбираем управление\nи все оборудование в машине",
+    "step1_text_en": "Before you set off, we calmly go through\nthe controls and equipment",
+    "step2_title": "Проезжаем первые километры вместе",
+    "step2_title_en": "First kilometres together",
+    "step2_text": "Сначала проезжаем пробный круг вместе — без спешки\nи сложных дорог",
+    "step2_text_en": "First we drive a test loop together — no rush\nand no difficult roads",
+    "step3_title": "Передаем там,\nгде удобно",
+    "step3_title_en": "Handover\nwhere you like",
+    "step3_text": "Возможность доставки машины / передачи в удобной точке — если подтверждено операционно",
+    "step3_text_en": "Delivery or handover at a convenient point — if confirmed operationally",
+    "step4_title": "Остаемся\nна связи",
+    "step4_title_en": "We stay\nin touch",
+    "step4_text": "На протяжении всей поездки: остаемся на связи по вопросам машины и маршрута",
+    "step4_text_en": "Throughout the trip we stay in touch about the vehicle and the route"
+  },
+  "routes": {
+    "title": "Куда на автодоме реально проехать",
+    "title_en": "Where a motorhome can really go",
+    "text": "Не просто отмечаем красивые места на карте. Мы сами проезжаем направления и фиксируем то, что важно именно для автодома: дорогу, реальное время в пути, стоянки, воду, топливо, связь\nи сезонные ограничения",
+    "text_en": "We don’t just mark pretty places on a map. We drive the routes ourselves and record what matters for a motorhome: the road, real travel time, campsites, water, fuel, mobile coverage and seasonal restrictions"
+  },
+  "reviews": {
+    "title": "Уже ездили с Tian Way",
+    "title_en": "Guest stories"
+  },
+  "faq": {
+    "title": "Остались вопросы?",
+    "title_en": "Any questions?",
+    "q1": "Я никогда\nне водил автодом.\nЯ справлюсь?",
+    "q1_en": "Never driven\na motorhome.\nCan I do it?",
+    "a1": "Перед выдачей покажем управление и оборудование, а первые километры проедем вместе. Автодом больше обычной машины, поэтому здесь важнее спокойно привыкнуть к габаритам, чем иметь опыт именно с автодомами.",
+    "a1_en": "Before handover we’ll show you the controls and equipment, and drive the first kilometres together. A motorhome is bigger than a regular car, so what matters most is getting used to its size calmly, not previous motorhome experience.",
+    "q2": "А если машина сломается в дороге?",
+    "q2_en": "What if the vehicle breaks down?",
+    "a2": "Вы не остаетесь с проблемой один на один. Мы заранее пропишем, как действуем при неисправности, когда можем решить вопрос на месте и в каких случаях возможна замена машины",
+    "a2_en": "You won’t be left alone with the problem. We agree in advance what we do in case of a fault, when we can fix it on the spot and when the vehicle can be replaced",
+    "q3": "Что если испортится погода или дорога станет непроходимой?",
+    "q3_en": "What if the weather turns bad or a road becomes impassable?",
+    "a3": "Если условия на участке изменились, помогаем скорректировать дорогу и выбрать безопасный вариант из доступных.\n\nИменно поэтому в маршрутах отдельно отмечаем сезонность и участки, которые зависят от погоды.",
+    "a3_en": "If conditions on a section change, we help adjust the route and choose a safe option from those available.\n\nThat’s why our routes note seasonality and the sections that depend on the weather.",
+    "ask": "Не нашли ответ?\nНапишите нам — подскажем",
+    "ask_en": "Didn’t find an answer?\nWrite to us — we’ll help"
+  },
+  "trip": {
+    "title": "Соберем поездку под вас",
+    "title_en": "We’ll plan a trip for you",
+    "sub": "Не обязательно знать точные даты, маршрут или программу.\nРасскажите, что примерно хотите — мы предложим подходящий вариант.",
+    "sub_en": "You don’t need to know exact dates, route or programme.\nTell us roughly what you want — we’ll suggest the right option."
+  }
+}

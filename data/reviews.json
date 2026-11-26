@@ -1,0 +1,27 @@
+{
+  "_readme": "Отзывы на главной. pics — набор фото и марок отзыва (data-pics в index.html), не менять. Собирается в data/reviews.js и data/reviews.en.js.",
+  "reviews": [
+    {
+      "name": "Компания рыбаков",
+      "name_en": "A group of anglers",
+      "trip": "Аренда автодома. Путешествие по северному берегу Иссык-Куля",
+      "trip_en": "Motorhome rental. A trip along the northern shore of Issyk-Kul",
+      "days": "6 дней",
+      "days_en": "6 days",
+      "text": "Первый раз ехали на автодоме. За шесть дней прошли северный берег, Каракол и южную часть озера. Больше всего переживали за размер машины...",
+      "text_en": "Our first time in a motorhome. In six days we covered the northern shore, Karakol and the southern part of the lake. We were most worried about the size of the vehicle...",
+      "pics": "fishers"
+    },
+    {
+      "name": "Кирилл",
+      "name_en": "Kirill",
+      "trip": "Аренда автодома. Путешествие по северному берегу Иссык-Куля",
+      "trip_en": "Motorhome rental. A trip along the northern shore of Issyk-Kul",
+      "days": "6 дней",
+      "days_en": "6 days",
+      "text": "Первый раз ехали на автодоме. За шесть дней прошли северный берег, Каракол и южную часть озера. Больше всего переживали за размер машины",
+      "text_en": "Our first time in a motorhome. In six days we covered the northern shore, Karakol and the southern part of the lake. We were most worried about the size of the vehicle",
+      "pics": "kirill"
+    }
+  ]
+}

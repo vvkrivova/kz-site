@@ -10,25 +10,373 @@
   ],
   "cars": [
     {
-      "id": "forland-s1",
       "name": "Forland S1",
       "price": 250,
       "seats": 6,
-      "busy": []
+      "busy": [],
+      "tag": "Популярный выбор",
+      "tag_en": "Popular choice",
+      "lead": "Универсальный и комфортный для компании до 6 человек",
+      "lead_en": "Versatile and comfortable for a group of up to 6 people",
+      "about": "Автодом, в котором продумана каждая деталь для спокойного и комфортного путешествия: автоматическая коробка передач берет на себя рутину управления, позволяя водителю сосредоточиться на дороге, а ассистенты вроде круиз-контроля и камеры заднего вида заметно снижают усталость и делают маневры увереннее.",
+      "about_en": "A motorhome where every detail is designed for a calm and comfortable journey: the automatic gearbox takes over the routine of driving so you can focus on the road, while assistants such as cruise control and a rear-view camera noticeably reduce fatigue and make manoeuvring easier.",
+      "sections": [
+        {
+          "title": "Оснащение автодома и мебели:",
+          "title_en": "Motorhome equipment and furniture:",
+          "items": [
+            {
+              "text": "Раскладной стол",
+              "text_en": "Folding table"
+            },
+            {
+              "text": "Мягкие сиденья",
+              "text_en": "Upholstered seats"
+            },
+            {
+              "text": "Напольные шкафы",
+              "text_en": "Floor cabinets"
+            },
+            {
+              "text": "Телевизор",
+              "text_en": "TV"
+            },
+            {
+              "text": "Кондиционер",
+              "text_en": "Air conditioning"
+            },
+            {
+              "text": "Отопление",
+              "text_en": "Heating"
+            },
+            {
+              "text": "Маркиза",
+              "text_en": "Awning"
+            },
+            {
+              "text": "Уличное освещение",
+              "text_en": "Exterior lighting"
+            },
+            {
+              "text": "Механическая подножка",
+              "text_en": "Manual entry step"
+            },
+            {
+              "text": "Места для крепления велосипедов",
+              "text_en": "Bike mounts"
+            }
+          ]
+        },
+        {
+          "title": "Спальные места:",
+          "title_en": "Sleeping places:",
+          "items": [
+            {
+              "text": "6 спальных мест",
+              "text_en": "Sleeps 6"
+            },
+            {
+              "text": "1 двуспальная кровать 140×200 см",
+              "text_en": "1 double bed 140×200 cm"
+            },
+            {
+              "text": "1 раскладная кровать за счет трансформации стола и мягких сидений",
+              "text_en": "1 convertible bed made from the table and seats"
+            },
+            {
+              "text": "Индивидуальные LED-светильники",
+              "text_en": "Individual LED reading lights"
+            },
+            {
+              "text": "Шторки для уединения",
+              "text_en": "Privacy curtains"
+            },
+            {
+              "text": "Хранение вещей рядом со спальными местами",
+              "text_en": "Storage next to the beds"
+            }
+          ]
+        },
+        {
+          "title": "Ванная комната:",
+          "title_en": "Bathroom:",
+          "items": [
+            {
+              "text": "Душевая кабина",
+              "text_en": "Shower cabin"
+            },
+            {
+              "text": "Умывальник с зеркалом и шкафчиком",
+              "text_en": "Washbasin with mirror and cabinet"
+            },
+            {
+              "text": "Биотуалет",
+              "text_en": "Chemical toilet"
+            },
+            {
+              "text": "Водонагреватель для горячей воды",
+              "text_en": "Water heater for hot water"
+            }
+          ]
+        },
+        {
+          "title": "Кухня:",
+          "title_en": "Kitchen:",
+          "items": [
+            {
+              "text": "Рабочая поверхность с мойкой",
+              "text_en": "Worktop with sink"
+            },
+            {
+              "text": "Индукционная плита (2 конфорки)",
+              "text_en": "Induction hob (2 zones)"
+            },
+            {
+              "text": "Микроволновая печь",
+              "text_en": "Microwave"
+            },
+            {
+              "text": "Холодильник до 100 л",
+              "text_en": "Fridge up to 100 L"
+            },
+            {
+              "text": "Вентиляция/вытяжка над плитой",
+              "text_en": "Ventilation/extractor hood"
+            }
+          ]
+        }
+      ],
+      "id": "forland-s1"
     },
     {
-      "id": "freedom-cannon",
       "name": "Freedom Cannon",
       "price": 250,
       "seats": 4,
-      "busy": []
+      "busy": [],
+      "tag": "Для больших историй",
+      "tag_en": "For big stories",
+      "lead": "Больше пространства для больших путешествий",
+      "lead_en": "More space for bigger journeys",
+      "about": "Жилой модуль на базе пикапа Great Wall Cannon с автоматической коробкой: просторный салон с обеденной зоной, полноценная кухня и отдельный санузел. Удобен для компании до 4 человек.",
+      "about_en": "A living module built on a Great Wall Cannon pickup with automatic transmission: a spacious interior with a dining area, a full kitchen and a separate bathroom. Comfortable for a group of up to 4 people.",
+      "sections": [
+        {
+          "title": "Оснащение автодома и мебели:",
+          "title_en": "Motorhome equipment and furniture:",
+          "items": [
+            {
+              "text": "Обеденный стол",
+              "text_en": "Dining table"
+            },
+            {
+              "text": "Мягкие диваны",
+              "text_en": "Upholstered sofas"
+            },
+            {
+              "text": "Шкафы над окнами",
+              "text_en": "Cabinets above the windows"
+            },
+            {
+              "text": "Окна с жалюзи",
+              "text_en": "Windows with blinds"
+            },
+            {
+              "text": "Светодиодная подсветка",
+              "text_en": "LED lighting"
+            }
+          ]
+        },
+        {
+          "title": "Спальные места:",
+          "title_en": "Sleeping places:",
+          "items": [
+            {
+              "text": "4 спальных места",
+              "text_en": "Sleeps 4"
+            },
+            {
+              "text": "Двуспальная кровать над кабиной",
+              "text_en": "Double bed over the cab"
+            },
+            {
+              "text": "Откидная полка над столом",
+              "text_en": "Fold-down shelf above the table"
+            },
+            {
+              "text": "Обеденная зона раскладывается в кровать",
+              "text_en": "Dining area converts into a bed"
+            }
+          ]
+        },
+        {
+          "title": "Ванная комната:",
+          "title_en": "Bathroom:",
+          "items": [
+            {
+              "text": "Отдельный санузел",
+              "text_en": "Separate bathroom"
+            },
+            {
+              "text": "Биотуалет",
+              "text_en": "Chemical toilet"
+            },
+            {
+              "text": "Умывальник со смесителем и душевой лейкой",
+              "text_en": "Washbasin with tap and shower head"
+            }
+          ]
+        },
+        {
+          "title": "Кухня:",
+          "title_en": "Kitchen:",
+          "items": [
+            {
+              "text": "Рабочая поверхность с мойкой",
+              "text_en": "Worktop with sink"
+            },
+            {
+              "text": "Индукционная плита",
+              "text_en": "Induction hob"
+            },
+            {
+              "text": "Холодильник",
+              "text_en": "Fridge"
+            },
+            {
+              "text": "Шкафы и выдвижные ящики",
+              "text_en": "Cabinets and drawers"
+            }
+          ]
+        }
+      ],
+      "id": "freedom-cannon"
     },
     {
-      "id": "prado-camper",
       "name": "Toyota Prado + кемпер",
       "price": 150,
       "seats": 4,
-      "busy": []
+      "busy": [],
+      "tag": "Авто + кемпер",
+      "tag_en": "Car + camper",
+      "lead": "Внедорожник 4WD с жилым кемпером-прицепом",
+      "lead_en": "4WD SUV with a camper trailer",
+      "about": "Свобода путешествий с комфортом собственного дома. Исследуйте Кыргызстан за рулем легендарного Toyota Land Cruiser Prado с жилым кемпером-прицепом: останавливайтесь у озер, открывайте живописные маршруты и наслаждайтесь природой без необходимости каждый день искать гостиницу.",
+      "about_en": "Freedom to travel with the comfort of your own home. Explore Kyrgyzstan behind the wheel of the legendary Toyota Land Cruiser Prado with a camper trailer: stop by lakes, discover scenic routes and enjoy nature without having to look for a hotel every day.",
+      "sections": [
+        {
+          "title": "Автомобиль:",
+          "title_en": "Vehicle:",
+          "items": [
+            {
+              "text": "Toyota Land Cruiser Prado 120, 2004 г.",
+              "text_en": "Toyota Land Cruiser Prado 120, 2004"
+            },
+            {
+              "text": "Дизельный двигатель 3.0 л",
+              "text_en": "3.0 L diesel engine"
+            },
+            {
+              "text": "Автоматическая коробка передач",
+              "text_en": "Automatic transmission"
+            },
+            {
+              "text": "Полный привод 4WD",
+              "text_en": "Four-wheel drive (4WD)"
+            },
+            {
+              "text": "5 пассажирских мест",
+              "text_en": "5 passenger seats"
+            },
+            {
+              "text": "Камера заднего вида и CarPlay",
+              "text_en": "Rear-view camera and CarPlay"
+            },
+            {
+              "text": "Багажный бокс на крыше",
+              "text_en": "Roof cargo box"
+            }
+          ]
+        },
+        {
+          "title": "Кемпер:",
+          "title_en": "Camper:",
+          "items": [
+            {
+              "text": "Спальные места для 3 взрослых или 2 взрослых и 2 детей",
+              "text_en": "Sleeps 3 adults or 2 adults and 2 children"
+            },
+            {
+              "text": "Большой обеденный стол",
+              "text_en": "Large dining table"
+            },
+            {
+              "text": "Мягкие скамьи вдоль стен",
+              "text_en": "Upholstered benches along the walls"
+            },
+            {
+              "text": "Навесные шкафы и полки для вещей",
+              "text_en": "Wall cabinets and shelves"
+            },
+            {
+              "text": "Окна с трех сторон — светлый салон",
+              "text_en": "Windows on three sides — a bright interior"
+            },
+            {
+              "text": "Панель управления светом и электрикой",
+              "text_en": "Lighting and power control panel"
+            }
+          ]
+        },
+        {
+          "title": "Санузел:",
+          "title_en": "Bathroom:",
+          "items": [
+            {
+              "text": "Отдельная кабинка с дверью",
+              "text_en": "Separate cubicle with a door"
+            },
+            {
+              "text": "Биотуалет",
+              "text_en": "Chemical toilet"
+            },
+            {
+              "text": "Умывальник из нержавеющей стали",
+              "text_en": "Stainless steel washbasin"
+            },
+            {
+              "text": "Окно для проветривания и подсветка",
+              "text_en": "Ventilation window and lighting"
+            }
+          ]
+        },
+        {
+          "title": "Кухня:",
+          "title_en": "Kitchen:",
+          "items": [
+            {
+              "text": "Мойка со смесителем",
+              "text_en": "Sink with tap"
+            },
+            {
+              "text": "Рабочая поверхность",
+              "text_en": "Worktop"
+            },
+            {
+              "text": "Автохолодильник Alpicool",
+              "text_en": "Alpicool car fridge"
+            },
+            {
+              "text": "Встроенная микроволновая печь",
+              "text_en": "Built-in microwave"
+            },
+            {
+              "text": "Шкафы для посуды и продуктов",
+              "text_en": "Cabinets for dishes and food"
+            }
+          ]
+        }
+      ],
+      "id": "prado-camper"
     }
   ],
   "gear": [

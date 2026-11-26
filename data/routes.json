@@ -1,0 +1,59 @@
+{
+  "_readme": "Маршруты на главной (карточка справа от карты). page — страница программы, path — пунктир на карте (r1/r2/r3), не менять. Перенос строки в названии — новая строка. Собирается в data/routes.js и data/routes.en.js.",
+  "routes": [
+    {
+      "title": "Большое кольцо Иссык-Куля",
+      "title_en": "Great Issyk-Kul loop",
+      "desc": "Полноценное путешествие вокруг Иссык-Куля: горные ущелья, каньоны, живописные берега озера, национальная кухня и знакомство с кыргызскими традициями.",
+      "desc_en": "A full journey around Issyk-Kul: mountain gorges, canyons, scenic lakeshores, national cuisine and Kyrgyz traditions.",
+      "days": "8 дней / 7 ночей",
+      "days_en": "8 days / 7 nights",
+      "fun": "Конные прогулки, каньон Сказка, рыбалка, встреча с беркутчи, национальная кухня и Ала-Арча.",
+      "fun_en": "Horse rides, Skazka Canyon, fishing, meeting eagle hunters, national cuisine and Ala-Archa.",
+      "food": "Завтраки и гастрономические активности по программе включены. Остальное оплачивается отдельно.",
+      "food_en": "Breakfasts and food activities in the programme are included. Everything else is paid separately.",
+      "season": "Октябрь — первая половина ноября, по действующей программе.",
+      "season_en": "October — first half of November, as per the current programme.",
+      "who": "Кто хочет увидеть максимум Кыргызстана за одно путешествие.",
+      "who_en": "Those who want to see as much of Kyrgyzstan as possible in one trip.",
+      "page": "tour-issyk-ring.html",
+      "path": "r1"
+    },
+    {
+      "title": "Северный берег Иссык-Куля",
+      "title_en": "Northern shore of Issyk-Kul",
+      "desc": "Размеренное путешествие по северному побережью Иссык-Куля: отдых у озера, конные прогулки, горные ущелья, традиционная кухня и рыбалка.",
+      "desc_en": "An unhurried journey along the northern shore of Issyk-Kul: lakeside rest, horse rides, mountain gorges, traditional food and fishing.",
+      "days": "6 дней / 5 ночей",
+      "days_en": "6 days / 5 nights",
+      "fun": "Конная прогулка, рыбалка, приготовление куурдака, баня, прогулки у озера и горный пикник.",
+      "fun_en": "Horse ride, fishing, cooking kuurdak, banya, lakeside walks and a mountain picnic.",
+      "food": "Завтраки и гастрономические активности по программе. Обеды и ужины оплачиваются отдельно.",
+      "food_en": "Breakfasts and food activities as per the programme. Lunches and dinners are paid separately.",
+      "season": "Октябрь — первая половина ноября, по действующей программе.",
+      "season_en": "October — first half of November, as per the current programme.",
+      "who": "Для любителей спокойного отдыха, природы и путешествий без длительных ежедневных переездов.",
+      "who_en": "For those who love a calm holiday, nature and travel without long daily drives.",
+      "page": "tour-issyk-north.html",
+      "path": "r2"
+    },
+    {
+      "title": "Зимний маршрут:\nИссык-Куль",
+      "title_en": "Winter route:\nIssyk-Kul",
+      "desc": "Путешествие к заснеженным вершинам Тянь-Шаня: зимние пейзажи Иссык-Куля, горнолыжный отдых в Караколе, красные скалы и горячие источники.",
+      "desc_en": "A journey to the snowy peaks of the Tien Shan: winter landscapes of Issyk-Kul, skiing in Karakol, red rocks and hot springs.",
+      "days": "6 дней / 5 ночей",
+      "days_en": "6 days / 5 nights",
+      "fun": "Горные лыжи и сноуборд, горячие источники, красные скалы Джети-Огуза и зимняя природа.",
+      "fun_en": "Skiing and snowboarding, hot springs, the red rocks of Jeti-Oguz and winter nature.",
+      "food": "Завтраки, обеды и ужины предусмотрены программой.",
+      "food_en": "Breakfasts, lunches and dinners are included in the programme.",
+      "season": "Декабрь — март.",
+      "season_en": "December — March.",
+      "who": "Для любителей зимних гор, активного отдыха и необычных природных пейзажей.",
+      "who_en": "For lovers of winter mountains, active holidays and unusual natural landscapes.",
+      "page": "tour-issyk-winter.html",
+      "path": "r3"
+    }
+  ]
+}
