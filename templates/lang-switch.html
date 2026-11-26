@@ -1,7 +1,17 @@
-<div class="lang{{mod}}" data-lang>
-  <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
-  <ul class="lang__list">
-    <li><a href="{{page}}" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
-    <li><a href="en/{{page}}" hreflang="en" data-lang-link lang="en">English</a></li>
-  </ul>
+<div class="lang-wrap{{mod}}">
+  <div class="lang" data-lang>
+    <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+    <ul class="lang__list">
+      <li><a href="{{page}}" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+      <li><a href="en/{{page}}" hreflang="en" data-lang-link lang="en">English</a></li>
+    </ul>
+  </div>
+  <div class="lang cur" data-lang>
+    <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Валюта цен"><span class="cur__sym"></span><span class="cur__code"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+    <ul class="lang__list">
+      <li><button type="button" data-cur-opt="RUB"><b>₽</b><span>Рубли</span></button></li>
+      <li><button type="button" data-cur-opt="USD"><b>$</b><span>Доллары</span></button></li>
+      <li><button type="button" data-cur-opt="KGS"><b>сом</b><span>Сомы</span></button></li>
+    </ul>
+  </div>
 </div>

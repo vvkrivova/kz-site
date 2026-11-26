@@ -17,7 +17,11 @@ body:has(.pp) { background: var(--beige); }
   display: block; width: 84px; height: 56px; background: var(--orange-map);
   -webkit-mask: url(../img/logo.webp) center / contain no-repeat; mask: url(../img/logo.webp) center / contain no-repeat;
 }
-.pp__header .header__phone, .pp__header .lang { color: var(--orange-map); }
+.pp__header .header__phone, .pp__header .lang-wrap { color: var(--orange-map); }
+/* в шапке политики — только логотип и язык (просьба заказчицы 27.11.2026): без телефона, соцсетей и валюты (цен здесь нет) */
+.pp__header .header__phone, .pp__header .header__call, .pp__header .header__social, .pp__header .cur { display: none; }
+.pp__header .lang-wrap { right: 58px; }
+.pp__header .lang__list { left: auto; right: -8px; }   /* язык у самого края — список открывается влево */
 
 /* текст — потоком */
 .pp .stage > .pp__doc { position: relative; padding: 190px 170px 0; }

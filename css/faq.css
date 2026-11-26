@@ -23,7 +23,7 @@ body:has(.faqp) { background: var(--beige); }
   display: block; width: 77px; height: 51px; background: var(--orange-map);
   -webkit-mask: url(../img/logo.webp) center / contain no-repeat; mask: url(../img/logo.webp) center / contain no-repeat;
 }
-.faqp__header .header__phone, .faqp__header .lang { color: var(--orange-map); }
+.faqp__header .header__phone, .faqp__header .lang-wrap { color: var(--orange-map); }
 
 /* ---------- заголовок ---------- */
 .faqp__title {

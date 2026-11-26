@@ -75,9 +75,14 @@ body { overflow: clip; }
 .header__social--wa { left: 1334px; top: 49px; width: 24px; height: 25px; }
 .header__social--tg { left: 1364px; top: 49px; width: 24px; height: 25px; }
 
-/* переключатель языка (выбран вариант «В»: глобус + RU/EN, по нажатию — список); разметка — templates/lang-switch.html,
-   ссылки ведут на ту же страницу в другой версии (русская — tianway.kg/…, английская — tianway.kg/en/…) */
-.lang { left: 1050px; top: 49px; z-index: 6; color: var(--sand); }
+/* переключатели языка и валюты (разметка — templates/lang-switch.html, ставит сборка).
+   Язык (вариант «В»: глобус + RU/EN, по нажатию — список): ссылки на ту же страницу в другой версии
+   (русская — tianway.kg/…, английская — tianway.kg/en/…).
+   Валюта (вариант «A», 27.11.2026, ТЗ № 1 «валютная система»): такой же список «₽ Рубли / $ Доллары / сом Сомы»;
+   выбранная валюта — html[data-cur] (ставит js/lang-detect.js в <head> до показа страницы — без скачков), выбор — js/main.js.
+   .lang-wrap — оба переключателя рядом; в шапке он прижат справа к телефону. */
+.lang-wrap { right: 325px; top: 49px; z-index: 6; display: flex; align-items: center; gap: 24px; color: var(--sand); }
+.lang { position: relative; }
 .lang__btn {
   display: flex; align-items: center; gap: 6px; height: 26px; padding: 0; border: 0; background: none; color: inherit;
   font: 600 16px/1 var(--font-body); cursor: pointer; transition: opacity .2s ease;
@@ -99,10 +104,29 @@ html[lang="en"] .lang__cur::before { content: "EN"; }
 html[lang="ru"] .lang__list a[hreflang="ru"], html[lang="en"] .lang__list a[hreflang="en"] { color: var(--orange-map); font-weight: 700; }
 html[lang="ru"] .lang__list a[hreflang="ru"]::after, html[lang="en"] .lang__list a[hreflang="en"]::after { content: "✓"; }
 /* на страницах, где в шапке только логотип (путешествия), и на обложке тура — справа, где обычно иконки */
-.header--logo-only .lang { left: 1318px; }
+.header--logo-only .lang-wrap { right: 58px; }
 .lang--tour { position: absolute; left: auto; right: 58px; top: 34px; z-index: 3; }
 /* на страницах аренды шапки нет (как в макете) — переключатель в правом верхнем углу, темный на светлом фоне */
 .lang--corner { position: absolute; left: auto; right: 58px; top: 40px; z-index: 6; color: #2a2320; }
+/* валюта: подпись кнопки и галочка в списке — по html[data-cur] */
+.cur__sym { font-weight: 700; }
+/* без html[data-cur] — сомы (валюта по умолчанию) */
+.cur__sym { display: none; } .cur__code::before { content: "KGS"; }
+html[data-cur="RUB"] .cur__sym, html[data-cur="USD"] .cur__sym { display: inline; }
+html[data-cur="RUB"] .cur__sym::before { content: "₽"; } html[data-cur="RUB"] .cur__code::before { content: "RUB"; }
+html[data-cur="USD"] .cur__sym::before { content: "$"; } html[data-cur="USD"] .cur__code::before { content: "USD"; }
+.cur .lang__list { left: auto; right: -8px; width: 156px; } /* открывается влево: справа от валюты бывает край экрана (путешествия, туры, аренда) */
+.cur .lang__list button {
+  display: flex; align-items: center; width: 100%; padding: 9px 14px; border: 0; background: none; cursor: pointer; text-align: left;
+  font: 500 15px/1 var(--font-body); color: #2a2320;
+}
+.cur .lang__list button:hover, .cur .lang__list button:focus-visible { background: rgba(222, 72, 17, .08); outline: none; }
+.cur .lang__list b { flex: none; width: 40px; font-weight: 700; }
+.cur .lang__list span { flex: 1; }
+html:not([data-cur]) .cur [data-cur-opt="KGS"], html[data-cur="RUB"] .cur [data-cur-opt="RUB"],
+html[data-cur="USD"] .cur [data-cur-opt="USD"], html[data-cur="KGS"] .cur [data-cur-opt="KGS"] { color: var(--orange-map); font-weight: 700; }
+html:not([data-cur]) .cur [data-cur-opt="KGS"]::after, html[data-cur="RUB"] .cur [data-cur-opt="RUB"]::after,
+html[data-cur="USD"] .cur [data-cur-opt="USD"]::after, html[data-cur="KGS"] .cur [data-cur-opt="KGS"]::after { content: "✓"; }
 
 /* =========================================================
    ФОРМЫ: согласие на обработку данных, анимации «Спасибо», календарь дат

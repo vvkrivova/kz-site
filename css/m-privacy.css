@@ -8,6 +8,8 @@
 
 .pp__header .header__logo { left: 29px; top: 27px; }
 .pp__logo { width: 45px; height: 32px; }
+.pp__header .header__call { display: none; }   /* только логотип и язык (m-common.css показывает кнопку звонка) */
+.pp__header .lang-wrap { right: 20px; }
 
 .pp .stage > .pp__doc { padding: 108px 20px 0; }
 .pp__title { margin-bottom: 14px; font-size: 34px; line-height: 1; }

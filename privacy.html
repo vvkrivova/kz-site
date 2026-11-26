@@ -24,16 +24,16 @@
       document.documentElement.classList.add('reveal-on');
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=7a57849b">
-  <link rel="stylesheet" href="css/privacy.css?v=96038a3c">
+  <link rel="stylesheet" href="css/style.css?v=9e586a1d">
+  <link rel="stylesheet" href="css/privacy.css?v=f9ed9708">
   <!-- мобильная версия (телефоны): ширина 402px, как у остальных страниц -->
-  <link rel="stylesheet" href="css/m-common.css?v=ed977104" media="(max-width: 767px)">
-  <link rel="stylesheet" href="css/m-privacy.css?v=05b201e6" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-common.css?v=ea5d5e2d" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-privacy.css?v=7245dd8c" media="(max-width: 767px)">
   <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
   <link rel="alternate" hreflang="ru" href="https://tianway.kg/privacy">
   <link rel="alternate" hreflang="en" href="https://tianway.kg/en/privacy">
   <link rel="alternate" hreflang="x-default" href="https://tianway.kg/privacy">
-  <script src="js/lang-detect.js?v=e4fc9d98"></script>
+  <script src="js/lang-detect.js?v=8a691a98"></script>
   <!-- /языки -->
 </head>
 <body>
@@ -50,12 +50,22 @@
         <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><img src="img/social-whatsapp.webp" alt=""></a>
         <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Написать в Telegram"><img src="img/social-telegram.webp" alt=""></a>
         <!-- язык -->
-        <div class="lang" data-lang>
-          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
-          <ul class="lang__list">
-            <li><a href="privacy" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
-            <li><a href="en/privacy" hreflang="en" data-lang-link lang="en">English</a></li>
-          </ul>
+        <div class="lang-wrap">
+          <div class="lang" data-lang>
+            <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+            <ul class="lang__list">
+              <li><a href="privacy" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+              <li><a href="en/privacy" hreflang="en" data-lang-link lang="en">English</a></li>
+            </ul>
+          </div>
+          <div class="lang cur" data-lang>
+            <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Валюта цен"><span class="cur__sym"></span><span class="cur__code"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+            <ul class="lang__list">
+              <li><button type="button" data-cur-opt="RUB"><b>₽</b><span>Рубли</span></button></li>
+              <li><button type="button" data-cur-opt="USD"><b>$</b><span>Доллары</span></button></li>
+              <li><button type="button" data-cur-opt="KGS"><b>сом</b><span>Сомы</span></button></li>
+            </ul>
+          </div>
         </div>
         <!-- /язык -->
       </header>
@@ -63,7 +73,7 @@
         <!-- политика -->
         <h1 class="pp__title">Политика конфиденциальности</h1>
         <p class="pp__edition">Редакция 1.4 · 27.11.2026</p>
-        <p class="pp__effective"><b>Дата вступления в силу:</b> <i class="pp__fill">указать дату фактической публикации утвержденной редакции</i></p>
+        <p class="pp__effective"><b>Дата вступления в силу:</b> 27.11.2026</p>
         <p class="pp__lead">Настоящая Политика конфиденциальности (далее — «Политика») описывает, как обрабатываются персональные данные посетителей сайта tianway.kg и лиц, обращающихся за услугами под брендом Tian Way, в том числе арендой автодомов и организацией путешествий по Кыргызской Республике.</p>
         <div class="pp__list">
           <section class="pp__item" id="p1">
@@ -198,7 +208,7 @@
 </main>
 <a class="pp__up" href="#top" aria-label="Наверх"><svg viewBox="0 0 16 18" fill="none" aria-hidden="true"><path d="M8 17V2M2 7.5 8 1.5l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 
-<script src="js/main.js?v=e2f6a7df"></script>
+<script src="js/main.js?v=e84bed77"></script>
 <script src="js/privacy.js?v=c38072a3"></script>
 </body>
 </html>

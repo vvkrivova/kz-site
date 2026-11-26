@@ -24,16 +24,16 @@
       document.documentElement.classList.add('reveal-on'); // блоки появляются при прокрутке
     }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=7a57849b">
+  <link rel="stylesheet" href="css/style.css?v=9e586a1d">
   <link rel="stylesheet" href="css/rent.css?v=366b9893">
   <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 152, ширина 402px) -->
-  <link rel="stylesheet" href="css/m-common.css?v=ed977104" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-common.css?v=ea5d5e2d" media="(max-width: 767px)">
   <link rel="stylesheet" href="css/m-rent.css?v=533eae2b" media="(max-width: 767px)">
   <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
   <link rel="alternate" hreflang="ru" href="https://tianway.kg/rent">
   <link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent">
   <link rel="alternate" hreflang="x-default" href="https://tianway.kg/rent">
-  <script src="js/lang-detect.js?v=e4fc9d98"></script>
+  <script src="js/lang-detect.js?v=8a691a98"></script>
   <!-- /языки -->
 </head>
 <body>
@@ -44,12 +44,22 @@
   <section class="section rent-top" id="top">
     <div class="stage">
       <!-- язык lang--corner -->
-      <div class="lang lang--corner" data-lang>
-        <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
-        <ul class="lang__list">
-          <li><a href="rent" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
-          <li><a href="en/rent" hreflang="en" data-lang-link lang="en">English</a></li>
-        </ul>
+      <div class="lang-wrap lang--corner">
+        <div class="lang" data-lang>
+          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+          <ul class="lang__list">
+            <li><a href="rent" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+            <li><a href="en/rent" hreflang="en" data-lang-link lang="en">English</a></li>
+          </ul>
+        </div>
+        <div class="lang cur" data-lang>
+          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Валюта цен"><span class="cur__sym"></span><span class="cur__code"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+          <ul class="lang__list">
+            <li><button type="button" data-cur-opt="RUB"><b>₽</b><span>Рубли</span></button></li>
+            <li><button type="button" data-cur-opt="USD"><b>$</b><span>Доллары</span></button></li>
+            <li><button type="button" data-cur-opt="KGS"><b>сом</b><span>Сомы</span></button></li>
+          </ul>
+        </div>
       </div>
       <!-- /язык -->
       <img class="rent-cloud" src="img/rent/clouds.webp" alt="" style="left:-696px; top:11px; opacity:.66;">
@@ -411,7 +421,7 @@
 
 </main>
 
-<script src="js/main.js?v=e2f6a7df"></script>
+<script src="js/main.js?v=e84bed77"></script>
 <script src="js/rent-store.js?v=57065075"></script>
 <script src="data/rent-availability.js?v=5a60e404"></script>
 <script src="js/rent.js?v=3795208b"></script>

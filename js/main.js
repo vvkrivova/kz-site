@@ -657,19 +657,49 @@ function swipeable(area, { move, end }) {
 })();
 
 /* ---------- Переключатель языка (глобус в шапке) ----------
-   Кнопка открывает список «Русский / English»; выбор запоминается в браузере (tw-lang) —
+   Кнопка открывает список «Русский / English»; выбор запоминается в браузере (tianway_language) —
    js/lang-detect.js потом сразу показывает выбранную версию. Закрывается кликом мимо и клавишей Esc. */
 (function langSwitch() {
   document.querySelectorAll('[data-lang]').forEach((box) => {
     const btn = box.querySelector('.lang__btn');
     const set = (open) => { box.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); };
-    btn.addEventListener('click', (e) => { e.stopPropagation(); set(!box.classList.contains('is-open')); });
+    box.twSet = set;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !box.classList.contains('is-open');
+      // открыли язык — закрываем валюту, и наоборот (клик по кнопке не доходит до document)
+      if (open) document.querySelectorAll('[data-lang].is-open').forEach((o) => o !== box && o.twSet && o.twSet(false));
+      set(open);
+    });
     document.addEventListener('click', (e) => { if (!box.contains(e.target)) set(false); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
     box.querySelectorAll('[data-lang-link]').forEach((a) => a.addEventListener('click', (e) => {
-      try { localStorage.setItem('tw-lang', a.hreflang); } catch (err) { /* приватный режим — просто перейдем */ }
+      try { localStorage.setItem('tianway_language', a.hreflang); } catch (err) { /* приватный режим — просто перейдем */ }
       // та же страница, то же место (#раздел) — в другой версии
       if (location.hash) { e.preventDefault(); location.href = a.href.split('#')[0] + location.hash; }
     }));
+    // валюта: выбор запоминается в браузере (tianway_currency) и сразу меняет html[data-cur];
+    // скрипты с ценами слушают событие tw:currency (пересчет — когда будут базовые цены в сомах, ТЗ № 1)
+    box.querySelectorAll('[data-cur-opt]').forEach((b) => b.addEventListener('click', () => {
+      setCurrency(b.dataset.curOpt);
+      set(false);
+      btn.focus();
+    }));
   });
 }());
+
+/* ---------- Валюта цен (ТЗ № 1) ----------
+   currency() — выбранная валюта: 'RUB' | 'USD' | 'KGS' (по умолчанию — сомы, CUR_DEFAULT в js/lang-detect.js).
+   setCurrency(code) — выбрать (запоминается для всех страниц и языков; в других вкладках — через событие storage). */
+const CURRENCIES = ['RUB', 'USD', 'KGS'];
+function currency() {
+  const c = document.documentElement.getAttribute('data-cur');
+  return CURRENCIES.includes(c) ? c : 'KGS';
+}
+function setCurrency(code, save = true) {
+  if (!CURRENCIES.includes(code) || code === document.documentElement.getAttribute('data-cur')) return;
+  document.documentElement.setAttribute('data-cur', code);
+  if (save) { try { localStorage.setItem('tianway_currency', code); } catch (e) { /* приватный режим — только эта страница */ } }
+  window.dispatchEvent(new CustomEvent('tw:currency', { detail: code }));
+}
+window.addEventListener('storage', (e) => { if (e.key === 'tianway_currency' && e.newValue) setCurrency(e.newValue, false); });
