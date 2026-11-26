@@ -159,7 +159,7 @@ const rentSearch = (function () {
    Если даты или гостей поменяли вручную — результаты убираются, пока снова не нажмут «Найти».
    Порядок групп задается свойством order в сетке .cars (карточки в разметке не переставляются).
    Вместимость и занятые даты — в data/rent-availability.js. */
-const NEXT_PAGE = 'rent-extras.html'; // следующий шаг — «Соберите автодом под себя»
+const NEXT_PAGE = 'rent-extras'; // следующий шаг — «Соберите автодом под себя» (короткий адрес, без .html)
 const carsBox = document.getElementById('cars');
 const DAY = 86400000;
 const guestsCount = () => parseInt(RentStore.get().guests, 10) || 0;

@@ -239,7 +239,7 @@
     current = (i + ROUTES.length) % ROUTES.length;
     const r = ROUTES[current];
     Object.keys(fields).forEach((k) => { fields[k].textContent = r[k]; });
-    if (programBtn && r.page) programBtn.href = r.page;
+    if (programBtn && r.page) programBtn.href = r.page.replace(/\.html$/, ''); // короткий адрес страницы программы
     counter.textContent = `${current + 1}/${ROUTES.length}`;
     renderMap(r);
   }

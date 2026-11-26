@@ -83,7 +83,7 @@ const rentBooking = (function () {
         : sm.nights ? `${money(sm.car.price)} × ${sm.nights} ${plural(sm.nights, 'сутки', 'суток', 'суток')}` : t('цена за сутки');
     } else {
       $('[data-b-car]').innerHTML = t('Автодом не&nbsp;выбран');
-      sum.innerHTML = t('<a href="rent.html#cars">Выбрать</a>');
+      sum.innerHTML = t('<a href="rent#cars">Выбрать</a>');
       sum.removeAttribute('title');
     }
 
@@ -102,7 +102,7 @@ const rentBooking = (function () {
     // подсказка, если чего-то не хватает для бронирования
     const hint = $('[data-b-hint]');
     hint.hidden = !sm.missing;
-    if (sm.missing) hint.innerHTML = t('Чтобы забронировать, выберите {what} — <a href="rent.html">к выбору автодома</a>', { what: t(sm.missing) });
+    if (sm.missing) hint.innerHTML = t('Чтобы забронировать, выберите {what} — <a href="rent">к выбору автодома</a>', { what: t(sm.missing) });
     return { ok: !sm.missing };
   }
 

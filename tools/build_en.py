@@ -113,7 +113,15 @@ class Translator:
 
 
 def is_local_file(v: str) -> bool:
-    return bool(v) and not re.match(r'^(#|/|[a-z]+:|\.\./)', v) and not re.match(r'^[\w.-]+\.html(#.*)?$', v)
+    """путь к файлу (картинка, стиль, скрипт), а не ссылка на страницу сайта: ссылки на страницы
+    (trips.html, trips, trips?trip=ring#custom, ./ — главная) на английской странице остаются как есть —
+    они ведут на английские страницы"""
+    if not v or re.match(r'^(#|/|[a-z]+:|\.\./)', v) or v in ('./', '.'):
+        return False
+    base = re.split(r'[?#]', v, maxsplit=1)[0]
+    if base.endswith('.html') or (ROOT / f'{base}.html').exists():
+        return False
+    return True
 
 
 def rewrite_paths(tag: str) -> str:

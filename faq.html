@@ -30,9 +30,9 @@
   <link rel="stylesheet" href="css/m-common.css?v=ed977104" media="(max-width: 767px)">
   <link rel="stylesheet" href="css/m-faq.css?v=02d534ba" media="(max-width: 767px)">
   <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
-  <link rel="alternate" hreflang="ru" href="https://tianway.kg/faq.html">
-  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/faq.html">
-  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/faq.html">
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/faq">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/faq">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/faq">
   <script src="js/lang-detect.js?v=0faf9613"></script>
   <!-- /языки -->
 </head>
@@ -51,7 +51,7 @@
 
       <!-- шапка -->
       <header class="header faqp__header">
-        <a class="header__logo" href="index.html" aria-label="Tian Way — на главную"><span class="faqp__logo"></span></a>
+        <a class="header__logo" href="./" aria-label="Tian Way — на главную"><span class="faqp__logo"></span></a>
         <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
         <a class="header__call m-only" href="tel:+996500192445" aria-label="Позвонить: +996 500 192 445"><img src="img/social-phone.svg" alt=""></a>
         <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Мы в Instagram"><img src="img/social-instagram.webp" alt=""></a>
@@ -61,8 +61,8 @@
         <div class="lang" data-lang>
           <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Язык сайта"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
           <ul class="lang__list">
-            <li><a href="faq.html" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
-            <li><a href="en/faq.html" hreflang="en" data-lang-link lang="en">English</a></li>
+            <li><a href="faq" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+            <li><a href="en/faq" hreflang="en" data-lang-link lang="en">English</a></li>
           </ul>
         </div>
         <!-- /язык -->
@@ -98,7 +98,7 @@
         <h2 class="qa__q" style="left:203px; top:2px;">Что входит в стоимость аренды автодома?</h2>
         <span class="qa__line" style="left:657px; top:0;"></span>
         <p class="qa__a" style="left:717px; top:0;">Вы получаете подготовленный к путешествию автодом с жилым модулем и оборудованием согласно комплектации выбранной модели.<br><br>В стоимость также включен пробег 250 км за каждые сутки аренды. Неиспользованный пробег суммируется в течение поездки.<br><br>Дополнительное туристическое снаряжение можно арендовать отдельно. Точный перечень включенных услуг и оборудования указан в карточке автодома.</p>
-        <a class="qa__btn" href="rent.html#gear" style="left:717px; top:388px; width:418px;">Смотреть аренду снаряжений</a>
+        <a class="qa__btn" href="rent#gear" style="left:717px; top:388px; width:418px;">Смотреть аренду снаряжений</a>
       </div>
       <span class="faqp__divider" data-reveal="line" style="top:1463px;"></span>
 
@@ -108,7 +108,7 @@
         <h2 class="qa__q" style="left:203px; top:2px;">Как забронировать автодом и какой залог необходимо внести?</h2>
         <span class="qa__line" style="left:657px; top:0;"></span>
         <p class="qa__a" style="left:717px; top:0;">Для подтверждения бронирования необходимо внести предоплату в размере 30% от стоимости аренды.<br><br>Оставшиеся 70% оплачиваются до начала путешествия. Также предусмотрен возвратный залог $500, который вносится отдельно и возвращается после проверки состояния и комплектации автодома согласно условиям договора.</p>
-        <a class="qa__btn" href="rent.html" style="left:717px; top:294px; width:296px;">Смотреть автодома</a>
+        <a class="qa__btn" href="rent" style="left:717px; top:294px; width:296px;">Смотреть автодома</a>
       </div>
       <span class="faqp__divider" data-reveal="line" style="top:1874px;"></span>
 
@@ -118,7 +118,7 @@
         <h2 class="qa__q" style="left:203px; top:2px;">Чем готовое путешествие отличается от обычной аренды?</h2>
         <span class="qa__line" style="left:657px; top:0;"></span>
         <p class="qa__a" style="left:717px; top:0;">При самостоятельной аренде вы путешествуете в собственном темпе, выбираете места остановок и организуете отдых по своему усмотрению.<br><br>Готовое путешествие Tian Way — это заранее разработанная программа с маршрутом, достопримечательностями, активностями и организационной поддержкой. В зависимости от программы мы также организуем транспорт, проживание и питание.<br><br>Состав включенных услуг указывается в описании каждого путешествия.</p>
-        <a class="qa__btn" href="trips.html" style="left:717px; top:419px; width:424px;">Смотреть готовые путешествия</a>
+        <a class="qa__btn" href="trips" style="left:717px; top:419px; width:424px;">Смотреть готовые путешествия</a>
       </div>
 
       <!-- Не нашли ответ? -->
@@ -170,7 +170,7 @@
           <div class="done-icon m-only" aria-hidden="true"><img src="img/check-circle.webp" alt=""><img src="img/rays-left.webp" alt=""><img src="img/rays-right.webp" alt=""></div>
           <!-- только на телефоне (мобильный макет): «Следующий шаг» и кнопка на главную вместо «Отправить еще одну» -->
           <div class="done-next m-only"><img src="img/folded-map.webp" alt=""><b>Следующий шаг</b><span>Мы свяжемся с вами и поможем собрать подходящий вариант поездки.</span></div>
-          <a class="done-home m-only" href="index.html">Перейти на главную страницу</a>
+          <a class="done-home m-only" href="./">Перейти на главную страницу</a>
         </div>
       </div>
 
@@ -178,7 +178,7 @@
       <img class="faqp__stamp" src="img/stamp-round-logo.webp" alt="">
       <!-- подвал: одинаковый на всех страницах (стили — css/style.css, «Подвал»); footer--dark — на темном фоне -->
       <footer class="footer footer--light">
-        <a class="footer__logo" href="index.html" aria-label="Tian Way — на главную"><img src="img/logo-footer-light.webp" alt="Tian Way"></a>
+        <a class="footer__logo" href="./" aria-label="Tian Way — на главную"><img src="img/logo-footer-light.webp" alt="Tian Way"></a>
         <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
         <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
         <div class="footer__social">

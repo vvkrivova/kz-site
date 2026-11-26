@@ -15,6 +15,7 @@ Tian Way — сборка сайта. Запускать после любых �
    свежую версию (раньше метки меняли вручную).
 4. Английская версия — папка en/ (tools/build_en.py): тексты — data/i18n/en.json,
    надписи скриптов — data/i18n/en-scripts.json.
+5. Короткие адреса: ссылки на страницы без «.html» (tools/clean_urls.py; сервер — .htaccess, tools/serve.py).
 """
 import hashlib
 import html
@@ -99,5 +100,6 @@ if __name__ == '__main__':
     apply_layout()
     stamp_versions()
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_en.py')], check=True)
+    subprocess.run([sys.executable, str(ROOT / 'tools' / 'clean_urls.py')], check=True)
     stamp_versions()
     print('готово')

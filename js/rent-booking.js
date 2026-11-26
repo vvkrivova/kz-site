@@ -35,11 +35,11 @@ const rbSummary = (function () {
         : sm.nights ? `${money(sm.car.price)} × ${sm.nights} ${plural(sm.nights, 'сутки', 'суток', 'суток')}` : t('цена за сутки');
     } else {
       $('[data-s-car]').innerHTML = t('Автодом не&nbsp;выбран');
-      sum.innerHTML = t('<a href="rent.html#cars">Выбрать</a>');
+      sum.innerHTML = t('<a href="rent#cars">Выбрать</a>');
     }
 
     $('[data-s-rows]').innerHTML = sm.items.map((it) => `<li><span>${esc(t(it.title))}</span><span>${it.qty}x</span><b${it.price ? '' : ' class="is-ask"'} title="${esc(RentStore.sumHint(it, sm.nights))}">${RentStore.rowSum(it, sm.nights)}</b></li>`).join('')
-      || t('<li class="is-empty">Дополнительные услуги не выбраны — <a href="rent-extras.html">добавить</a></li>');
+      || t('<li class="is-empty">Дополнительные услуги не выбраны — <a href="rent-extras">добавить</a></li>');
     $('[data-s-total]').textContent = RentStore.totalText(sm);
     return sm;
   }
@@ -98,7 +98,7 @@ const rbSummary = (function () {
     // не выбран автодом или даты — это не поле формы, поэтому сообщение рядом с кнопкой
     const sm = RentStore.summary();
     if (sm.missing) {
-      errorEl.innerHTML = `${t({ 'автодом': 'Не выбран автодом', 'даты поездки': 'Не выбраны даты поездки', 'количество гостей': 'Не выбрано количество гостей' }[sm.missing])} — <a href="rent.html">${t('вернуться к выбору')}</a>`;
+      errorEl.innerHTML = `${t({ 'автодом': 'Не выбран автодом', 'даты поездки': 'Не выбраны даты поездки', 'количество гостей': 'Не выбрано количество гостей' }[sm.missing])} — <a href="rent">${t('вернуться к выбору')}</a>`;
       errorEl.hidden = false;
       return;
     }

@@ -1,0 +1,17 @@
+# Tian Way — короткие адреса страниц: tianway.kg/trips вместо tianway.kg/trips.html (хостинг kyrgyz.cloud, Apache в Plesk).
+# Ссылки внутри сайта уже короткие (tools/clean_urls.py); здесь — как сервер находит файл и что делать со старыми адресами.
+Options -MultiViews
+DirectoryIndex index.html
+RewriteEngine On
+
+# старые адреса с .html перекидываем на короткие (301 — «страница переехала навсегда», так поймут и поисковики)
+RewriteCond %{THE_REQUEST} \s/+((?:en/)?)index\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+((?:en/)?[\w-]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# короткий адрес → файл страницы: /trips → trips.html, /en/trips → en/trips.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
