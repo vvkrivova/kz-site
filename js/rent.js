@@ -308,6 +308,30 @@ function criteriaChanged() {
   if (rentSearch && searchReady()) rentSearch.showHint(t('Нажмите «Найти», чтобы обновить список'));
 }
 
+/* ---------- 2.0. Занятость автодомов из Битрикс24 («Онлайн-запись») ----------
+   На tianway.kg страница спрашивает сервер (/api/availability → api/availability.php), когда заняты машины на год
+   вперед, и добавляет эти интервалы к датам из data/rent.json (панель). Если поиск уже показан — пересчитывает его.
+   Битрикс не ответил или сайт открыт не на tianway.kg — остаются даты из панели; перед бронью сервер все равно
+   проверяет даты еще раз (lead.php). Интервал — с дня выдачи до дня возврата, как в data/rent.json. */
+(function liveBusy() {
+  if (typeof LEAD_HOSTS === 'undefined' || !LEAD_HOSTS.includes(location.hostname)) return;
+  const today = new Date();
+  const from = RentStore.toKey(today);
+  const to = RentStore.toKey(addDays(today, 400));
+  fetch(`${SITE_ROOT}api/availability?from=${from}&to=${to}`, { cache: 'no-store' })
+    .then((r) => r.json())
+    .then((ans) => {
+      if (!ans || !ans.ok || !ans.busy) return;
+      window.RENT_CARS = window.RENT_CARS || {};
+      Object.entries(ans.busy).forEach(([car, ranges]) => {
+        const info = window.RENT_CARS[car] || (window.RENT_CARS[car] = { seats: 0, busy: [] });
+        info.busy = [...(info.busy || []), ...ranges];
+      });
+      if (searched) runSearch();
+    })
+    .catch(() => { /* остаются даты из панели */ });
+})();
+
 /* ---------- 2.1. Окошко-итог «Забронировать» ----------
    Автодом, даты, гости, аренда за срок и итог; «Оформить бронирование» запоминает автодом
    и ведет на «Соберите автодом под себя». Закрыть: «Вернуться к выбору», крестик, фон или Esc. */

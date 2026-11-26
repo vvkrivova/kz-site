@@ -128,6 +128,11 @@ const rbSummary = (function () {
       contact: f.phone.value.trim(),
       email: f.email.value.trim(),
       sum: sm.total,
+      car: sm.car && sm.car.id,
+      from: sm.dates ? RentStore.toKey(sm.dates.from) : '',
+      to: sm.dates ? RentStore.toKey(sm.dates.to) : '',
+      guests: parseInt(sm.guests.n, 10) || 0,
+      extras: sm.items.map((it) => `${it.title} × ${it.qty}`).join('; '),
       info: {
         'Автодом': sm.car && sm.car.name,
         'Даты': sm.dates ? `${day(sm.dates.from)} — ${day(sm.dates.to)}` : '',
@@ -138,9 +143,20 @@ const rbSummary = (function () {
         'Промокод': sm.promo,
         'Примечания': f.notes.value.trim(),
       },
-    });
+    }, form);
     leadBusy(submitBtn, false);
-    if (!sent) { errorEl.textContent = leadFailText(); errorEl.hidden = false; return; }
+    if (!sent.ok) {
+      // даты машины заняли, пока человек оформлял бронь — просим выбрать другие (по ТЗ: повторная проверка на сервере)
+      if (sent.reason === 'busy') {
+        errorEl.innerHTML = `${t('Эти даты уже заняты — выберите другие')} — <a href="rent#cars">${t('вернуться к выбору')}</a>`;
+      } else if (sent.reason === 'check') {
+        errorEl.textContent = t('Не удалось проверить доступность. Попробуйте еще раз.');
+      } else {
+        errorEl.textContent = leadFailText();
+      }
+      errorEl.hidden = false;
+      return;
+    }
 
     showThanks();
   });

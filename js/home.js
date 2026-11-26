@@ -575,19 +575,25 @@
     // заявка — в Битрикс24 (sendLead в js/main.js); не ушла — ошибка с телефоном под галочкой
     closeCal();
     leadBusy(sendBtn, true);
+    const range = !datesUnknown && calendar.range;
+    const dayKey = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     const sent = await sendLead({
       form: 'home',
       title: 'Заявка с главной',
       name,
       contact: phone,
+      kind: form.elements.kind.value,
+      from: range ? dayKey(range.from) : '',
+      to: range ? dayKey(range.to) : '',
+      guests: count,
       info: {
         'Что интересует': form.elements.kind.value || 'не выбрано',
         'Даты': datesUnknown ? 'пока не знают' : (calendar.range ? `${calendar.fmtLong(calendar.range.from)} — ${calendar.fmtLong(calendar.range.to)}` : 'не выбраны'),
         'Сколько человек': count,
       },
-    });
+    }, form);
     leadBusy(sendBtn, false);
-    if (!sent) { errorEl.textContent = leadFailText(); errorEl.hidden = false; return; }
+    if (!sent.ok) { errorEl.textContent = leadFailText(); errorEl.hidden = false; return; }
     goTo(3);
   });
 

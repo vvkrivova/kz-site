@@ -189,5 +189,7 @@ window.TW_I18N = {
  "Набор «Кемпинг»": "“Camping” set",
  "Набор «Пикник»": "“Picnic” set",
  "Набор «Велопрогулка»": "“Bike ride” set",
- "Не получилось отправить заявку. Позвоните нам: {phone}": "Couldn’t send your request. Call us: {phone}"
+ "Не получилось отправить заявку. Позвоните нам: {phone}": "Couldn’t send your request. Call us: {phone}",
+ "Эти даты уже заняты — выберите другие": "These dates have just been booked — please choose others",
+ "Не удалось проверить доступность. Попробуйте еще раз.": "Couldn’t check availability. Please try again."
 };

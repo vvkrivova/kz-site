@@ -27,24 +27,34 @@ function plural(n, one, few, many) {
 }
 
 /* ---------- Отправка заявок в Битрикс24 ----------
-   Все формы сайта отправляют заявку одной функцией sendLead(lead) → lead.php на хостинге → новый лид в Битрикс24.
+   Все формы сайта отправляют заявку одной функцией sendLead(lead, form) → lead.php на хостинге → сделка в Битрикс24
+   (аренда — воронка «Аренда автодомов», остальное — «Туры Tian Way»; подробности — в начале lead.php).
    Ключ Битрикса лежит только на хостинге (lead-config.php, в код сайта и на GitHub не попадает).
    lead = { form: 'rent' | 'trip' | 'fishing' | 'ask' | 'home',   — какая форма
-            title: 'Бронирование автодома',                       — название лида (по-русски, для менеджера)
+            title: 'Бронирование автодома',                       — подпись для консоли
             name, surname, contact (телефон или Telegram), email, sum (итог в $, необязательно),
-            info: { 'Автодом': 'Forland S1', 'Даты': '…' } }       — остальное: подпись → значение
-   Ответ: true — заявка принята, false — не получилось (форма показывает ошибку и телефон).
+            car, from, to, guests, extras — для аренды (id автодома, даты 'ГГГГ-ММ-ДД', число гостей, снаряжение),
+            kind, tour — форма главной («Аренда автодома»…) и название тура,
+            info: { 'Автодом': 'Forland S1', 'Даты': '…' } }       — остальное в комментарий сделки: подпись → значение
+   form — элемент формы: у каждой отправки свой номер (key); повтор той же отправки (двойной клик, «еще раз»
+   после обрыва связи) не создает вторую сделку. После успеха номер сбрасывается — следующая заявка будет новой.
+   Ответ: { ok: true, id } — сделка создана; { ok: false, reason } — нет: 'busy' (даты машины заняли, пока человек
+   оформлял бронь), 'check' (не удалось проверить доступность), иначе — не получилось отправить.
    Отправка идет только с tianway.kg: на копии сайта на GitHub и на компьютере PHP нет —
    там заявка пишется в консоль браузера, а форма, как раньше, сразу показывает «Спасибо». */
 const LEAD_HOSTS = ['tianway.kg', 'www.tianway.kg'];
-async function sendLead(lead) {
-  const payload = { ...lead, page: location.href, lang: LANG, ms: Math.round(performance.now()) };
+const newLeadKey = () => (window.crypto && crypto.randomUUID ? crypto.randomUUID()
+  : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`);
+async function sendLead(lead, form) {
+  const key = form ? (form.dataset.leadKey || (form.dataset.leadKey = newLeadKey())) : newLeadKey();
+  const payload = { ...lead, key, page: location.href, lang: LANG, ms: Math.round(performance.now()) };
   if (!LEAD_HOSTS.includes(location.hostname)) {
     console.info(`${lead.title} (отправка в Битрикс24 работает только на tianway.kg):`, payload);
-    return true;
+    if (form) delete form.dataset.leadKey;
+    return { ok: true };
   }
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 15000);
+  const timer = setTimeout(() => ctrl.abort(), 40000); // бронь — несколько запросов к Битриксу, хостинг медленный
   try {
     const res = await fetch(`${SITE_ROOT}lead.php`, {
       method: 'POST',
@@ -53,9 +63,13 @@ async function sendLead(lead) {
       signal: ctrl.signal,
     });
     const answer = await res.json().catch(() => ({}));
-    return res.ok && answer.ok === true;
+    if (res.ok && answer.ok === true) {
+      if (form) delete form.dataset.leadKey;
+      return { ok: true, id: answer.id };
+    }
+    return { ok: false, reason: answer.reason || 'send', busy: answer.busy };
   } catch (e) {
-    return false;
+    return { ok: false, reason: 'send' };
   } finally {
     clearTimeout(timer);
   }
@@ -510,9 +524,9 @@ function leadForm(o) {
 
     if (calendar) calendar.close();
     leadBusy(submitBtn, true);
-    const sent = await sendLead({ form: o.kind, title: o.title, ...o.lead() });
+    const sent = await sendLead({ form: o.kind, title: o.title, ...o.lead() }, form);
     leadBusy(submitBtn, false);
-    if (!sent) {
+    if (!sent.ok) {
       errorEl.textContent = leadFailText();
       errorEl.hidden = false;
       return;

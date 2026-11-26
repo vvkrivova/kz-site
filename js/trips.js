@@ -115,6 +115,8 @@
     lead: () => ({
       name: form.elements.name.value.trim(),
       contact: form.elements.contact.value.trim(),
+      tour: form.elements.where.value,
+      guests: parseInt(form.elements.people.value, 10) || 0,
       info: {
         'Куда хочется': form.elements.where.value,
         'Сколько человек': form.elements.people.value,

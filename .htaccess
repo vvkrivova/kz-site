@@ -10,6 +10,11 @@ RewriteRule ^ /%1 [R=301,L]
 RewriteCond %{THE_REQUEST} \s/+((?:en/)?[\w-]+)\.html[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L]
 
+# адреса сервера без .php: /api/availability → api/availability.php (занятость машин из Битрикс24)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(api/[\w-]+)$ $1.php [L]
+
 # короткий адрес → файл страницы: /trips → trips.html, /en/trips → en/trips.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
