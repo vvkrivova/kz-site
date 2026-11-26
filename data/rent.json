@@ -457,16 +457,22 @@
       "name": "Готовый маршрут Tian Way",
       "price": 0,
       "price_text": "Бесплатно при аренде",
+      "price_text_en": "Free with rental",
       "label": "бесплатно",
-      "note": "бесплатно при аренде автодома"
+      "label_en": "free",
+      "note": "бесплатно при аренде автодома",
+      "note_en": "free with motorhome rental"
     },
     {
       "id": "sv-custom-route",
       "name": "Индивидуальный маршрут",
       "price": 0,
       "price_text": "от 50 $",
+      "price_text_en": "<small>from</small> $50",
       "label": "от 50 $",
-      "note": "разовая оплата, точную цену назовет менеджер"
+      "label_en": "from $50",
+      "note": "разовая оплата, точную цену назовет менеджер",
+      "note_en": "one-off payment, the manager will confirm the exact price"
     },
     {
       "id": "sv-sputnik",
@@ -483,8 +489,11 @@
       "name": "Доставка автодома",
       "price": 0,
       "price_text": "Бесплатно от 3 суток",
+      "price_text_en": "Free from 3 days",
       "label": "бесплатно",
+      "label_en": "free",
       "note": "по Бишкеку — бесплатно от 3 суток, в аэропорт — от 5 суток (при аренде на 3–4 суток — 25 $ в одну сторону); за пределы Бишкека — по запросу",
+      "note_en": "within Bishkek — free from 3 days, to the airport — from 5 days ($25 one way for 3–4 day rentals); outside Bishkek — on request",
       "free_from": 3
     },
     {
@@ -492,8 +501,11 @@
       "name": "Первый участок с Tian Way",
       "price": 0,
       "price_text": "Бесплатно",
+      "price_text_en": "Free",
       "label": "бесплатно",
-      "note": "инструктаж и помощь в начале поездки — бесплатно"
+      "label_en": "free",
+      "note": "инструктаж и помощь в начале поездки — бесплатно",
+      "note_en": "briefing and help at the start of the trip — free"
     }
   ]
 }

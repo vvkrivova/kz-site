@@ -9,65 +9,94 @@
       "page": "tour-issyk-ring.html",
       "trip": "ring",
       "title": "Большое кольцо\nИссык-Куля",
+      "title_en": "Great loop\nof Issyk-Kul",
       "name": "Большое кольцо Иссык-Куля",
+      "name_en": "Great Issyk-Kul loop",
       "lead": "За восемь дней мы проедем вокруг Иссык-Куля, исследуем его северный и южный берега, побываем в горных ущельях и познакомимся с местными традициями. Путешествие начнется в Бишкеке и пройдет через самые интересные места региона — основные остановки мы отметили на карте",
+      "lead_en": "Over eight days we’ll drive around Issyk-Kul, explore its northern and southern shores, visit mountain gorges and get to know local traditions. The trip starts in Bishkek and goes through the region’s most interesting places — we’ve marked the main stops on the map",
       "description": "Путешествие на 8 дней вокруг Иссык-Куля: северный и южный берега, горные ущелья, Каракол и местные традиции. Старт в Бишкеке.",
+      "description_en": "An 8-day trip around Issyk-Kul: the northern and southern shores, mountain gorges, Karakol and local traditions. Starts in Bishkek.",
       "days_label": "8 дней",
+      "days_label_en": "8 days",
       "price": "от 1 600 $",
       "days": [
         {
           "title": "Бишкек → Иссык-Куль",
+          "title_en": "Bishkek → Issyk-Kul",
           "photo": "img/tours/day-1-bishkek.webp",
           "alt": "Бишкек: мечеть на фоне гор",
-          "text": "Знакомство с кыргызской кухней в Supara, живописная дорога к Иссык-Кулю и первый вечер на берегу озера"
+          "alt_en": "Bishkek: a mosque against the mountains",
+          "text": "Знакомство с кыргызской кухней в Supara, живописная дорога к Иссык-Кулю и первый вечер на берегу озера",
+          "text_en": "Discovering Kyrgyz cuisine at Supara, a scenic drive to Issyk-Kul and the first evening on the lakeshore"
         },
         {
           "title": "Чолпон-Ата",
+          "title_en": "Cholpon-Ata",
           "photo": "img/tours/day-2-cholpon-ata.webp",
           "alt": "Петроглифы Чолпон-Аты",
+          "alt_en": "Petroglyphs of Cholpon-Ata",
           "photo_pos": "top",
-          "text": "Древние петроглифы, прогулка или велопоездка вдоль озера и традиционная баня"
+          "text": "Древние петроглифы, прогулка или велопоездка вдоль озера и традиционная баня",
+          "text_en": "Ancient petroglyphs, a walk or bike ride along the lake and a traditional banya"
         },
         {
           "title": "Кырчын → Каракол",
+          "title_en": "Kyrchyn → Karakol",
           "photo": "img/tours/day-3-kyrchyn.webp",
           "alt": "Кони на зеленом склоне Кырчына",
+          "alt_en": "Horses on a green slope in Kyrchyn",
           "photo_pos": "y16",
-          "text": "Конная прогулка по ущелью Кырчын, приготовление куурдака на природе и вечер в Караколе"
+          "text": "Конная прогулка по ущелью Кырчын, приготовление куурдака на природе и вечер в Караколе",
+          "text_en": "Horse ride through Kyrchyn Gorge, cooking kuurdak outdoors and an evening in Karakol"
         },
         {
           "title": "Каракол",
+          "title_en": "Karakol",
           "photo": "img/tours/day-4-karakol.webp",
           "alt": "Деревянный собор в Караколе",
-          "text": "Знакомство с городом, подъем в горы на канатной дороге и ужин в дунганской семье с приготовлением ашлянфу"
+          "alt_en": "Wooden cathedral in Karakol",
+          "text": "Знакомство с городом, подъем в горы на канатной дороге и ужин в дунганской семье с приготовлением ашлянфу",
+          "text_en": "Exploring the town, a cable car ride into the mountains and dinner with a Dungan family, cooking ashlyan-fu"
         },
         {
           "title": "Джети-Огуз",
+          "title_en": "Jeti-Oguz",
           "photo": "img/tours/day-5-jeti-oguz.webp",
           "alt": "Красные скалы Джети-Огуза",
+          "alt_en": "Red rocks of Jeti-Oguz",
           "photo_pos": "top",
-          "text": "Красные скалы Джети-Огуза, причудливые пейзажи каньона Сказка и путешествие вдоль южного берега Иссык-Куля"
+          "text": "Красные скалы Джети-Огуза, причудливые пейзажи каньона Сказка и путешествие вдоль южного берега Иссык-Куля",
+          "text_en": "The red rocks of Jeti-Oguz, the fanciful landscapes of Skazka Canyon and a drive along the southern shore of Issyk-Kul"
         },
         {
           "title": "Рыбалка и беркутчи",
+          "title_en": "Fishing & eagles",
           "photo": "img/tours/day-6-berkutchi.webp",
           "alt": "Беркутчи с беркутом на фоне гор",
+          "alt_en": "Eagle hunter with a golden eagle against the mountains",
           "photo_pos": "top",
-          "text": "Утренняя рыбалка на Иссык-Куле, приготовление улова и знакомство с древним искусством охоты с беркутом"
+          "text": "Утренняя рыбалка на Иссык-Куле, приготовление улова и знакомство с древним искусством охоты с беркутом",
+          "text_en": "Morning fishing on Issyk-Kul, cooking the catch and discovering the ancient art of hunting with golden eagles"
         },
         {
           "title": "Иссык-Куль → Бишкек",
+          "title_en": "Issyk-Kul → Bishkek",
           "photo": "img/tours/day-7-road-bishkek.webp",
           "alt": "Зеленые холмы и снежные горы по дороге в Бишкек",
+          "alt_en": "Green hills and snowy mountains on the way to Bishkek",
           "photo_pos": "top",
-          "text": "Живописное возвращение в Бишкек с остановками по пути и прощальным ужином"
+          "text": "Живописное возвращение в Бишкек с остановками по пути и прощальным ужином",
+          "text_en": "A scenic return to Bishkek with stops along the way and a farewell dinner"
         },
         {
           "title": "Ала-Арча",
+          "title_en": "Ala-Archa",
           "photo": "img/tours/day-8-ala-archa.webp",
           "alt": "Горная река в ущелье Ала-Арча",
+          "alt_en": "Mountain river in Ala-Archa Gorge",
           "photo_pos": "top",
-          "text": "Прогулка среди горных пейзажей национального парка Ала-Арча, пикник на природе и завершение путешествия"
+          "text": "Прогулка среди горных пейзажей национального парка Ала-Арча, пикник на природе и завершение путешествия",
+          "text_en": "A walk among the mountain landscapes of Ala-Archa National Park, a picnic outdoors and the end of the trip"
         }
       ]
     },
@@ -75,51 +104,74 @@
       "page": "tour-issyk-north.html",
       "trip": "north",
       "title": "Северный берег\nИссык-Куля",
+      "title_en": "Northern shore\nof Issyk-Kul",
       "name": "Северный берег Иссык-Куля",
+      "name_en": "Northern shore of Issyk-Kul",
       "lead": "Размеренное путешествие по северному побережью Иссык-Куля: отдых у озера, конные прогулки, горные ущелья, традиционная кухня и рыбалка. Путешествие начнется в Бишкеке и пройдет через Балыкчы, Чолпон-Ату, Кырчын и Григорьевское ущелье — основные остановки мы отметили на карте",
+      "lead_en": "An unhurried journey along the northern shore of Issyk-Kul: lakeside rest, horse rides, mountain gorges, traditional food and fishing. The trip starts in Bishkek and goes through Balykchy, Cholpon-Ata, Kyrchyn and Grigorievka Gorge — we’ve marked the main stops on the map",
       "description": "Путешествие на 6 дней по северному берегу Иссык-Куля: отдых у озера, конные прогулки, горные ущелья, рыбалка. Старт в Бишкеке.",
+      "description_en": "A 6-day trip along the northern shore of Issyk-Kul: lakeside rest, horse rides, mountain gorges, fishing. Starts in Bishkek.",
       "days_label": "6 дней",
+      "days_label_en": "6 days",
       "price": "от 1 150 $",
       "days": [
         {
           "title": "Бишкек",
+          "title_en": "Bishkek",
           "photo": "img/tours/day-1-bishkek.webp",
           "alt": "Бишкек: мечеть на фоне гор",
-          "text": "Традиционный обед в Supara, дорога к Иссык-Кулю и спокойный вечер у озера"
+          "alt_en": "Bishkek: a mosque against the mountains",
+          "text": "Традиционный обед в Supara, дорога к Иссык-Кулю и спокойный вечер у озера",
+          "text_en": "Traditional lunch at Supara, the drive to Issyk-Kul and a quiet evening by the lake"
         },
         {
           "title": "Чолпон-Ата",
+          "title_en": "Cholpon-Ata",
           "photo": "img/tours/day-2-cholpon-ata.webp",
           "alt": "Петроглифы Чолпон-Аты",
+          "alt_en": "Petroglyphs of Cholpon-Ata",
           "photo_pos": "top",
-          "text": "Древние петроглифы, прогулка или велопоездка вдоль берега и отдых в бане"
+          "text": "Древние петроглифы, прогулка или велопоездка вдоль берега и отдых в бане",
+          "text_en": "Ancient petroglyphs, a walk or bike ride along the shore and a traditional banya"
         },
         {
           "title": "Ущелье Кырчын",
+          "title_en": "Kyrchyn Gorge",
           "photo": "img/tours/north-day-3-kyrchyn.webp",
           "alt": "Лошади на горном пастбище в Кырчыне",
+          "alt_en": "Horses on a mountain pasture in Kyrchyn",
           "photo_pos": "top",
-          "text": "Конная прогулка среди гор, знакомство с природой ущелья и совместное приготовление куурдака"
+          "text": "Конная прогулка среди гор, знакомство с природой ущелья и совместное приготовление куурдака",
+          "text_en": "Horse ride in the mountains, exploring the gorge and cooking kuurdak together"
         },
         {
           "title": "Рыбалка на Иссык-Куле",
+          "title_en": "Fishing on Issyk-Kul",
           "photo": "img/tours/north-day-4-fishing.webp",
           "alt": "Рыбак на берегу Иссык-Куля на рассвете",
+          "alt_en": "Angler on the shore of Issyk-Kul at dawn",
           "photo_pos": "top",
-          "text": "Ранняя рыбалка на чебака, приготовление свежего улова и неспешный отдых у озера"
+          "text": "Ранняя рыбалка на чебака, приготовление свежего улова и неспешный отдых у озера",
+          "text_en": "Early-morning fishing for chebak, cooking the fresh catch and a relaxed day by the lake"
         },
         {
           "title": "Григорьевское ущелье",
+          "title_en": "Grigorievka Gorge",
           "photo": "img/tours/north-day-5-grigorievka.webp",
           "alt": "Горная река среди елей в Григорьевском ущелье",
+          "alt_en": "Mountain river among spruce trees in Grigorievka Gorge",
           "photo_pos": "top",
-          "text": "Прогулка среди хвойных лесов и горных пейзажей, пикник на природе и заключительный вечер на Иссык-Куле"
+          "text": "Прогулка среди хвойных лесов и горных пейзажей, пикник на природе и заключительный вечер на Иссык-Куле",
+          "text_en": "A walk among coniferous forests and mountain views, a picnic outdoors and a final evening at Issyk-Kul"
         },
         {
           "title": "Возвращение в Бишкек",
+          "title_en": "Back to Bishkek",
           "photo": "img/tours/day-1-bishkek.webp",
           "alt": "Бишкек: мечеть на фоне гор",
-          "text": "Завтрак у озера и обратная дорога в Бишкек с трансфером в аэропорт"
+          "alt_en": "Bishkek: a mosque against the mountains",
+          "text": "Завтрак у озера и обратная дорога в Бишкек с трансфером в аэропорт",
+          "text_en": "Breakfast by the lake and the drive back to Bishkek with an airport transfer"
         }
       ]
     },
@@ -127,39 +179,56 @@
       "page": "tour-issyk-winter.html",
       "trip": "karakol",
       "title": "Зимний маршрут\nИссык-Куль",
+      "title_en": "Winter route\nIssyk-Kul",
       "name": "Зимний маршрут: Иссык-Куль",
+      "name_en": "Winter route: Issyk-Kul",
       "lead": "Путешествие к заснеженным вершинам Тянь-Шаня: зимние пейзажи Иссык-Куля, горнолыжный отдых в Караколе, красные скалы и горячие источники. Путешествие начнется в Бишкеке и пройдет через Чолпон-Ату, Каракол, Ак-Суу, Джети-Огуз и Ала-Арчу — основные остановки мы отметили на карте",
+      "lead_en": "A journey to the snowy peaks of the Tien Shan: winter landscapes of Issyk-Kul, skiing in Karakol, red rocks and hot springs. The trip starts in Bishkek and goes through Cholpon-Ata, Karakol, Ak-Suu, Jeti-Oguz and Ala-Archa — we’ve marked the main stops on the map",
       "description": "Зимнее путешествие на 6 дней вокруг Иссык-Куля: горнолыжный Каракол, горячие источники Ак-Суу, красные скалы Джети-Огуза. Старт в Бишкеке.",
+      "description_en": "A 6-day winter trip around Issyk-Kul: Karakol ski resort, Ak-Suu hot springs, the red rocks of Jeti-Oguz. Starts in Bishkek.",
       "days_label": "6 дней",
+      "days_label_en": "6 days",
       "price": "от 0 000 $",
       "days": [
         {
           "title": "Бишкек → Иссык-Куль",
+          "title_en": "Bishkek → Issyk-Kul",
           "photo": "img/tours/day-1-bishkek.webp",
           "alt": "Бишкек: мечеть на фоне гор",
-          "text": "Знакомство с кыргызской кухней в Supara, живописная дорога к Иссык-Кулю и первый вечер на берегу озера"
+          "alt_en": "Bishkek: a mosque against the mountains",
+          "text": "Знакомство с кыргызской кухней в Supara, живописная дорога к Иссык-Кулю и первый вечер на берегу озера",
+          "text_en": "Discovering Kyrgyz cuisine at Supara, a scenic drive to Issyk-Kul and the first evening on the lakeshore"
         },
         {
-          "title": "Чолпон-Ата → Каракол"
+          "title": "Чолпон-Ата → Каракол",
+          "title_en": "Cholpon-Ata → Karakol"
         },
         {
           "title": "Каракол",
+          "title_en": "Karakol",
           "photo": "img/tours/day-4-karakol.webp",
           "alt": "Деревянный собор в Караколе",
-          "text": "Знакомство с городом, подъем в горы на канатной дороге и ужин в дунганской семье с приготовлением ашлянфу"
+          "alt_en": "Wooden cathedral in Karakol",
+          "text": "Знакомство с городом, подъем в горы на канатной дороге и ужин в дунганской семье с приготовлением ашлянфу",
+          "text_en": "Exploring the town, a cable car ride into the mountains and dinner with a Dungan family, cooking ashlyan-fu"
         },
         {
-          "title": "Ак-Суу"
+          "title": "Ак-Суу",
+          "title_en": "Ak-Suu"
         },
         {
           "title": "Джети-Огуз",
+          "title_en": "Jeti-Oguz",
           "photo": "img/tours/day-5-jeti-oguz.webp",
           "alt": "Красные скалы Джети-Огуза",
+          "alt_en": "Red rocks of Jeti-Oguz",
           "photo_pos": "top",
-          "text": "Красные скалы Джети-Огуза, причудливые пейзажи каньона Сказка и путешествие вдоль южного берега Иссык-Куля"
+          "text": "Красные скалы Джети-Огуза, причудливые пейзажи каньона Сказка и путешествие вдоль южного берега Иссык-Куля",
+          "text_en": "The red rocks of Jeti-Oguz, the fanciful landscapes of Skazka Canyon and a drive along the southern shore of Issyk-Kul"
         },
         {
-          "title": "Ала-Арча → Бишкек"
+          "title": "Ала-Арча → Бишкек",
+          "title_en": "Ala-Archa → Bishkek"
         }
       ]
     }

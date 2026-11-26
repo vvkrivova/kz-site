@@ -686,6 +686,12 @@ content:
             description: "Каждая строка заголовка — с новой строки (Enter). До 30 знаков."
             options:
               maxlength: 30
+          - name: title_en
+            label: "Заголовок на обложке — английский"
+            type: text
+            description: "Каждая строка заголовка — с новой строки (Enter). До 30 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 30
 
           - name: lead
             label: Текст под заголовком
@@ -694,12 +700,24 @@ content:
             description: "До 290 знаков — иначе на телефоне текст наедет на плашки «8 дней» и «Старт в Бишкеке»."
             options:
               maxlength: 290
+          - name: lead_en
+            label: "Текст под заголовком — английский"
+            type: text
+            description: "До 290 знаков — иначе на телефоне текст наедет на плашки «8 дней» и «Старт в Бишкеке». Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 290
 
           - name: days_label
             label: Длительность на плашке
             type: string
             required: true
             description: "Например: 8 дней"
+            options:
+              maxlength: 10
+          - name: days_label_en
+            label: "Длительность на плашке — английский"
+            type: string
+            description: "Например: 8 дней Пусто — на английской странице будет русский текст."
             options:
               maxlength: 10
 
@@ -728,6 +746,12 @@ content:
                 description: "До 24 знаков. «→» между словами рисуется тонкой стрелкой: Бишкек → Иссык-Куль"
                 options:
                   maxlength: 24
+              - name: title_en
+                label: "Название дня — английский"
+                type: string
+                description: "До 24 знаков. «→» между словами рисуется тонкой стрелкой: Бишкек → Иссык-Куль Пусто — на английской странице будет русский текст."
+                options:
+                  maxlength: 24
               - name: photo
                 label: Фото дня
                 type: image
@@ -738,6 +762,12 @@ content:
                 label: Что на фото (для поисковиков и незрячих)
                 type: string
                 description: "Коротко: например, «Красные скалы Джети-Огуза»"
+                options:
+                  maxlength: 80
+              - name: alt_en
+                label: "Что на фото (для поисковиков и незрячих) — английский"
+                type: string
+                description: "Коротко: например, «Красные скалы Джети-Огуза» Пусто — на английской странице будет русский текст."
                 options:
                   maxlength: 80
               - name: photo_pos
@@ -757,6 +787,12 @@ content:
                 description: "До 110 знаков (4 строки на телефоне). Без фото описание не показывается."
                 options:
                   maxlength: 110
+              - name: text_en
+                label: "Описание дня — английский"
+                type: text
+                description: "До 125 знаков (4 строки на телефоне). Без фото описание не показывается. Пусто — на английской странице будет русский текст."
+                options:
+                  maxlength: 125
 
           - name: name
             label: Название во вкладке браузера
@@ -764,11 +800,23 @@ content:
             required: true
             options:
               maxlength: 40
+          - name: name_en
+            label: "Название во вкладке браузера — английский"
+            type: string
+            description: "Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 40
 
           - name: description
             label: Описание для поисковиков
             type: text
             description: "Его показывают Google и Яндекс под ссылкой на страницу. До 160 знаков."
+            options:
+              maxlength: 160
+          - name: description_en
+            label: "Описание для поисковиков — английский"
+            type: text
+            description: "Его показывают Google и Яндекс под ссылкой на страницу. До 160 знаков. Пусто — на английской странице будет русский текст."
             options:
               maxlength: 160
 
@@ -979,15 +1027,33 @@ content:
             description: "Например: Бесплатно, Бесплатно от 3 суток, от 50 $. Пусто — «Цена уточняется». До 24 знаков."
             options:
               maxlength: 24
+          - name: price_text_en
+            label: "Надпись вместо цены (если цена 0) — английский"
+            type: string
+            description: "Например: Бесплатно, Бесплатно от 3 суток, от 50 $. Пусто — «Цена уточняется». До 24 знаков. Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 24
           - name: label
             label: Что написать в итоге заказа вместо суммы (если цена 0)
             type: string
             description: "Например: бесплатно или от 50 $"
             options:
               maxlength: 20
+          - name: label_en
+            label: "Что написать в итоге заказа вместо суммы (если цена 0) — английский"
+            type: string
+            description: "Например: бесплатно или от 50 $ Пусто — на английской странице будет русский текст."
+            options:
+              maxlength: 20
           - name: note
             label: Подсказка к строке в итоге заказа
             type: text
+            options:
+              maxlength: 220
+          - name: note_en
+            label: "Подсказка к строке в итоге заказа — английский"
+            type: text
+            description: "Пусто — на английской странице будет русский текст."
             options:
               maxlength: 220
           - name: free_from

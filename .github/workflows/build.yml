@@ -6,7 +6,7 @@
 #      FTP_SERVER, FTP_USERNAME, FTP_PASSWORD — доступ к хостингу kyrgyz.cloud (Plesk → Доступ по FTP);
 #      BITRIX_WEBHOOK — адрес входящего вебхука Битрикс24 (из него на хостинге создается lead-config.php).
 #    Необязательные переменные (Variables): FTP_DIR — папка сайта на хостинге (по умолчанию httpdocs/),
-#    FTP_PROTOCOL — ftps (по умолчанию) или ftp.
+#    FTP_PROTOCOL — ftp (по умолчанию: хостинг kyrgyz.cloud, ProFTPD, шифрование FTPS не поддерживает) или ftps.
 # 5) просит GitHub Pages обновить копию сайта vvkrivova.github.io/kz-site.
 name: Сборка и загрузка сайта
 
@@ -78,7 +78,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftp' }}
           server-dir: ${{ vars.FTP_DIR || 'httpdocs/' }}
           exclude: |
             **/.git*

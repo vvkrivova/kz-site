@@ -4,6 +4,7 @@
    Формы сайта отправляют сюда заявку (js/main.js, sendLead), этот файл передает ее в Битрикс24.
    Работает только на хостинге с PHP (tianway.kg). Ключ Битрикса — в соседнем файле lead-config.php
    (его нет на GitHub; образец — tools/lead-config.example.php, на хостинг его кладет автозагрузка).
+   Пока ключа нет — форма просто показывает «Спасибо» (как до подключения Битрикса).
 
    Защита от спама: заявки принимаются только со страниц tianway.kg, не быстрее чем через 2 секунды
    после открытия страницы и не больше 5 заявок за 10 минут с одного адреса.
@@ -23,16 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     answer(false, 405);
 }
 
+// Битрикс24 еще не подключен (нет lead-config.php или в нем нет адреса) — ведем себя как раньше:
+// форма показывает «Спасибо», заявка никуда не уходит. Когда появится ключ, заявки пойдут в Битрикс24.
 $configFile = __DIR__ . '/lead-config.php';
-if (!is_file($configFile)) {
-    error_log('Tian Way lead.php: нет файла lead-config.php с ключом Битрикс24');
-    answer(false, 500);
-}
-$config = require $configFile;
+$config = is_file($configFile) ? require $configFile : array();
 $webhook = isset($config['webhook']) ? rtrim($config['webhook'], '/') . '/' : '';
-if (strpos($webhook, 'https://') !== 0) {
-    error_log('Tian Way lead.php: в lead-config.php не указан адрес вебхука Битрикс24');
-    answer(false, 500);
+if (strpos($webhook, 'https://') !== 0 || strpos($webhook, 'ПОРТАЛ') !== false) {
+    error_log('Tian Way lead.php: Битрикс24 еще не подключен — заявка не отправлена');
+    answer(true);
 }
 
 // заявки — только со страниц сайта
