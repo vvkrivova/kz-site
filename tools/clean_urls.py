@@ -24,7 +24,7 @@ def clean(s: str) -> str:
             return m.group(0)
         return f'{attr}="{up}{name}{tail}"'
 
-    s = re.sub(r'\b(href)="((?:\.\./|en/)?)([\w-]+)\.html([?#][^"]*)?"', rel, s)
+    s = re.sub(r'\b(href|action)="((?:\.\./|en/)?)([\w-]+)\.html([?#][^"]*)?"', rel, s)
 
     def absolute(m):
         base, name = m.group(1), m.group(2)

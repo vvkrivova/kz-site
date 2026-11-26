@@ -31,17 +31,42 @@ const TW_UF_EXTRAS = 'UF_CRM_1795695879879';   // Дополнительное �
 // в день возврата машину можно выдать следующим гостям — как на сайте
 const TW_PICKUP_TIME = '14:00:00';
 const TW_DROPOFF_TIME = '11:00:00';
+// запас на подготовку машины между возвратом и следующей выдачей, секунды (0 — до согласования с заказчицей;
+// при 11:00 возврата и 14:00 выдачи между ними и так 3 часа)
+const TW_PREP_BUFFER = 0;
+
+// автоматическая бронь (api/bitrix/confirm-booking.php): стадия запуска и стадия возврата при конфликте
+const TW_STAGE_CONFIRMED = 'C2:FINAL_INVOICE';   // «Бронь подтверждена»
+const TW_STAGE_CLARIFY = 'C2:PREPARATION';       // «Уточняем даты»
 
 class TwBitrixError extends Exception
 {
+}
+
+function tw_config()
+{
+    static $config = null;
+    if ($config === null) {
+        $file = dirname(__DIR__) . '/lead-config.php';
+        $config = is_file($file) ? require $file : array();
+        $config = is_array($config) ? $config : array();
+    }
+    return $config;
+}
+
+/** пароль робота «Бронь подтверждена» (секрет BOOKING_ROBOT_SECRET); пусто — обработчик выключен */
+function tw_robot_secret()
+{
+    $config = tw_config();
+    $secret = isset($config['robot_secret']) ? trim((string) $config['robot_secret']) : '';
+    return strlen($secret) >= 16 ? $secret : '';
 }
 
 function tw_webhook()
 {
     static $hook = null;
     if ($hook === null) {
-        $file = dirname(__DIR__) . '/lead-config.php';
-        $config = is_file($file) ? require $file : array();
+        $config = tw_config();
         $hook = isset($config['webhook']) ? rtrim($config['webhook'], '/') . '/' : '';
         if (strpos($hook, 'https://') !== 0 || strpos($hook, 'ПОРТАЛ') !== false) {
             $hook = '';
@@ -70,7 +95,9 @@ function tw_call($method, $params = array())
     $response = curl_exec($curl);
     $status = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $error = curl_error($curl);
-    curl_close($curl);
+    if (PHP_VERSION_ID < 80000) {
+        curl_close($curl); // с PHP 8 не нужен (а в PHP 8.5 устарел)
+    }
     $data = json_decode((string) $response, true);
     if ($status !== 200 || !is_array($data) || isset($data['error'])) {
         $why = isset($data['error_description']) ? $data['error_description'] : (isset($data['error']) ? $data['error'] : ($error !== '' ? $error : 'HTTP ' . $status));
@@ -84,6 +111,14 @@ function tw_tmp($name)
     $dir = sys_get_temp_dir() . '/tianway-' . substr(md5(__DIR__), 0, 8);
     if (!is_dir($dir)) {
         @mkdir($dir, 0700, true);
+    }
+    // изредка убираем старые служебные файлы (повторы заявок, кэш, счетчики), чтобы папка не росла
+    if (mt_rand(1, 50) === 1) {
+        foreach ((array) glob($dir . '/*') as $old) {
+            if (is_file($old) && filemtime($old) < time() - 14 * 86400 && strpos(basename($old), 'robot-') !== 0) {
+                @unlink($old);
+            }
+        }
     }
     return $dir . '/' . $name;
 }
@@ -105,20 +140,18 @@ function tw_valid_day($day)
  * Интервал — с дня выдачи до дня возврата (в день возврата машину можно выдать снова).
  * Берем записи с запасом 60 дней до начала периода — чтобы попали брони, начавшиеся раньше и пересекающие его.
  */
-function tw_busy($fromDay, $toDay, $cars = null)
+/**
+ * записи «Онлайн-записи» ресурсов за период: array(array('id', 'name', 'resources' => [...], 'from', 'to'), …), все страницы по 50.
+ * Окно запроса расширено: 60 дней назад и 400 дней вперед — так попадают и брони, начавшиеся раньше периода,
+ * и брони, которые начинаются внутри периода, а заканчиваются позже (если Битрикс отбирает только записи целиком внутри окна).
+ */
+function tw_bookings($resources, $fromTs, $toTs)
 {
-    $cars = $cars === null ? array_keys(TW_CARS) : $cars;
-    $byResource = array();
-    foreach ($cars as $car) {
-        $byResource[TW_CARS[$car]['resource']] = $car;
-    }
-    $busy = array_fill_keys($cars, array());
-    $from = tw_day_ts($fromDay) - 60 * 86400;
-    $to = tw_day_ts($toDay) + 86400;
+    $out = array();
     $start = 0;
     for ($page = 0; $page < 40; $page++) {
         $data = tw_call('booking.v1.booking.list', array(
-            'filter' => array('resourceId' => array_keys($byResource), 'within' => array('dateFrom' => $from, 'dateTo' => $to)),
+            'filter' => array('resourceId' => array_values($resources), 'within' => array('dateFrom' => $fromTs - 60 * 86400, 'dateTo' => $toTs + 400 * 86400)),
             'start' => $start,
         ));
         $list = isset($data['result']['booking']) ? $data['result']['booking'] : array();
@@ -128,17 +161,13 @@ function tw_busy($fromDay, $toDay, $cars = null)
             if (!$a || !$z || $z <= $a) {
                 continue;
             }
-            $dayA = date('Y-m-d', $a);
-            $dayZ = date('Y-m-d', $z);
-            if ($dayZ === $dayA) {
-                $dayZ = date('Y-m-d', $z + 86400); // бронь внутри одного дня занимает этот день
-            }
-            $ids = isset($b['resourceIds']) ? (array) $b['resourceIds'] : array();
-            foreach ($ids as $rid) {
-                if (isset($byResource[(int) $rid])) {
-                    $busy[$byResource[(int) $rid]][] = array($dayA, $dayZ);
-                }
-            }
+            $out[] = array(
+                'id' => isset($b['id']) ? (int) $b['id'] : 0,
+                'name' => isset($b['name']) ? (string) $b['name'] : '',
+                'resources' => array_map('intval', isset($b['resourceIds']) ? (array) $b['resourceIds'] : array()),
+                'from' => $a,
+                'to' => $z,
+            );
         }
         if (isset($data['next']) && (int) $data['next'] > $start) {
             $start = (int) $data['next'];
@@ -146,6 +175,29 @@ function tw_busy($fromDay, $toDay, $cars = null)
             $start += 50;
         } else {
             break;
+        }
+    }
+    return $out;
+}
+
+function tw_busy($fromDay, $toDay, $cars = null)
+{
+    $cars = $cars === null ? array_keys(TW_CARS) : $cars;
+    $byResource = array();
+    foreach ($cars as $car) {
+        $byResource[TW_CARS[$car]['resource']] = $car;
+    }
+    $busy = array_fill_keys($cars, array());
+    foreach (tw_bookings(array_keys($byResource), tw_day_ts($fromDay), tw_day_ts($toDay) + 86400) as $bk) {
+        $dayA = date('Y-m-d', $bk['from']);
+        $dayZ = date('Y-m-d', $bk['to']);
+        if ($dayZ === $dayA) {
+            $dayZ = date('Y-m-d', $bk['to'] + 86400); // бронь внутри одного дня занимает этот день
+        }
+        foreach ($bk['resources'] as $rid) {
+            if (isset($byResource[$rid])) {
+                $busy[$byResource[$rid]][] = array($dayA, $dayZ);
+            }
         }
     }
     foreach ($busy as $car => $ranges) {
@@ -225,5 +277,44 @@ function tw_field_value($fields, $code, $value, $time = '12:00:00')
             return null;
         default:
             return (string) $value;
+    }
+}
+
+/** значение поля даты сделки (crm.deal.get) → Unix-время: поле «дата» — этот день в указанный час по Бишкеку,
+ *  поле «дата со временем» — как записано. Пусто или не разобрать — null. */
+function tw_deal_ts($fields, $code, $value, $time)
+{
+    if (is_array($value)) {
+        $value = reset($value);
+    }
+    $value = trim((string) $value);
+    if ($value === '') {
+        return null;
+    }
+    $type = isset($fields[$code]['type']) ? $fields[$code]['type'] : 'date';
+    if ($type === 'datetime' && strlen($value) > 10) {
+        $ts = strtotime($value);
+        return $ts ? $ts : null;
+    }
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})/', $value, $m)) {
+        $day = $m[1] . '-' . $m[2] . '-' . $m[3];
+    } elseif (preg_match('/^(\d{2})\.(\d{2})\.(\d{4})/', $value, $m)) {
+        $day = $m[3] . '-' . $m[2] . '-' . $m[1];
+    } else {
+        return null;
+    }
+    $d = DateTime::createFromFormat('Y-m-d H:i:s', $day . ' ' . $time, new DateTimeZone('Asia/Bishkek'));
+    return $d ? $d->getTimestamp() : null;
+}
+
+/** комментарий в ленту сделки — так менеджер видит, что сделала автоматика и почему */
+function tw_deal_comment($dealId, $text)
+{
+    try {
+        tw_call('crm.timeline.comment.add', array('fields' => array('ENTITY_ID' => (int) $dealId, 'ENTITY_TYPE' => 'deal', 'COMMENT' => $text)));
+        return true;
+    } catch (TwBitrixError $e) {
+        error_log('Tian Way: комментарий к сделке ' . (int) $dealId . ' не добавлен: ' . $e->getMessage());
+        return false;
     }
 }

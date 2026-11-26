@@ -844,7 +844,7 @@ content:
         label: Автодома
         type: object
         list:
-          min: 1
+          min: 3
           max: 3
           collapsible:
             collapsed: true
@@ -981,6 +981,8 @@ content:
         label: Снаряжение и наборы
         type: object
         list:
+          min: 14
+          max: 14
           collapsible:
             collapsed: true
             summary: "{name} — {price} $"
@@ -1005,6 +1007,8 @@ content:
         label: Услуги
         type: object
         list:
+          min: 6
+          max: 6
           collapsible:
             collapsed: true
             summary: "{name}"
@@ -1111,3 +1115,7 @@ content:
       - name: copyright
         label: Подпись в подвале
         type: string
+      - name: copyright_en
+        label: Подпись в подвале — английский
+        type: string
+        description: "Пусто — на английской странице будет русская подпись."

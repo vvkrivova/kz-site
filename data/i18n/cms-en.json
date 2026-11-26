@@ -2,7 +2,7 @@
   "_readme": "Собирается сам (tools/build_content.py): переводы текстов из панели. Руками не править.",
   "Кыргызстан на автодоме": "Kyrgyzstan by motorhome",
   "Для тех, кто выбирает свободу <br>в путешествиях — без компромисса с комфортом": "For those who choose freedom <br>in travel — with no compromise on comfort",
-  "Выбери формат путешествия": "Choose your travel format",
+  "Выберите формат путешествия": "Choose your travel format",
   "Аренда <br>автодома": "Motorhome <br>rental",
   "Выбираете автодом, даты <br>и собираете поездку <br>под себя.": "Pick a motorhome <br>and dates, plan your trip.",
   "Готовые <br>путешествия": "Ready-made <br>trips",
@@ -15,7 +15,7 @@
   "Проезжаем первые километры вместе": "First kilometres together",
   "Сначала проезжаем пробный круг вместе — без спешки <br>и сложных дорог": "First we drive a test loop together — no rush <br>and no difficult roads",
   "Передаем там, <br>где удобно": "Handover <br>where you like",
-  "Возможность доставки машины / передачи в удобной точке — если подтверждено операционно": "Delivery or handover at a convenient point — if confirmed operationally",
+  "Возможность доставки машины / передачи в&nbsp;удобной точке": "Delivery or handover at a convenient point",
   "Остаемся <br>на связи": "We stay <br>in touch",
   "На протяжении всей поездки: остаемся на связи по вопросам машины и маршрута": "Throughout the trip we stay in touch about the vehicle and the route",
   "Куда на автодоме реально проехать": "Where a motorhome can really go",
@@ -109,7 +109,7 @@
   "Шкафы для посуды и&nbsp;продуктов": "Cabinets for dishes and&nbsp;food",
   "Большое кольцо Иссык-Куля — Tian Way": "Great Issyk-Kul loop — Tian Way",
   "Путешествие на 8 дней вокруг Иссык-Куля: северный и южный берега, горные ущелья, Каракол и местные традиции. Старт в Бишкеке.": "An 8-day trip around Issyk-Kul: the northern and southern shores, mountain gorges, Karakol and local traditions. Starts in Bishkek.",
-  "Большое кольцо<br>Иссык-Куля": "Great loop<br>of Issyk-Kul",
+  "Большое кольцо<br>Иссык-Куля": "Great Issyk-Kul<br>loop",
   "За восемь дней мы проедем вокруг Иссык-Куля, исследуем его северный и южный берега, побываем в горных ущельях и познакомимся с местными традициями. Путешествие начнется в Бишкеке и пройдет через самые интересные места региона — основные остановки мы отметили на карте": "Over eight days we’ll drive around Issyk-Kul, explore its northern and southern shores, visit mountain gorges and get to know local traditions. The trip starts in Bishkek and goes through the region’s most interesting places — we’ve marked the main stops on the map",
   "8 дней": "8 days",
   "Бишкек": "Bishkek",
@@ -156,7 +156,7 @@
   "Завтрак у&nbsp;озера и&nbsp;обратная дорога в&nbsp;Бишкек с&nbsp;трансфером в&nbsp;аэропорт": "Breakfast by&nbsp;the lake and&nbsp;the drive back to&nbsp;Bishkek with&nbsp;an airport transfer",
   "Зимний маршрут: Иссык-Куль — Tian Way": "Winter route: Issyk-Kul — Tian Way",
   "Зимнее путешествие на 6 дней вокруг Иссык-Куля: горнолыжный Каракол, горячие источники Ак-Суу, красные скалы Джети-Огуза. Старт в Бишкеке.": "A 6-day winter trip around Issyk-Kul: Karakol ski resort, Ak-Suu hot springs, the red rocks of Jeti-Oguz. Starts in Bishkek.",
-  "Зимний маршрут<br>Иссык-Куль": "Winter route<br>Issyk-Kul",
+  "Зимний маршрут:<br>Иссык-Куль": "Winter route:<br>Issyk-Kul",
   "Путешествие к заснеженным вершинам Тянь-Шаня: зимние пейзажи Иссык-Куля, горнолыжный отдых в Караколе, красные скалы и горячие источники. Путешествие начнется в Бишкеке и пройдет через Чолпон-Ату, Каракол, Ак-Суу, Джети-Огуз и Ала-Арчу — основные остановки мы отметили на карте": "A journey to the snowy peaks of the Tien Shan: winter landscapes of Issyk-Kul, skiing in Karakol, red rocks and hot springs. The trip starts in Bishkek and goes through Cholpon-Ata, Karakol, Ak-Suu, Jeti-Oguz and Ala-Archa — we’ve marked the main stops on the map",
   "Ак-Суу": "Ak-Suu",
   "Бесплатно при&nbsp;аренде": "Free with&nbsp;rental",
@@ -166,5 +166,6 @@
   "Бесплатно от&nbsp;3&nbsp;суток": "Free from&nbsp;3&nbsp;days",
   "по Бишкеку — бесплатно от 3 суток, в аэропорт — от 5 суток (при аренде на 3–4 суток — 25 $ в одну сторону); за пределы Бишкека — по запросу": "within Bishkek — free from 3 days, to the airport — from 5 days ($25 one way for 3–4 day rentals); outside Bishkek — on request",
   "Бесплатно": "Free",
-  "инструктаж и помощь в начале поездки — бесплатно": "briefing and help at the start of the trip — free"
+  "инструктаж и помощь в начале поездки — бесплатно": "briefing and help at the start of the trip — free",
+  "© 2026 «Tian Way». Все права защищены": "© 2026 Tian Way. All rights reserved"
 }

@@ -136,17 +136,17 @@ def tour_pairs(pairs: Pairs) -> None:
     tours = json.loads((ROOT / 'data' / 'tours.json').read_text(encoding='utf-8'))['tours']
     for p in tours:
         en = lambda k: (p.get(k + '_en') or '').strip()
-        if en('name'):
+        if en('name') and p.get('name'):
             pairs.add_html(esc(p['name']) + ' — Tian Way', en_html(esc(en('name'))) + ' — Tian Way')
-        if en('description'):
+        if en('description') and p.get('description'):
             pairs.add_html(html.escape(p['description']), en_html(html.escape(en('description'))))
-        if en('title'):
+        if en('title') and p.get('title'):
             pairs.add_html(esc(p['title']).replace('\n', '<br>'), en_html(esc(en('title')).replace('\n', '<br>')))
         for k in ('lead', 'days_label'):
-            if en(k):
+            if en(k) and p.get(k):
                 pairs.add_html(esc(p[k]), en_html(esc(en(k))))
-        for n, d in enumerate(p['days'], 1):
-            d_en = {**d, **{k: d.get(k + '_en') or d.get(k) for k in ('title', 'alt', 'text')}}
+        for n, d in enumerate(p.get('days') or [], 1):
+            d_en = {**d, **{k: d.get(k + '_en') or d.get(k) or '' for k in ('title', 'alt', 'text')}}
             pairs.add_fragment(bt.day_card(n, d), en_html(bt.day_card(n, d_en)), f'{p["page"]}, день {n}')
 
 
@@ -243,6 +243,10 @@ def main() -> None:
     fill_pages(data, pairs)
     tour_pairs(pairs)
     rent_pairs(pairs, data['rent'])
+    # подпись в подвале: английская — из поля copyright_en (data/site.json, панель «Контакты»)
+    site = json.loads((ROOT / 'data' / 'site.json').read_text(encoding='utf-8'))
+    if site.get('copyright'):
+        pairs.add(html.escape(str(site['copyright']), quote=False), site.get('copyright_en'))
     out = ROOT / 'data' / 'i18n' / 'cms-en.json'
     text = json.dumps({'_readme': 'Собирается сам (tools/build_content.py): переводы текстов из панели. Руками не править.',
                        **pairs.map}, ensure_ascii=False, indent=2) + '\n'

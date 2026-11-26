@@ -10,6 +10,8 @@
   var want = null;
   try { want = localStorage.getItem('tw-lang'); } catch (e) { /* приватный режим */ }
   if (want !== 'ru' && want !== 'en') {
+    // переход внутри сайта (в том числе переключателем языка) — язык выбран ссылкой, не перекидываем
+    try { if (document.referrer && new URL(document.referrer).host === location.host) return; } catch (e) { /* нет адреса */ }
     if (/bot|crawl|spider|slurp|lighthouse|headless|preview/i.test(navigator.userAgent)) return;
     var first = (navigator.languages && navigator.languages[0]) || navigator.language || '';
     want = /^(ru|ky|kk|uz|tg|uk|be)\b/i.test(first) ? 'ru' : 'en';

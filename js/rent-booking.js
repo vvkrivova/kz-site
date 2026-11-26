@@ -144,20 +144,25 @@ const rbSummary = (function () {
         'Примечания': f.notes.value.trim(),
       },
     }, form);
-    leadBusy(submitBtn, false);
     if (!sent.ok) {
       // даты машины заняли, пока человек оформлял бронь — просим выбрать другие (по ТЗ: повторная проверка на сервере)
       if (sent.reason === 'busy') {
         errorEl.innerHTML = `${t('Эти даты уже заняты — выберите другие')} — <a href="rent#cars">${t('вернуться к выбору')}</a>`;
       } else if (sent.reason === 'check') {
         errorEl.textContent = t('Не удалось проверить доступность. Попробуйте еще раз.');
+      } else if (sent.reason === 'past') {
+        errorEl.innerHTML = `${t('Дата заезда уже прошла — выберите другие даты')} — <a href="rent#cars">${t('вернуться к выбору')}</a>`;
       } else {
         errorEl.textContent = leadFailText();
       }
       errorEl.hidden = false;
+      leadBusy(submitBtn, false);
       return;
     }
 
+    // бронь принята: корзину очищаем (иначе обновление страницы позволило бы отправить ее еще раз,
+    // а старое снаряжение со старыми ценами попало бы в следующую бронь); кнопка остается неактивной
+    RentStore.update((s) => { ['car', 'from', 'to', 'guests', 'items', 'promo'].forEach((k) => delete s[k]); });
     showThanks();
   });
 

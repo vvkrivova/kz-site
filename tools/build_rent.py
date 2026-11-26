@@ -71,9 +71,11 @@ def check_dates(car: dict) -> list:
     for b in car.get('busy') or []:
         a, z = str(b.get('from', ''))[:10], str(b.get('to', ''))[:10]
         if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', a) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', z):
-            sys.exit(f'data/rent.json: у «{car["name"]}» неверные даты брони: {b}')
+            print(f'build_rent: у «{car.get("name")}» неверные даты брони {b} — пропущены')
+            continue
         if z <= a:
-            sys.exit(f'data/rent.json: у «{car["name"]}» дата выезда {z} не позже заезда {a}')
+            print(f'build_rent: у «{car.get("name")}» дата выезда {z} не позже заезда {a} — бронь пропущена')
+            continue
         out.append([a, z])
     return sorted(out)
 
@@ -82,7 +84,7 @@ def availability_js(cars: list) -> str:
     rows = []
     for c in cars:
         busy = ', '.join(f"['{a}', '{z}']" for a, z in check_dates(c))
-        rows.append(f"  {json.dumps(c['id'])}: {{ seats: {int(c['seats'])}, busy: [{busy}] }}, // {c['name']}")
+        rows.append(f"  {json.dumps(c['id'])}: {{ seats: {int(c.get('seats') or 0)}, busy: [{busy}] }}, // {c.get('name', '')}")
     return ('/* =========================================================\n'
             '   Tian Way — вместимость и занятость автодомов (страница аренды rent.html)\n'
             '   ФАЙЛ СОБИРАЕТСЯ САМ из data/rent.json (tools/build_rent.py) — руками не править.\n\n'
@@ -96,8 +98,9 @@ def availability_js(cars: list) -> str:
 
 def main() -> None:
     data = json.loads((ROOT / 'data' / 'rent.json').read_text(encoding='utf-8'))
-    cars = {c['id']: c for c in data['cars']}
-    items = {it['id']: it for it in [*data['gear'], *data['services']]}
+    # строка без id (добавлена в панели) не относится ни к одной карточке — пропускаем
+    cars = {c['id']: c for c in data.get('cars') or [] if c.get('id')}
+    items = {it['id']: it for it in [*(data.get('gear') or []), *(data.get('services') or [])] if it.get('id')}
     used = set()
 
     for name in PAGES:
@@ -109,7 +112,8 @@ def main() -> None:
             if kind == 'car':
                 cid = re.search(r'\bdata-car="([^"]+)"', tag).group(1)
                 if cid not in cars:
-                    sys.exit(f'{name}: автодома «{cid}» нет в data/rent.json')
+                    print(f'build_rent: {name}: автодома «{cid}» нет в data/rent.json — карточка без изменений')
+                    return m.group(0)
                 used.add(cid)
                 price = int(cars[cid]['price'] or 0)
                 tag = set_attr(tag, 'data-price', price)
@@ -117,7 +121,8 @@ def main() -> None:
                 return tag + body + end
             iid = re.search(r'\bdata-item="([^"]+)"', tag).group(1)
             if iid not in items:
-                sys.exit(f'{name}: «{iid}» нет в data/rent.json')
+                print(f'build_rent: {name}: «{iid}» нет в data/rent.json — карточка без изменений')
+                return m.group(0)
             used.add(iid)
             it = items[iid]
             it['price'] = int(it.get('price') or 0)

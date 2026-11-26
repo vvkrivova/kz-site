@@ -6,11 +6,16 @@
    ========================================================= */
 window.RentStore = (function () {
   const KEY = 'tw-rent-usd'; // новый ключ: прежние корзины хранили цены в рублях
+  // браузер не дает хранить данные (запрет cookie, приватный режим) — держим выбор в памяти страницы,
+  // чтобы поиск и итог хотя бы на этой странице работали
+  let memory = null;
   const read = () => {
-    try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; }
+    if (memory) return JSON.parse(JSON.stringify(memory));
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { memory = {}; return {}; }
   };
   const write = (s) => {
-    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { /* приватный режим — просто не запоминаем */ }
+    if (memory) { memory = s; return; }
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { memory = s; }
   };
   const pad = (n) => String(n).padStart(2, '0');
   // даты храним строкой «2026-11-12» — без часовых поясов
@@ -60,7 +65,9 @@ window.RentStore = (function () {
       const total = (car ? car.sum : 0) + items.reduce((a, it) => a + it.sum, 0);
       return {
         dates, nights, car, items, total, promo: s.promo || '',
-        guests: { n: g ? g[1] : '—', word: t(g ? g[2] : 'гостей'), text: s.guests || '' },
+        // слово — по числу и языку страницы (выбор мог быть сделан на другом языке)
+        guests: { n: g ? g[1] : '—', word: g ? plural(+g[1], 'гость', 'гостя', 'гостей') : t('гостей'),
+          text: g ? `${g[1]} ${plural(+g[1], 'гость', 'гостя', 'гостей')}` : '' },
         missing: !s.car ? 'автодом' : !dates ? 'даты поездки' : !g ? 'количество гостей' : '',
       };
     },
@@ -116,7 +123,7 @@ window.RentStore = (function () {
           label: card.dataset.label || '', note: card.dataset.note || '', freeFrom: Number(card.dataset.freeFrom) || 0,
         };
         ctl.innerHTML = `<button class="cart-add" type="button">${t('В корзину')}</button>
-          <div class="cart-qty" role="group" aria-label="${info.title}: ${t('количество')}">
+          <div class="cart-qty" role="group" aria-label="${t(info.title)}: ${t('количество')}">
             <button class="cart-qty__btn" type="button" data-dec aria-label="${t('Убрать одну')}">${minus}</button>
             <span class="cart-qty__val" aria-live="polite"></span>
             <button class="cart-qty__btn" type="button" data-inc aria-label="${t('Добавить еще')}">${plus}</button>
@@ -145,6 +152,7 @@ window.RentStore = (function () {
           if (set(store.qty(id) - 1) === 0) add.focus({ preventScroll: true });
         });
 
+        if (store.qty(id)) store.setQty(id, store.qty(id), info); // цена и подписи — как на странице сейчас
         render(store.qty(id), false);
       });
     },

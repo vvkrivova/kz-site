@@ -592,8 +592,7 @@
         'Сколько человек': count,
       },
     }, form);
-    leadBusy(sendBtn, false);
-    if (!sent.ok) { errorEl.textContent = leadFailText(); errorEl.hidden = false; return; }
+    if (!sent.ok) { leadBusy(sendBtn, false); errorEl.textContent = leadFailText(); errorEl.hidden = false; return; }
     goTo(3);
   });
 

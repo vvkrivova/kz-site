@@ -4,7 +4,8 @@
 # 4) загружает сайт на хостинг tianway.kg по FTP — только если в настройках репозитория заданы секреты
 #    (Settings → Secrets and variables → Actions):
 #      FTP_SERVER, FTP_USERNAME, FTP_PASSWORD — доступ к хостингу kyrgyz.cloud (Plesk → Доступ по FTP);
-#      BITRIX_WEBHOOK — адрес входящего вебхука Битрикс24 (из него на хостинге создается lead-config.php).
+#      BITRIX_WEBHOOK — адрес входящего вебхука Битрикс24 (права CRM и «Онлайн-запись»; из него на хостинге создается lead-config.php);
+#      BOOKING_ROBOT_SECRET — пароль, который робот Битрикса передает обработчику автоматической брони (api/bitrix/confirm-booking.php).
 #    Необязательные переменные (Variables): FTP_DIR — папка сайта на хостинге (по умолчанию httpdocs/),
 #    FTP_PROTOCOL — ftp (по умолчанию: хостинг kyrgyz.cloud, ProFTPD, шифрование FTPS не поддерживает) или ftps.
 # 5) просит GitHub Pages обновить копию сайта vvkrivova.github.io/kz-site.
@@ -29,7 +30,8 @@ jobs:
     env:
       PYTHONDONTWRITEBYTECODE: '1'   # без служебных файлов __pycache__ в репозитории
       FTP_SERVER: ${{ secrets.FTP_SERVER }}
-      BITRIX_WEBHOOK: ${{ secrets.BITRIX_WEBHOOK }}
+      # сам ключ Битрикса виден только шагу, который пишет lead-config.php; здесь — лишь «есть / нет»
+      HAS_BITRIX: ${{ secrets.BITRIX_WEBHOOK != '' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -56,20 +58,29 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "Сборка после правок в панели"
-            git push
+            # пока шла сборка, в панели могли сохранить еще одну правку — подтягиваем ее и пробуем еще раз
+            for try in 1 2 3; do
+              git pull --rebase --quiet && git push && break
+              sleep 5
+            done
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       # ключ Битрикс24 — только на хостинге, в репозиторий не попадает (lead-config.php в .gitignore)
       - name: Ключ Битрикс24 для lead.php
-        if: env.FTP_SERVER != '' && env.BITRIX_WEBHOOK != ''
+        if: env.FTP_SERVER != '' && env.HAS_BITRIX == 'true'
+        env:
+          BITRIX_WEBHOOK: ${{ secrets.BITRIX_WEBHOOK }}
+          BOOKING_ROBOT_SECRET: ${{ secrets.BOOKING_ROBOT_SECRET }}
         run: |
           python - <<'PY'
           import os
-          hook = os.environ['BITRIX_WEBHOOK'].strip().replace('\\', '').replace("'", '')
+          clean = lambda v: (v or '').strip().replace('\\', '').replace("'", '')
+          hook = clean(os.environ.get('BITRIX_WEBHOOK'))
+          robot = clean(os.environ.get('BOOKING_ROBOT_SECRET'))
           open('lead-config.php', 'w', encoding='utf-8').write(
-              "<?php\n// создан автозагрузкой (.github/workflows/build.yml) из секрета BITRIX_WEBHOOK\n"
-              f"return array('webhook' => '{hook}', 'hosts' => array('tianway.kg', 'www.tianway.kg'));\n")
+              "<?php\n// создан автозагрузкой (.github/workflows/build.yml) из секретов BITRIX_WEBHOOK и BOOKING_ROBOT_SECRET\n"
+              f"return array('webhook' => '{hook}', 'robot_secret' => '{robot}', 'hosts' => array('tianway.kg', 'www.tianway.kg'));\n")
           PY
 
       - name: Загрузить сайт на хостинг

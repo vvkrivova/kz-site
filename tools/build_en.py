@@ -19,6 +19,7 @@ Tian Way — английская версия сайта (папка en/). За
 (полный список — в data/i18n/missing.txt; файла нет, если все переведено).
 """
 import hashlib
+import html
 import json
 import re
 from pathlib import Path
@@ -27,8 +28,9 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = 'https://tianway.kg/'
 CYR = re.compile('[А-Яа-яЁё]')
 INLINE = {'b', 'i', 'em', 'strong', 'br', 'small', 'sup', 'sub', 'nobr', 'wbr'}
-TEXT_ATTRS = ('alt', 'title', 'aria-label', 'placeholder', 'content', 'data-title', 'data-tip',
-              'data-label', 'data-note', 'data-pick')
+TEXT_ATTRS = ('alt', 'title', 'aria-label', 'placeholder', 'content', 'data-tip', 'data-pick')
+# эти подписи вещей аренды не переводятся в разметке, а попадают в словарь скриптов (см. build_scripts_dict)
+STORE_ATTRS = ('data-title', 'data-label', 'data-note')
 PATH_ATTRS = ('src', 'href', 'srcset', 'data-full', 'poster')
 TOKEN = re.compile(r'<!--.*?-->|<script\b[^>]*>.*?</script>|<style\b[^>]*>.*?</style>|<[^>]+>|[^<]+', re.S)
 TAG = re.compile(r'^<(/?)([a-zA-Z][\w-]*)')
@@ -65,7 +67,10 @@ class Translator:
         «<small>от</small> 50&nbsp;$» → «<small>from</small> $50», «Цена уточняется» → «Price to be confirmed»"""
         if key == 'Цена уточняется':
             return 'Price to be confirmed'
-        m = re.fullmatch(r'(<small>)?от(</small>)?\s+(\d{1,3}(?:(?:\s|&nbsp;)\d{3})*)(?:\s|&nbsp;)\$', key)
+        call = re.fullmatch(r'Позвонить: ([+\d ()-]+)', key)
+        if call:
+            return f'Call: {call.group(1)}'
+        m = re.fullmatch(r'(<small>)?от(</small>)?\s+(\d+(?:(?:\s|&nbsp;)\d{3})*)(?:\s|&nbsp;)?\$', key)
         if not m:
             return None
         num = re.sub(r'\s|&nbsp;', '', m.group(3))
@@ -134,8 +139,8 @@ def rewrite_paths(tag: str) -> str:
         return f' {name}="{val}"'
     tag = re.sub(r'\s(' + '|'.join(PATH_ATTRS) + r')="([^"]*)"', repl, tag)
     tag = re.sub(r'url\((["\']?)(?!data:|https?:|/|\.\./)([^)"\']+)\1\)', r'url(\1../\2\1)', tag)
-    # og:image и т. п. — путь в content у <meta property="og:image">
-    if tag.startswith('<meta') and 'og:image' in tag:
+    # путь в content у <meta property="og:image"> (не og:image:width / :height — там числа)
+    if tag.startswith('<meta') and 'property="og:image"' in tag:
         tag = re.sub(r'content="(?!https?:)([^"]+)"', lambda m: f'content="{SITE}{m.group(1)}"', tag)
     return tag
 
@@ -204,9 +209,11 @@ def build_page(src: Path, tr: Translator) -> str:
     return s
 
 
-def build_scripts_dict() -> None:
+def build_scripts_dict(extra=None) -> None:
     words = json.loads((ROOT / 'data' / 'i18n' / 'en-scripts.json').read_text(encoding='utf-8'))
     words = {k: v for k, v in words.items() if not k.startswith('_')}
+    for k, v in (extra or {}).items():
+        words.setdefault(k, v)
     js = ('/* Собирается из data/i18n/en-scripts.json (tools/build.py) — руками не править */\n'
           'window.TW_I18N = ' + json.dumps(words, ensure_ascii=False, indent=1) + ';\n')
     out = ROOT / 'data' / 'i18n' / 'en-scripts.js'
@@ -222,8 +229,15 @@ def main() -> None:
         words.update(json.loads(cms.read_text(encoding='utf-8')))
     tr = Translator(words)
     (ROOT / 'en').mkdir(exist_ok=True)
-    build_scripts_dict()
     pages = sorted(ROOT.glob('*.html'))
+    # названия / подписи / подсказки вещей аренды: русские в разметке → переводы в словарь скриптов
+    store = {}
+    for src in pages:
+        tr.page = src.name
+        for _, val in re.findall(r'\s(' + '|'.join(STORE_ATTRS) + r')="([^"]*)"', src.read_text(encoding='utf-8')):
+            if CYR.search(val):
+                store[html.unescape(val)] = html.unescape(tr.get(val))
+    build_scripts_dict(store)
     for src in pages:
         ru = src.read_text(encoding='utf-8')
         ru_new = add_lang_head(ru, src.name, '')

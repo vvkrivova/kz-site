@@ -7,7 +7,7 @@
     "subtitle_en": "For those who choose freedom\nin travel — with no compromise on comfort"
   },
   "formats": {
-    "title": "Выбери формат путешествия",
+    "title": "Выберите формат путешествия",
     "title_en": "Choose your travel format",
     "rent_title": "Аренда\nавтодома",
     "rent_title_en": "Motorhome\nrental",
@@ -35,8 +35,8 @@
     "step2_text_en": "First we drive a test loop together — no rush\nand no difficult roads",
     "step3_title": "Передаем там,\nгде удобно",
     "step3_title_en": "Handover\nwhere you like",
-    "step3_text": "Возможность доставки машины / передачи в удобной точке — если подтверждено операционно",
-    "step3_text_en": "Delivery or handover at a convenient point — if confirmed operationally",
+    "step3_text": "Возможность доставки машины / передачи в удобной точке",
+    "step3_text_en": "Delivery or handover at a convenient point",
     "step4_title": "Остаемся\nна связи",
     "step4_title_en": "We stay\nin touch",
     "step4_text": "На протяжении всей поездки: остаемся на связи по вопросам машины и маршрута",

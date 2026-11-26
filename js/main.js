@@ -525,8 +525,8 @@ function leadForm(o) {
     if (calendar) calendar.close();
     leadBusy(submitBtn, true);
     const sent = await sendLead({ form: o.kind, title: o.title, ...o.lead() }, form);
-    leadBusy(submitBtn, false);
     if (!sent.ok) {
+      leadBusy(submitBtn, false);
       errorEl.textContent = leadFailText();
       errorEl.hidden = false;
       return;
@@ -545,6 +545,7 @@ function leadForm(o) {
   [...form.children].forEach((el, i) => el.style.setProperty('--si', i));
   let againTimer;
   o.again.addEventListener('click', () => {
+    leadBusy(submitBtn, false); // новая заявка — кнопка снова работает
     clearTimeout(againTimer);
     done.classList.remove('is-showing');
     done.classList.add('is-hiding');

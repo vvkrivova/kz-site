@@ -57,11 +57,13 @@ const rentSearch = (function () {
     const dates = RentStore.dates();
     if (dates) { calendar.set(dates.from, dates.to); showDates(dates.from, dates.to); }
     const opts = [...dd.querySelectorAll('[role="option"]')];
-    const i = opts.findIndex((o) => o.textContent.trim() === saved.guests);
+    // гости сохранены словами на том языке, где их выбирали, — ищем вариант по числу
+    const i = opts.findIndex((o) => parseInt(o.textContent, 10) === parseInt(saved.guests, 10));
     if (i >= 0) {
+      const text = opts[i].textContent.trim();
       opts.forEach((o, k) => o.setAttribute('aria-selected', String(k === i)));
-      ddValue.textContent = saved.guests;
-      guestsInput.value = saved.guests;
+      ddValue.textContent = text;
+      guestsInput.value = text;
     }
     if (saved.promo) promo.value = saved.promo;
   }
@@ -99,7 +101,7 @@ const rentSearch = (function () {
   });
   // по очереди спрашиваем то, чего не хватает, и затем выполняем done
   const require = (done) => {
-    if (!calendar.range) { askDates(() => require(done)); return; }
+    if (!RentStore.dates()) { askDates(() => require(done)); return; } // даты считаются выбранными только после «Применить»
     if (!guestsInput.value) { askGuests(() => require(done)); return; }
     done();
   };
@@ -303,6 +305,7 @@ function clearSearch() {
 
 // даты или гости изменились вручную: старые результаты убираем и просим нажать «Найти»
 function criteriaChanged() {
+  RentStore.update((s) => { delete s.car; }); // выбранный автодом проверяли под старые даты и гостей
   if (!searched) return;
   clearSearch();
   if (rentSearch && searchReady()) rentSearch.showHint(t('Нажмите «Найти», чтобы обновить список'));
@@ -329,7 +332,7 @@ function criteriaChanged() {
       });
       if (searched) runSearch();
     })
-    .catch(() => { /* остаются даты из панели */ });
+    .catch(() => { /* остаются даты из панели; перед бронью сервер все равно проверит даты */ });
 })();
 
 /* ---------- 2.1. Окошко-итог «Забронировать» ----------
@@ -365,6 +368,7 @@ const bookModal = (function () {
   function open(c) {
     card = c; lastFocus = document.activeElement;
     const dates = RentStore.dates(); const n = guestsCount();
+    if (!dates || !n) { card = null; if (rentSearch) rentSearch.askFind(t('Выберите даты и гостей и нажмите «Найти»')); return; }
     const nights = nightsBetween(dates.from, dates.to);
     const price = Number(card.dataset.price);
     $('[data-m-car]').textContent = t('Автодом {name}', { name: card.dataset.name });
@@ -373,7 +377,10 @@ const bookModal = (function () {
     // автодом без цены (data-price="0") — «уточняется»: цену назовет менеджер
     $('[data-m-rent-label]').textContent = price ? `${RentStore.money(price)} × ${nights} ${nightsWord(nights)}` : `${nights} ${nightsWord(nights)}`;
     $('[data-m-rent]').textContent = price ? RentStore.money(price * nights) : t('уточняется');
-    $('[data-m-total]').textContent = price ? RentStore.money(price * nights) : t('уточняется');
+    // итого — вместе со снаряжением, которое уже в корзине (как на следующем шаге)
+    const items = Object.values(RentStore.get().items || {}).reduce((sum, it) => sum + (it.price || 0) * (it.qty || 0) * nights, 0);
+    $('[data-m-total]').textContent = price ? RentStore.money(price * nights + items)
+      : (items ? t('{sum} + автодом', { sum: RentStore.money(items) }) : t('уточняется'));
     box.classList.add('is-open');
     document.documentElement.style.overflow = 'hidden';
     $('[data-m-go]').focus({ preventScroll: true });
@@ -383,8 +390,16 @@ const bookModal = (function () {
     document.documentElement.style.overflow = '';
     if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
-  $('[data-m-go]').addEventListener('click', () => {
+  $('[data-m-go]').addEventListener('click', (e) => {
     if (!card) return; // окошко не открыто — автодом не выбран
+    // занятость из Битрикса пришла, пока окошко было открыто, и машина оказалась занята
+    const dates = RentStore.dates();
+    if (!dates || busyOn(card, dates.from, dates.to)) {
+      e.preventDefault();
+      close();
+      if (dates) runSearch();
+      return;
+    }
     RentStore.update((s) => { s.car = { id: card.dataset.car, name: card.dataset.name, price: Number(card.dataset.price) }; });
   });
   $('[data-m-back]').addEventListener('click', close);

@@ -18,7 +18,7 @@
   "Да! Вы можете выбрать один из подготовленных маршрутов Tian Way или предложить собственное направление.<br><br>Мы поможем оценить доступность дорог для выбранного автодома, учесть сезонные ограничения, подобрать подходящие стоянки и спланировать остановки. Некоторые горные и труднодоступные участки требуют предварительного согласования.": "Yes! You can choose one of the ready-made Tian Way routes or suggest your own destination.<br><br>We’ll help you check road access for your motorhome, take seasonal restrictions into account, find suitable campsites and plan your stops. Some mountain and hard-to-reach sections need to be agreed in advance.",
   "Что входит в стоимость аренды автодома?": "What does the motorhome rental include?",
   "Вы получаете подготовленный к путешествию автодом с жилым модулем и оборудованием согласно комплектации выбранной модели.<br><br>В стоимость также включен пробег 250 км за каждые сутки аренды. Неиспользованный пробег суммируется в течение поездки.<br><br>Дополнительное туристическое снаряжение можно арендовать отдельно. Точный перечень включенных услуг и оборудования указан в карточке автодома.": "You get a travel-ready motorhome with a living module and equipment according to the chosen model’s specification.<br><br>The price also includes 250 km of mileage per rental day. Unused mileage carries over for the whole trip.<br><br>Extra camping gear can be rented separately. The exact list of included services and equipment is shown on each motorhome’s card.",
-  "Смотреть аренду снаряжений": "See gear rental",
+  "Смотреть аренду снаряжения": "See gear rental",
   "Как забронировать автодом и какой залог необходимо внести?": "How do I book a motorhome and what deposit is required?",
   "Для подтверждения бронирования необходимо внести предоплату в размере 30% от стоимости аренды.<br><br>Оставшиеся 70% оплачиваются до начала путешествия. Также предусмотрен возвратный залог $500, который вносится отдельно и возвращается после проверки состояния и комплектации автодома согласно условиям договора.": "To confirm a booking, a 30% prepayment of the rental cost is required.<br><br>The remaining 70% is paid before the trip starts. There is also a refundable $500 deposit, paid separately and returned after the motorhome’s condition and equipment are checked according to the contract.",
   "Смотреть автодома": "See motorhomes",
@@ -393,7 +393,7 @@
   "Активный отдых": "Active holidays",
   "Велосипед для прогулок по&nbsp;живописным маршрутам Кыргызстана, поездок вдоль Иссык-Куля и&nbsp;знакомства с&nbsp;окрестностями. Подходит для самостоятельных велопрогулок и&nbsp;активного отдыха во&nbsp;время путешествия.": "A bicycle for rides along&nbsp;the scenic routes of Kyrgyzstan, trips along Issyk-Kul and&nbsp;exploring the surroundings. Great for independent bike rides and&nbsp;active days during&nbsp;your trip.",
   "SUP-борд": "SUP board",
-  "SUP-борд с веслом": "SUP board with a paddle",
+  "SUP-доска с веслом": "SUP board with a paddle",
   "Надувная доска для прогулок по&nbsp;спокойной воде. Отлично подходит для летнего отдыха на&nbsp;Иссык-Куле и&nbsp;других разрешенных водоемах. В&nbsp;комплекте: доска, весло, насос и&nbsp;жилет.": "An inflatable board for paddling on&nbsp;calm water. Perfect for summer days on&nbsp;Issyk-Kul and&nbsp;other permitted lakes. Includes board, paddle, pump and&nbsp;life vest.",
   "Спиннинговый комплект: спиннинг, катушка, леска или шнур, набор искусственных приманок, поводки, подсак, аксессуары и&nbsp;чехол.": "Spinning kit: rod, reel, line or braid, a set of lures, leaders, landing net, accessories and&nbsp;a case.",
   "Регулируемые палки для пеших прогулок, горных маршрутов и&nbsp;треккинга. Помогают поддерживать устойчивость на&nbsp;пересеченной местности. Цена&nbsp;— за&nbsp;пару.": "Adjustable poles for hiking, mountain routes and&nbsp;trekking. They help you keep your balance on&nbsp;rough terrain. Price&nbsp;— per&nbsp;pair.",
@@ -526,5 +526,9 @@
   "Готовые путешествия на автодоме по Кыргызстану: Иссык-Куль, Каракол, зимние горы. Или соберем поездку под ваши даты, темп и интересы.": "Ready-made motorhome trips in Kyrgyzstan: Issyk-Kul, Karakol, winter mountains. Or we’ll plan a trip around your dates, pace and interests.",
   "Инструктор Tian Way показывает «класс» в лодке на озере": "Tian Way instructor giving a thumbs-up in a boat on the lake",
   "Toyota Prado с кемпером на фоне гор — передача автодома": "Toyota Prado with a camper against the mountains — motorhome handover",
-  "Маршрут, нарисованный от руки поверх горного серпантина: Бишкек, Ала-Арча, Иссык-Куль, Каракол, Джети-Огуз": "A hand-drawn route over a mountain road: Bishkek, Ala-Archa, Issyk-Kul, Karakol, Jeti-Oguz"
+  "Маршрут, нарисованный от руки поверх горного серпантина: Бишкек, Ала-Арча, Иссык-Куль, Каракол, Джети-Огуз": "A hand-drawn route over a mountain road: Bishkek, Ala-Archa, Issyk-Kul, Karakol, Jeti-Oguz",
+  "День 9": "Day 9",
+  "День 10": "Day 10",
+  "День 11": "Day 11",
+  "День 12": "Day 12"
 }

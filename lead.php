@@ -13,9 +13,11 @@
    Бронь: перед созданием сделки сервер еще раз проверяет даты машины в «Онлайн-записи»; занято — ответ reason=busy,
    Битрикс не ответил — reason=check («Не удалось проверить доступность»).
    Повтор одной и той же отправки (тот же key) не создает вторую сделку — возвращается номер первой.
-   Ответ: {"ok":true,"id":номер сделки}. Пока Битрикс не подключен — {"ok":true} (форма показывает «Спасибо»).
+   Ответ: {"ok":true,"id":номер сделки}. Битрикс не подключен (нет lead-config.php или ключа) — {"ok":false}: посетитель видит
+   ошибку с телефоном, а не ложное «Спасибо» (заявка иначе потерялась бы).
 
-   Защита от спама: заявки только со страниц tianway.kg, не раньше 2 с после открытия страницы, не больше 5 за 10 минут с адреса.
+   Защита от спама: заявки только со страниц tianway.kg, не раньше 2 с после открытия страницы, не больше 8 попыток за 10 минут
+   с адреса (считаются и неудачные — чтобы скриптом нельзя было бесконечно гонять проверки дат и тратить лимит Битрикса).
    ========================================================= */
 
 require __DIR__ . '/api/bitrix.php';
@@ -34,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     answer(false, 405);
 }
 
-// Битрикс24 еще не подключен — ведем себя как раньше: форма показывает «Спасибо», заявка никуда не уходит
+// Битрикс24 не подключен — заявку некуда отправить: честная ошибка (форма покажет телефон), а не «Спасибо»
 if (!tw_configured()) {
-    error_log('Tian Way lead.php: Битрикс24 еще не подключен — заявка не отправлена');
-    answer(true);
+    error_log('Tian Way lead.php: нет ключа Битрикс24 (lead-config.php) — заявка не отправлена');
+    answer(array('ok' => false, 'reason' => 'send'), 503);
 }
 
 // заявки — только со страниц сайта
@@ -46,7 +48,7 @@ if (!in_array(strtolower((string) parse_url($from, PHP_URL_HOST)), array('tianwa
     answer(false, 403);
 }
 
-$data = json_decode((string) file_get_contents('php://input', false, null, 0, 20000), true);
+$data = json_decode((string) file_get_contents('php://input', false, null, 0, 200000), true);
 if (!is_array($data)) {
     answer(false, 400);
 }
@@ -80,20 +82,25 @@ if ($key !== '') {
     }
 }
 
-// ---------- не больше 5 заявок за 10 минут с одного адреса ----------
+// ---------- не больше 8 попыток за 10 минут с одного адреса (считаются все, до обращений к Битриксу) ----------
 $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
-$limitFile = tw_tmp('limit-' . md5($ip));
+$limit = fopen(tw_tmp('limit-' . md5($ip)), 'c+');
 $now = time();
 $recent = array();
-if (is_file($limitFile)) {
-    foreach (explode(',', (string) file_get_contents($limitFile)) as $stamp) {
+if ($limit && flock($limit, LOCK_EX)) {
+    foreach (explode(',', (string) stream_get_contents($limit)) as $stamp) {
         if ((int) $stamp > $now - 600) {
             $recent[] = (int) $stamp;
         }
     }
-}
-if (count($recent) >= 5) {
-    answer(false, 429);
+    if (count($recent) >= 8) {
+        answer(false, 429);
+    }
+    $recent[] = $now;
+    ftruncate($limit, 0);
+    rewind($limit);
+    fwrite($limit, implode(',', $recent));
+    flock($limit, LOCK_UN);
 }
 
 // ---------- что пришло ----------
@@ -121,7 +128,10 @@ $isRent = $form === 'rent' || ($form === 'home' && preg_match('/аренд/iu', 
 $phone = ($contact !== '' && !preg_match('/\p{L}/u', $contact)) ? $contact : '';
 $messenger = ($contact !== '' && $phone === '') ? $contact : '';
 
-// ---------- бронь: повторная проверка дат машины ----------
+// ---------- бронь: заезд не в прошлом (по Бишкеку) и повторная проверка дат машины ----------
+if ($isRent && $fromDay && $fromDay < date('Y-m-d')) {
+    answer(array('ok' => false, 'reason' => 'past'), 400);
+}
 if ($isRent && $car && $fromDay && $toDay) {
     try {
         $busy = tw_busy($fromDay, $toDay, array($car));
@@ -134,9 +144,6 @@ if ($isRent && $car && $fromDay && $toDay) {
         answer(array('ok' => false, 'reason' => 'check'), 503);
     }
 }
-
-$recent[] = $now;
-@file_put_contents($limitFile, implode(',', $recent));
 
 try {
     // ---------- контакт: по телефону или e-mail ----------

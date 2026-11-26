@@ -39,7 +39,11 @@ def fill(tpl: str, values: dict) -> str:
 def apply_layout() -> None:
     sys.path.insert(0, str(ROOT / 'tools'))
     site = json.loads((ROOT / 'data' / 'site.json').read_text(encoding='utf-8'))
-    values = {k: html.escape(v) for k, v in site.items() if not k.startswith('_')}
+    # поле контактов очищено в панели (null) или удалено — пустая строка, сборка не падает
+    fields = set(re.findall(r'\{\{(\w+)\}\}', (ROOT / 'templates' / 'header-contacts.html').read_text(encoding='utf-8')
+                            + (ROOT / 'templates' / 'footer.html').read_text(encoding='utf-8'))) - {'theme', 'page', 'mod'}
+    values = {k: '' for k in fields}
+    values.update({k: html.escape(str(v)) for k, v in site.items() if not k.startswith('_') and v is not None})
     contacts = fill((ROOT / 'templates' / 'header-contacts.html').read_text(encoding='utf-8'), values)
     footer_tpl = (ROOT / 'templates' / 'footer.html').read_text(encoding='utf-8').rstrip('\n')
     # шапка: строка с логотипом остается своя у каждой страницы, телефон и соцсети — из шаблона
