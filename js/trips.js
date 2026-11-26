@@ -110,14 +110,17 @@
     again: document.querySelector('[data-tp-again]'),
     fields: { name: form.elements.name, contact: form.elements.contact },
     dates: { btn: form.querySelector('[data-tp-dates]'), value: form.querySelector('[data-tp-dates-value]'), cal: form.querySelector('[data-calendar]') },
-    title: 'Заявка «Собрать путешествие»',
-    data: () => ({
-      where: form.elements.where.value,
-      people: form.elements.people.value,
-      dates: form.elements.dates.value || 'не выбраны',
-      wishes: form.elements.wishes.value.trim(),
+    kind: 'trip',
+    title: 'Собрать путешествие',
+    lead: () => ({
       name: form.elements.name.value.trim(),
       contact: form.elements.contact.value.trim(),
+      info: {
+        'Куда хочется': form.elements.where.value,
+        'Сколько человек': form.elements.people.value,
+        'Даты': form.elements.dates.value || 'не выбраны',
+        'Пожелания': form.elements.wishes.value.trim(),
+      },
     }),
   });
 })();

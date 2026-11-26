@@ -90,8 +90,10 @@ const rbSummary = (function () {
   [f.name, f.surname, f.phone, f.email].forEach((el) => el.addEventListener('input', () => clearError(el)));
   f.consent.addEventListener('change', () => clearError(f.consent));
 
-  form.addEventListener('submit', (e) => {
+  const submitBtn = form.querySelector('[type="submit"]');
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (submitBtn.disabled) return; // заявка уже отправляется
     errorEl.hidden = true;
     // не выбран автодом или даты — это не поле формы, поэтому сообщение рядом с кнопкой
     const sm = RentStore.summary();
@@ -115,22 +117,30 @@ const rbSummary = (function () {
     check(f.consent, f.consent.checked ? '' : 'Нужно согласие на обработку персональных данных');
     if (bad.length) { bad[0].focus({ preventScroll: true }); return; }
 
-    // данные заявки — пригодятся, когда подключим отправку на почту / в Telegram
-    console.info('Бронирование автодома (отправка еще не подключена):', {
-      car: sm.car && sm.car.name,
-      from: sm.dates && RentStore.toKey(sm.dates.from),
-      to: sm.dates && RentStore.toKey(sm.dates.to),
-      nights: sm.nights,
-      guests: sm.guests.text,
-      promo: sm.promo,
-      items: sm.items.map((it) => `${it.title} × ${it.qty}`),
-      total: sm.total,
+    // заявка — в Битрикс24 (sendLead в js/main.js); не ушла — ошибка с телефоном у кнопки
+    const day = (d) => d && d.toLocaleDateString('ru-RU');
+    leadBusy(submitBtn, true);
+    const sent = await sendLead({
+      form: 'rent',
+      title: `Бронирование: ${sm.car ? sm.car.name : 'автодом'}`,
       name: f.name.value.trim(),
       surname: f.surname.value.trim(),
-      phone: f.phone.value.trim(),
+      contact: f.phone.value.trim(),
       email: f.email.value.trim(),
-      notes: f.notes.value.trim(),
+      sum: sm.total,
+      info: {
+        'Автодом': sm.car && sm.car.name,
+        'Даты': sm.dates ? `${day(sm.dates.from)} — ${day(sm.dates.to)}` : '',
+        'Ночей': sm.nights,
+        'Гости': sm.guests.text,
+        'Снаряжение и услуги': sm.items.map((it) => `${it.title} × ${it.qty}`).join('; ') || 'нет',
+        'Итого': RentStore.totalText(sm),
+        'Промокод': sm.promo,
+        'Примечания': f.notes.value.trim(),
+      },
     });
+    leadBusy(submitBtn, false);
+    if (!sent) { errorEl.textContent = leadFailText(); errorEl.hidden = false; return; }
 
     showThanks();
   });

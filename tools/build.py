@@ -2,7 +2,9 @@
 Tian Way — сборка сайта. Запускать после любых правок:  python3 tools/build.py
 
 1. Страницы программ туров (tour-issyk-ring / -north / -winter): данные — data/tours.json,
-   оформление — templates/tour.html (tools/build_tours.py).
+   оформление — templates/tour.html (tools/build_tours.py); там же длительность и цена на карточках trips.html.
+   Цены и занятые даты аренды (rent.html, rent-extras.html, data/rent-availability.js) — data/rent.json
+   (tools/build_rent.py).
 2. Шапка и подвал на всех страницах — из templates/header-contacts.html и templates/footer.html,
    контакты и подписи — data/site.json. У страницы остаются свои: логотип в шапке и цвет подвала
    (footer--light / footer--dark).
@@ -90,6 +92,7 @@ def stamp_versions() -> None:
 
 if __name__ == '__main__':
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_tours.py')], check=True)
+    subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_rent.py')], check=True)
     apply_layout()
     stamp_versions()
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_en.py')], check=True)

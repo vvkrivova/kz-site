@@ -63,12 +63,15 @@
     // вопрос — необязательный: обязательны только имя и контакты
     fields: { name: form.elements.name, contact: form.elements.contact },
     missingText: (missing) => t('Укажите {what}, чтобы мы могли ответить.', { what: humanJoin(missing.map((k) => LABELS[k])) }),
+    kind: 'ask',
     title: 'Вопрос с сайта',
-    data: () => ({
-      topic: form.elements.topic.value,
-      question: form.elements.question.value.trim(),
+    lead: () => ({
       name: form.elements.name.value.trim(),
       contact: form.elements.contact.value.trim(),
+      info: {
+        'Тема': form.elements.topic.value,
+        'Вопрос': form.elements.question.value.trim(),
+      },
     }),
     againMs: 1200,
     focusAfterAgain: form.elements.question,

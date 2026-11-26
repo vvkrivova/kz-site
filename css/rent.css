@@ -98,9 +98,6 @@
 .car__gallery { left: 0; top: 0; width: 604px; height: 249px; overflow: hidden; }
 .car__track { display: flex; gap: 13px; transition: transform .55s cubic-bezier(.2, .7, .2, 1); }
 .car__photo { flex: none; width: 412px; height: 249px; border-radius: 7px; object-fit: cover; }
-.car__photo--empty { background: #d9d9d9; }
-.car__photo--empty[data-soon] { display: grid; place-items: center; }
-.car__photo--empty[data-soon]::after { content: attr(data-soon); font: 500 18px/1 var(--font-body); color: rgba(0, 0, 0, .4); }
 /* вертикальные фото салона — узкой плиткой целиком, без обрезки (3:4) */
 .car__photo--tall { width: 187px; }
 /* по клику фото открывается крупно (лайтбокс — раздел 1а) */
@@ -177,7 +174,6 @@
 .car__list { margin: 0; padding: 0; list-style: none; font: 400 13px/18px var(--font-body); color: #000; }
 .car__list li { position: relative; }
 .car__list li::before { content: ""; position: absolute; left: -11px; top: 7px; width: 4px; height: 4px; border-radius: 50%; background: var(--orange-map); }
-.car__details--soon .car__about, .car__details--soon .car__list { color: rgba(0, 0, 0, .45); }
 
 .car__price { right: 127px; top: 400px; margin: 0; text-align: right; transition: top .55s cubic-bezier(.2, .7, .2, 1); }
 .car__price-sum { display: block; font: 400 24px/.94 var(--font-display); text-transform: uppercase; color: var(--rent-ink); white-space: nowrap; }

@@ -33,10 +33,10 @@ def title_html(t):
 def day_card(n, d):
     title = title_html(d['title'])
     if d.get('photo'):
-        pos = f" tday__photo--{d['photo_pos']}" if d.get('photo_pos') else ''
+        pos = f" tday__photo--{d['photo_pos']}" if d.get('photo_pos') in ('top', 'y16') else ''
         text = f"\n            <p class=\"tday__text\">{nb(html.escape(d['text'], quote=False))}</p>" if d.get('text') else ''
         return (f'          <article class="tday">\n'
-                f'            <img class="tday__photo{pos}" src="{d["photo"]}" alt="{html.escape(d.get("alt", ""))}">\n'
+                f'            <img class="tday__photo{pos}" src="{html.escape(d["photo"].lstrip("/"))}" alt="{html.escape(d.get("alt", ""))}">\n'
                 f'            <span class="tday__num">День {n}</span>\n'
                 f'            <h3 class="tday__title">{title}</h3>{text}\n'
                 f'          </article>')
@@ -72,9 +72,33 @@ def build(p, tpl):
     return s
 
 
+def trips_cards(tours):
+    """карточки туров на странице «Готовые путешествия» (trips.html): длительность и цена — из tours.json"""
+    page = ROOT / 'trips.html'
+    s = page.read_text(encoding='utf-8')
+    for p in tours:
+        art = re.compile(r'(<article class="tcard".*?)(</article>)', re.S)
+
+        def fix(m):
+            body = m.group(1)
+            if f'href="{p["page"]}"' not in body:
+                return m.group(0)
+            body = re.sub(r'(<span class="tcard__meta tcard__meta--days">).*?(</span>)',
+                          lambda x: x.group(1) + html.escape(p['days_label'], quote=False) + x.group(2), body)
+            body = re.sub(r'(<span class="tcard__meta tcard__meta--price">).*?(</span>)',
+                          lambda x: x.group(1) + html.escape(p['price'], quote=False) + x.group(2), body)
+            return body + m.group(2)
+        s = art.sub(fix, s)
+    if s != page.read_text(encoding='utf-8'):
+        page.write_text(s, encoding='utf-8')
+        print('карточки туров обновлены: trips.html')
+
+
 if __name__ == '__main__':
     tpl = TEMPLATE.read_text(encoding='utf-8')
-    for p in json.loads(DATA.read_text(encoding='utf-8'))['tours']:
+    tours = json.loads(DATA.read_text(encoding='utf-8'))['tours']
+    for p in tours:
         out = ROOT / p['page']
         out.write_text(build(p, tpl), encoding='utf-8')
         print('готово:', out.name, f"({len(p['days'])} дн.)")
+    trips_cards(tours)

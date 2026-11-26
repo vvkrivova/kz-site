@@ -30,13 +30,16 @@
     again: document.querySelector('[data-fish-again]'),
     fields: { name: form.elements.name, contact: form.elements.contact },
     dates: { btn: form.querySelector('[data-fish-dates]'), value: form.querySelector('[data-fish-dates-value]'), cal: form.querySelector('[data-calendar]') },
-    title: 'Заявка «Рыбалка и охота»',
-    data: () => ({
-      what: form.elements.what.value,
-      people: form.elements.people.value,
-      dates: form.elements.dates.value || 'не выбраны',
+    kind: 'fishing',
+    title: 'Рыбалка и охота',
+    lead: () => ({
       name: form.elements.name.value.trim(),
       contact: form.elements.contact.value.trim(),
+      info: {
+        'Что интересует': form.elements.what.value,
+        'Сколько человек': form.elements.people.value,
+        'Даты': form.elements.dates.value || 'не выбраны',
+      },
     }),
   });
 })();

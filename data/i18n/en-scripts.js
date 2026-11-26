@@ -188,5 +188,6 @@ window.TW_I18N = {
  "Туристический коврик": "Camping mat",
  "Набор «Кемпинг»": "“Camping” set",
  "Набор «Пикник»": "“Picnic” set",
- "Набор «Велопрогулка»": "“Bike ride” set"
+ "Набор «Велопрогулка»": "“Bike ride” set",
+ "Не получилось отправить заявку. Позвоните нам: {phone}": "Couldn’t send your request. Call us: {phone}"
 };

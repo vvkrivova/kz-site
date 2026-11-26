@@ -530,9 +530,11 @@
     }
   });
 
-  // отправка (пока без реальной отправки — показываем экран «Спасибо»)
-  form.addEventListener('submit', (e) => {
+  // отправка: заявка уходит в Битрикс24, затем экран «Спасибо»
+  const sendBtn = form.querySelector('[type="submit"]');
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (sendBtn.disabled) return; // заявка уже отправляется
     const name = form.elements.name.value.trim();
     const phone = form.elements.phone.value.trim();
     const consent = form.elements.consent.checked;
@@ -570,14 +572,22 @@
     // согласие — сообщение под галочкой
     if (!consent) { errorEl.textContent = t('Нужно согласие на обработку персональных данных.'); errorEl.hidden = false; return; }
 
-    // данные заявки — пригодятся, когда подключим отправку на почту / в Telegram
-    const data = {
-      kind: form.elements.kind.value,
-      dates: datesUnknown ? 'пока не знают' : (calendar.range ? `${calendar.fmtLong(calendar.range.from)} — ${calendar.fmtLong(calendar.range.to)}` : 'не выбраны'),
-      people: count, name, phone,
-    };
-    console.info('Заявка (отправка еще не подключена):', data);
+    // заявка — в Битрикс24 (sendLead в js/main.js); не ушла — ошибка с телефоном под галочкой
     closeCal();
+    leadBusy(sendBtn, true);
+    const sent = await sendLead({
+      form: 'home',
+      title: 'Заявка с главной',
+      name,
+      contact: phone,
+      info: {
+        'Что интересует': form.elements.kind.value || 'не выбрано',
+        'Даты': datesUnknown ? 'пока не знают' : (calendar.range ? `${calendar.fmtLong(calendar.range.from)} — ${calendar.fmtLong(calendar.range.to)}` : 'не выбраны'),
+        'Сколько человек': count,
+      },
+    });
+    leadBusy(sendBtn, false);
+    if (!sent) { errorEl.textContent = leadFailText(); errorEl.hidden = false; return; }
     goTo(3);
   });
 

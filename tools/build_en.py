@@ -6,7 +6,7 @@ Tian Way — английская версия сайта (папка en/). За
     кусок текста — это абзац/заголовок/надпись целиком, вместе с <b>, <br>, <small> и т. п. внутри
     (в переводе эти теги нужно сохранить); пробелы и переносы строк в ключе не важны;
   • переводятся и подписи в атрибутах: alt, title, aria-label, placeholder, content (описание страницы),
-    data-title / data-tip / data-label / data-note / data-soon / data-pick;
+    data-title / data-tip / data-label / data-note / data-pick;
   • пути к картинкам, стилям и скриптам получают «../» (страницы лежат на уровень глубже),
     ссылки на другие страницы остаются как есть — ведут на английские страницы;
   • надписи, которые пишут скрипты (календарь, формы, корзина), — словарь data/i18n/en-scripts.json,
@@ -26,7 +26,7 @@ SITE = 'https://tianway.kg/'
 CYR = re.compile('[А-Яа-яЁё]')
 INLINE = {'b', 'i', 'em', 'strong', 'br', 'small', 'sup', 'sub', 'nobr', 'wbr'}
 TEXT_ATTRS = ('alt', 'title', 'aria-label', 'placeholder', 'content', 'data-title', 'data-tip',
-              'data-label', 'data-note', 'data-soon', 'data-pick')
+              'data-label', 'data-note', 'data-pick')
 PATH_ATTRS = ('src', 'href', 'srcset', 'data-full', 'poster')
 TOKEN = re.compile(r'<!--.*?-->|<script\b[^>]*>.*?</script>|<style\b[^>]*>.*?</style>|<[^>]+>|[^<]+', re.S)
 TAG = re.compile(r'^<(/?)([a-zA-Z][\w-]*)')
@@ -51,8 +51,24 @@ class Translator:
         key = norm(text)
         if key in self.words:
             return self.words[key]
+        price = self.price(key)
+        if price:
+            return price
         self.missing.setdefault(key, set()).add(self.page)
         return text
+
+    @staticmethod
+    def price(key: str):
+        """цены переводятся сами, без словаря (их меняют в панели): «от 1 150 $» → «from $1,150»,
+        «<small>от</small> 50&nbsp;$» → «<small>from</small> $50», «Цена уточняется» → «Price to be confirmed»"""
+        if key == 'Цена уточняется':
+            return 'Price to be confirmed'
+        m = re.fullmatch(r'(<small>)?от(</small>)?\s+(\d{1,3}(?:(?:\s|&nbsp;)\d{3})*)(?:\s|&nbsp;)\$', key)
+        if not m:
+            return None
+        num = re.sub(r'\s|&nbsp;', '', m.group(3))
+        money = '$' + (f'{int(num):,}' if num.strip('0') else ','.join([num[:-3], num[-3:]]) if len(num) > 3 else num)
+        return f'{m.group(1) or ""}from{m.group(2) or ""} {money}'
 
     # --- текст между тегами: собираем куски вместе со «строчными» тегами (<b>, <br> …) ---
     def units(self, tokens):

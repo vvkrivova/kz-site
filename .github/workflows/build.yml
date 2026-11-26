@@ -1,0 +1,100 @@
+# Сборка сайта и загрузка на хостинг — после каждой правки в панели Pages CMS и каждой выгрузки в main.
+# 1) уменьшает загруженные фото (tools/optimize_images.py), 2) собирает страницы, шапку/подвал, цены аренды,
+#    английскую версию и метки версий (tools/build.py), 3) сохраняет результат в main,
+# 4) загружает сайт на хостинг tianway.kg по FTP — только если в настройках репозитория заданы секреты
+#    (Settings → Secrets and variables → Actions):
+#      FTP_SERVER, FTP_USERNAME, FTP_PASSWORD — доступ к хостингу kyrgyz.cloud (Plesk → Доступ по FTP);
+#      BITRIX_WEBHOOK — адрес входящего вебхука Битрикс24 (из него на хостинге создается lead-config.php).
+#    Необязательные переменные (Variables): FTP_DIR — папка сайта на хостинге (по умолчанию httpdocs/),
+#    FTP_PROTOCOL — ftps (по умолчанию) или ftp.
+# 5) просит GitHub Pages обновить копию сайта vvkrivova.github.io/kz-site.
+name: Сборка и загрузка сайта
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: build-site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      BITRIX_WEBHOOK: ${{ secrets.BITRIX_WEBHOOK }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Уменьшить загруженные фото
+        run: |
+          pip install --quiet pillow
+          python tools/optimize_images.py
+
+      - name: Собрать страницы
+        run: python tools/build.py
+
+      - name: Сохранить результат
+        id: save
+        run: |
+          git config user.name "tianway-build"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Изменений после сборки нет"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Сборка после правок в панели"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # ключ Битрикс24 — только на хостинге, в репозиторий не попадает (lead-config.php в .gitignore)
+      - name: Ключ Битрикс24 для lead.php
+        if: env.FTP_SERVER != '' && env.BITRIX_WEBHOOK != ''
+        run: |
+          python - <<'PY'
+          import os
+          hook = os.environ['BITRIX_WEBHOOK'].strip().replace('\\', '').replace("'", '')
+          open('lead-config.php', 'w', encoding='utf-8').write(
+              "<?php\n// создан автозагрузкой (.github/workflows/build.yml) из секрета BITRIX_WEBHOOK\n"
+              f"return array('webhook' => '{hook}', 'hosts' => array('tianway.kg', 'www.tianway.kg'));\n")
+          PY
+
+      - name: Загрузить сайт на хостинг
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          server-dir: ${{ vars.FTP_DIR || 'httpdocs/' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            templates/**
+            tools/**
+            .pages.yml
+            .nojekyll
+            CLAUDE.md
+            data/i18n/*.json
+            data/i18n/missing.txt
+
+      # коммит от этой сборки сам GitHub Pages не перезапускает — просим опубликовать явно
+      - name: Обновить копию на GitHub Pages
+        if: steps.save.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Публикацию запустить не удалось — GitHub Pages опубликует при следующем изменении"

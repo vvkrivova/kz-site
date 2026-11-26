@@ -26,6 +26,53 @@ function plural(n, one, few, many) {
   return many;
 }
 
+/* ---------- Отправка заявок в Битрикс24 ----------
+   Все формы сайта отправляют заявку одной функцией sendLead(lead) → lead.php на хостинге → новый лид в Битрикс24.
+   Ключ Битрикса лежит только на хостинге (lead-config.php, в код сайта и на GitHub не попадает).
+   lead = { form: 'rent' | 'trip' | 'fishing' | 'ask' | 'home',   — какая форма
+            title: 'Бронирование автодома',                       — название лида (по-русски, для менеджера)
+            name, surname, contact (телефон или Telegram), email, sum (итог в $, необязательно),
+            info: { 'Автодом': 'Forland S1', 'Даты': '…' } }       — остальное: подпись → значение
+   Ответ: true — заявка принята, false — не получилось (форма показывает ошибку и телефон).
+   Отправка идет только с tianway.kg: на копии сайта на GitHub и на компьютере PHP нет —
+   там заявка пишется в консоль браузера, а форма, как раньше, сразу показывает «Спасибо». */
+const LEAD_HOSTS = ['tianway.kg', 'www.tianway.kg'];
+async function sendLead(lead) {
+  const payload = { ...lead, page: location.href, lang: LANG, ms: Math.round(performance.now()) };
+  if (!LEAD_HOSTS.includes(location.hostname)) {
+    console.info(`${lead.title} (отправка в Битрикс24 работает только на tianway.kg):`, payload);
+    return true;
+  }
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 15000);
+  try {
+    const res = await fetch(`${SITE_ROOT}lead.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: ctrl.signal,
+    });
+    const answer = await res.json().catch(() => ({}));
+    return res.ok && answer.ok === true;
+  } catch (e) {
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+// текст, если заявка не ушла: телефон берем со страницы (шапка или подвал)
+function leadFailText() {
+  const tel = document.querySelector('a[href^="tel:"]');
+  const phone = (tel && tel.textContent.trim()) || '+996 500 192 445';
+  return t('Не получилось отправить заявку. Позвоните нам: {phone}', { phone });
+}
+// кнопка «Отправить» на время отправки: полупрозрачная, второй раз не нажимается
+function leadBusy(btn, on) {
+  if (!btn) return;
+  btn.disabled = on;
+  btn.setAttribute('aria-busy', String(on));
+}
+
 /* ---------- 0. Прокрутка при открытии страницы ----------
    • Обновление страницы — всегда в самое начало (браузер иначе вернул бы туда, где человек был,
      а якорь в адресе, например #formats после «Выбрать формат», снова прокрутил бы к блоку).
@@ -389,13 +436,13 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
 /* ---------- 12. Формы заявок внутренних страниц (вопросы, путешествия, рыбалка) ----------
    Одна логика для всех: проверка обязательных полей и согласия, «Спасибо» на месте формы,
    «Отправить еще одну» — благодарность уходит, поля по очереди выплывают.
-   Пока без реальной отправки: данные заявки пишутся в консоль (сюда же потом подключим отправку).
+   Заявка уходит в Битрикс24 (sendLead); не ушла — ошибка с телефоном, форма остается заполненной.
    leadForm({
      form, error, done, again,            — элементы: форма, строка ошибки, «Спасибо», кнопка «еще раз»
      fields: { name: input, … },          — обязательные поля
      missingText(missing) → строка,       — текст, если чего-то не хватает (по умолчанию — про имя и контакты)
      dates: { btn, value, cal },          — поле дат с общим календарем (необязательно)
-     title, data() → объект,              — подпись и данные заявки для консоли
+     kind, title, lead() → объект,        — какая форма, название лида и данные заявки (см. sendLead)
      againMs, focusAfterAgain,            — длительность «выплывания» и поле, куда поставить курсор
    }) */
 function leadForm(o) {
@@ -442,8 +489,10 @@ function leadForm(o) {
   Object.values(fields).forEach((f) => f.addEventListener('input', clearErrors));
   form.elements.consent.addEventListener('change', () => { errorEl.hidden = true; });
 
-  form.addEventListener('submit', (e) => {
+  const submitBtn = form.querySelector('[type="submit"]');
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (submitBtn && submitBtn.disabled) return; // заявка уже отправляется
     clearErrors();
     const missing = Object.keys(fields).filter((k) => !fields[k].value.trim());
     if (missing.length) {
@@ -459,10 +508,16 @@ function leadForm(o) {
       return;
     }
 
-    // данные заявки — пригодятся, когда подключим отправку на почту / в Telegram
-    console.info(`${o.title} (отправка еще не подключена):`, o.data());
-
     if (calendar) calendar.close();
+    leadBusy(submitBtn, true);
+    const sent = await sendLead({ form: o.kind, title: o.title, ...o.lead() });
+    leadBusy(submitBtn, false);
+    if (!sent) {
+      errorEl.textContent = leadFailText();
+      errorEl.hidden = false;
+      return;
+    }
+
     form.classList.add('is-hiding'); // форма плавно уходит, на ее месте появляется благодарность
     setTimeout(() => {
       form.hidden = true;

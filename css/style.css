@@ -44,6 +44,8 @@ img { display: block; max-width: none; }
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, p, dl, dd { margin: 0; }
 button { font: inherit; }
+/* кнопка «Отправить», пока заявка уходит в Битрикс24 (leadBusy в js/main.js) */
+button[aria-busy="true"] { opacity: .6; cursor: progress; }
 
 .page { width: var(--stage-w); margin: 0 0 0 var(--page-gutter); transform-origin: 0 0; transform: scale(var(--page-scale, 1)); background: var(--beige); /* цвет блоков — чтобы на стыках не просвечивало светлое */ }
 /* масштаб задаёт js/main.js; лишнее за пределами масштабированной страницы обрезаем */

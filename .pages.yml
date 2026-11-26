@@ -1,0 +1,318 @@
+# Настройки Pages CMS (https://pagescms.org) — панель, где заказчица сама правит сайт.
+# Разделы: «Программы туров» (data/tours.json → tour-*.html и карточки на trips.html),
+# «Аренда: цены и даты» (data/rent.json → rent.html, rent-extras.html, data/rent-availability.js),
+# «Контакты» (data/site.json → шапка и подвал всех страниц).
+# После сохранения в панели GitHub сам собирает сайт и загружает его на хостинг: .github/workflows/build.yml
+# (уменьшает загруженные фото — tools/optimize_images.py, собирает страницы — tools/build.py).
+# Ограничения длины подобраны под верстку по макету: длиннее — текст может не поместиться на телефоне.
+
+media:
+  - name: tours
+    label: Фото туров
+    input: img/tours
+    output: img/tours
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+
+content:
+  - name: tours
+    label: Программы туров
+    type: file
+    path: data/tours.json
+    format: json
+    fields:
+      - name: _readme
+        type: string
+        list: true
+        hidden: true
+
+      - name: tours
+        label: Туры
+        type: object
+        list:
+          min: 3
+          max: 3
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: title
+            label: Заголовок на обложке
+            type: text
+            required: true
+            description: "Каждая строка заголовка — с новой строки (Enter). До 30 знаков."
+            options:
+              maxlength: 30
+
+          - name: lead
+            label: Текст под заголовком
+            type: text
+            required: true
+            description: "До 290 знаков — иначе на телефоне текст наедет на плашки «8 дней» и «Старт в Бишкеке»."
+            options:
+              maxlength: 290
+
+          - name: days_label
+            label: Длительность на плашке
+            type: string
+            required: true
+            description: "Например: 8 дней"
+            options:
+              maxlength: 10
+
+          - name: price
+            label: Цена на карточке тура
+            type: string
+            required: true
+            description: "Как на странице «Готовые путешествия»: от 1 150 $ (пробел перед $). До 12 знаков."
+            options:
+              maxlength: 12
+
+          - name: days
+            label: Дни программы
+            type: object
+            list:
+              min: 1
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "День {index}: {title}"
+            fields:
+              - name: title
+                label: Название дня
+                type: string
+                required: true
+                description: "До 24 знаков. «→» между словами рисуется тонкой стрелкой: Бишкек → Иссык-Куль"
+                options:
+                  maxlength: 24
+              - name: photo
+                label: Фото дня
+                type: image
+                description: "Можно без фото — тогда будет короткая карточка с крупным номером дня. Фото с телефона подойдет: сайт сам его уменьшит."
+                options:
+                  media: tours
+              - name: alt
+                label: Что на фото (для поисковиков и незрячих)
+                type: string
+                description: "Коротко: например, «Красные скалы Джети-Огуза»"
+                options:
+                  maxlength: 80
+              - name: photo_pos
+                label: Какую часть фото показывать
+                type: select
+                description: "Если на фото обрезалось важное сверху — выберите «Верх»"
+                options:
+                  placeholder: "Середина"
+                  values:
+                    - name: top
+                      label: Верх
+                    - name: y16
+                      label: Чуть ниже верха
+              - name: text
+                label: Описание дня
+                type: text
+                description: "До 110 знаков (4 строки на телефоне). Без фото описание не показывается."
+                options:
+                  maxlength: 110
+
+          - name: name
+            label: Название во вкладке браузера
+            type: string
+            required: true
+            options:
+              maxlength: 40
+
+          - name: description
+            label: Описание для поисковиков
+            type: text
+            description: "Его показывают Google и Яндекс под ссылкой на страницу. До 160 знаков."
+            options:
+              maxlength: 160
+
+          - name: page
+            label: Страница сайта
+            type: string
+            readonly: true
+
+          - name: trip
+            type: string
+            hidden: true
+
+  - name: rent
+    label: "Аренда: цены и даты"
+    type: file
+    path: data/rent.json
+    format: json
+    fields:
+      - name: _readme
+        type: string
+        list: true
+        hidden: true
+
+      - name: cars
+        label: Автодома
+        type: object
+        list:
+          min: 1
+          max: 3
+          collapsible:
+            collapsed: true
+            summary: "{name} — {price} $"
+        fields:
+          - name: name
+            label: Автодом
+            type: string
+            readonly: true
+          - name: price
+            label: Цена за сутки, $
+            type: number
+            required: true
+            description: "Пишется на карточке «от N $ / сутки». 0 — «Цена уточняется»."
+            options:
+              min: 0
+              max: 5000
+          - name: seats
+            label: Сколько человек вмещает
+            type: number
+            required: true
+            description: "По этому числу поиск по датам отсеивает автодомы, если гостей больше."
+            options:
+              min: 1
+              max: 12
+          - name: busy
+            label: Занятые даты
+            type: object
+            description: "Автодом занят с дня заезда до дня выезда. В день выезда его уже можно забронировать следующим гостям."
+            list:
+              collapsible:
+                collapsed: false
+                summary: "{from} — {to}"
+            fields:
+              - name: from
+                label: Заезд
+                type: date
+                required: true
+              - name: to
+                label: Выезд
+                type: date
+                required: true
+          - name: id
+            type: string
+            hidden: true
+
+      - name: gear
+        label: Снаряжение и наборы
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name} — {price} $"
+        fields:
+          - name: name
+            label: Название
+            type: string
+            readonly: true
+          - name: price
+            label: Цена за сутки, $
+            type: number
+            required: true
+            description: "0 — «Цена уточняется»."
+            options:
+              min: 0
+              max: 1000
+          - name: id
+            type: string
+            hidden: true
+
+      - name: services
+        label: Услуги
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: Название
+            type: string
+            readonly: true
+          - name: price
+            label: Цена за сутки, $
+            type: number
+            required: true
+            description: "0 — без суточной цены: тогда ниже напишите, что показать вместо нее."
+            options:
+              min: 0
+              max: 1000
+          - name: price_text
+            label: Надпись вместо цены (если цена 0)
+            type: string
+            description: "Например: Бесплатно, Бесплатно от 3 суток, от 50 $. Пусто — «Цена уточняется». До 24 знаков."
+            options:
+              maxlength: 24
+          - name: label
+            label: Что написать в итоге заказа вместо суммы (если цена 0)
+            type: string
+            description: "Например: бесплатно или от 50 $"
+            options:
+              maxlength: 20
+          - name: note
+            label: Подсказка к строке в итоге заказа
+            type: text
+            options:
+              maxlength: 220
+          - name: free_from
+            label: Бесплатно только от N суток
+            type: number
+            description: "Для доставки: при аренде меньше этого срока вместо «бесплатно» пишется «уточняется». Пусто — всегда."
+            options:
+              min: 1
+              max: 30
+          - name: id
+            type: string
+            hidden: true
+
+  - name: contacts
+    label: Контакты
+    type: file
+    path: data/site.json
+    format: json
+    fields:
+      - name: _readme
+        type: string
+        hidden: true
+      - name: phone
+        label: Телефон (как показывать)
+        type: string
+        required: true
+        description: "Например: +996 500 192 445"
+      - name: phone_tel
+        label: Телефон для звонка (только цифры с +)
+        type: string
+        required: true
+        description: "Тот же номер без пробелов: +996500192445"
+      - name: email
+        label: Почта
+        type: string
+        required: true
+      - name: instagram
+        label: Instagram (ссылка)
+        type: string
+      - name: whatsapp
+        label: WhatsApp (ссылка)
+        type: string
+        description: "https://wa.me/ и номер без +, например https://wa.me/996500192445"
+      - name: telegram
+        label: Telegram (ссылка)
+        type: string
+      - name: privacy_url
+        label: Ссылка на «Политику конфиденциальности»
+        type: string
+        description: "Пока документа нет — оставьте #"
+      - name: offer_url
+        label: Ссылка на «Публичную оферту»
+        type: string
+        description: "Пока документа нет — оставьте #"
+      - name: copyright
+        label: Подпись в подвале
+        type: string

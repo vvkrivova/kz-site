@@ -8,3 +8,6 @@
 
 # рабочие заметки для Claude — заказчику не нужны
 CLAUDE.md
+
+# ключ Битрикс24 — только на хостинге (образец: tools/lead-config.example.php)
+lead-config.php

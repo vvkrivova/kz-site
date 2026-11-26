@@ -49,7 +49,6 @@
 .car__price { right: 137px; top: 391.5px; }
 .car__price-sum small, .car__price-per { font-size: 11.7px; }
 .car__price--ask .car__price-sum { width: 120px; font-size: 18.4px; line-height: 1.1; white-space: normal; }   /* «Цена уточняется» ≈ 11px на экране, в две строки — не задевает «Подробнее» */
-.car__photo--empty[data-soon]::after { font-size: 25px; }
 .car__choose { left: 480px; top: 391.5px; width: 112px; height: 39.7px; font-size: 18.4px; }
 .cars.is-searched .car:not(.is-off) .car__choose { left: 426px; width: 166px; }
 .cars.is-searched .car:not(.is-off) .car__price { right: 192px; }
