@@ -89,7 +89,7 @@ const rentBooking = (function () {
 
     // услуги и снаряжение: цена за сутки × количество × ночи
     $('[data-b-rows]').innerHTML = sm.items.map((it) => `<li><span>${esc(t(it.title))}</span><span>${it.qty}x</span><b${it.price ? '' : ' class="is-ask"'} title="${esc(RentStore.sumHint(it, sm.nights))}">${RentStore.rowSum(it, sm.nights)}</b></li>`).join('')
-      || t('<li class="is-empty">Пока ничего не добавлено — выберите услуги в списке слева</li>');
+      || t('<li class="is-empty">Пока ничего не добавлено</li>');
     rowsScroll.sync();
 
     const totalEl = $('[data-b-total]');

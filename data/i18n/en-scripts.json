@@ -56,7 +56,7 @@
   "Автодом не&nbsp;выбран": "No motorhome&nbsp;selected",
   "<a href=\"rent#cars\">Выбрать</a>": "<a href=\"rent#cars\">Choose</a>",
   "<li class=\"is-empty\">Дополнительные услуги не выбраны — <a href=\"rent-extras\">добавить</a></li>": "<li class=\"is-empty\">No extra services selected — <a href=\"rent-extras\">add</a></li>",
-  "<li class=\"is-empty\">Пока ничего не добавлено — выберите услуги в списке слева</li>": "<li class=\"is-empty\">Nothing added yet — choose services from the list on the left</li>",
+  "<li class=\"is-empty\">Пока ничего не добавлено</li>": "<li class=\"is-empty\">Nothing added yet</li>",
   "Чтобы забронировать, выберите {what} — <a href=\"rent\">к выбору автодома</a>": "To book, choose {what} — <a href=\"rent\">back to motorhomes</a>",
   "автодом": "a motorhome", "даты поездки": "travel dates", "количество гостей": "the number of guests",
   "Не выбран автодом": "No motorhome selected",
