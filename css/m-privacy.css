@@ -1,0 +1,22 @@
+/* =========================================================
+   Tian Way — «Политика конфиденциальности» на телефоне (подключен с media="(max-width: 767px)").
+   Размеры — в единицах мобильного макета шириной 402px (масштаб — js/main.js). Общее для телефонов — css/m-common.css.
+   ========================================================= */
+
+.pp .stage { padding-bottom: 170px; }   /* подвал на телефоне — 96px, над ним воздух */
+.pp__topo { right: -190px; top: -30px; width: 440px; }
+
+.pp__header .header__logo { left: 29px; top: 27px; }
+.pp__logo { width: 45px; height: 32px; }
+
+.pp .stage > .pp__doc { padding: 108px 20px 0; }
+.pp__title { margin-bottom: 14px; font-size: 34px; line-height: 1; }
+.pp__edition, .pp__effective { font-size: 13px; }
+.pp__effective { margin-bottom: 20px; }
+.pp__lead { padding-bottom: 28px; font-size: 16px; line-height: 1.6; }
+.pp__item { grid-template-columns: 1fr; gap: 6px; padding: 26px 0; }
+.pp__num { font-size: 40px; }
+.pp__h { margin: 0 0 10px; font-size: 22px; }
+.pp__body p { font-size: 15px; line-height: 1.6; }
+
+.pp__up { right: 16px; bottom: 16px; width: 48px; height: 48px; }

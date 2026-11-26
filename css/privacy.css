@@ -1,0 +1,46 @@
+/* =========================================================
+   Tian Way — страница «Политика конфиденциальности» (privacy.html), вариант B (выбран 27.11.2026):
+   светлая страница, крупные оранжевые номера разделов, тонкие линии между ними, кнопка «Наверх».
+   Текст идет потоком (высота страницы — по тексту), размеры — в единицах макета 1440px (масштаб — js/main.js).
+   Общие цвета, шрифты, шапка и подвал — css/style.css; телефон — css/m-privacy.css.
+   ========================================================= */
+
+body:has(.pp) { background: var(--beige); }
+.pp .stage { height: auto; padding: 0 0 300px; background: var(--beige); } /* низ — подвал (190px) и воздух над ним */
+
+/* узор «линии-горы» в правом верхнем углу */
+.pp__topo { right: -130px; top: -70px; width: 780px; opacity: .5; pointer-events: none; }
+
+/* шапка: на светлом фоне логотип, телефон и язык оранжевые (как на «Вопросах») */
+.pp__header .header__logo { left: 58px; top: 34px; }
+.pp__logo {
+  display: block; width: 84px; height: 56px; background: var(--orange-map);
+  -webkit-mask: url(../img/logo.webp) center / contain no-repeat; mask: url(../img/logo.webp) center / contain no-repeat;
+}
+.pp__header .header__phone, .pp__header .lang { color: var(--orange-map); }
+
+/* текст — потоком */
+.pp .stage > .pp__doc { position: relative; padding: 190px 170px 0; }
+.pp__title { margin: 0 0 22px; max-width: 980px; font: 700 84px/.95 var(--font-display); text-transform: uppercase; color: var(--ink); }
+.pp__edition { margin: 0; font: 700 16px/1.6 var(--font-body); color: var(--orange-map); }
+.pp__effective { margin: 0 0 30px; font: 600 16px/1.6 var(--font-body); color: var(--ink-2); }
+.pp__lead { max-width: 860px; margin: 0; padding-bottom: 46px; font: 400 20px/1.65 var(--font-body); color: var(--ink-2); }
+.pp__list { border-top: 1px solid rgba(39, 38, 38, .14); }
+.pp__item { display: grid; grid-template-columns: 120px 860px; gap: 30px; padding: 44px 0; border-bottom: 1px solid rgba(39, 38, 38, .14); scroll-margin-top: 30px; }
+.pp__num { font: 600 64px/1 var(--font-display); color: var(--orange-map); }
+.pp__h { margin: 4px 0 16px; font: 600 30px/1.15 var(--font-display); text-transform: uppercase; color: var(--ink); }
+.pp__body p { margin: 0 0 14px; font: 400 17px/1.65 var(--font-body); color: var(--ink); }
+.pp__body p:last-child { margin-bottom: 0; }
+.pp__body b { font-weight: 700; }
+/* 【…】 — место, которое нужно заполнить (data/privacy.json) */
+.pp__fill { padding: 0 4px; border-radius: 4px; background: #ffe08a; color: #5b4300; font-style: normal; font-weight: 600; }
+
+/* кнопка «Наверх» — вне масштабируемой страницы, поэтому держится в углу экрана */
+.pp__up {
+  position: fixed; right: 28px; bottom: 28px; z-index: 20; width: 56px; height: 56px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--orange-map); color: #fff; box-shadow: 0 8px 20px rgba(0, 0, 0, .22);
+  opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .25s ease, transform .25s ease, visibility .25s;
+}
+.pp__up.is-shown { opacity: 1; visibility: visible; transform: none; }
+.pp__up:hover { transform: translateY(-3px); }
+.pp__up svg { width: 16px; height: 18px; }

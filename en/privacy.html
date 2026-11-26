@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- maximum-scale: iPhone не приближает страницу при нажатии на поле ввода (у нас поля мельче 16px); пальцами увеличивать можно -->
+  <title>Privacy Policy — Tian Way</title>
+  <meta name="description" content="How Tian Way processes the personal data of tianway.kg visitors and clients: what data, why, who can access it, how long it is kept and how to exercise your rights.">
+  <meta name="theme-color" content="#353f2b">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/meta/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/meta/icon-192.png">
+  <link rel="apple-touch-icon" href="../img/meta/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Manrope:wght@300;400;500;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- масштаб считаем до отрисовки страницы, чтобы она не «прыгала» -->
+  <script>
+    // телефоны (уже 768px) — мобильный макет шириной 402px (css/m-common.css), остальные — 1440px
+    (function () { var w = document.documentElement.clientWidth; document.documentElement.style.setProperty('--page-scale', (w / (w < 768 ? 402 : 1440)).toFixed(5)); })();
+    // возврат кнопкой «Назад»/«Вперед»: страницу показываем сразу как была — без вступления и появления блоков
+    var twNav = window.performance && performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var twBack = !!twNav && twNav.type === 'back_forward';
+    if (twBack) document.documentElement.classList.add('nav-back');
+    if (!twBack && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('reveal-on');
+    }
+  </script>
+  <link rel="stylesheet" href="../css/style.css?v=7a57849b">
+  <link rel="stylesheet" href="../css/privacy.css?v=96038a3c">
+  <!-- мобильная версия (телефоны): ширина 402px, как у остальных страниц -->
+  <link rel="stylesheet" href="../css/m-common.css?v=ed977104" media="(max-width: 767px)">
+  <link rel="stylesheet" href="../css/m-privacy.css?v=05b201e6" media="(max-width: 767px)">
+  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
+  <link rel="alternate" hreflang="ru" href="https://tianway.kg/privacy">
+  <link rel="alternate" hreflang="en" href="https://tianway.kg/en/privacy">
+  <link rel="alternate" hreflang="x-default" href="https://tianway.kg/privacy">
+  <script src="../js/lang-detect.js?v=e4fc9d98"></script>
+  <!-- /языки -->
+</head>
+<body>
+<main class="page">
+  <!-- Политика конфиденциальности: текст — data/privacy.json (панель), вставляет tools/build_privacy.py; высота страницы — по тексту -->
+  <section class="section pp" id="top">
+    <div class="stage">
+      <img class="pp__topo" src="../img/topo-mountains.svg" alt="">
+      <header class="header pp__header">
+        <a class="header__logo" href="./" aria-label="Tian Way — home"><span class="pp__logo"></span></a>
+        <a class="header__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="header__call m-only" href="tel:+996500192445" aria-label="Call: +996 500 192 445"><img src="../img/social-phone.svg" alt=""></a>
+        <a class="header__social header__social--ig" href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+        <a class="header__social header__social--wa" href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+        <a class="header__social header__social--tg" href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        <!-- язык -->
+        <div class="lang" data-lang>
+          <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Site language"><svg class="lang__globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></svg><span class="lang__cur"></span><svg class="lang__ch" viewBox="0 0 10 6" fill="none" stroke="currentColor" aria-hidden="true"><path d="M.5.5 5 5 9.5.5"/></svg></button>
+          <ul class="lang__list">
+            <li><a href="../privacy" hreflang="ru" data-lang-link lang="ru">Русский</a></li>
+            <li><a href="privacy" hreflang="en" data-lang-link lang="en">English</a></li>
+          </ul>
+        </div>
+        <!-- /язык -->
+      </header>
+      <article class="pp__doc">
+        <!-- политика -->
+        <h1 class="pp__title">Privacy Policy</h1>
+        <p class="pp__edition">Version 1.4 · 27 Nov 2026</p>
+        <p class="pp__effective"><b>Effective date:</b> <i class="pp__fill">enter the actual date when the approved version is published</i></p>
+        <p class="pp__lead">This Privacy Policy (the “Policy”) explains how personal data is processed when you use tianway.kg or contact the Tian Way brand about motorhome rental and organised travel services in the Kyrgyz Republic.</p>
+        <div class="pp__list">
+          <section class="pp__item" id="p1">
+            <div class="pp__num">01</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Who is responsible for your data</h2>
+              <p>The controller (owner of personal records) is <i class="pp__fill">registered legal name and legal form</i>, tax ID <i class="pp__fill">tax ID</i>, registration number <i class="pp__fill">number</i>, registered address <i class="pp__fill">address</i> and business address <i class="pp__fill">address</i> ("Tian Way", "we", "us"). The same controller provides motorhome rentals and organised travel services under the Tian Way brand.</p>
+              <p><b>The contact person for personal data enquiries is Oleg (email:</b> autokemperkg@gmail.com; telephone +996 500 192 445). The controller will document the appointment of a responsible person and their authority in accordance with Article 88 of the Digital Code of the Kyrgyz Republic, where applicable. Until then, this contact is available for privacy enquiries.</p>
+              <p>Where a specific service requires a subcontractor, we may share only necessary information with that provider; it does not mean that a different legal entity is the seller of Tian Way rental or travel services.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p2">
+            <div class="pp__num">02</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Scope and sources</h2>
+              <p>This Policy applies to information provided through website forms, telephone, email, WhatsApp, Telegram, Instagram and other Tian Way contact channels, and to bookings, agreements, payments, returns and service complaints.</p>
+              <p>Information may come directly from you or from the communication channel or authorised representative you use. Where personal data comes from another source, the information required by law is provided within seven business days of receipt, unless a statutory exception applies.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p3">
+            <div class="pp__num">03</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Data we may process</h2>
+              <p><b>Contact details:</b> name, telephone number, email address, messaging username/account identifier and preferred language.</p>
+              <p><b>Enquiry and booking information:</b> selected vehicle or itinerary, travel dates and duration, group size, pickup and drop-off locations, optional services, correspondence and requests, booking reference, agreed contractual price in Kyrgyz soms (KGS), preferred display currency, advance payment, balance and security deposit information.</p>
+              <p>When renting a motorhome, we check the renter’s passport (or other applicable identity document) and each authorised driver’s driving licence. We may collect photos or scans of the documents required to verify identity and driving eligibility and to prepare the agreement; originals are checked at handover. We do not request copies at the initial enquiry stage. Document copies may be collected only through an agreed secure channel and stored in a temporary access-restricted location. They are deleted without undue delay after the rental ends and payments are settled, with an operational maximum target of three business days, unless a particular record must lawfully be retained for a documented dispute or legal obligation. Contractual and accounting details may be retained separately on an applicable legal ground. Each additional driver must receive information about the processing before their documents are collected.</p>
+              <p>Service records include agreements, vehicle handover and return reports, vehicle and equipment condition records, complaints, payment confirmations, refunds and transaction references. Signed agreements and reports are retained as paper originals; enquiries and deals are recorded in CRM.</p>
+              <p>When visiting the website, the server and security systems may collect your IP address, request date and time, requested URL, browser or device details (such as User-Agent), response status and error logs. Once language and currency switches are implemented, your preferences may be stored in the browser’s local storage; necessary functional storage is separated from optional analytics. Once analytics is enabled, page views, referral sources, interaction events and browser identifiers may also be collected. Form contents, document numbers or images, phone numbers and email addresses must not be sent to analytics services.</p>
+              <p>The online payment method and payment service provider have not yet been selected: <i class="pp__fill">identify before enabling online payments</i>. Until online payments are enabled, the website must not collect payment card credentials. Before enabling a provider, this Policy will be updated to identify relevant data categories, recipients and processing locations. Tian Way must not store full card credentials on its servers.</p>
+              <p>We do not request health information, other special categories of personal data or children’s identity documents through general enquiry forms. Where children’s information is genuinely required for a service, separate lawful safeguards apply.</p>
+              <p>You may choose not to provide contact details; however, without the details necessary to contact you, we may be unable to respond or confirm a booking. A motorhome cannot be handed over for driving without checking the renter’s identity and the authorised driver’s driving licence. Declining optional analytics does not prevent you from using the website or submitting an enquiry. Where a renter provides details of another driver, that driver must receive privacy information before we collect their documents.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p4">
+            <div class="pp__num">04</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Why we process information and our legal grounds</h2>
+              <p>Responding to enquiries, checking availability, preparing individual offers and confirming bookings: taking steps at your request before entering into a contract (Article 79(1)(1) of the Digital Code of the Kyrgyz Republic).</p>
+              <p>Entering into and performing rental or travel agreements, providing vehicles and services, handling payments and returns: contract performance (Article 79(1)(1)).</p>
+              <p><b>Tax and accounting records and mandatory lawful requests:</b> compliance with legal obligations (Article 79(1)(2)).</p>
+              <p><b>Complaints, disputes and protection of legal rights:</b> applicable contractual grounds, legal obligations or legitimate interests where individuals’ rights and freedoms are respected (Article 79(1)(1), (2) and/or (5), as applicable).</p>
+              <p>We do not use enquiry data for marketing mailings. Technical data necessary for site functionality and security is processed on the applicable lawful ground. Google Analytics 4 and Yandex Metrica are planned as optional analytics and must not load until the visitor has actively chosen to enable them. Declining analytics does not prevent an enquiry.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p5">
+            <div class="pp__num">05</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Processing activities and recipients</h2>
+              <p>We may collect, record, organise, store, update and use information to communicate with you and provide the requested service, share the minimum necessary information with authorised recipients and delete or anonymise it when appropriate.</p>
+              <p>Access to data is limited to authorised Tian Way personnel and providers to the extent necessary for their roles. Enquiries and bookings are processed in the cloud Bitrix24 CRM (b24-ckbtwm.bitrix24.ru; provider: 1C-Bitrix LLC; the .ru cloud region is hosted in Russia). The website is serviced by HOSTING.KG (OsOO "Ap Tu", Kyrgyz Republic); the provider identifies a Bishkek data centre, but the actual hosting location for the selected service should be confirmed under the applicable contract or plan. Signed agreements and vehicle handover/return reports are stored in paper form by Tian Way. WhatsApp, Telegram and Instagram may also process messages under their own services. Google Analytics 4 and Yandex Metrica are planned recipients only after implementation and privacy controls are enabled. Payment provider: <i class="pp__fill">identify before accepting online payments</i>. Providers of agreed trip activities may receive only the data necessary to perform their services.</p>
+              <p>Where processors are engaged, we implement applicable contractual and organisational protections. Messaging platforms may also process information independently under their own privacy policies.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p6">
+            <div class="pp__num">06</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Transfers outside the Kyrgyz Republic</h2>
+              <p>Some external digital services may involve transfers of personal data to other countries. Such transfers take place only when the requirements of Article 89 of the Digital Code of the Kyrgyz Republic, including the applicable legal ground and safeguards, are met.</p>
+              <p>The website is hosted in the Kyrgyz Republic by HOSTING.KG (OsOO "Ap Tu"). Booking and contact data handled in Bitrix24 is also processed in the Russian Federation. Once Google Analytics and Yandex Metrica are enabled, technical visitor data may be processed by those providers outside Kyrgyzstan, depending on their systems and settings. Messaging platforms may also involve international transfers. Before such transfers take place, the controller assesses legal grounds, destination rules and safeguards under Article 89 of the Digital Code of the Kyrgyz Republic. Naming providers in this Policy does not, by itself, establish compliance.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p7">
+            <div class="pp__num">07</div>
+            <div class="pp__body">
+              <h2 class="pp__h">How long information is retained</h2>
+              <p>We retain personal data no longer than necessary for the stated purposes and statutory retention duties. The periods below are Tian Way operational retention rules that must be supported by CRM and server settings and an internal procedure before this version is issued as the live Policy. A provider limitation does not automatically extend our retention period and must be addressed with appropriate controls.</p>
+              <p><b>Enquiries without a contract:</b> up to 180 calendar days after the last substantive contact unless an earlier deletion ground arises. Ordinary correspondence after a completed service: up to 12 months unless needed for a contract, tax records or a dispute. Passport and licence scans: only while needed for verification and rental; deleted without undue delay, with an operational target of no later than three business days after return and final settlement absent a lawful reason to retain them. Signed agreements, handover reports and tax payment records: at least six years, or a longer period required by law. Disputes: until resolved and the applicable claims period expires. Our own website access logs: target up to 30 days, except for security incidents or mandatory retention. GA4 user-level and event-level data: planned two-month setting, which does not delete all aggregated reports or identifiers held by other providers. Provider backup cycles require separate verification; backups are kept out of routine access, and restorations must honour earlier deletion requests.</p>
+              <p>Where Article 83 of the Digital Code requires deletion, we delete the personal records immediately unless a statutory exception applies; the stated retention targets do not limit a right to earlier deletion. Oleg coordinates monthly reviews of stale enquiries and correspondence. Paper records are securely destroyed after mandatory retention ends, with a destruction record. Document scans must not remain in unrestricted chats or shared folders. If copies enter conversations or CRM attachments, all copies must be identified and removed, not only the original file. Restoring a backup must not reintroduce data previously deleted from active systems.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p8">
+            <div class="pp__num">08</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Security</h2>
+              <p>CRM and temporary document access must be restricted by role and personal accounts. Before document scans are collected, Bitrix24 two-factor authentication and permissions must be configured and an access-restricted temporary storage and deletion process established. Paper agreements and reports must be kept in a locked cabinet or archive. Copies must not be posted to public website directories, unrestricted group chats or unprotected links. The website uses HTTPS. These controls must be verified in practice; describing them in this Policy does not confirm implementation.</p>
+              <p>External services also apply their own safeguards. No system can guarantee absolute protection against every risk.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p9">
+            <div class="pp__num">09</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Your rights and how to exercise them</h2>
+              <p>Under Kyrgyz law, you may request information about processing and access to your data; request correction or completion; request deletion or restriction where the law provides; object to certain processing; and, where applicable, request data portability. If consent has been obtained for a separate purpose, you may withdraw it.</p>
+              <p>Please contact autokemperkg@gmail.com or use the contact details in Section 1. We may reasonably verify your identity or your representative’s authority to protect your information.</p>
+              <p>Where applicable under Article 73 of the Digital Code, we provide requested information and access within seven business days. Legal deadlines for correction and objections are addressed in Articles 75 and 84. Deletion may be limited where the law requires or allows continued retention.</p>
+              <p>You may lodge a complaint with the competent personal data protection authority in the Kyrgyz Republic or seek judicial protection.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p10">
+            <div class="pp__num">10</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Website preferences and third-party services</h2>
+              <p>Once language and currency controls are implemented, the site may store the selected language and display currency in browser localStorage (planned keys: tianway_language and tianway_currency). These are UI preferences and do not themselves contain a name or contact details. Analytics acceptance or rejection may be stored separately (planned key: tianway_cookie_preferences, six-month term). Actual key names, retention and all cookies/identifiers must be checked against the deployed code before this Policy is published as live. Clearing browser storage resets these settings.</p>
+              <p>Tian Way plans to use Google Analytics 4 and Yandex Metrica, but they are not represented as active until deployed. Depending on configuration, cookies may include _ga, _ga_&lt;identifier&gt; and Metrica identifiers such as _ym_uid and _ym_d; the actual list and retention must be verified. Optional analytics tags must load only after the visitor chooses “Accept analytics”, with an equally accessible “Reject” option and a persistent “Cookie settings” control. Session replay (Webvisor) and form-content recording must remain disabled. URLs and event parameters must not contain email addresses, phone numbers, document details or form contents. Advertising audiences and remarketing are not enabled without a separate decision and legal assessment.</p>
+              <p>Third-party websites, messaging applications and payment services may have their own privacy policies.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p11">
+            <div class="pp__num">11</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Automated decision-making</h2>
+              <p>We do not make decisions that produce legal or similarly significant effects on clients solely through automated processing of personal data. Automated availability checks and indicative price calculations do not replace a staff member’s confirmation of booking terms.</p>
+            </div>
+          </section>
+          <section class="pp__item" id="p12">
+            <div class="pp__num">12</div>
+            <div class="pp__body">
+              <h2 class="pp__h">Updates to this Policy</h2>
+              <p>The current version is available at tianway.kg. If purposes, recipient categories or processing methods materially change, we will update the information and take additional legal steps where required. A new version does not retrospectively legitimise any previously unlawful processing.</p>
+            </div>
+          </section>
+        </div>
+        <!-- /политика -->
+      </article>
+      <footer class="footer footer--light">
+        <a class="footer__logo" href="./" aria-label="Tian Way — home"><img src="../img/logo-footer-light.webp" alt="Tian Way"></a>
+        <a class="footer__phone" href="tel:+996500192445">+996 500 192 445</a>
+        <a class="footer__mail" href="mailto:autokemperkg@gmail.com">autokemperkg@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/tian_way/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="../img/social-instagram.webp" alt=""></a>
+          <a href="https://wa.me/79272082971" target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><img src="../img/social-whatsapp.webp" alt=""></a>
+          <a href="https://t.me/tianway" target="_blank" rel="noopener" aria-label="Message us on Telegram"><img src="../img/social-telegram.webp" alt=""></a>
+        </div>
+        <div class="footer__links">
+          <a href="privacy">Privacy Policy</a>
+          <a href="#">Public Offer</a>
+          <span>© 2026 Tian Way. All rights reserved</span>
+        </div>
+      </footer>
+    </div>
+  </section>
+</main>
+<a class="pp__up" href="#top" aria-label="Back to top"><svg viewBox="0 0 16 18" fill="none" aria-hidden="true"><path d="M8 17V2M2 7.5 8 1.5l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
+<script src="../data/i18n/en-scripts.js?v=3495425e"></script>
+  <script src="../js/main.js?v=e2f6a7df"></script>
+<script src="../js/privacy.js?v=c38072a3"></script>
+</body>
+</html>

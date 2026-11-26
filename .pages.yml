@@ -1119,3 +1119,45 @@ content:
         label: Подпись в подвале — английский
         type: string
         description: "Пусто — на английской странице будет русская подпись."
+
+  # «Политика конфиденциальности» (data/privacy.json → privacy.html и en/privacy.html, tools/build_privacy.py).
+  # Текст идет потоком — длина не ограничена. «Подпись: текст» — подпись жирным; 【…】 — место, которое нужно заполнить (подсвечено желтым).
+  - name: privacy
+    label: Политика конфиденциальности
+    type: file
+    path: data/privacy.json
+    format: json
+    fields:
+      - name: _readme
+        type: string
+        hidden: true
+      - { name: title, label: "Заголовок", type: string, required: true }
+      - { name: title_en, label: "Заголовок — английский", type: string }
+      - { name: edition, label: "Редакция", type: string, description: "Например: Редакция 1.4 · 27.11.2026" }
+      - { name: edition_en, label: "Редакция — английский", type: string }
+      - { name: effective, label: "Дата вступления в силу", type: text, description: "Заполните место в 【…】 и уберите скобки." }
+      - { name: effective_en, label: "Дата вступления в силу — английский", type: text }
+      - { name: intro, label: "Вступление", type: text }
+      - { name: intro_en, label: "Вступление — английский", type: text }
+      - name: sections
+        label: "Разделы"
+        type: object
+        list:
+          min: 12
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - { name: title, label: "Название раздела", type: string, required: true }
+          - { name: title_en, label: "Название раздела — английский", type: string }
+          - name: paragraphs
+            label: "Абзацы"
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{text}"
+            fields:
+              - { name: text, label: "Текст", type: text, description: "Места в 【…】 — заполнить реквизитами и убрать скобки." }
+              - { name: text_en, label: "Текст — английский", type: text, description: "Пусто — на английской странице будет русский текст." }

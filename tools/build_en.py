@@ -227,6 +227,10 @@ def main() -> None:
     cms = ROOT / 'data' / 'i18n' / 'cms-en.json'
     if cms.exists():
         words.update(json.loads(cms.read_text(encoding='utf-8')))
+    # текст политики конфиденциальности (tools/build_privacy.py из data/privacy.json)
+    pp = ROOT / 'data' / 'i18n' / 'privacy-en.json'
+    if pp.exists():
+        words.update(json.loads(pp.read_text(encoding='utf-8')))
     tr = Translator(words)
     (ROOT / 'en').mkdir(exist_ok=True)
     pages = sorted(ROOT.glob('*.html'))

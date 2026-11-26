@@ -1,0 +1,233 @@
+{
+  "_readme": "Политика конфиденциальности — страница privacy (и en/privacy). Правится в панели (Pages CMS) или здесь; сборка — tools/build_privacy.py. Текст в 【квадратных скобках】 — места, которые нужно заполнить: на сайте они подсвечены желтым, пока их не заменят настоящими данными. Абзац «Подпись: текст» — подпись выделяется жирным.",
+  "title": "Политика конфиденциальности",
+  "title_en": "Privacy Policy",
+  "edition": "Редакция 1.4 · 27.11.2026",
+  "edition_en": "Version 1.4 · 27 Nov 2026",
+  "effective": "Дата вступления в силу: 【указать дату фактической публикации утвержденной редакции】",
+  "effective_en": "Effective date: 【enter the actual date when the approved version is published】",
+  "intro": "Настоящая Политика конфиденциальности (далее — «Политика») описывает, как обрабатываются персональные данные посетителей сайта tianway.kg и лиц, обращающихся за услугами под брендом Tian Way, в том числе арендой автодомов и организацией путешествий по Кыргызской Республике.",
+  "intro_en": "This Privacy Policy (the “Policy”) explains how personal data is processed when you use tianway.kg or contact the Tian Way brand about motorhome rental and organised travel services in the Kyrgyz Republic.",
+  "sections": [
+    {
+      "title": "Кто отвечает за обработку данных",
+      "title_en": "Who is responsible for your data",
+      "paragraphs": [
+        {
+          "text": "Владельцем персональных записей (оператором персональных данных) является 【полное юридическое наименование ИП/ОсОО】, ИНН 【ИНН】, регистрационный номер 【номер】, юридический адрес 【адрес】, фактический адрес 【адрес】 (далее — «Tian Way», «мы»). Оператор самостоятельно оказывает услуги аренды автодомов и организует путешествия под брендом Tian Way; другие юридические лица в качестве самостоятельных исполнителей этих услуг в данном проекте не заявлены.",
+          "text_en": "The controller (owner of personal records) is 【registered legal name and legal form】, tax ID 【tax ID】, registration number 【number】, registered address 【address】 and business address 【address】 (\"Tian Way\", \"we\", \"us\"). The same controller provides motorhome rentals and organised travel services under the Tian Way brand."
+        },
+        {
+          "text": "Контактное лицо по вопросам обработки персональных данных — Олег (email: autokemperkg@gmail.com; телефон +996 500 192 445). Официальное назначение ответственного за обработку данных и распределение его полномочий оформляются внутренним документом оператора с учетом требований статьи 88 Цифрового кодекса Кыргызской Республики. До оформления назначения указанный контакт используется для обращений клиентов.",
+          "text_en": "The contact person for personal data enquiries is Oleg (email: autokemperkg@gmail.com; telephone +996 500 192 445). The controller will document the appointment of a responsible person and their authority in accordance with Article 88 of the Digital Code of the Kyrgyz Republic, where applicable. Until then, this contact is available for privacy enquiries."
+        },
+        {
+          "text": "При необходимости для отдельных услуг мы привлекаем подрядчиков (например, хостинг, CRM, организаторов отдельных активностей), однако в отношениях с клиентом услуги Tian Way предоставляет один оператор, указанный выше.",
+          "text_en": "Where a specific service requires a subcontractor, we may share only necessary information with that provider; it does not mean that a different legal entity is the seller of Tian Way rental or travel services."
+        }
+      ]
+    },
+    {
+      "title": "На кого и на какие обращения распространяется Политика",
+      "title_en": "Scope and sources",
+      "paragraphs": [
+        {
+          "text": "Политика применяется к данным, которые вы передаете через формы и страницы сайта, по телефону, электронной почте, в WhatsApp, Telegram, Instagram и других каналах связи Tian Way, а также при бронировании, заключении и исполнении договоров, оформлении платежей и обращениях по качеству услуг.",
+          "text_en": "This Policy applies to information provided through website forms, telephone, email, WhatsApp, Telegram, Instagram and other Tian Way contact channels, and to bookings, agreements, payments, returns and service complaints."
+        },
+        {
+          "text": "Мы можем получать информацию непосредственно от вас или через используемые вами каналы связи и уполномоченных представителей. Если персональные данные поступают из другого источника, предусмотренную законом информацию об их обработке предоставляем не позднее семи рабочих дней после получения данных, если не применяется законное исключение.",
+          "text_en": "Information may come directly from you or from the communication channel or authorised representative you use. Where personal data comes from another source, the information required by law is provided within seven business days of receipt, unless a statutory exception applies."
+        }
+      ]
+    },
+    {
+      "title": "Какие данные могут обрабатываться",
+      "title_en": "Data we may process",
+      "paragraphs": [
+        {
+          "text": "Контактные сведения: имя и фамилия, телефон, адрес электронной почты, имя пользователя или идентификатор в мессенджере, предпочитаемый язык общения.",
+          "text_en": "Contact details: name, telephone number, email address, messaging username/account identifier and preferred language."
+        },
+        {
+          "text": "Сведения о заявке и бронировании: выбранный автодом или маршрут, даты и продолжительность поездки, количество участников, место выдачи и возврата, дополнительные услуги, сообщения и пожелания, идентификатор бронирования, согласованная стоимость в сомах (KGS), выбранная для отображения валюта, сведения о предоплате, остатке и залоге.",
+          "text_en": "Enquiry and booking information: selected vehicle or itinerary, travel dates and duration, group size, pickup and drop-off locations, optional services, correspondence and requests, booking reference, agreed contractual price in Kyrgyz soms (KGS), preferred display currency, advance payment, balance and security deposit information."
+        },
+        {
+          "text": "При аренде автодома проверяем паспорт (либо применимое удостоверение личности) арендатора и водительское удостоверение каждого допущенного водителя. Перед выдачей автомобиля можем получить фотографии или сканы необходимых документов для идентификации, подтверждения права управления и подготовки договора. Оригиналы сверяются при выдаче. Копии не запрашиваются на этапе обычной заявки; их сбор допускается только через согласованный защищенный канал и размещение во временном хранилище с ограниченным доступом. Копии подлежат удалению без необоснованной задержки по окончании аренды и расчетов, плановый максимальный срок — три рабочих дня, кроме случаев документально обоснованной претензии или обязательного хранения. Сведения, необходимые для договора и учета, могут сохраняться отдельно на соответствующем правовом основании. Каждому дополнительному водителю должна быть предоставлена информация об обработке его данных до получения документов.",
+          "text_en": "When renting a motorhome, we check the renter’s passport (or other applicable identity document) and each authorised driver’s driving licence. We may collect photos or scans of the documents required to verify identity and driving eligibility and to prepare the agreement; originals are checked at handover. We do not request copies at the initial enquiry stage. Document copies may be collected only through an agreed secure channel and stored in a temporary access-restricted location. They are deleted without undue delay after the rental ends and payments are settled, with an operational maximum target of three business days, unless a particular record must lawfully be retained for a documented dispute or legal obligation. Contractual and accounting details may be retained separately on an applicable legal ground. Each additional driver must receive information about the processing before their documents are collected."
+        },
+        {
+          "text": "Данные об исполнении услуг: сведения договоров и актов выдачи и возврата, состояние автомобиля и оборудования, претензии, переписка по бронированию, платежные подтверждения, возвраты и номера операций. Подписанные договоры и акты хранятся в бумажной форме; сведения о заявках и сделках — в CRM.",
+          "text_en": "Service records include agreements, vehicle handover and return reports, vehicle and equipment condition records, complaints, payment confirmations, refunds and transaction references. Signed agreements and reports are retained as paper originals; enquiries and deals are recorded in CRM."
+        },
+        {
+          "text": "При обращении к сайту сервер и средства защиты могут получать IP-адрес, дату и время запроса, URL страницы, сведения о браузере или устройстве (например, User-Agent), код ответа и данные об ошибках. После внедрения переключателей язык и валюта могут сохраняться в локальном хранилище браузера; необходимое для работы сайта хранение отделяется от необязательных аналитических технологий. После подключения аналитики могут обрабатываться сведения о просмотренных страницах, источниках перехода, событиях взаимодействия и браузерных идентификаторах. Содержимое форм, номера документов, фотографии, телефоны и email не должны направляться в системы аналитики.",
+          "text_en": "When visiting the website, the server and security systems may collect your IP address, request date and time, requested URL, browser or device details (such as User-Agent), response status and error logs. Once language and currency switches are implemented, your preferences may be stored in the browser’s local storage; necessary functional storage is separated from optional analytics. Once analytics is enabled, page views, referral sources, interaction events and browser identifiers may also be collected. Form contents, document numbers or images, phone numbers and email addresses must not be sent to analytics services."
+        },
+        {
+          "text": "Способ приема онлайн-платежей и конкретный платежный провайдер пока не определены: 【указать при подключении оплаты】. До запуска онлайн-оплаты сервис не должен собирать реквизиты банковских карт на сайте. При подключении платежного провайдера Политика обновляется с указанием передаваемых категорий данных, получателя и места их обработки. Полные данные банковских карт не должны сохраняться на сервере Tian Way.",
+          "text_en": "The online payment method and payment service provider have not yet been selected: 【identify before enabling online payments】. Until online payments are enabled, the website must not collect payment card credentials. Before enabling a provider, this Policy will be updated to identify relevant data categories, recipients and processing locations. Tian Way must not store full card credentials on its servers."
+        },
+        {
+          "text": "Мы не просим передавать через обычные формы сайта сведения о здоровье, специальные категории персональных данных или документы несовершеннолетних. Если сведения о детях объективно необходимы для конкретной услуги, их обработка оформляется отдельно с соблюдением требований закона.",
+          "text_en": "We do not request health information, other special categories of personal data or children’s identity documents through general enquiry forms. Where children’s information is genuinely required for a service, separate lawful safeguards apply."
+        },
+        {
+          "text": "Предоставление контактных данных, необходимых для связи, добровольно, но без них мы можем не суметь ответить на обращение или подтвердить бронирование. Без проверки удостоверения личности арендатора и водительского удостоверения допущенного водителя аренда с передачей автодома в управление не оформляется. Отказ от необязательной аналитики не ограничивает возможность пользоваться сайтом или направлять заявку. Если сведения о другом водителе предоставляет арендатор, до получения документов водителю направляется информация об обработке.",
+          "text_en": "You may choose not to provide contact details; however, without the details necessary to contact you, we may be unable to respond or confirm a booking. A motorhome cannot be handed over for driving without checking the renter’s identity and the authorised driver’s driving licence. Declining optional analytics does not prevent you from using the website or submitting an enquiry. Where a renter provides details of another driver, that driver must receive privacy information before we collect their documents."
+        }
+      ]
+    },
+    {
+      "title": "Для каких целей и на каких основаниях обрабатываются данные",
+      "title_en": "Why we process information and our legal grounds",
+      "paragraphs": [
+        {
+          "text": "Рассмотрение запросов, связь с клиентом, проверка доступности, подготовка индивидуального предложения, согласование условий и подтверждение бронирования — для принятия мер до заключения договора по инициативе клиента (статья 79, часть 1, пункт 1 Цифрового кодекса Кыргызской Республики).",
+          "text_en": "Responding to enquiries, checking availability, preparing individual offers and confirming bookings: taking steps at your request before entering into a contract (Article 79(1)(1) of the Digital Code of the Kyrgyz Republic)."
+        },
+        {
+          "text": "Заключение и исполнение договора аренды или организации путешествия, выдача и возврат автодома, взаиморасчеты и обслуживание клиента — для исполнения договора (статья 79, часть 1, пункт 1).",
+          "text_en": "Entering into and performing rental or travel agreements, providing vehicles and services, handling payments and returns: contract performance (Article 79(1)(1))."
+        },
+        {
+          "text": "Ведение бухгалтерского и налогового учета, исполнение обязательных требований уполномоченных органов — для соблюдения обязанностей, установленных законодательством (статья 79, часть 1, пункт 2).",
+          "text_en": "Tax and accounting records and mandatory lawful requests: compliance with legal obligations (Article 79(1)(2))."
+        },
+        {
+          "text": "Обработка жалоб, урегулирование разногласий и защита законных прав — на соответствующих договорных, законных либо применимых основаниях законного интереса при соблюдении прав и свобод клиента (статья 79, часть 1, пункты 1, 2 и/или 5 в зависимости от ситуации).",
+          "text_en": "Complaints, disputes and protection of legal rights: applicable contractual grounds, legal obligations or legitimate interests where individuals’ rights and freedoms are respected (Article 79(1)(1), (2) and/or (5), as applicable)."
+        },
+        {
+          "text": "Персональные данные из заявок не используются для рекламных рассылок. Необходимые технические данные сайта обрабатываются для обеспечения работы и безопасности сервиса на применимом законном основании. Google Analytics 4 и Яндекс Метрика планируются как необязательная аналитика: до получения выбора посетителя в пользу их включения соответствующие счетчики не должны запускаться. Отказ от аналитики не препятствует направлению заявки.",
+          "text_en": "We do not use enquiry data for marketing mailings. Technical data necessary for site functionality and security is processed on the applicable lawful ground. Google Analytics 4 and Yandex Metrica are planned as optional analytics and must not load until the visitor has actively chosen to enable them. Declining analytics does not prevent an enquiry."
+        }
+      ]
+    },
+    {
+      "title": "Как обрабатываются данные и кому они доступны",
+      "title_en": "Processing activities and recipients",
+      "paragraphs": [
+        {
+          "text": "Данные могут собираться, записываться, систематизироваться, храниться, уточняться, использоваться для связи и оказания услуг, передаваться в необходимом объеме уполномоченным получателям, а после достижения целей — удаляться или обезличиваться, если иное не требуется законом.",
+          "text_en": "We may collect, record, organise, store, update and use information to communicate with you and provide the requested service, share the minimum necessary information with authorised recipients and delete or anonymise it when appropriate."
+        },
+        {
+          "text": "Доступ к данным ограничивается уполномоченными сотрудниками Tian Way и подрядчиками в объеме их задач. Заявки и бронирования обрабатываются в облачной CRM Битрикс24 (портал b24-ckbtwm.bitrix24.ru; поставщик ООО «1С-Битрикс»; облачные данные региона .ru размещаются в РФ). Сайт обслуживается HOSTING.KG (ОсОО «Ап Ту», Кыргызская Республика); провайдер указывает дата-центр в Бишкеке, но фактическую площадку конкретной услуги необходимо подтвердить по договору/тарифу. Подписанные договоры и акты хранятся на бумаге в Tian Way. При общении через WhatsApp, Telegram и Instagram данные также могут обрабатываться операторами соответствующих платформ. Планируются Google Analytics 4 и Яндекс Метрика (только после подключения и выполнения требований к аналитике). Платежный провайдер: 【указать при подключении оплаты】. Исполнителям отдельных туристических услуг передаются только необходимые сведения.",
+          "text_en": "Access to data is limited to authorised Tian Way personnel and providers to the extent necessary for their roles. Enquiries and bookings are processed in the cloud Bitrix24 CRM (b24-ckbtwm.bitrix24.ru; provider: 1C-Bitrix LLC; the .ru cloud region is hosted in Russia). The website is serviced by HOSTING.KG (OsOO \"Ap Tu\", Kyrgyz Republic); the provider identifies a Bishkek data centre, but the actual hosting location for the selected service should be confirmed under the applicable contract or plan. Signed agreements and vehicle handover/return reports are stored in paper form by Tian Way. WhatsApp, Telegram and Instagram may also process messages under their own services. Google Analytics 4 and Yandex Metrica are planned recipients only after implementation and privacy controls are enabled. Payment provider: 【identify before accepting online payments】. Providers of agreed trip activities may receive only the data necessary to perform their services."
+        },
+        {
+          "text": "При поручении обработки персональных данных подрядчикам мы применяем необходимые договорные и организационные меры в соответствии с законодательством. Платформы обмена сообщениями также могут самостоятельно обрабатывать данные согласно собственным политикам конфиденциальности.",
+          "text_en": "Where processors are engaged, we implement applicable contractual and organisational protections. Messaging platforms may also process information independently under their own privacy policies."
+        }
+      ]
+    },
+    {
+      "title": "Передача данных за пределы Кыргызской Республики",
+      "title_en": "Transfers outside the Kyrgyz Republic",
+      "paragraphs": [
+        {
+          "text": "При использовании иностранных цифровых сервисов возможна передача персональных данных в другие страны. Такая передача допускается только при выполнении требований статьи 89 Цифрового кодекса Кыргызской Республики, включая проверку допустимого основания и предусмотренных гарантий.",
+          "text_en": "Some external digital services may involve transfers of personal data to other countries. Such transfers take place only when the requirements of Article 89 of the Digital Code of the Kyrgyz Republic, including the applicable legal ground and safeguards, are met."
+        },
+        {
+          "text": "Сайт размещается в Кыргызской Республике у HOSTING.KG (ОсОО «Ап Ту»). Данные заявок и бронирований в Битрикс24 обрабатываются также в Российской Федерации. После подключения Google Analytics и Яндекс Метрики технические данные посетителей могут передаваться поставщикам указанных сервисов и обрабатываться за пределами Кыргызстана в соответствии с их документами и выбранными настройками. При общении через иностранные мессенджеры также возможна международная передача. До начала передачи оператор проверяет допустимость соответствующих направлений, правовые основания и гарантии по статье 89 Цифрового кодекса Кыргызской Республики; одно только раскрытие названий сервисов в Политике не заменяет такой проверки.",
+          "text_en": "The website is hosted in the Kyrgyz Republic by HOSTING.KG (OsOO \"Ap Tu\"). Booking and contact data handled in Bitrix24 is also processed in the Russian Federation. Once Google Analytics and Yandex Metrica are enabled, technical visitor data may be processed by those providers outside Kyrgyzstan, depending on their systems and settings. Messaging platforms may also involve international transfers. Before such transfers take place, the controller assesses legal grounds, destination rules and safeguards under Article 89 of the Digital Code of the Kyrgyz Republic. Naming providers in this Policy does not, by itself, establish compliance."
+        }
+      ]
+    },
+    {
+      "title": "Сколько хранятся персональные данные",
+      "title_en": "How long information is retained",
+      "paragraphs": [
+        {
+          "text": "Персональные данные хранятся не дольше, чем необходимо для заявленных целей и обязательного хранения. Ниже приведены плановые сроки Tian Way, которые должны быть обеспечены настройками CRM, серверов и внутренним регламентом до публикации настоящей редакции как действующей. Невозможность удаления в отдельных системах сама по себе не продлевает срок хранения и требует дополнительного организационного решения.",
+          "text_en": "We retain personal data no longer than necessary for the stated purposes and statutory retention duties. The periods below are Tian Way operational retention rules that must be supported by CRM and server settings and an internal procedure before this version is issued as the live Policy. A provider limitation does not automatically extend our retention period and must be addressed with appropriate controls."
+        },
+        {
+          "text": "Заявки без договора: 180 календарных дней после последнего содержательного контакта, если ранее не возникло основание для удаления. Обычная переписка после завершения услуги: до 12 месяцев, если она не нужна для договора, налогового учета или спора. Сканы паспорта и прав: только на время необходимой проверки и аренды; удаление без необоснованной задержки, планово не позднее трех рабочих дней после возврата и завершения расчетов при отсутствии оснований для более долгого хранения. Подписанные договоры, акты и налоговые платежные документы: не менее шести лет или более длительный срок, если он обязателен по закону. Претензии: до разрешения и истечения применимого срока защиты прав. Собственные журналы доступа: планово до 30 дней, если нет инцидента или обязательного основания хранить дольше. Для данных уровня пользователя и события GA4 планируется настройка хранения 2 месяца; это не означает автоматического удаления всех агрегированных отчетов или всех идентификаторов в других системах. Сроки ротации резервных копий сторонних сервисов должны быть проверены отдельно; копии недоступны для обычного использования и восстанавливаются с учетом ранее исполненных запросов об удалении.",
+          "text_en": "Enquiries without a contract: up to 180 calendar days after the last substantive contact unless an earlier deletion ground arises. Ordinary correspondence after a completed service: up to 12 months unless needed for a contract, tax records or a dispute. Passport and licence scans: only while needed for verification and rental; deleted without undue delay, with an operational target of no later than three business days after return and final settlement absent a lawful reason to retain them. Signed agreements, handover reports and tax payment records: at least six years, or a longer period required by law. Disputes: until resolved and the applicable claims period expires. Our own website access logs: target up to 30 days, except for security incidents or mandatory retention. GA4 user-level and event-level data: planned two-month setting, which does not delete all aggregated reports or identifiers held by other providers. Provider backup cycles require separate verification; backups are kept out of routine access, and restorations must honour earlier deletion requests."
+        },
+        {
+          "text": "При наличии оснований, предусмотренных статьей 83 Цифрового кодекса Кыргызской Республики, персональные записи удаляются немедленно, если нет предусмотренного законом исключения; плановые сроки выше не ограничивают право требовать более раннего удаления. Олег организует ежемесячную проверку заявок и переписки, подлежащих удалению; бумажные документы по истечении обязательных сроков уничтожаются с фиксацией. Сканы документов не должны храниться в открытых чатах или общедоступных папках. Если копии временно поступили в переписку или вложения CRM, необходимо учитывать и удалять все такие экземпляры, а не только оригинальный файл. При восстановлении резервной копии повторное появление ранее удаленных данных должно быть предотвращено.",
+          "text_en": "Where Article 83 of the Digital Code requires deletion, we delete the personal records immediately unless a statutory exception applies; the stated retention targets do not limit a right to earlier deletion. Oleg coordinates monthly reviews of stale enquiries and correspondence. Paper records are securely destroyed after mandatory retention ends, with a destruction record. Document scans must not remain in unrestricted chats or shared folders. If copies enter conversations or CRM attachments, all copies must be identified and removed, not only the original file. Restoring a backup must not reintroduce data previously deleted from active systems."
+        }
+      ]
+    },
+    {
+      "title": "Меры защиты",
+      "title_en": "Security",
+      "paragraphs": [
+        {
+          "text": "Доступ к CRM и временным копиям документов должен быть ограничен по ролям и предоставляться через персональные учетные записи. До начала получения сканов необходимо включить двухфакторную аутентификацию Битрикс24, назначить права сотрудников и определить защищенное место временного хранения с порядком удаления. Бумажные оригиналы договоров и актов должны храниться в закрываемом шкафу или архиве. Копии документов не размещаются в публичных каталогах сайта, общих чатах и незащищенных ссылках. Для сайта используется HTTPS. Перечисленные меры подлежат фактической проверке; описание меры в Политике само по себе не подтверждает ее выполнение.",
+          "text_en": "CRM and temporary document access must be restricted by role and personal accounts. Before document scans are collected, Bitrix24 two-factor authentication and permissions must be configured and an access-restricted temporary storage and deletion process established. Paper agreements and reports must be kept in a locked cabinet or archive. Copies must not be posted to public website directories, unrestricted group chats or unprotected links. The website uses HTTPS. These controls must be verified in practice; describing them in this Policy does not confirm implementation."
+        },
+        {
+          "text": "При использовании внешних сервисов безопасность также зависит от мер соответствующих поставщиков. Мы не гарантируем абсолютной защиты от любых возможных рисков.",
+          "text_en": "External services also apply their own safeguards. No system can guarantee absolute protection against every risk."
+        }
+      ]
+    },
+    {
+      "title": "Ваши права и способы обращения",
+      "title_en": "Your rights and how to exercise them",
+      "paragraphs": [
+        {
+          "text": "В соответствии с законодательством Кыргызской Республики вы вправе получать информацию об обработке своих данных и доступ к ним, просить исправить или дополнить неверные сведения, требовать удаления и ограничения обработки в предусмотренных законом случаях, заявлять возражение против обработки и при наличии применимого права запрашивать перенос данных. Согласие, если оно было предоставлено для отдельной цели, можно отозвать.",
+          "text_en": "Under Kyrgyz law, you may request information about processing and access to your data; request correction or completion; request deletion or restriction where the law provides; object to certain processing; and, where applicable, request data portability. If consent has been obtained for a separate purpose, you may withdraw it."
+        },
+        {
+          "text": "Запрос направляется на autokemperkg@gmail.com или по контактам из раздела 1. Для защиты ваших данных мы можем запросить разумное подтверждение личности или полномочий представителя.",
+          "text_en": "Please contact autokemperkg@gmail.com or use the contact details in Section 1. We may reasonably verify your identity or your representative’s authority to protect your information."
+        },
+        {
+          "text": "Информация об обработке и доступ к данным по запросу предоставляются в течение семи рабочих дней в случаях и порядке, предусмотренных статьей 73 Цифрового кодекса. Для исправления данных и рассмотрения возражения применяются сроки, установленные статьями 75 и 84 Кодекса. Если закон требует сохранить данные, их удаление может быть ограничено.",
+          "text_en": "Where applicable under Article 73 of the Digital Code, we provide requested information and access within seven business days. Legal deadlines for correction and objections are addressed in Articles 75 and 84. Deletion may be limited where the law requires or allows continued retention."
+        },
+        {
+          "text": "Вы можете обжаловать обработку персональных данных в уполномоченный орган Кыргызской Республики по защите персональных данных или в суд.",
+          "text_en": "You may lodge a complaint with the competent personal data protection authority in the Kyrgyz Republic or seek judicial protection."
+        }
+      ]
+    },
+    {
+      "title": "Настройки сайта и сторонние сервисы",
+      "title_en": "Website preferences and third-party services",
+      "paragraphs": [
+        {
+          "text": "После внедрения переключателей сайт может хранить в localStorage выбранные язык и валюту (планируемые ключи tianway_language и tianway_currency). Это настройки интерфейса; сами по себе они не содержат имени или контактов. Согласие или отказ от аналитики может сохраняться отдельно (планируемый ключ tianway_cookie_preferences, срок 6 месяцев). Реальные названия ключей, сроки и полный перечень cookie/идентификаторов должны быть сверены с кодом сайта и счетчиков до публикации действующей версии. Удаление данных браузера посетителем сбрасывает эти настройки.",
+          "text_en": "Once language and currency controls are implemented, the site may store the selected language and display currency in browser localStorage (planned keys: tianway_language and tianway_currency). These are UI preferences and do not themselves contain a name or contact details. Analytics acceptance or rejection may be stored separately (planned key: tianway_cookie_preferences, six-month term). Actual key names, retention and all cookies/identifiers must be checked against the deployed code before this Policy is published as live. Clearing browser storage resets these settings."
+        },
+        {
+          "text": "Для оценки посещаемости планируется подключить Google Analytics 4 и Яндекс Метрику; до их фактической установки они не заявляются как используемые. Возможные cookie включают _ga, _ga_<идентификатор> и идентификаторы Метрики (_ym_uid, _ym_d); точный перечень и сроки зависят от конфигурации. Необязательные счетчики должны загружаться только после выбора посетителем «Принять аналитику»; рядом должна быть равнозначная возможность «Отклонить», а изменить решение можно через «Настройки cookie». Вебвизор и запись содержимого форм должны оставаться выключенными. URL и параметры событий не должны включать email, телефоны, данные документов или сведения из форм. Рекламные аудитории и ремаркетинг не включаются без отдельного решения и юридической проверки.",
+          "text_en": "Tian Way plans to use Google Analytics 4 and Yandex Metrica, but they are not represented as active until deployed. Depending on configuration, cookies may include _ga, _ga_<identifier> and Metrica identifiers such as _ym_uid and _ym_d; the actual list and retention must be verified. Optional analytics tags must load only after the visitor chooses “Accept analytics”, with an equally accessible “Reject” option and a persistent “Cookie settings” control. Session replay (Webvisor) and form-content recording must remain disabled. URLs and event parameters must not contain email addresses, phone numbers, document details or form contents. Advertising audiences and remarketing are not enabled without a separate decision and legal assessment."
+        },
+        {
+          "text": "При переходе на сайты или в приложения третьих лиц, включая мессенджеры и платежные сервисы, могут действовать собственные политики таких организаций.",
+          "text_en": "Third-party websites, messaging applications and payment services may have their own privacy policies."
+        }
+      ]
+    },
+    {
+      "title": "Автоматические решения",
+      "title_en": "Automated decision-making",
+      "paragraphs": [
+        {
+          "text": "Мы не принимаем решений, имеющих юридические или аналогичные существенные последствия для клиентов, исключительно на основе автоматизированной обработки персональных данных. Наличие технической проверки доступности автодома или автоматического расчета ориентировочной цены само по себе не заменяет проверку условий и подтверждение бронирования уполномоченным сотрудником.",
+          "text_en": "We do not make decisions that produce legal or similarly significant effects on clients solely through automated processing of personal data. Automated availability checks and indicative price calculations do not replace a staff member’s confirmation of booking terms."
+        }
+      ]
+    },
+    {
+      "title": "Изменения Политики",
+      "title_en": "Updates to this Policy",
+      "paragraphs": [
+        {
+          "text": "Актуальная редакция размещается на tianway.kg. При существенном изменении целей, категорий получателей или способов обработки мы обновляем информацию и выполняем дополнительные юридические действия, когда они необходимы. Новая редакция не легализует обработку, которая ранее осуществлялась без законного основания.",
+          "text_en": "The current version is available at tianway.kg. If purposes, recipient categories or processing methods materially change, we will update the information and take additional legal steps where required. A new version does not retrospectively legitimise any previously unlawful processing."
+        }
+      ]
+    }
+  ]
+}

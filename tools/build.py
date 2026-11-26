@@ -101,6 +101,7 @@ if __name__ == '__main__':
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_tours.py')], check=True)
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_rent.py')], check=True)
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_content.py')], check=True)
+    subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_privacy.py')], check=True)
     apply_layout()
     stamp_versions()
     subprocess.run([sys.executable, str(ROOT / 'tools' / 'build_en.py')], check=True)
