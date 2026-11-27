@@ -89,7 +89,26 @@ function tw_rates_parse($xml)
     return $out;
 }
 
-/** последний проверенный курс (с обновлением, если пора) */
+/** запасной проверенный курс — data/rates.json: его при каждой загрузке сайта кладет автосборка
+ *  (tools/fetch_rates.py берет daily.xml НБКР и проверяет так же). Нужен, когда хостинг сам до НБКР не достучался. */
+function tw_rates_backup()
+{
+    $r = json_decode((string) @file_get_contents(__DIR__ . '/../data/rates.json'), true);
+    if (!is_array($r) || empty($r['ok']) || !isset($r['date'], $r['USD'], $r['RUB']) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $r['date'])) {
+        return null;
+    }
+    if (strtotime($r['date'] . ' 00:00:00') > time() + 86400) {
+        return null;
+    }
+    foreach (TW_RATES_LIMITS as $code => $lim) {
+        if (!is_numeric($r[$code]) || $r[$code] < $lim[0] || $r[$code] > $lim[1]) {
+            return null;
+        }
+    }
+    return array('date' => $r['date'], 'USD' => (float) $r['USD'], 'RUB' => (float) $r['RUB'], 'backup' => true);
+}
+
+/** последний проверенный курс (с обновлением, если пора); свой нет или старее — запасной из автосборки */
 function tw_rates()
 {
     $file = tw_tmp('rates.json');
@@ -126,12 +145,23 @@ function tw_rates()
     // последняя ошибка получения курса (без секретов: только текст ошибки сети или проверки) — чтобы было видно причину
     $why = is_file($file . '.err') && (!$rates || filemtime($file . '.err') > (isset($rates['checked']) ? (int) $rates['checked'] : 0))
         ? (string) file_get_contents($file . '.err') : '';
+    $backup = tw_rates_backup();
+    if ($backup && (!$rates || $backup['date'] > $rates['date'])) {
+        $rates = $backup;
+    }
     if (!$rates) {
         return array('ok' => false, 'reason' => 'none', 'why' => $why);
     }
     if (time() - strtotime($rates['date'] . ' 00:00:00') > TW_RATES_MAX_AGE) {
         return array('ok' => false, 'reason' => 'stale', 'date' => $rates['date']);
     }
-    return array('ok' => true, 'date' => $rates['date'], 'USD' => (float) $rates['USD'], 'RUB' => (float) $rates['RUB'],
+    $out = array('ok' => true, 'date' => $rates['date'], 'USD' => (float) $rates['USD'], 'RUB' => (float) $rates['RUB'],
         'source' => 'НБКР');
+    if (!empty($rates['backup'])) {
+        $out['via'] = 'build';   // курс из автосборки (хостинг сам до НБКР не достучался)
+        if ($why !== '') {
+            $out['why'] = $why;
+        }
+    }
+    return $out;
 }
