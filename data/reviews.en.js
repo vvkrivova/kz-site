@@ -8,7 +8,7 @@ window.TW_REVIEWS = [
     name: 'A group of anglers',
     trip: 'Motorhome rental. A trip along the northern shore of Issyk-Kul',
     days: '6 days',
-    text: 'Our first time in a motorhome. In six days we covered the northern shore, Karakol and the southern part of the lake. We were most worried about the size of the vehicle...',
+    text: 'It was our first time travelling in a motorhome. In six days we managed to cover the northern shore, Karakol and the southern part of Issyk-Kul. We were most worried about the size of the vehicle and thought it would be hard to drive, especially on narrow roads. But surprisingly, we got used to it quite quickly and felt confident by the second day.\n\nThe motorhome itself turned out to be even more comfortable than we expected. Of course, it felt unusual at first, especially when looking for a place to stay overnight, but Oleg helped us with everything. We really loved that there was no need to rush: you can stop wherever you like and make breakfast with a view of the lake.\n\nThe only thing is that six days turned out to be a bit short. We wanted to visit a couple more places but ran out of time. If we go again, we\'ll definitely take about ten days. Overall, we were very happy with the trip, and we loved this way of travelling.',
     pics: 'fishers',
   },
   {

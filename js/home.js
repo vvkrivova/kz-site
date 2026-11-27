@@ -308,8 +308,17 @@
   /* --- раскрытие карточки вниз --- */
   const EXPAND_MS = reduce ? 0 : 500;   // = длительность в css/style.css
   // высота карточки и место «Читать отзыв полностью» — из CSS (на телефоне они другие, css/m-home.css)
-  const CARD_H = () => parseFloat(getComputedStyle(slots[0].querySelector('.review__card')).height) || 370;
-  const MORE_TOP = () => parseFloat(getComputedStyle(slots[0].querySelector('[data-review-open]')).top) || 325;
+  // обычное (свернутое) значение из CSS — без размеров, которые поставил скрипт: соседняя карточка может быть уже
+  // раскрыта (раньше бралась высота первой карточки — и вторая, раскрытая после нее, становилась выше нужного)
+  const cssValue = (el, prop) => {
+    const s = el.style; const prev = s[prop]; const tr = s.transition;
+    s.transition = 'none'; s[prop] = '';
+    const v = parseFloat(getComputedStyle(el)[prop]);
+    s[prop] = prev; void el.offsetWidth; s.transition = tr;
+    return v;
+  };
+  const CARD_H = (slot) => cssValue(slot.querySelector('.review__card'), 'height') || 370;
+  const MORE_TOP = (slot) => cssValue(slot.querySelector('[data-review-open]'), 'top') || 325;
   // обычная высота блока — из CSS, каждый раз заново: у компьютера и телефона она разная, а окно могли сузить или повернуть
   // (раньше бралась один раз при загрузке — после «Свернуть» на телефоне под отзывом оставалось пустое место)
   const baseStageH = () => {
@@ -357,7 +366,7 @@
     grow.set(slot, delta);
     void text.offsetWidth;
     text.style.height = `${h0 + delta}px`;
-    const baseH = CARD_H(); const baseTop = MORE_TOP();
+    const baseH = CARD_H(slot); const baseTop = MORE_TOP(slot);
     card.style.height = `${baseH + delta}px`;
     more.style.top = `${baseTop + delta}px`;
     slot.classList.add('is-open');
