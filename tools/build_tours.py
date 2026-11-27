@@ -47,9 +47,9 @@ def photo_path(path):
 def day_card(n, d):
     title = title_html(d.get('title') or f'День {n}')
     photo = photo_path(d.get('photo'))
+    text = f"\n            <p class=\"tday__text\">{nb(html.escape(d['text'], quote=False))}</p>" if (d.get('text') or '').strip() else ''
     if photo:
         pos = f" tday__photo--{d['photo_pos']}" if d.get('photo_pos') in ('top', 'y16') else ''
-        text = f"\n            <p class=\"tday__text\">{nb(html.escape(d['text'], quote=False))}</p>" if (d.get('text') or '').strip() else ''
         return (f'          <article class="tday">\n'
                 f'            <img class="tday__photo{pos}" src="{html.escape(photo)}" alt="{html.escape(d.get("alt") or "")}">\n'
                 f'            <span class="tday__num">День {n}</span>\n'
@@ -57,7 +57,7 @@ def day_card(n, d):
                 f'          </article>')
     return (f'          <article class="tday tday--short" data-day="{n:02d}">\n'
             f'            <span class="tday__num">День {n}</span>\n'
-            f'            <h3 class="tday__title">{title}</h3>\n'
+            f'            <h3 class="tday__title">{title}</h3>{text}\n'
             f'          </article>')
 
 

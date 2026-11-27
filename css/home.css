@@ -824,9 +824,18 @@ html.reveal-on .first__stamp:not(.is-shown) { opacity: 0; }
 .format-btn--rv { translate: 3.1px 0; }
 .format-btn--tours { translate: 4.6px -.9px; }
 .format-btn--fishing { translate: 3.9px -.5px; }
-/* карточки форматов (с ярлыками и облаком у «Рыбалки») чуть ниже — больше воздуха под заголовком (27.11.2026); только компьютер */
+/* блок «Выберите формат путешествия» на компьютере — ровно как в макете Figma (28.11.2026, просьба заказчицы):
+   без уменьшений «больше воздуха» — плашка, заголовок (в одну строку), карточки и ярлыки в натуральную величину
+   на местах макета, блок 1024px. Телефон — как был (css/m-home.css) */
 @media (min-width: 768px) {
-  .format-card, .format-btn, .formats__clouds-a { margin-top: 18px; }
+  .formats__title { left: 0; width: 1440px; white-space: nowrap; scale: none; }
+  .formats__panel, .format-card, .format-btn { scale: none; }
+  .format-btn--rv, .format-btn--tours, .format-btn--fishing { translate: none; }
+  .formats .stage { height: 1024px; }
+  /* под плашкой горы идут без шва, как в макете: блок «Первый раз за рулем» на компьютере — без срезанных сверху 80px
+     (иначе его фон поднимался поверх этого блока и под плашкой оставалась тонкая размытая полоска долины) */
+  .first .stage { height: 1126px; }
+  .first .stage > * { margin-top: 0; }
 }
 /* «Соберем поездку под вас»: форма меньше (.86) и выше на 55px; фото и марки уменьшаются и сдвигаются
    вместе с ней (вокруг центра плашки) — стоят относительно ее углов как в макете */
@@ -855,6 +864,11 @@ html.reveal-on .first__stamp:not(.is-shown) { opacity: 0; }
    Опущен на 4px вместе с линией из блока выше — иначе верхний кружок срезается краем блока */
 .routes__route-top, .routes__dot, .routes__pin { margin-top: 4px; }
 .first .stage > .first__route { margin-top: -76px; }
+@media (min-width: 768px) {
+  /* блок «Первый раз за рулем» на компьютере без срезанных 80px (см. блок «Выбери формат») — линия на 4px ниже макета,
+     как и пунктир в начале «Куда на автодоме» */
+  .first .stage > .first__route { margin-top: 4px; }
+}
 
 /* «Уже ездили с Tian Way» */
 .reviews__title { scale: .72; transform-origin: 50% 0; margin-top: 17.7px; }

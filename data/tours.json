@@ -2,7 +2,7 @@
   "_readme": [
     "Программы туров (страницы tour-*.html). Здесь меняют тексты, фото и дни; потом запустить: python3 tools/build.py",
     "page — какая страница; trip — что выбирается в «Куда хочется?» на trips.html; title — заголовок (перенос строки — \\n); name — название во вкладке браузера; lead — текст под заголовком; description — описание для поисковиков; days_label — длительность на плашке.",
-    "days — дни по порядку. Только title — короткая карточка с крупным номером. С photo, alt (описание фото) и text — карточка с фото. photo_pos — какую часть фото показывать: top (верх), y16 (чуть ниже верха), без него — середина. «→» в названии рисуется тонкой стрелкой.",
+    "days — дни по порядку. Без photo — короткая карточка с крупным номером (text, если есть, — под названием). С photo, alt (описание фото) и text — карточка с фото. photo_pos — какую часть фото показывать: top (верх), y16 (чуть ниже верха), без него — середина. «→» в названии рисуется тонкой стрелкой.",
     "price — цена на карточке trips.html: «от N сом» (число в сомах; пусто — «Цена уточняется»). В долларах и рублях сайт показывает справочно — по курсу Нацбанка. price_usd_archive — прежняя цена в долларах (до 27.11.2026), только для истории."
   ],
   "tours": [
@@ -204,8 +204,14 @@
           "text_en": "Discovering Kyrgyz cuisine at Supara, a scenic drive to Issyk-Kul and the first evening on the lakeshore"
         },
         {
-          "title": "Чолпон-Ата → Каракол",
-          "title_en": "Cholpon-Ata → Karakol"
+          "title": "Чолпон-Ата",
+          "title_en": "Cholpon-Ata",
+          "photo": "img/tours/day-2-cholpon-ata.webp",
+          "alt": "Петроглифы Чолпон-Аты",
+          "alt_en": "Petroglyphs of Cholpon-Ata",
+          "photo_pos": "top",
+          "text": "Древние петроглифы, прогулка и отдых в бане",
+          "text_en": "Ancient petroglyphs, a walk and a traditional banya"
         },
         {
           "title": "Каракол",
@@ -218,7 +224,9 @@
         },
         {
           "title": "Ак-Суу",
-          "title_en": "Ak-Suu"
+          "title_en": "Ak-Suu",
+          "text": "Живописное горное ущелье с хвойными лесами, бурной рекой и горячими источниками",
+          "text_en": "A scenic mountain gorge with conifer forests, a rushing river and hot springs"
         },
         {
           "title": "Джети-Огуз",
@@ -232,7 +240,12 @@
         },
         {
           "title": "Ала-Арча → Бишкек",
-          "title_en": "Ala-Archa → Bishkek"
+          "title_en": "Ala-Archa → Bishkek",
+          "photo": "img/tours/winter-day-6-ala-archa.webp",
+          "alt": "Заснеженный лес и горы в Ала-Арче",
+          "alt_en": "Snowy forest and mountains in Ala-Archa",
+          "text": "Величественный национальный парк с горными ущельями, хвойными лесами и заснеженными вершинами Тянь-Шаня",
+          "text_en": "A majestic national park with mountain gorges, conifer forests and the snowy peaks of the Tien Shan"
         }
       ]
     }

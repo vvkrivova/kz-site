@@ -25,7 +25,7 @@
     }
   </script>
   <link rel="stylesheet" href="css/style.css?v=9e586a1d">
-  <link rel="stylesheet" href="css/trips.css?v=c8c5f7c7">
+  <link rel="stylesheet" href="css/trips.css?v=6df16c71">
   <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 153, ширина 402px) -->
   <link rel="stylesheet" href="css/m-common.css?v=6491ed54" media="(max-width: 767px)">
   <link rel="stylesheet" href="css/m-trips.css?v=2a6f60e7" media="(max-width: 767px)">
@@ -78,7 +78,7 @@
       <h1 class="tp-hero__title" data-reveal>Готовые путешествия</h1>
       <p class="tp-hero__sub" data-reveal style="--rd:.12s">Собираем путешествия по Кыргызстану для одного человека, пары, семьи или компании — под ваши даты, темп и интересы</p>
       <a class="tp-btn tp-btn--orange tp-hero__btn-trips" href="#season" data-reveal style="--rd:.24s"><span class="d-only">Посмотреть путешествия</span><span class="m-only">Смотреть путешествия</span></a>
-      <a class="tp-btn tp-btn--light tp-hero__btn-custom" href="#custom" data-reveal style="--rd:.3s">Собрать под себя</a>
+      <a class="tp-btn tp-btn--light tp-hero__btn-custom" href="#custom" data-pick="Свой маршрут" data-reveal style="--rd:.3s">Собрать под себя</a>
     </div>
   </section>
 
@@ -189,14 +189,14 @@
 
           <span class="tp-label" id="tp-people-label" style="left:374px; top:44px;"><span class="d-only">Сколько человек?</span><span class="m-only">Сколько едет?</span></span>
           <div class="ask-dd tp-dd tp-dd--num" data-dd style="left:374px; top:102px; width:87px;">
-            <input type="hidden" name="people" value="2">
+            <input type="hidden" name="people" value="1">
             <button class="ask-dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="tp-people-label">
-              <span data-dd-value>2</span>
+              <span data-dd-value>1</span>
               <svg class="ask-dd__chev" viewBox="0 0 20 10" fill="none" aria-hidden="true"><path d="M.5.5 10 9.5 19.5.5" stroke="currentColor"/></svg>
             </button>
             <ul class="ask-dd__list" role="listbox" aria-labelledby="tp-people-label">
-              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:0">1</li>
-              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:1">2</li>
+              <li class="ask-dd__opt" role="option" aria-selected="true" style="--i:0">1</li>
+              <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:1">2</li>
               <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:2">3</li>
               <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:3">4</li>
               <li class="ask-dd__opt" role="option" aria-selected="false" style="--i:4">5</li>
@@ -273,6 +273,6 @@
 </main>
 
 <script src="js/main.js?v=4efed692"></script>
-<script src="js/trips.js?v=4fd48ba9"></script>
+<script src="js/trips.js?v=c4881cb0"></script>
 </body>
 </html>

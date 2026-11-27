@@ -263,3 +263,8 @@
 
 /* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — как самый верх и самый низ страницы */
 :root { --edge-top: #394651; --edge-bottom: #f1e7d9; }
+
+/* «Собрать под себя» на обложке: в «Куда хочется?» выбран «Свой маршрут» — поле коротко подсвечивается (js/trips.js, pickCustom) */
+.tp-dd.is-flash .ask-dd__btn { animation: tp-flash 1.2s ease; }
+@keyframes tp-flash { 0%, 100% { box-shadow: 0 0 0 0 rgba(222, 72, 17, 0); } 25% { box-shadow: 0 0 0 4px rgba(222, 72, 17, .55); } }
+@media (prefers-reduced-motion: reduce) { .tp-dd.is-flash .ask-dd__btn { animation: none; } }

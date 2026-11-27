@@ -139,3 +139,20 @@
   opt.click(); // выпадающий список сам запишет значение в форму
   opt.closest('[data-dd]').querySelector('button').blur(); // без рамки фокуса при открытии страницы
 })();
+
+/* ---------- 4. «Собрать под себя» на обложке ----------
+   Страница плавно едет к анкете (ссылка на #custom — main.js), а в «Куда хочется?» сразу выбирается
+   «Свой маршрут» (data-pick — на английской странице сборка переводит его так же, как пункт списка) и поле коротко подсвечивается. */
+(function pickCustom() {
+  const dd = document.querySelector('.tp-form [data-dd]');
+  if (!dd) return;
+  document.querySelectorAll('a[data-pick]').forEach((link) => link.addEventListener('click', () => {
+    const opt = [...dd.querySelectorAll('[role="option"]')].find((o) => o.textContent.trim() === link.dataset.pick);
+    if (!opt) return;
+    opt.click();
+    dd.querySelector('button').blur();
+    dd.classList.remove('is-flash');
+    void dd.offsetWidth; // перезапуск подсветки, если нажали второй раз
+    dd.classList.add('is-flash');
+  }));
+})();

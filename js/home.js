@@ -502,7 +502,7 @@
 
   // количество человек
   const countEl = form.querySelector('[data-count]');
-  let count = 4;
+  let count = 1;   // «Сколько вас?» — по умолчанию 1 (просьба заказчицы 28.11.2026)
   // Рукописный шрифт Caveat рисует цифры со смещением внутри своего места,
   // поэтому центрируем не «коробку» символа, а сам рисунок цифры (по горизонтали и вертикали).
   const inkCanvas = document.createElement('canvas').getContext('2d');
