@@ -745,12 +745,13 @@ const Money = (function () {
     const text = LANG === 'en' ? `${v} KGS` : `${v} сом`;
     return from ? `${t('от')} ${text}` : text;
   };
-  // доллары — два знака после запятой, рубли — до целого (ТЗ). «≈» (сумма справочная) — только на последнем шаге
+  // доллары и рубли — всегда до целого, без центов и копеек (решение заказчика 28.11.2026; в ТЗ доллары — 2 знака).
+  // «≈» (сумма справочная) — только на последнем шаге
   // бронирования, где сумма юридически важна (Money.approxSign = true, js/rent-booking.js); на карточках — без него
   // (решение 27.11.2026)
   let approxSign = false;
   const other = (n, cur, from) => {
-    const v = cur === 'USD' ? num(n / rates.USD, 2) : num(Math.round(n / rates.RUB), 0);
+    const v = num(Math.round(n / rates[cur]), 0);
     const sym = cur === 'USD' ? '$' : '₽';
     const text = LANG === 'en' ? `${sym}${v}` : `${v} ${sym}`;
     return from ? `${t('от')} ${text}` : `${approxSign ? '≈ ' : ''}${text}`;

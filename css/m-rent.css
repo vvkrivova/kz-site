@@ -11,14 +11,14 @@
 /* =========================================================
    1. ВЫБЕРИТЕ СВОЙ АВТОДОМ
    ========================================================= */
-.rent-top .stage { padding: 287px 0 14px 25px; }
+.rent-top .stage { padding: 311px 0 14px 25px; }
 .rent-top .stage > img.rent-cloud:nth-of-type(1) { left: -296px !important; top: 235px !important; width: 444px; height: 148px; }
 .rent-top .stage > img.rent-cloud:nth-of-type(2) { left: 252px !important; top: -29px !important; width: 432px; height: 144px; }
 .rent-top .stage > img.rent-cloud:nth-of-type(3) { display: none; }
-.rent-title { left: 86px; top: 46px; width: 238px; font-size: 36px; }   /* на 21px ниже макета — под переключателями языка и валюты в углу; поиск и автодома ниже на 10px */
+.rent-title { left: 86px; top: 70px; width: 238px; font-size: 36px; }   /* ниже макета: над заголовком — логотип и переключатели на уровне других страниц (28.11.2026); все ниже сдвинуто на столько же */
 
 /* ---------- поиск ---------- */
-.rent-search { width: 402px; margin-top: 10px; }
+.rent-search { width: 402px; margin-top: 34px; }
 .rs-label { top: 129px; font-size: 16px; }
 #rs-dates-label { left: 29px !important; }
 #rs-guests-label { left: 247px !important; }

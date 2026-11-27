@@ -35,7 +35,7 @@
 .cur .lang__list button { padding: 9px 12px; font-size: 13px; }
 .cur .lang__list b { width: 34px; }
 .header--logo-only .lang-wrap { right: 112px; }
-.lang--corner { left: auto; right: 14px; top: 8px; }   /* над заголовком страницы, в самом углу */
+.lang--corner { left: auto; right: 20px; top: 34px; }   /* над заголовком страницы, в самом углу */
 
 /* подвал — как в мобильном макете (8px); иконки (их в макете нет) — в том же стиле */
 .footer { height: 96px; }
@@ -99,3 +99,7 @@
 .ask-dd__opt { padding: 8px 30px 8px 10px; border-radius: 5px; font-size: 13px; }
 .ask-dd__opt::before { top: 7px; bottom: 7px; width: 2px; }
 .ask-dd__opt[aria-selected="true"]::after { right: 10px; width: 11px; height: 8px; margin-top: -4px; }
+
+/* логотип и переключатели на страницах аренды (css/rent.css) — на том же месте, что на «Вопросах» и «Политике» */
+.corner-logo { left: 29px; top: 27px; }
+.corner-logo__img { width: 45px; height: 32px; }

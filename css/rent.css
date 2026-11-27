@@ -414,3 +414,11 @@
 
 /* цена еще не известна (data-price="0") — «Цена уточняется» небольшим текстом */
 .car__price--ask .car__price-sum { font: 600 15px/1.2 var(--font-body); text-transform: none; color: rgba(52, 47, 47, .7); }
+
+/* логотип слева сверху (страницы аренды без шапки) — как на «Вопросах» и «Политике»: оранжевый на светлом фоне, на главную */
+.corner-logo { position: absolute; left: 58px; top: 34px; z-index: 6; display: block; transition: opacity .2s ease; }
+.corner-logo:hover, .corner-logo:focus-visible { opacity: .75; outline: none; }
+.corner-logo__img {
+  display: block; width: 84px; height: 56px; background: var(--orange-map);
+  -webkit-mask: url(../img/logo.webp) center / contain no-repeat; mask: url(../img/logo.webp) center / contain no-repeat;
+}

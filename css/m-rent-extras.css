@@ -6,13 +6,13 @@
    Размеры шрифтов — ровно как в макете.
    ========================================================= */
 
-.rx .stage { height: 1020px; }   /* «Ваше бронирование» (до 874) + 40px + подвал */
+.rx .stage { height: 1044px; }   /* «Ваше бронирование» (до 874) + 40px + подвал */
 .rx-topo { display: none; }       /* в мобильном макете рисунка гор нет */
-.rx-title { left: 48px; top: 46px; width: 305px; white-space: normal; text-align: center; font-size: 36px; line-height: 114.04%; }   /* на 21px ниже макета (все ниже — на 10px) — под переключателями языка и валюты в углу */
+.rx-title { left: 48px; top: 70px; width: 305px; white-space: normal; text-align: center; font-size: 36px; line-height: 114.04%; }   /* ниже макета: над заголовком — логотип и переключатели на уровне других страниц (28.11.2026); все ниже сдвинуто на столько же */
 
 /* ---------- услуги: лента вбок ---------- */
 .rx-list {
-  left: 0; top: 140px; width: 402px; height: 296px; padding: 0 28px 12px;
+  left: 0; top: 164px; width: 402px; height: 296px; padding: 0 28px 12px;
   display: flex; gap: 20px; overflow-x: auto; overflow-y: hidden; scroll-padding: 0 28px;
   -webkit-mask-image: none; mask-image: none;
 }
@@ -37,13 +37,13 @@
 
 /* ползунок — горизонтальная полоса под лентой (тонкая дорожка, толстый оранжевый бегунок) */
 .rx-bar {
-  left: 35px; top: 447px; width: 357px; height: 10px; border-radius: 0;
+  left: 35px; top: 471px; width: 357px; height: 10px; border-radius: 0;
   background: linear-gradient(transparent 2.5px, #e7d9c3 2.5px 7.5px, transparent 7.5px);
 }
 .rx-bar__thumb { width: 41px; height: 10px; }
 
 /* ---------- ваше бронирование ---------- */
-.rx-book { left: 28px; top: 480px; width: 341px; height: 404px; }
+.rx-book { left: 28px; top: 504px; width: 341px; height: 404px; }
 .rx-book__title { left: 20px; top: 19px; font-size: 26px; }
 .rx-book__cap { top: 60px; font-size: 11px; }
 .rx-book__cap:first-of-type { left: 21px !important; }            /* «Заезд» */

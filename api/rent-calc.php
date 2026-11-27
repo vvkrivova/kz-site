@@ -113,17 +113,17 @@ function tw_rent_calc($car, $fromDay, $toDay, $items)
         switch ($it['type']) {
             case 'day':
                 $sum = $it['price'] * $qty * $days * 100;
-                $note = $it['price'] . ' сом × ' . $qty . ' × ' . $days . ' сут.';
+                $note = number_format($it['price'], 0, '', ' ') . ' сом × ' . $qty . ' × ' . $days . ' сут.';
                 break;
             case 'delivery':
                 $where = isset($row['variant']) && $row['variant'] === 'airport' ? 'airport' : 'city';
                 $freeFrom = $where === 'airport' ? $it['free_airport'] : $it['free_city'];
                 $free = $nights >= $freeFrom;
                 $sum = $free ? 0 : $it['price'] * $qty * 100;
-                $note = ($where === 'airport' ? 'аэропорт' : 'по Бишкеку') . ', направлений: ' . $qty . ($free ? ' — бесплатно (от ' . $freeFrom . ' суток)' : ', ' . $it['price'] . ' сом за направление');
+                $note = ($where === 'airport' ? 'аэропорт' : 'по Бишкеку') . ', направлений: ' . $qty . ($free ? ' — бесплатно (от ' . $freeFrom . ' суток)' : ', ' . number_format($it['price'], 0, '', ' ') . ' сом за направление');
                 break;
             case 'from':
-                $note = 'от ' . $it['price'] . ' сом, цену уточнит менеджер (в сумму не входит)';
+                $note = 'от ' . number_format($it['price'], 0, '', ' ') . ' сом, цену уточнит менеджер (в сумму не входит)';
                 break;
             case 'free':
                 $note = 'бесплатно';
