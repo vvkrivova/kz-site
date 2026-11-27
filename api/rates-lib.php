@@ -35,11 +35,12 @@ function tw_rates_fetch()
     ));
     $xml = curl_exec($curl);
     $status = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $error = curl_error($curl);
     if (PHP_VERSION_ID < 80000) {
         curl_close($curl);
     }
     if ($status !== 200 || !is_string($xml) || $xml === '') {
-        throw new RuntimeException('НБКР: HTTP ' . $status);
+        throw new RuntimeException('НБКР: HTTP ' . $status . ($error !== '' ? ' — ' . $error : ''));
     }
     return tw_rates_parse($xml);
 }
@@ -114,6 +115,7 @@ function tw_rates()
                 $rates = $new;
             } catch (Exception $e) {
                 error_log('Tian Way rates: ' . $e->getMessage());
+                @file_put_contents($file . '.err', substr($e->getMessage(), 0, 300));   // причина — в ответ /api/rates
             }
             flock($lock, LOCK_UN);
         }
@@ -121,8 +123,11 @@ function tw_rates()
             fclose($lock);
         }
     }
+    // последняя ошибка получения курса (без секретов: только текст ошибки сети или проверки) — чтобы было видно причину
+    $why = is_file($file . '.err') && (!$rates || filemtime($file . '.err') > (isset($rates['checked']) ? (int) $rates['checked'] : 0))
+        ? (string) file_get_contents($file . '.err') : '';
     if (!$rates) {
-        return array('ok' => false, 'reason' => 'none');
+        return array('ok' => false, 'reason' => 'none', 'why' => $why);
     }
     if (time() - strtotime($rates['date'] . ' 00:00:00') > TW_RATES_MAX_AGE) {
         return array('ok' => false, 'reason' => 'stale', 'date' => $rates['date']);
