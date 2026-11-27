@@ -48,11 +48,21 @@ function tw_rates_fetch()
 /** разбор daily.xml → ['date' => 'ГГГГ-ММ-ДД', 'USD' => …, 'RUB' => …] (сомов за 1 единицу валюты) */
 function tw_rates_parse($xml)
 {
+    // НБКР объявляет кодировку windows-1251; на хостинге libxml ее может не знать («не XML»). В файле курсов только
+    // латиница и цифры — объявление кодировки убираем (а если вдруг есть кириллица — сначала переводим в UTF-8)
+    $body = ltrim((string) $xml, "\xEF\xBB\xBF \t\r\n");
+    if (preg_match('/[\x80-\xFF]/', $body)) {
+        $body = function_exists('mb_convert_encoding') ? mb_convert_encoding($body, 'UTF-8', 'Windows-1251')
+            : (function_exists('iconv') ? (string) iconv('Windows-1251', 'UTF-8//IGNORE', $body) : $body);
+    }
+    $body = preg_replace('/^<\?xml[^>]*\?>/', '', $body);
     $prev = libxml_use_internal_errors(true);
-    $doc = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NONET);
+    $doc = simplexml_load_string($body, 'SimpleXMLElement', LIBXML_NONET);
     libxml_use_internal_errors($prev);
     if ($doc === false) {
-        throw new RuntimeException('НБКР: не XML');
+        // что пришло вместо XML (без тегов, коротко) — чтобы было видно, например, страницу защиты от ботов
+        $peek = trim(preg_replace('/\s+/', ' ', strip_tags(substr($body, 0, 400))));
+        throw new RuntimeException('НБКР: не XML' . ($peek !== '' ? ' — ' . substr($peek, 0, 120) : ''));
     }
     $d = (string) $doc['Date'];
     if (!preg_match('/^(\d{2})\.(\d{2})\.(\d{4})$/', $d, $m) || !checkdate((int) $m[2], (int) $m[1], (int) $m[3])) {
