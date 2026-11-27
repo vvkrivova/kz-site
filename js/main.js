@@ -388,10 +388,20 @@ function rangeCalendar(cal, { toggle, onApply, minNights = 1 } = {}) {
   if (!document.documentElement.classList.contains('reveal-on')) return;
   const show = (el) => el.classList.add('is-in');
   if (!('IntersectionObserver' in window)) { els.forEach(show); return; }
+  // блок нулевой высоты (поиск на странице аренды, вопрос на «Вопросах» — содержимое у него снаружи, по координатам)
+  // Safari на iPhone никогда не считает «видимым» — за ним следим по его первому видимому элементу, а если такого нет —
+  // показываем сразу (иначе поиск и календарь на iPhone не появлялись)
+  const owner = new Map();
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+    entries.forEach((e) => { if (e.isIntersecting) { show(owner.get(e.target) || e.target); io.unobserve(e.target); } });
   }, { threshold: 0.2 });
-  els.forEach((el) => io.observe(el));
+  els.forEach((el) => {
+    if (el.getBoundingClientRect().height >= 1) { io.observe(el); return; }
+    const proxy = [...el.querySelectorAll('*')].find((c) => c.getBoundingClientRect().height >= 1);
+    if (!proxy) { show(el); return; }
+    owner.set(proxy, el);
+    io.observe(proxy);
+  });
 })();
 
 /* ---------- 11. Свои выпадающие списки [data-dd] (формы внутренних страниц) ----------
