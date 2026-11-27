@@ -27,10 +27,10 @@
   </script>
   <link rel="stylesheet" href="../css/style.css?v=9e586a1d">
   <link rel="stylesheet" href="../css/rent.css?v=366b9893">
-  <link rel="stylesheet" href="../css/rent-booking.css?v=6934479c">
+  <link rel="stylesheet" href="../css/rent-booking.css?v=b1bccba3">
   <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 158 и «Спасибо» — Frame 159, ширина 402px) -->
   <link rel="stylesheet" href="../css/m-common.css?v=ea5d5e2d" media="(max-width: 767px)">
-  <link rel="stylesheet" href="../css/m-rent-booking.css?v=32596dba" media="(max-width: 767px)">
+  <link rel="stylesheet" href="../css/m-rent-booking.css?v=39111caf" media="(max-width: 767px)">
   <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
   <link rel="alternate" hreflang="ru" href="https://tianway.kg/rent-booking">
   <link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent-booking">
@@ -89,7 +89,20 @@
         </div>
 
         <ul class="rb-sum__rows" data-s-rows></ul>
-        <p class="rb-sum__total"><span>Total</span><span data-s-total>0 $</span></p>
+        <p class="rb-sum__total"><span>Total</span><span data-s-total>0 KGS</span></p>
+        <!-- деньги (ТЗ № 1): точная сумма в сомах — обязательство; другие валюты — справочно по курсу НБКР.
+             Предоплата, остаток и залог считает js/rent-booking.js (тот же расчет — на сервере, lead.php) -->
+        <div class="rb-fin" data-s-fin>
+          <p class="rb-fin__exact" data-s-exact hidden></p>
+          <dl class="rb-fin__rows">
+            <div><dt data-s-prepay-label>Prepayment 30%</dt><dd data-s-prepay></dd></div>
+            <div><dt data-s-rest-label>Balance 70%</dt><dd data-s-rest></dd></div>
+            <div><dt>Refundable deposit <small>— paid separately, not part of&nbsp;the rental price</small></dt><dd data-s-deposit></dd></div>
+          </dl>
+          <p class="rb-fin__rate" data-s-rate hidden></p>
+          <p class="rb-fin__note">All prices are calculated in&nbsp;Kyrgyz soms (KGS). Amounts displayed in&nbsp;other currencies are estimates provided for convenience and may differ from the actual amount charged.</p>
+          <p class="rb-fin__note">If your bank account currency differs from the payment currency, your bank may apply its own exchange rate and additional fees. The final amount charged in&nbsp;your account currency depends on&nbsp;your bank and payment provider.</p>
+        </div>
 
         <!-- условия: текстов пока нет в макете — места под них оставлены -->
         <div class="rb-term"><h3 class="rb-term__h">Rate:</h3><p class="rb-term__text"></p></div>
@@ -113,7 +126,19 @@
             <span class="trip-consent__text">I agree to the&nbsp;processing of my personal data under the&nbsp;<a href="#">Data Processing&nbsp;Consent</a> and&nbsp;have read the&nbsp;<a href="privacy">Privacy&nbsp;Policy</a>.</span>
           </label>
 
-          <button class="rb-submit" type="submit">Book</button>
+          <!-- способ оплаты (ответ заказчика 27.11.2026): онлайн-оплаты пока нет — оплата после подтверждения менеджером -->
+          <div class="rb-pay">
+            <h3 class="rb-pay__title">Payment method</h3>
+            <label class="rb-pay__opt">
+              <input type="radio" name="payment" value="after-confirm" checked>
+              <span class="rb-pay__dot"></span>
+              <span class="rb-pay__name">Payment after booking confirmation</span>
+              <span class="rb-pay__text">Our manager will contact you to&nbsp;confirm availability and the price, and agree on&nbsp;a&nbsp;convenient payment method.</span>
+            </label>
+            <p class="rb-pay__prepay">Rental prepayment&nbsp;— 30% after the manager confirms the terms.</p>
+          </div>
+          <button class="rb-submit" type="submit">Send booking request</button>
+          <p class="rb-submit-note">Sending a&nbsp;request does not confirm the booking and does not require immediate payment.</p>
           <p class="rb-error" data-rb-error role="alert" hidden></p>
         </form>
 
@@ -151,9 +176,10 @@
 
 </main>
 
-<script src="../data/i18n/en-scripts.js?v=3495425e"></script>
-  <script src="../js/main.js?v=e84bed77"></script>
-<script src="../js/rent-store.js?v=57065075"></script>
-<script src="../js/rent-booking.js?v=e094a79f"></script>
+<script src="../data/i18n/en-scripts.js?v=1292bf5e"></script>
+  <script src="../js/main.js?v=9d0a6c3c"></script>
+<script src="../data/rent-prices.js?v=7f6be1fa"></script>
+<script src="../js/rent-store.js?v=c59e1d18"></script>
+<script src="../js/rent-booking.js?v=bac65f46"></script>
 </body>
 </html>

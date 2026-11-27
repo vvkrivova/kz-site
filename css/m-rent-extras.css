@@ -6,13 +6,13 @@
    Размеры шрифтов — ровно как в макете.
    ========================================================= */
 
-.rx .stage { height: 1010px; }   /* «Ваше бронирование» (до 874) + 40px + подвал */
+.rx .stage { height: 1020px; }   /* «Ваше бронирование» (до 874) + 40px + подвал */
 .rx-topo { display: none; }       /* в мобильном макете рисунка гор нет */
-.rx-title { left: 48px; top: 25px; width: 305px; white-space: normal; text-align: center; font-size: 36px; line-height: 114.04%; }
+.rx-title { left: 48px; top: 46px; width: 305px; white-space: normal; text-align: center; font-size: 36px; line-height: 114.04%; }   /* на 21px ниже макета (все ниже — на 10px) — под переключателями языка и валюты в углу */
 
 /* ---------- услуги: лента вбок ---------- */
 .rx-list {
-  left: 0; top: 130px; width: 402px; height: 296px; padding: 0 28px 12px;
+  left: 0; top: 140px; width: 402px; height: 296px; padding: 0 28px 12px;
   display: flex; gap: 20px; overflow-x: auto; overflow-y: hidden; scroll-padding: 0 28px;
   -webkit-mask-image: none; mask-image: none;
 }
@@ -37,13 +37,13 @@
 
 /* ползунок — горизонтальная полоса под лентой (тонкая дорожка, толстый оранжевый бегунок) */
 .rx-bar {
-  left: 35px; top: 437px; width: 357px; height: 10px; border-radius: 0;
+  left: 35px; top: 447px; width: 357px; height: 10px; border-radius: 0;
   background: linear-gradient(transparent 2.5px, #e7d9c3 2.5px 7.5px, transparent 7.5px);
 }
 .rx-bar__thumb { width: 41px; height: 10px; }
 
 /* ---------- ваше бронирование ---------- */
-.rx-book { left: 28px; top: 470px; width: 341px; height: 404px; }
+.rx-book { left: 28px; top: 480px; width: 341px; height: 404px; }
 .rx-book__title { left: 20px; top: 19px; font-size: 26px; }
 .rx-book__cap { top: 60px; font-size: 11px; }
 .rx-book__cap:first-of-type { left: 21px !important; }            /* «Заезд» */
@@ -66,7 +66,7 @@
 .rx-book__sum { font-size: 14px; }
 .rx-book__h { left: 20px; top: 191px; font-size: 16px; }
 .rx-book__rows { left: 21px; top: 214px; width: 293px; height: 82px; }
-.rx-book__rows li { grid-template-columns: 1fr 28px 64px; height: 26px; padding-top: 6px; font-size: 13px; }
+.rx-book__rows li { grid-template-columns: minmax(0, 1fr) 28px minmax(64px, auto); height: 26px; padding-top: 6px; font-size: 13px; }
 .rx-book__rows li b { font-size: 14px; }
 .rx-book__rows li b.is-ask span { font-size: 9px; }
 .rx-book__rows .is-empty { font-size: 11px; }
@@ -75,3 +75,7 @@
 .rx-book__total { top: 305px; padding-top: 12px; border-top: 1px solid rgba(0, 0, 0, .15); }   /* в макете над итогом — линия */
 .rx-book__btn { left: 21px; top: 350px; width: 293px; height: 39px; border-radius: 6px; font-size: 14px; }
 .rx-book__hint { left: 21px; top: 391px; width: 293px; font-size: 9px; }
+
+/* доставка: «По Бишкеку / Аэропорт» — внизу фото */
+.svc-where { left: 8px; top: 96px; padding: 2px; }
+.svc-where button { padding: 6px 10px; font-size: 11px; }

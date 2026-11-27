@@ -1,17 +1,33 @@
 {
   "_readme": [
-    "Цены и занятые даты аренды. Правятся в панели (Pages CMS) или здесь; после правки — python3 tools/build.py.",
-    "Сборка (tools/build_rent.py) ставит цены на страницы rent.html и rent-extras.html и собирает data/rent-availability.js.",
+    "Цены (в сомах, KGS) и занятые даты аренды. Правятся в панели (Pages CMS) или здесь; после правки — python3 tools/build.py.",
+    "Сборка (tools/build_rent.py) ставит цены на страницы rent.html и rent-extras.html и собирает data/rent-prices.js и data/rent-availability.js;",
+    "по этим же данным считает итог сервер (lead.php). Цены в долларах и рублях сайт показывает справочно — по курсу Нацбанка.",
     "id — как data-car / data-item у карточек на страницах, менять нельзя. name — только для узнавания в панели (на сайт не идет).",
-    "price — $ за сутки (0 — без суточной цены). price_text — что написать вместо «N $ / сутки», когда price = 0",
-    "(«Бесплатно», «от 50 $»; пусто — «Цена уточняется»). label — что писать в итоге заказа вместо суммы,",
-    "note — подсказка к строке итога, free_from — бесплатно только от N суток (доставка).",
+    "cars.prices — сом за сутки по сроку аренды: d1 — 1–3 суток, d4 — 4–6, d7 — 7–13, d14 — 14–20, d21 — 21 и больше;",
+    "ставка срока действует на все сутки аренды (7 суток × цена «7–13»). Все пять — 0: «Цена уточняется».",
+    "gear.price — сом за сутки за штуку (0 — «Цена уточняется»); скидок за срок у снаряжения нет.",
+    "services.type: free — бесплатно (price_text — надпись на карточке, label — в итоге), day — price сом за сутки,",
+    "from — разовая «от price сом» (в сумму не входит, точную цену назовет менеджер), quote — по запросу,",
+    "delivery — доставка: price сом за одно направление, бесплатно по Бишкеку от free_from суток, в аэропорт — от free_from_airport.",
+    "note — подсказка к строке итога. deposit — возвратный залог (сом, отдельно от аренды), prepay_percent — предоплата аренды, %, min_nights — минимальный срок аренды, суток.",
+    "usd_archive — прежние цены в долларах (до 27.11.2026), только для истории; сайт их не использует.",
     "busy — занятые даты автодома: с дня заезда до дня выезда (в день выезда его уже можно отдать следующим гостям)."
   ],
+  "prepay_percent": 30,
+  "min_nights": 3,
+  "deposit": 44000,
   "cars": [
     {
       "name": "Forland S1",
-      "price": 250,
+      "prices": {
+        "d1": 21900,
+        "d4": 21000,
+        "d7": 20100,
+        "d14": 19700,
+        "d21": 19200
+      },
+      "usd_archive": 250,
       "seats": 6,
       "busy": [],
       "tag": "Популярный выбор",
@@ -150,7 +166,14 @@
     },
     {
       "name": "Freedom Cannon",
-      "price": 250,
+      "prices": {
+        "d1": 21900,
+        "d4": 20500,
+        "d7": 19700,
+        "d14": 19200,
+        "d21": 18800
+      },
+      "usd_archive": 250,
       "seats": 4,
       "busy": [],
       "tag": "Для больших историй",
@@ -253,7 +276,14 @@
     },
     {
       "name": "Toyota Prado + кемпер",
-      "price": 150,
+      "prices": {
+        "d1": 13100,
+        "d4": 12700,
+        "d7": 12300,
+        "d14": 11800,
+        "d21": 11400
+      },
+      "usd_archive": 150,
       "seats": 4,
       "busy": [],
       "tag": "Авто + кемпер",
@@ -383,129 +413,150 @@
     {
       "id": "table",
       "name": "Складной туристический стол",
-      "price": 2
+      "price": 200,
+      "usd_archive": 2
     },
     {
       "id": "chair",
       "name": "Кемпинговое кресло",
-      "price": 1
+      "price": 150,
+      "usd_archive": 1
     },
     {
       "id": "tent",
       "name": "Туристическая палатка",
-      "price": 5
+      "price": 600,
+      "usd_archive": 5
     },
     {
       "id": "sleeping-bag",
       "name": "Спальный мешок",
-      "price": 3
+      "price": 350,
+      "usd_archive": 3
     },
     {
       "id": "mat",
       "name": "Туристический коврик",
-      "price": 1
+      "price": 150,
+      "usd_archive": 1
     },
     {
       "id": "lantern",
       "name": "Походный фонарь",
-      "price": 2
+      "price": 200,
+      "usd_archive": 2
     },
     {
       "id": "grill",
       "name": "Мангал / переносной гриль",
-      "price": 5
+      "price": 450,
+      "usd_archive": 5
     },
     {
       "id": "bike",
       "name": "Велосипед",
-      "price": 10
+      "price": 900,
+      "usd_archive": 10
     },
     {
       "id": "sup",
       "name": "SUP-доска",
-      "price": 10
+      "price": 900,
+      "usd_archive": 10
     },
     {
       "id": "fishing",
       "name": "Рыболовный комплект",
-      "price": 8
+      "price": 700,
+      "usd_archive": 8
     },
     {
       "id": "poles",
       "name": "Треккинговые палки (пара)",
-      "price": 3
+      "price": 250,
+      "usd_archive": 3
     },
     {
       "id": "kit-camping",
       "name": "Набор «Кемпинг»",
-      "price": 20
+      "price": 1600,
+      "usd_archive": 20
     },
     {
       "id": "kit-picnic",
       "name": "Набор «Пикник»",
-      "price": 15
+      "price": 850,
+      "usd_archive": 15
     },
     {
       "id": "kit-bike",
       "name": "Набор «Велопрогулка»",
-      "price": 18
+      "price": 1600,
+      "usd_archive": 18
     }
   ],
   "services": [
     {
       "id": "sv-route",
       "name": "Готовый маршрут Tian Way",
+      "type": "free",
       "price": 0,
       "price_text": "Бесплатно при аренде",
       "price_text_en": "Free with rental",
       "label": "бесплатно",
       "label_en": "free",
       "note": "бесплатно при аренде автодома",
-      "note_en": "free with motorhome rental"
+      "note_en": "free with motorhome rental",
+      "usd_archive": "Бесплатно при аренде"
     },
     {
       "id": "sv-custom-route",
       "name": "Индивидуальный маршрут",
-      "price": 0,
-      "price_text": "от 50 $",
-      "price_text_en": "<small>from</small> $50",
-      "label": "от 50 $",
-      "label_en": "from $50",
+      "type": "from",
+      "price": 4500,
       "note": "разовая оплата, точную цену назовет менеджер",
-      "note_en": "one-off payment, the manager will confirm the exact price"
+      "note_en": "one-off payment, the manager will confirm the exact price",
+      "usd_archive": "от 50 $"
     },
     {
       "id": "sv-sputnik",
       "name": "Спутниковая связь",
-      "price": 15
+      "type": "day",
+      "price": 1300,
+      "usd_archive": 15
     },
     {
       "id": "sv-kid-seat",
       "name": "Детское кресло",
-      "price": 2
+      "type": "day",
+      "price": 200,
+      "usd_archive": 2
     },
     {
       "id": "sv-delivery",
       "name": "Доставка автодома",
-      "price": 0,
+      "type": "delivery",
+      "price": 2200,
       "price_text": "Бесплатно от 3 суток",
-      "price_text_en": "Free from 3 days",
-      "label": "бесплатно",
-      "label_en": "free",
-      "note": "по Бишкеку — бесплатно от 3 суток, в аэропорт — от 5 суток (при аренде на 3–4 суток — 25 $ в одну сторону); за пределы Бишкека — по запросу",
-      "note_en": "within Bishkek — free from 3 days, to the airport — from 5 days ($25 one way for 3–4 day rentals); outside Bishkek — on request",
-      "free_from": 3
+      "price_text_en": "Free from 3 days",
+      "note": "по Бишкеку — бесплатно от 3 суток, в аэропорт — от 5 суток; за пределы Бишкека — по запросу",
+      "note_en": "within Bishkek — free from 3 days, to the airport — from 5 days; outside Bishkek — on request",
+      "free_from": 3,
+      "usd_archive": "Бесплатно от 3 суток",
+      "free_from_airport": 5
     },
     {
       "id": "sv-escort",
       "name": "Первый участок с Tian Way",
+      "type": "free",
       "price": 0,
       "price_text": "Бесплатно",
       "price_text_en": "Free",
       "label": "бесплатно",
       "label_en": "free",
       "note": "инструктаж и помощь в начале поездки — бесплатно",
-      "note_en": "briefing and help at the start of the trip — free"
+      "note_en": "briefing and help at the start of the trip — free",
+      "usd_archive": "Бесплатно"
     }
   ]
 }

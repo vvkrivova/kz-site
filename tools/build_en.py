@@ -70,6 +70,11 @@ class Translator:
         call = re.fullmatch(r'Позвонить: ([+\d ()-]+)', key)
         if call:
             return f'Call: {call.group(1)}'
+        # сомы (ТЗ № 1): «21 900 сом» → «21,900 KGS», «от 139 900 сом» → «from 139,900 KGS»
+        m = re.fullmatch(r'(от\s+)?(\d+(?:(?:\s|&nbsp;)\d{3})*)(?:\s|&nbsp;)сом', key)
+        if m:
+            n = int(re.sub(r'\s|&nbsp;', '', m.group(2)))
+            return ('from ' if m.group(1) else '') + f'{n:,} KGS'
         m = re.fullmatch(r'(<small>)?от(</small>)?\s+(\d+(?:(?:\s|&nbsp;)\d{3})*)(?:\s|&nbsp;)?\$', key)
         if not m:
             return None

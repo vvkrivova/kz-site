@@ -26,6 +26,17 @@ const TW_UF_DROPOFF = 'UF_CRM_1795695857043';  // Возврат автодом�
 const TW_UF_GUESTS = 'UF_CRM_1795695858220';   // Количество гостей
 const TW_UF_LANG = 'UF_CRM_1795695873303';     // Язык общения
 const TW_UF_EXTRAS = 'UF_CRM_1795695879879';   // Дополнительное оборудование
+// деньги (ТЗ № 1, поля созданы заказчиком 27.11.2026 — ~/Desktop/TianWay_Bitrix24_KGS_Fields.docx):
+// полная стоимость — OPPORTUNITY + CURRENCY_ID = KGS (базовая валюта портала — RUB, поэтому KGS передаем явно);
+// поля «деньги» — строкой «сумма|KGS» без разделителей тысяч
+const TW_UF_PREPAY = 'UF_CRM_1795695859637';          // Предоплата к внесению (деньги)
+const TW_UF_BALANCE = 'UF_CRM_TW_BALANCE_KGS';        // Остаток после предоплаты (деньги)
+const TW_UF_DEPOSIT = 'UF_CRM_1795695862167';         // Возвратный залог (деньги)
+const TW_UF_DISPLAY_CUR = 'UF_CRM_TW_DISPLAY_CURRENCY'; // Валюта отображения (ISO: KGS / USD / RUB)
+const TW_UF_FX_RATE = 'UF_CRM_TW_FX_RATE';            // Курс отображения (сомов за 1 единицу; для KGS — 1)
+const TW_UF_FX_DATE = 'UF_CRM_TW_FX_DATE';            // Дата курса отображения (ГГГГ-ММ-ДД)
+const TW_UF_PAY_STATUS = 'UF_CRM_TW_PAYMENT_STATUS';  // Статус оплаты (список)
+const TW_PAY_UNPAID = 78;                             // «Не оплачено» (80 — частично, 82 — оплачено, 84 — возвращено)
 
 // часы выдачи и возврата (до согласования с заказчицей): выдача днем, возврат утром,
 // в день возврата машину можно выдать следующим гостям — как на сайте

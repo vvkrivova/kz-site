@@ -722,12 +722,15 @@ content:
               maxlength: 10
 
           - name: price
-            label: Цена на карточке тура
-            type: string
-            required: true
-            description: "Как на странице «Готовые путешествия»: от 1 150 $ (пробел перед $). До 12 знаков."
+            label: Цена на карточке тура, сом («от …»)
+            type: number
+            description: "Только число в сомах, на карточке будет «от N сом». Пусто — «Цена уточняется». Доллары и рубли сайт показывает сам — справочно, по курсу Нацбанка."
             options:
-              maxlength: 12
+              min: 0
+              max: 10000000
+          - name: price_usd_archive
+            type: string
+            hidden: true
 
           - name: days
             label: Дни программы
@@ -840,6 +843,31 @@ content:
         list: true
         hidden: true
 
+      - name: deposit
+        label: Возвратный залог, сом
+        type: number
+        required: true
+        description: "Отдельно от аренды: в стоимость и в предоплату не входит. Пишется в итоге бронирования и в «Вопросах и ответах». Доллары и рубли сайт показывает сам — справочно, по курсу Нацбанка."
+        options:
+          min: 0
+          max: 1000000
+      - name: min_nights
+        label: Минимальный срок аренды, суток
+        type: number
+        required: true
+        description: "Короче выбрать в календаре нельзя (и сервер такую заявку не примет)."
+        options:
+          min: 1
+          max: 30
+      - name: prepay_percent
+        label: Предоплата аренды, %
+        type: number
+        required: true
+        description: "Сколько процентов полной стоимости вносится после подтверждения брони (остаток — до начала поездки)."
+        options:
+          min: 0
+          max: 100
+
       - name: cars
         label: Автодома
         type: object
@@ -848,20 +876,25 @@ content:
           max: 3
           collapsible:
             collapsed: true
-            summary: "{name} — {price} $"
+            summary: "{name}"
         fields:
           - name: name
             label: Автодом
             type: string
             readonly: true
-          - name: price
-            label: Цена за сутки, $
+          - name: prices
+            label: Цена за сутки, сом — по сроку аренды
+            type: object
+            description: "Ставка срока действует на все сутки аренды: 7 суток — 7 × цена «7–13 суток». На карточке — «от N сом / сутки» (самая низкая ставка). Все пять — 0: «Цена уточняется». Доллары и рубли сайт показывает сам — справочно, по курсу Нацбанка."
+            fields:
+              - { name: d1, label: "1–3 суток", type: number, required: true, options: { min: 0, max: 500000 } }
+              - { name: d4, label: "4–6 суток", type: number, required: true, options: { min: 0, max: 500000 } }
+              - { name: d7, label: "7–13 суток", type: number, required: true, options: { min: 0, max: 500000 } }
+              - { name: d14, label: "14–20 суток", type: number, required: true, options: { min: 0, max: 500000 } }
+              - { name: d21, label: "21 сутки и больше", type: number, required: true, options: { min: 0, max: 500000 } }
+          - name: usd_archive
             type: number
-            required: true
-            description: "Пишется на карточке «от N $ / сутки». 0 — «Цена уточняется»."
-            options:
-              min: 0
-              max: 5000
+            hidden: true
           - name: seats
             label: Сколько человек вмещает
             type: number
@@ -985,20 +1018,23 @@ content:
           max: 14
           collapsible:
             collapsed: true
-            summary: "{name} — {price} $"
+            summary: "{name} — {price} сом"
         fields:
           - name: name
             label: Название
             type: string
             readonly: true
           - name: price
-            label: Цена за сутки, $
+            label: Цена за сутки, сом
             type: number
             required: true
-            description: "0 — «Цена уточняется»."
+            description: "За штуку в сутки (скидок за срок у снаряжения нет). 0 — «Цена уточняется»."
             options:
               min: 0
-              max: 1000
+              max: 100000
+          - name: usd_archive
+            type: number
+            hidden: true
           - name: id
             type: string
             hidden: true
@@ -1017,36 +1053,47 @@ content:
             label: Название
             type: string
             readonly: true
+          - name: type
+            label: Как считается цена
+            type: select
+            required: true
+            options:
+              values:
+                - { value: day, label: "За сутки (цена × количество × сутки)" }
+                - { value: from, label: "Разовая «от N сом» (в сумму не входит, точную назовет менеджер)" }
+                - { value: free, label: "Бесплатно" }
+                - { value: quote, label: "Цена по запросу" }
+                - { value: delivery, label: "Доставка (за направление, бесплатно от N суток)" }
           - name: price
-            label: Цена за сутки, $
+            label: Цена, сом
             type: number
             required: true
-            description: "0 — без суточной цены: тогда ниже напишите, что показать вместо нее."
+            description: "За сутки, «от» или за одно направление доставки — смотря как считается. Для «Бесплатно» и «По запросу» не нужна."
             options:
               min: 0
-              max: 1000
+              max: 500000
           - name: price_text
-            label: Надпись вместо цены (если цена 0)
+            label: Надпись на карточке (бесплатное и доставка)
             type: string
-            description: "Например: Бесплатно, Бесплатно от 3 суток, от 50 $. Пусто — «Цена уточняется». До 24 знаков."
+            description: "Например: Бесплатно, Бесплатно от 3 суток. Пусто — «Цена уточняется». До 24 знаков."
             options:
               maxlength: 24
           - name: price_text_en
-            label: "Надпись вместо цены (если цена 0) — английский"
+            label: "Надпись на карточке (бесплатное и доставка) — английский"
             type: string
-            description: "Например: Бесплатно, Бесплатно от 3 суток, от 50 $. Пусто — «Цена уточняется». До 24 знаков. Пусто — на английской странице будет русский текст."
+            description: "До 24 знаков. Пусто — на английской странице будет русский текст."
             options:
               maxlength: 24
           - name: label
-            label: Что написать в итоге заказа вместо суммы (если цена 0)
+            label: Что написать в итоге заказа (бесплатное)
             type: string
-            description: "Например: бесплатно или от 50 $"
+            description: "Например: бесплатно"
             options:
               maxlength: 20
           - name: label_en
-            label: "Что написать в итоге заказа вместо суммы (если цена 0) — английский"
+            label: "Что написать в итоге заказа (бесплатное) — английский"
             type: string
-            description: "Например: бесплатно или от 50 $ Пусто — на английской странице будет русский текст."
+            description: "Пусто — на английской странице будет русский текст."
             options:
               maxlength: 20
           - name: note
@@ -1061,12 +1108,21 @@ content:
             options:
               maxlength: 220
           - name: free_from
-            label: Бесплатно только от N суток
+            label: "Доставка: бесплатно по Бишкеку от N суток"
             type: number
-            description: "Для доставки: при аренде меньше этого срока вместо «бесплатно» пишется «уточняется». Пусто — всегда."
+            description: "На меньший срок — цена за направление (выше). Число в тексте карточки «Бишкек — от 3 суток…» меняется отдельно — напишите разработчику."
             options:
               min: 1
-              max: 30
+              max: 60
+          - name: free_from_airport
+            label: "Доставка: бесплатно в аэропорт от N суток"
+            type: number
+            options:
+              min: 1
+              max: 60
+          - name: usd_archive
+            type: string
+            hidden: true
           - name: id
             type: string
             hidden: true

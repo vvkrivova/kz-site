@@ -101,8 +101,17 @@ def trips_cards(tours):
                 return m.group(0)
             body = re.sub(r'(<span class="tcard__meta tcard__meta--days">).*?(</span>)',
                           lambda x: x.group(1) + html.escape(p.get('days_label') or '', quote=False) + x.group(2), body)
-            body = re.sub(r'(<span class="tcard__meta tcard__meta--price">).*?(</span>)',
-                          lambda x: x.group(1) + html.escape(p.get('price') or '', quote=False) + x.group(2), body)
+            # цена «от N сом» (data/tours.json, число в сомах; пусто — «Цена уточняется»):
+            # data-kgs — js/main.js (Money) покажет ее в выбранной валюте, справочно по курсу Нацбанка
+            try:
+                kgs = max(0, int(round(float(p.get('price') or 0))))
+            except (TypeError, ValueError):
+                print(f'build_tours: у «{p.get("name")}» цена «{p.get("price")}» — не число, на карточке «Цена уточняется»')
+                kgs = 0
+            price = (f'<span class="tcard__meta tcard__meta--price money" data-kgs="{kgs}" data-from>'
+                     f'от {kgs:,} сом</span>'.replace(',', '&nbsp;') if kgs else
+                     '<span class="tcard__meta tcard__meta--price">Цена уточняется</span>')
+            body = re.sub(r'<span class="tcard__meta tcard__meta--price[^"]*"[^>]*>.*?</span>', lambda _: price, body)
             return body + m.group(2)
         s = art.sub(fix, s)
     if s != page.read_text(encoding='utf-8'):

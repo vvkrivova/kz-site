@@ -21,6 +21,8 @@
    ========================================================= */
 
 require __DIR__ . '/api/bitrix.php';
+require __DIR__ . '/api/rent-calc.php';   // расчет аренды по data/rent.json (ТЗ № 1)
+require __DIR__ . '/api/rates-lib.php';   // курс НБКР для справочной валюты
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -121,6 +123,17 @@ if ($fromDay && $toDay && $toDay <= $fromDay) {
 }
 $guests = isset($data['guests']) ? max(0, min(50, (int) $data['guests'])) : 0;
 $extras = clean(isset($data['extras']) ? $data['extras'] : '', 1000);
+// что выбрано в аренду (без цен — их сервер берет из data/rent.json) и валюта, в которой человек смотрел цены
+$items = array();
+if (isset($data['items']) && is_array($data['items'])) {
+    foreach (array_slice($data['items'], 0, 40) as $row) {
+        if (is_array($row) && isset($row['id']) && is_string($row['id']) && preg_match('/^[\w-]{1,40}$/', $row['id'])) {
+            $items[] = array('id' => $row['id'], 'qty' => isset($row['qty']) ? (int) $row['qty'] : 0,
+                'variant' => isset($row['variant']) && $row['variant'] === 'airport' ? 'airport' : 'city');
+        }
+    }
+}
+$displayCur = isset($data['currency']) && in_array($data['currency'], array('KGS', 'USD', 'RUB'), true) ? $data['currency'] : 'KGS';
 if ($name === '' && $contact === '' && $email === '') {
     answer(false, 400);
 }
@@ -131,6 +144,11 @@ $messenger = ($contact !== '' && $phone === '') ? $contact : '';
 // ---------- бронь: заезд не в прошлом (по Бишкеку) и повторная проверка дат машины ----------
 if ($isRent && $fromDay && $fromDay < date('Y-m-d')) {
     answer(array('ok' => false, 'reason' => 'past'), 400);
+}
+// минимальный срок аренды (data/rent.json, min_nights): сайт короче не дает, но проверяем и здесь
+if ($isRent && $car && $fromDay && $toDay
+    && (int) round((strtotime($toDay . ' 12:00:00') - strtotime($fromDay . ' 12:00:00')) / 86400) < tw_rent_min_nights()) {
+    answer(array('ok' => false, 'reason' => 'short', 'min' => tw_rent_min_nights()), 400);
 }
 if ($isRent && $car && $fromDay && $toDay) {
     try {
@@ -192,6 +210,31 @@ try {
             }
         }
     }
+    // расчет аренды на сервере (сомы) — суммам из браузера не доверяем (ТЗ № 1)
+    $calc = null;
+    $fx = array('cur' => 'KGS', 'rate' => 1, 'date' => '');
+    if ($isRent && $car && $fromDay && $toDay) {
+        $calc = tw_rent_calc($car, $fromDay, $toDay, $items);
+        if (!$calc['rate']) {
+            $calc = null;   // цена автодома не известна («Цена уточняется») — сумму назовет менеджер
+        }
+    }
+    if ($calc) {
+        // курс — тот, по которому сайт показывал цены (последний проверенный НБКР); нет курса — показывали сомы
+        if ($displayCur !== 'KGS') {
+            $r = tw_rates();
+            $fx = !empty($r['ok']) ? array('cur' => $displayCur, 'rate' => $r[$displayCur], 'date' => $r['date']) : $fx;
+        }
+        $lines[] = '--- Расчет сайта (в сомах) ---';
+        $lines[] = 'Автодом: ' . tw_kgs_text($calc['car']) . ' (' . tw_kgs_text($calc['rate']) . ' × ' . max(1, $calc['nights']) . ' сут.)';
+        foreach ($calc['lines'] as $ln) {
+            $lines[] = $ln['title'] . ' × ' . $ln['qty'] . ': ' . ($ln['sum'] ? tw_kgs_text($ln['sum']) . ' (' . $ln['note'] . ')' : $ln['note']);
+        }
+        $lines[] = 'Полная стоимость: ' . tw_kgs_text($calc['total']);
+        $lines[] = 'Предоплата ' . $calc['percent'] . '%: ' . tw_kgs_text($calc['prepay']) . '; остаток: ' . tw_kgs_text($calc['rest']);
+        $lines[] = 'Возвратный залог (отдельно): ' . tw_kgs_text($calc['deposit']);
+        $lines[] = 'Валюта на сайте: ' . $fx['cur'] . ($fx['cur'] !== 'KGS' ? ' (курс НБКР ' . $fx['rate'] . ' сом на ' . $fx['date'] . ', справочно)' : '');
+    }
     $lines[] = 'Язык сайта: ' . ($lang === 'en' ? 'английский' : 'русский');
     if ($page !== '') {
         $lines[] = 'Страница: ' . $page;
@@ -215,10 +258,6 @@ try {
     ));
     if ($contactId) {
         $deal['CONTACT_ID'] = $contactId;
-    }
-    if (isset($data['sum']) && is_numeric($data['sum']) && $data['sum'] > 0) {
-        $deal['OPPORTUNITY'] = (float) $data['sum'];
-        $deal['CURRENCY_ID'] = 'USD';
     }
     $query = array();
     parse_str((string) parse_url($page, PHP_URL_QUERY), $query);
@@ -244,6 +283,22 @@ try {
         }
         if ($extras !== '' && isset($uf[TW_UF_EXTRAS]) && in_array($uf[TW_UF_EXTRAS]['type'], array('string', 'text'), true)) {
             $deal[TW_UF_EXTRAS] = $extras;
+        }
+        // деньги: полная стоимость, предоплата, остаток, залог — в сомах; валюта и курс показа — справочно
+        if ($calc) {
+            $deal['OPPORTUNITY'] = (float) tw_kgs($calc['total']);
+            $deal['CURRENCY_ID'] = 'KGS';
+            $deal[TW_UF_PREPAY] = tw_kgs($calc['prepay']) . '|KGS';
+            $deal[TW_UF_BALANCE] = tw_kgs($calc['rest']) . '|KGS';
+            if ($calc['deposit']) {
+                $deal[TW_UF_DEPOSIT] = tw_kgs($calc['deposit']) . '|KGS';
+            }
+            $deal[TW_UF_DISPLAY_CUR] = $fx['cur'];
+            $deal[TW_UF_FX_RATE] = (float) $fx['rate'];
+            if ($fx['date'] !== '') {
+                $deal[TW_UF_FX_DATE] = $fx['date'];
+            }
+            $deal[TW_UF_PAY_STATUS] = TW_PAY_UNPAID;
         }
         if (isset($uf[TW_UF_LANG]) && $uf[TW_UF_LANG]['type'] === 'enumeration') {
             $opt = tw_field_value($uf, TW_UF_LANG, $lang === 'en' ? '/англ|engl/iu' : '/рус|russ/iu');

@@ -115,7 +115,7 @@
 .rx-book__thumb:hover, .rx-book__bar.is-dragging .rx-book__thumb { background: #c33d0c; }
 .rx-book__bar.is-dragging .rx-book__thumb { cursor: grabbing; }
 .rx-book__rows li {
-  display: grid; grid-template-columns: 1fr 34px 84px; align-items: baseline; padding-top: 8px; height: 44.5px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 34px minmax(84px, auto); align-items: baseline; padding-top: 8px; height: 44.5px;
   font: 400 16px/.94 var(--font-body); color: var(--rent-ink);
   animation: row-in .35s cubic-bezier(.2, .7, .2, 1);
 }
@@ -161,3 +161,20 @@
 
 /* цвет полей при «оттягивании» страницы сверху и снизу (js/main.js, edgeColors) — бежевый сверху и снизу */
 :root { --edge-top: #f1e7d9; --edge-bottom: #f1e7d9; }
+
+/* доставка: куда — по Бишкеку или в аэропорт (js/rent-extras.js, deliveryWhere; видно, когда доставка в корзине).
+   Цена доставки — за направление; бесплатно по Бишкеку и в аэропорт — от разного числа суток (data/rent.json) */
+.svc-where {
+  left: 14px; top: 242px; z-index: 1; display: flex; padding: 3px; border-radius: 999px;
+  background: rgba(253, 248, 241, .94); box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
+}
+.svc-where[hidden] { display: none; }
+.svc-where button {
+  padding: 8px 14px; border: 0; border-radius: 999px; background: none; cursor: pointer;
+  font: 600 14px/1 var(--font-body); color: #2a2320; transition: background-color .2s ease, color .2s ease;
+}
+.svc-where button[aria-checked="true"] { background: var(--orange-map); color: #fff; }
+.svc-where button:focus-visible { outline: 2px solid var(--orange-map); outline-offset: 1px; }
+
+/* названия в сводке — в одну строку (длинные — с «…»), чтобы место хватало сумме в долларах или рублях */
+.rx-book__rows li > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

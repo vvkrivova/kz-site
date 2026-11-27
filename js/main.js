@@ -148,10 +148,11 @@ function leadBusy(btn, on) {
 })();
 
 /* ---------- Календарь «даты заезда и выезда» (общий для форм) ----------
-   rangeCalendar(cal, { toggle, onApply }) — оживляет разметку .calendar[data-calendar]:
+   rangeCalendar(cal, { toggle, onApply, minNights }) — оживляет разметку .calendar[data-calendar]:
    два месяца, выбор диапазона, предпросмотр под курсором, «Применить».
-   toggle — кнопка/поле, которое открывает календарь; onApply(from, to) — выбранные даты. */
-function rangeCalendar(cal, { toggle, onApply } = {}) {
+   toggle — кнопка/поле, которое открывает календарь; onApply(from, to) — выбранные даты;
+   minNights — минимальный срок (аренда — 3 суток): ближе выбранного заезда даты выезда недоступны. */
+function rangeCalendar(cal, { toggle, onApply, minNights = 1 } = {}) {
   const MONTHS = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'].map((w) => t(w));
   const MONTHS_GEN = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'].map((w) => t(w));
   const WD = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'].map((w) => t(w));
@@ -203,7 +204,7 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
       btn.addEventListener('click', () => pick(date));
       btn.addEventListener('mouseenter', () => { if (!btn.disabled) { hoverT = t; paint(); } });
       container.append(btn);
-      days.push({ btn, t });
+      days.push({ btn, t, past: date < today });
     }
   }
 
@@ -224,10 +225,15 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
   function paint() {
     const a = from ? from.getTime() : null;
     let b = to ? to.getTime() : null;
-    const preview = a !== null && b === null && hoverT !== null && hoverT > a;
+    const minT = a !== null ? a + minNights * 86400000 - 3600000 : null;   // запас на переход на летнее время
+    const preview = a !== null && b === null && hoverT !== null && hoverT >= minT;
     if (preview) b = hoverT;
     let i = 0;
-    days.forEach(({ btn, t }) => {
+    days.forEach(({ btn, t, past }) => {
+      // выбран заезд — даты выезда ближе минимального срока недоступны
+      const short = a !== null && b === null && t > a && t < minT;
+      btn.disabled = past || short;
+      btn.classList.toggle('is-too-short', short);
       const isStart = a !== null && t === a;
       const isEnd = b !== null && t === b;
       const inside = a !== null && b !== null && t > a && t < b;
@@ -246,7 +252,9 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
       const n = Math.round((b - a) / 86400000);
       text = `${fmtLong(new Date(a))} — ${fmtLong(new Date(b))}, ${n} ${nightsWord(n)}`;
     } else if (a !== null) {
-      text = t('{date} — выберите дату выезда', { date: fmtLong(new Date(a)) });
+      text = minNights > 1
+        ? t('{date} — выберите дату выезда (аренда от {n} суток)', { date: fmtLong(new Date(a)), n: minNights })
+        : t('{date} — выберите дату выезда', { date: fmtLong(new Date(a)) });
     }
     if (summary.textContent !== text) summary.textContent = text;
     applyBtn.disabled = !(from && to);
@@ -254,7 +262,7 @@ function rangeCalendar(cal, { toggle, onApply } = {}) {
 
   function pick(date) {
     const t = date.getTime();
-    if (!from || to || t <= from.getTime()) { from = date; to = null; } else { to = date; }
+    if (!from || to || t <= from.getTime()) { from = date; to = null; } else if (t >= from.getTime() + minNights * 86400000 - 3600000) { to = date; }
     paint();
   }
 
@@ -703,3 +711,90 @@ function setCurrency(code, save = true) {
   window.dispatchEvent(new CustomEvent('tw:currency', { detail: code }));
 }
 window.addEventListener('storage', (e) => { if (e.key === 'tianway_currency' && e.newValue) setCurrency(e.newValue, false); });
+
+/* ---------- Цены в выбранной валюте (ТЗ № 1) ----------
+   Все цены сайта хранятся и считаются в сомах (KGS). На странице сумма — элемент с data-kgs="N"
+   (data-from — «от N»): Money показывает ее в выбранной валюте. Доллары и рубли — справочно, по курсу
+   Нацбанка КР: его раз в день получает сервер (api/rates.php → /api/rates), браузер помнит последний
+   проверенный курс (tianway_rates) — так цены не «прыгают» при загрузке. Курса нет или он старше 72 часов —
+   показываем только сомы.
+   Money.fmt(kgs, { from, exact }) — текст суммы (exact — всегда в сомах); Money.kgs(kgs) — в сомах;
+   Money.render(root) — обновить все [data-kgs]; событие tw:money — валюта или курс сменились (пересчитать итоги). */
+const Money = (function () {
+  const MAX_AGE = 72 * 3600 * 1000;        // курс старше 72 часов не показываем (ТЗ)
+  const RATES_KEY = 'tianway_rates';
+  let rates = null;                         // { date: 'ГГГГ-ММ-ДД', USD, RUB } — сомов за 1 доллар / 1 рубль
+  const fresh = (r) => {
+    if (!r || !(r.USD > 0) || !(r.RUB > 0) || !/^\d{4}-\d{2}-\d{2}$/.test(r.date || '')) return false;
+    const day = Date.parse(`${r.date}T00:00:00+06:00`);  // дата курса — по Бишкеку
+    return Date.now() - day < MAX_AGE;
+  };
+  try { const r = JSON.parse(localStorage.getItem(RATES_KEY)); if (fresh(r)) rates = r; } catch (e) { /* нет сохраненного */ }
+
+  const group = (s, sep) => s.replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+  // число по правилам языка: 21 900 / 21,900; дробная часть — только если она есть (или digits для долларов)
+  const num = (n, digits) => {
+    const fixed = Math.abs(n).toFixed(digits);
+    let [int, frac] = fixed.split('.');
+    if (frac && /^0+$/.test(frac) && digits !== 2) frac = '';
+    int = group(int, LANG === 'en' ? ',' : ' ');
+    return (n < 0 ? '−' : '') + int + (frac ? (LANG === 'en' ? '.' : ',') + frac : '');
+  };
+  const kgs = (n, from) => {
+    const v = num(Math.round(n * 100) / 100, Number.isInteger(Math.round(n * 100) / 100) ? 0 : 2);
+    const text = LANG === 'en' ? `${v} KGS` : `${v} сом`;
+    return from ? `${t('от')} ${text}` : text;
+  };
+  // доллары — два знака после запятой, рубли — до целого (ТЗ). «≈» (сумма справочная) — только на последнем шаге
+  // бронирования, где сумма юридически важна (Money.approxSign = true, js/rent-booking.js); на карточках — без него
+  // (решение 27.11.2026)
+  let approxSign = false;
+  const other = (n, cur, from) => {
+    const v = cur === 'USD' ? num(n / rates.USD, 2) : num(Math.round(n / rates.RUB), 0);
+    const sym = cur === 'USD' ? '$' : '₽';
+    const text = LANG === 'en' ? `${sym}${v}` : `${v} ${sym}`;
+    return from ? `${t('от')} ${text}` : `${approxSign ? '≈ ' : ''}${text}`;
+  };
+  const shown = () => { const c = currency(); return c !== 'KGS' && rates ? c : 'KGS'; };
+  const api = {
+    get rates() { return rates; },
+    shown,                                         // в какой валюте сейчас на самом деле показываем
+    set approxSign(on) { approxSign = !!on; api.render(); },
+    kgs: (n, from = false) => kgs(n, from),
+    fmt(n, { from = false, exact = false } = {}) {
+      const c = exact ? 'KGS' : shown();
+      return c === 'KGS' ? kgs(n, from) : other(n, c, from);
+    },
+    // справочная сумма в выбранной валюте (без сомов) — или '' (выбраны сомы / курса нет)
+    approx: (n) => (shown() === 'KGS' ? '' : `≈ ${other(n, shown(), false).replace(/^≈ /, '')}`),
+    render(root = document) {
+      root.querySelectorAll('[data-kgs]').forEach((el) => {
+        el.textContent = api.fmt(Number(el.dataset.kgs) || 0, { from: el.hasAttribute('data-from') });
+      });
+    },
+  };
+  const changed = () => { api.render(); window.dispatchEvent(new CustomEvent('tw:money')); };
+  api.render();
+  window.addEventListener('tw:currency', changed);
+
+  // курс с сервера (на хостинге — /api/rates); на GitHub Pages сервера нет — курс из data/rates.json,
+  // его кладет автосборка (tools/fetch_rates.py); старше 72 часов — только сомы
+  const ratesUrl = /github\.io$/.test(location.hostname) ? `${SITE_ROOT}data/rates.json?v=${Math.floor(Date.now() / 3600000)}` : `${SITE_ROOT}api/rates`;
+  fetch(ratesUrl, { headers: { Accept: 'application/json' } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((r) => {
+      if (r && r.ok && fresh(r)) {
+        const next = { date: r.date, USD: Number(r.USD), RUB: Number(r.RUB) };
+        const same = rates && rates.date === next.date && rates.USD === next.USD && rates.RUB === next.RUB;
+        rates = next;
+        try { localStorage.setItem(RATES_KEY, JSON.stringify(next)); } catch (e) { /* только эта страница */ }
+        if (!same) changed();
+      } else if (r && !r.ok && rates) {          // сервер сказал: курса нет или он устарел — только сомы
+        rates = null;
+        try { localStorage.removeItem(RATES_KEY); } catch (e) { /* ничего */ }
+        changed();
+      }
+    })
+    .catch(() => { /* сервер не ответил — остается последний проверенный курс (если он не старше 72 часов) */ });
+  return api;
+}());

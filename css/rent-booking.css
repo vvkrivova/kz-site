@@ -48,7 +48,7 @@
 
 .rb-sum__rows { margin: 0; padding: 0; list-style: none; }
 .rb-sum__rows li {
-  display: grid; grid-template-columns: 1fr 56px 120px; align-items: baseline; height: 53px; padding-top: 7px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 56px minmax(120px, auto); align-items: baseline; height: 53px; padding-top: 7px;
   font: 400 24px/.94 var(--font-body); color: var(--rent-ink);
 }
 .rb-sum__rows li b { font: 600 32px/.94 var(--font-display); white-space: nowrap; text-align: right; }
@@ -64,12 +64,26 @@
 }
 
 /* условия: текстов пока нет — высоты блоков как в макете */
-.rb-term { min-height: 123px; }
-.rb-sum__total + .rb-term { margin-top: 44px; }
-.rb-term + .rb-term { min-height: 137px; }
-.rb-term.rb-term--last { min-height: 135px; }
-.rb-term__h { margin: 0; font: 600 32px/.94 var(--font-display); color: var(--rent-ink); }
+/* условия — вкладки со стрелкой (как на телефоне): свернуты, нажатие на заголовок открывает текст (js/rent-booking.js, terms);
+   без текста — без стрелки (тексты гарантии и отмены пока не прислали) */
+/* браузер не «подкручивает» страницу, когда вкладка открывается: иначе он держит на месте рисунок гор и подвал
+   (они прижаты к низу блока) и все, что выше, уезжает вверх */
+html { overflow-anchor: none; }
+/* у каждой вкладки линия сверху и одинаковые отступы сверху и снизу — заголовок посередине между линиями */
+.rb-term { padding: 22px 0; border-top: 1px solid rgba(0, 0, 0, .15); }
+.rb-sum__total + .rb-term, .rb-fin + .rb-term { margin-top: 28px; }
+.rb-term__h { position: relative; margin: 0; padding-right: 44px; font: 600 32px/1 var(--font-display); color: var(--rent-ink); cursor: pointer; }
+.rb-term__h::after {
+  content: ""; position: absolute; right: 4px; top: calc(50% - 5.5px); width: 24px; height: 11px; transition: rotate .25s ease;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='11' viewBox='0 0 24 11' fill='none'%3E%3Cpath d='M1 1l11 9 11-9' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat;
+}
+.rb-term__h:focus-visible { outline: 2px solid var(--orange-map); outline-offset: 4px; border-radius: 4px; }
+.rb-term.is-open .rb-term__h::after { rotate: 180deg; }
 .rb-term__text { margin-top: 14px; font: 400 18px/1.4 var(--font-body); color: #000; }
+.rb-term:not(.is-open) .rb-term__text, .rb-term__text:empty { display: none; }
+.rb-term:has(> .rb-term__text:empty) .rb-term__h { cursor: default; }
+.rb-term:has(> .rb-term__text:empty) .rb-term__h::after { display: none; }
+@media (prefers-reduced-motion: reduce) { .rb-term__h::after { transition: none; } }
 
 /* ---------- заказчик ---------- */
 .rb-client {
@@ -108,6 +122,40 @@
   font: 600 14px/1.35 var(--font-body); color: #c4400f;
 }
 .rb-error a { text-decoration: underline; }
+
+/* ---------- деньги и оплата (ТЗ № 1 «валютная система», 27.11.2026) ----------
+   Левая плашка: под «Итогом» — точная сумма в сомах (когда выбраны доллары или рубли), предоплата, остаток, залог,
+   справочный курс НБКР и уведомление о валюте списания. Правая: «Способ оплаты», кнопка и пометка под ней.
+   Заполняет js/rent-booking.js (renderMoney). Плашки уменьшены .72 (блок «Больше воздуха» в конце файла). */
+.rb-fin { margin-top: 24px; }
+.rb-fin__exact { margin: 0 0 10px; font: 400 22px/1.3 var(--font-body); color: #000; }
+.rb-fin__exact b { font-weight: 700; white-space: nowrap; }
+.rb-fin__rows { margin: 0; }
+.rb-fin__rows > div { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 14px 0; border-bottom: 1px solid rgba(0, 0, 0, .15); }
+.rb-fin__rows dt { font: 400 20px/1.3 var(--font-body); color: var(--rent-ink); }
+.rb-fin__rows dt small { font-size: 16px; color: rgba(0, 0, 0, .5); }
+.rb-fin__rows dd { margin: 0; text-align: right; white-space: nowrap; font: 400 18px/1.2 var(--font-body); color: rgba(0, 0, 0, .55); }
+.rb-fin__rows dd b { font: 600 30px/1 var(--font-display); color: #000; }
+.rb-fin__rows dd small { display: block; margin-top: 4px; font-size: 16px; }
+.rb-fin__rate { margin: 16px 0 0; font: 500 16px/1.4 var(--font-body); color: rgba(0, 0, 0, .6); }
+.rb-fin__rate[hidden], .rb-fin__exact[hidden] { display: none; }
+.rb-fin__note { margin: 12px 0 0; font: 400 15px/1.45 var(--font-body); color: rgba(0, 0, 0, .6); }
+.rb-sum__rows li > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.rb-consent { top: 470px; }
+.rb-pay { left: 18px; top: 568px; width: 536px; }
+.rb-pay__title { margin: 0 0 12px; font: 600 28px/.94 var(--font-display); text-transform: uppercase; color: var(--rent-ink); }
+.rb-pay__opt { position: relative; display: block; padding: 16px 18px 16px 54px; border: 1px solid var(--orange-map); border-radius: 10px; background: rgba(222, 72, 17, .05); }
+.rb-pay__opt input { position: absolute; opacity: 0; pointer-events: none; }
+.rb-pay__dot { position: absolute; left: 18px; top: 17px; width: 22px; height: 22px; box-sizing: border-box; border: 2px solid var(--orange-map); border-radius: 50%; }
+.rb-pay__dot::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--orange-map); }
+.rb-pay__name { display: block; font: 600 18px/1.3 var(--font-body); color: #000; }
+.rb-pay__text { display: block; margin-top: 6px; font: 400 15px/1.4 var(--font-body); color: rgba(0, 0, 0, .6); }
+.rb-pay__prepay { margin: 12px 0 0; font: 400 15px/1.4 var(--font-body); color: rgba(0, 0, 0, .6); }
+.rb-client { height: 935px; }
+.rb-submit { top: 757px; width: 536px; }   /* «Предоплата за аренду…» — посередине между блоком оплаты и кнопкой (по 12px) */
+.rb-submit-note { left: 18px; top: 847px; width: 536px; margin: 0; font: 400 14px/1.4 var(--font-body); color: rgba(0, 0, 0, .55); }
+.rb-error { left: 18px; top: 889px; width: 536px; height: auto; }
 
 /* ---------- благодарность после отправки — на всю страницу ----------
    Как в макете (Desktop - 96, 1440×1024) и как «Спасибо» в форме на главной: оливковая плашка,

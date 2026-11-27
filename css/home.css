@@ -824,6 +824,10 @@ html.reveal-on .first__stamp:not(.is-shown) { opacity: 0; }
 .format-btn--rv { translate: 3.1px 0; }
 .format-btn--tours { translate: 4.6px -.9px; }
 .format-btn--fishing { translate: 3.9px -.5px; }
+/* карточки форматов (с ярлыками и облаком у «Рыбалки») чуть ниже — больше воздуха под заголовком (27.11.2026); только компьютер */
+@media (min-width: 768px) {
+  .format-card, .format-btn, .formats__clouds-a { margin-top: 18px; }
+}
 /* «Соберем поездку под вас»: форма меньше (.86) и выше на 55px; фото и марки уменьшаются и сдвигаются
    вместе с ней (вокруг центра плашки) — стоят относительно ее углов как в макете */
 .trip__panel { scale: .86; transform-origin: 50% 50%; margin-top: -55px; }

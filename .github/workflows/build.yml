@@ -9,6 +9,9 @@
 #    Необязательные переменные (Variables): FTP_DIR — папка сайта на хостинге (по умолчанию httpdocs/),
 #    FTP_PROTOCOL — ftp (по умолчанию: хостинг kyrgyz.cloud, ProFTPD, шифрование FTPS не поддерживает) или ftps.
 # 5) просит GitHub Pages обновить копию сайта vvkrivova.github.io/kz-site.
+# Пауза загрузки на хостинг: пока в репозитории есть файл .deploy-hold, шаги 4 (ключ Битрикса и FTP) пропускаются —
+# новая версия видна только на GitHub Pages (например, пока заказчик смотрит и утверждает цены). Убрать файл — и следующая
+# выгрузка или правка в панели загрузит сайт на tianway.kg.
 name: Сборка и загрузка сайта
 
 on:
@@ -39,6 +42,16 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Пауза загрузки на хостинг?
+        run: |
+          if [ -f .deploy-hold ]; then
+            echo "HOLD=true" >> "$GITHUB_ENV"
+            echo "Есть файл .deploy-hold — на tianway.kg не загружаем, обновится только копия на GitHub Pages"
+          fi
+
+      - name: Курс Нацбанка для копии на GitHub Pages
+        run: python tools/fetch_rates.py
+
       - name: Уменьшить загруженные фото
         run: |
           pip install --quiet pillow
@@ -68,7 +81,7 @@ jobs:
 
       # ключ Битрикс24 — только на хостинге, в репозиторий не попадает (lead-config.php в .gitignore)
       - name: Ключ Битрикс24 для lead.php
-        if: env.FTP_SERVER != '' && env.HAS_BITRIX == 'true'
+        if: env.FTP_SERVER != '' && env.HAS_BITRIX == 'true' && env.HOLD != 'true'
         env:
           BITRIX_WEBHOOK: ${{ secrets.BITRIX_WEBHOOK }}
           BOOKING_ROBOT_SECRET: ${{ secrets.BOOKING_ROBOT_SECRET }}
@@ -84,7 +97,7 @@ jobs:
           PY
 
       - name: Загрузить сайт на хостинг
-        if: env.FTP_SERVER != ''
+        if: env.FTP_SERVER != '' && env.HOLD != 'true'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -100,6 +113,7 @@ jobs:
             tools/**
             .pages.yml
             .nojekyll
+            .deploy-hold
             CLAUDE.md
             data/i18n/*.json
             data/i18n/missing.txt

@@ -77,7 +77,7 @@ const rentBooking = (function () {
     carRow.classList.toggle('is-empty', !sm.car);
     if (sm.car) {
       $('[data-b-car]').innerHTML = t('Автодом <b>{name}</b>', { name: esc(sm.car.name) });
-      // у автодома без цены (data-price="0") — «уточняется», как у снаряжения без цены
+      // у автодома без цены — «уточняется», как у снаряжения без цены; ставка за сутки — по сроку аренды
       sum.textContent = sm.car.price ? money(sm.car.sum) : t('уточняется');
       sum.title = !sm.car.price ? t('цену уточнит менеджер')
         : sm.nights ? `${money(sm.car.price)} × ${sm.nights} ${plural(sm.nights, 'сутки', 'суток', 'суток')}` : t('цена за сутки');
@@ -87,8 +87,8 @@ const rentBooking = (function () {
       sum.removeAttribute('title');
     }
 
-    // услуги и снаряжение: цена за сутки × количество × ночи
-    $('[data-b-rows]').innerHTML = sm.items.map((it) => `<li><span>${esc(t(it.title))}</span><span>${it.qty}x</span><b${it.price ? '' : ' class="is-ask"'} title="${esc(RentStore.sumHint(it, sm.nights))}">${RentStore.rowSum(it, sm.nights)}</b></li>`).join('')
+    // услуги и снаряжение: цена за сутки × количество × ночи (доставка — за направление; расчет — js/rent-store.js)
+    $('[data-b-rows]').innerHTML = sm.items.map((it) => `<li><span>${esc(t(it.title))}${it.where ? ` · ${esc(t(it.where === 'airport' ? 'аэропорт' : 'по Бишкеку'))}` : ''}</span><span>${it.qty}x</span><b${it.sum ? '' : ' class="is-ask"'} title="${esc(RentStore.sumHint(it, sm.nights))}">${RentStore.rowSum(it)}</b></li>`).join('')
       || t('<li class="is-empty">Пока ничего не добавлено</li>');
     rowsScroll.sync();
 
@@ -102,7 +102,8 @@ const rentBooking = (function () {
     // подсказка, если чего-то не хватает для бронирования
     const hint = $('[data-b-hint]');
     hint.hidden = !sm.missing;
-    if (sm.missing) hint.innerHTML = t('Чтобы забронировать, выберите {what} — <a href="rent">к выбору автодома</a>', { what: t(sm.missing) });
+    if (sm.missing === 'срок') hint.innerHTML = t('Аренда — от {n} суток: выберите другие даты — <a href="rent">к выбору автодома</a>', { n: sm.minNights });
+    else if (sm.missing) hint.innerHTML = t('Чтобы забронировать, выберите {what} — <a href="rent">к выбору автодома</a>', { what: t(sm.missing) });
     return { ok: !sm.missing };
   }
 
@@ -115,13 +116,43 @@ const rentBooking = (function () {
   });
 
   render();
-  // изменения из другой вкладки (например, в каталоге добавили снаряжение)
-  window.addEventListener('storage', (e) => { if (e.key === 'tw-rent-usd') render(); });
+  // изменения из другой вкладки (например, в каталоге добавили снаряжение); смена валюты или курса
+  window.addEventListener('storage', (e) => { if (e.key === 'tw-rent-kgs') render(); });
+  window.addEventListener('tw:money', render);
   return { render };
 }());
 
 /* ---------- 2. Кнопки «В корзину» у услуг ---------- */
-RentStore.cartControls(document, () => { if (rentBooking) rentBooking.render(); });
+RentStore.cartControls(document, () => { if (rentBooking) rentBooking.render(); if (deliveryWhere) deliveryWhere.sync(); });
+
+/* ---------- 2.1. Доставка: куда — по Бишкеку или в аэропорт ----------
+   Цена — за одно направление (количество в корзине — 1 или 2: туда и обратно); бесплатно по Бишкеку и в аэропорт —
+   от разного числа суток (data/rent.json). Выбор показывается, когда доставка в корзине. */
+const deliveryWhere = (function () {
+  const card = document.querySelector('[data-item][data-where]');
+  if (!card) return null;
+  const id = card.dataset.item;
+  const box = document.createElement('div');
+  box.className = 'svc-where';
+  box.setAttribute('role', 'radiogroup');
+  box.setAttribute('aria-label', t('Куда доставить автодом'));
+  box.innerHTML = `<button type="button" role="radio" data-v="city">${t('По Бишкеку')}</button><button type="button" role="radio" data-v="airport">${t('Аэропорт')}</button>`;
+  card.append(box);
+  const sync = () => {
+    const v = RentStore.variant(id) || 'city';
+    box.hidden = !RentStore.qty(id);
+    box.querySelectorAll('button').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.v === v)));
+  };
+  box.addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    RentStore.setVariant(id, b.dataset.v);
+    sync();
+    if (rentBooking) rentBooking.render();
+  });
+  sync();
+  return { sync };
+}());
 
 /* ---------- 3. Список услуг: своя прокрутка и оранжевый ползунок ----------
    Колесико и тачпад крутят сам список; ползунок можно тянуть мышью, клик по дорожке — прыжок туда.

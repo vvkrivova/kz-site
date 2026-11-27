@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="css/rent.css?v=366b9893">
   <!-- мобильная версия (телефоны): координаты из мобильного макета Figma (Frame 152, ширина 402px) -->
   <link rel="stylesheet" href="css/m-common.css?v=ea5d5e2d" media="(max-width: 767px)">
-  <link rel="stylesheet" href="css/m-rent.css?v=533eae2b" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/m-rent.css?v=5dc5dc85" media="(max-width: 767px)">
   <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->
   <link rel="alternate" hreflang="ru" href="https://tianway.kg/rent">
   <link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent">
@@ -116,7 +116,7 @@
       <div class="cars" id="cars">
 
         <!-- Forland S1 -->
-        <article class="car" data-car="forland-s1" data-name="Forland S1" data-price="250" data-reveal style="--open-h:1003px; --rd:.1s;">
+        <article class="car" data-car="forland-s1" data-name="Forland S1" data-reveal style="--open-h:1003px; --rd:.1s;">
           <div class="car__gallery">
             <div class="car__track">
               <img class="car__photo" src="img/rent/car-s1.webp" alt="Автодом Forland S1 на поляне среди сосен">
@@ -161,12 +161,12 @@
               <li>Рабочая поверхность с&nbsp;мойкой</li><li>Индукционная плита (2&nbsp;конфорки)</li><li>Микроволновая печь</li><li>Холодильник до&nbsp;100&nbsp;л</li><li>Вентиляция/вытяжка над плитой</li>
             </ul>
           </div>
-          <p class="car__price"><span class="car__price-sum"><small>от</small> 250&nbsp;$</span><span class="car__price-per">/ сутки</span></p>
+          <p class="car__price"><span class="car__price-sum"><span class="money" data-kgs="19200" data-from>от 19&nbsp;200 сом</span></span><span class="car__price-per">/ сутки</span></p>
           <button class="car__choose" type="button" data-choose aria-pressed="false">Выбрать</button>
         </article>
 
         <!-- Freedom Cannon -->
-        <article class="car" data-car="freedom-cannon" data-name="Freedom Cannon" data-price="250" data-reveal style="--open-h:900px; --rd:.2s;">
+        <article class="car" data-car="freedom-cannon" data-name="Freedom Cannon" data-reveal style="--open-h:900px; --rd:.2s;">
           <div class="car__gallery">
             <div class="car__track">
               <img class="car__photo" src="img/rent/car-freedom.webp" alt="Автодом Freedom Cannon на берегу горного озера">
@@ -211,12 +211,12 @@
               <li>Рабочая поверхность с&nbsp;мойкой</li><li>Индукционная плита</li><li>Холодильник</li><li>Шкафы и&nbsp;выдвижные ящики</li>
             </ul>
           </div>
-          <p class="car__price"><span class="car__price-sum"><small>от</small> 250&nbsp;$</span><span class="car__price-per">/ сутки</span></p>
+          <p class="car__price"><span class="car__price-sum"><span class="money" data-kgs="18800" data-from>от 18&nbsp;800 сом</span></span><span class="car__price-per">/ сутки</span></p>
           <button class="car__choose" type="button" data-choose aria-pressed="false">Выбрать</button>
         </article>
 
         <!-- Toyota Land Cruiser Prado 120 + кемпер-прицеп (текст — от заказчика, ноябрь 2026; фото и цены пока нет) -->
-        <article class="car" data-car="prado-camper" data-name="Toyota Prado" data-price="150" data-reveal style="--open-h:1120px; --rd:.2s;">
+        <article class="car" data-car="prado-camper" data-name="Toyota Prado" data-reveal style="--open-h:1120px; --rd:.2s;">
           <div class="car__gallery">
             <div class="car__track">
               <img class="car__photo" src="img/rent/car-prado.webp" alt="Toyota Prado с кемпером-прицепом на трассе у красных скал">
@@ -263,7 +263,7 @@
             <h3 class="car__h car__h--plus" style="left:0; top:481px;">Главное преимущество:</h3>
             <p class="car__about car__about--plus" style="top:506px;">Кемпер можно оставить на&nbsp;стоянке и&nbsp;отправиться исследовать окрестности на&nbsp;автомобиле без прицепа. Идеально для семей, пар и&nbsp;небольших компаний, которые хотят путешествовать в&nbsp;собственном ритме.</p>
           </div>
-          <p class="car__price"><span class="car__price-sum"><small>от</small> 150&nbsp;$</span><span class="car__price-per">/ сутки</span></p>
+          <p class="car__price"><span class="car__price-sum"><span class="money" data-kgs="11400" data-from>от 11&nbsp;400 сом</span></span><span class="car__price-per">/ сутки</span></p>
           <button class="car__choose" type="button" data-choose aria-pressed="false">Выбрать</button>
         </article>
       </div>
@@ -286,114 +286,114 @@
       <h3 class="gear-sub" data-reveal style="left:435px; top:176px; --rd:.1s;">Кемпинг и отдых на природе</h3>
 
       <!-- кемпинг -->
-      <article class="gear" data-item="table" data-title="Складной туристический стол" data-price="2" style="left:175.5px; top:247.2px;" data-reveal>
+      <article class="gear" data-item="table" data-title="Складной туристический стол" style="left:175.5px; top:247.2px;" data-reveal>
         <img class="gear__img" src="img/rent/eq-table.webp" alt="Складной туристический стол" style="left:25px; top:48px; width:326px; height:260px;">
         <h4 class="gear__title">Складной туристический стол</h4>
         <p class="gear__text" style="top:413px; width:345px;">Компактный и&nbsp;устойчивый стол для обедов, приготовления еды и&nbsp;отдыха на&nbsp;природе. Легко складывается и&nbsp;не&nbsp;занимает много места при перевозке.</p>
-        <p class="gear__price">2&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="200">200 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
-      <article class="gear" data-item="chair" data-title="Кемпинговое кресло" data-price="1" data-reveal style="left:518.7px; top:247.2px; --rd:.1s;">
+      <article class="gear" data-item="chair" data-title="Кемпинговое кресло" data-reveal style="left:518.7px; top:247.2px; --rd:.1s;">
         <img class="gear__img" src="img/rent/eq-chair.webp" alt="Кемпинговое кресло" style="left:60px; top:0; width:257px; height:315px;">
         <h4 class="gear__title" style="width:213px;">Кемпинговое кресло</h4>
         <p class="gear__text" style="top:413px; width:345px;">Удобное складное кресло для отдыха у&nbsp;озера, возле костровой зоны или на&nbsp;стоянке. Подходит для кемпинга, рыбалки и&nbsp;пикников.</p>
-        <p class="gear__price">1&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="150">150 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
-      <article class="gear" data-item="tent" data-title="Туристическая палатка" data-price="5" data-reveal style="left:861.9px; top:247.2px; --rd:.2s;">
+      <article class="gear" data-item="tent" data-title="Туристическая палатка" data-reveal style="left:861.9px; top:247.2px; --rd:.2s;">
         <img class="gear__img" src="img/rent/eq-tent.webp" alt="Туристическая палатка" style="left:8px; top:73px; width:380px; height:210px;">
         <h4 class="gear__title">Туристическая палатка</h4>
         <p class="gear__text" style="top:413px; width:345px;">Палатка для самостоятельных путешествий и&nbsp;ночевок на&nbsp;природе. Подходит для кемпинга на&nbsp;берегу Иссык-Куля и&nbsp;в&nbsp;других разрешенных местах отдыха.</p>
-        <p class="gear__price">5&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="600">600 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
-      <article class="gear" data-item="sleeping-bag" data-title="Спальный мешок" data-price="3" style="left:175.5px; top:781.6px;" data-reveal>
+      <article class="gear" data-item="sleeping-bag" data-title="Спальный мешок" style="left:175.5px; top:781.6px;" data-reveal>
         <img class="gear__img" src="img/rent/eq-sleeping-bag.webp" alt="Спальный мешок" style="left:38px; top:64px; width:284px; height:221px;">
         <h4 class="gear__title">Спальный мешок</h4>
         <p class="gear__text" style="top:413px; width:345px;">Туристический спальный мешок для ночевок в&nbsp;палатке. Подбирается с&nbsp;учетом сезона и&nbsp;температурных условий путешествия.</p>
-        <p class="gear__price">3&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="350">350 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
-      <article class="gear" data-item="mat" data-title="Туристический коврик" data-price="1" data-reveal style="left:518.7px; top:781.6px; --rd:.1s;">
+      <article class="gear" data-item="mat" data-title="Туристический коврик" data-reveal style="left:518.7px; top:781.6px; --rd:.1s;">
         <img class="gear__img" src="img/rent/eq-mat.webp" alt="Туристический коврик" style="left:20px; top:29px; width:351px; height:275px;">
         <h4 class="gear__title" style="width:245px;">Туристический коврик</h4>
         <p class="gear__text" style="top:413px; width:345px;">Легкий теплоизоляционный коврик для комфортного сна в&nbsp;палатке и&nbsp;отдыха на&nbsp;природе.</p>
-        <p class="gear__price">1&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="150">150 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
-      <article class="gear" data-item="lantern" data-title="Походный фонарь" data-price="2" data-reveal style="left:861.9px; top:781.6px; --rd:.2s;">
+      <article class="gear" data-item="lantern" data-title="Походный фонарь" data-reveal style="left:861.9px; top:781.6px; --rd:.2s;">
         <img class="gear__img" src="img/rent/eq-lantern.webp" alt="Походный фонарь" style="left:113px; top:10px; width:164px; height:275px;">
         <h4 class="gear__title">Походный фонарь</h4>
         <p class="gear__text" style="top:413px; width:345px;">LED-фонарь на&nbsp;аккумуляторе или батарейках для освещения палатки, кемпинговой зоны и&nbsp;пространства возле автомобиля в&nbsp;вечернее время.</p>
-        <p class="gear__price">2&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="200">200 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
-      <article class="gear" data-item="grill" data-title="Мангал / переносной гриль" data-price="5" style="left:175.5px; top:1316px;" data-reveal>
+      <article class="gear" data-item="grill" data-title="Мангал / переносной гриль" style="left:175.5px; top:1316px;" data-reveal>
         <img class="gear__img" src="img/rent/eq-grill.webp" alt="Переносной гриль" style="left:40px; top:23px; width:316px; height:284px;">
         <h4 class="gear__title" style="width:295px;">Мангал / переносной гриль</h4>
         <p class="gear__text" style="top:413px; width:330px;">Складной мангал с&nbsp;решеткой и&nbsp;шампурами для мяса, рыбы и&nbsp;овощей на&nbsp;открытом воздухе. Для пикников и&nbsp;кемпинга в&nbsp;разрешенных местах.</p>
-        <p class="gear__price">5&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="450">450 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
 
       <!-- активный отдых -->
       <h3 class="gear-sub" style="left:543.2px; top:1850.4px;" data-reveal>Активный отдых</h3>
-      <article class="gear" data-item="bike" data-title="Велосипед" data-price="10" style="left:173.1px; top:1918.4px;" data-reveal>
+      <article class="gear" data-item="bike" data-title="Велосипед" style="left:173.1px; top:1918.4px;" data-reveal>
         <img class="gear__img" src="img/rent/eq-bike.webp" alt="Велосипед" style="left:22px; top:48px; width:359px; height:262px;">
         <h4 class="gear__title">Велосипед</h4>
         <p class="gear__text" style="left:22px; top:381px; width:330px;">Велосипед для прогулок по&nbsp;живописным маршрутам Кыргызстана, поездок вдоль Иссык-Куля и&nbsp;знакомства с&nbsp;окрестностями. Подходит для самостоятельных велопрогулок и&nbsp;активного отдыха во&nbsp;время путешествия.</p>
-        <p class="gear__price">10&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="900">900 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
-      <article class="gear" data-item="sup" data-title="SUP-доска" data-price="10" data-reveal style="left:516.3px; top:1918.4px; --rd:.1s;">
+      <article class="gear" data-item="sup" data-title="SUP-доска" data-reveal style="left:516.3px; top:1918.4px; --rd:.1s;">
         <img class="gear__img" src="img/rent/eq-sup.webp" alt="SUP-доска с веслом" style="left:15px; top:34px; width:366px; height:250px;">
         <h4 class="gear__title">SUP-доска</h4>
         <p class="gear__text" style="left:22px; top:381px; width:330px;">Надувная доска для прогулок по&nbsp;спокойной воде. Отлично подходит для летнего отдыха на&nbsp;Иссык-Куле и&nbsp;других разрешенных водоемах. В&nbsp;комплекте: доска, весло, насос и&nbsp;жилет.</p>
-        <p class="gear__price">10&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="900">900 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
-      <article class="gear" data-item="fishing" data-title="Рыболовный комплект" data-price="8" data-reveal style="left:859.5px; top:1918.4px; --rd:.2s;">
+      <article class="gear" data-item="fishing" data-title="Рыболовный комплект" data-reveal style="left:859.5px; top:1918.4px; --rd:.2s;">
         <img class="gear__img" src="img/rent/eq-fishing.webp" alt="Рыболовный комплект" style="left:70px; top:20px; width:256px; height:278px;">
         <h4 class="gear__title" style="width:215px;">Рыболовный комплект</h4>
         <p class="gear__text" style="left:23px; top:408px; width:330px;">Спиннинговый комплект: спиннинг, катушка, леска или шнур, набор искусственных приманок, поводки, подсак, аксессуары и&nbsp;чехол.</p>
-        <p class="gear__price">8&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="700">700 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
-      <article class="gear" data-item="poles" data-title="Треккинговые палки" data-price="3" style="left:173.1px; top:2446.4px;" data-reveal>
+      <article class="gear" data-item="poles" data-title="Треккинговые палки" style="left:173.1px; top:2446.4px;" data-reveal>
         <img class="gear__img" src="img/rent/eq-poles.webp" alt="Треккинговые палки" style="left:54px; top:11px; width:280px; height:316px;">
         <h4 class="gear__title" style="width:229px;">Треккинговые палки</h4>
         <p class="gear__text" style="left:23px; top:408px; width:330px;">Регулируемые палки для пеших прогулок, горных маршрутов и&nbsp;треккинга. Помогают поддерживать устойчивость на&nbsp;пересеченной местности. Цена&nbsp;— за&nbsp;пару.</p>
-        <p class="gear__price">3&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price"><span class="money" data-kgs="250">250 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart></div>
       </article>
 
       <!-- готовые комплекты -->
       <h3 class="gear-sub" style="left:519.1px; top:2990.4px;" data-reveal>Готовые комплекты</h3>
-      <article class="kit" data-item="kit-camping" data-title="Набор «Кемпинг»" data-price="20" style="left:128.6px; top:3068.8px;" data-reveal>
+      <article class="kit" data-item="kit-camping" data-title="Набор «Кемпинг»" style="left:128.6px; top:3068.8px;" data-reveal>
         <img class="kit__img" src="img/rent/set-camping.webp" alt="Палатка, спальные мешки, коврики и фонарь" style="left:87px; top:5px; width:258px; height:258px;">
         <h4 class="kit__title">Набор «Кемпинг»</h4>
         <p class="kit__label">Состав:</p>
         <p class="kit__list" style="width:347px;">1 туристическая палатка, 2&nbsp;спальных мешка, 2&nbsp;коврика и&nbsp;1&nbsp;походный фонарь.</p>
         <p class="kit__text" style="top:394px; width:391px;">Все необходимое для самостоятельных ночевок на&nbsp;природе. Подходит для путешествий по&nbsp;Кыргызстану, кемпинга у&nbsp;озера и&nbsp;отдыха вдали от&nbsp;города.</p>
-        <p class="gear__price kit__price">20&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price kit__price"><span class="money" data-kgs="1600">1&nbsp;600 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart style="left:327px;"></div>
       </article>
-      <article class="kit" data-item="kit-picnic" data-title="Набор «Пикник»" data-price="15" data-reveal style="left:499px; top:3068.8px; --rd:.1s;">
+      <article class="kit" data-item="kit-picnic" data-title="Набор «Пикник»" data-reveal style="left:499px; top:3068.8px; --rd:.1s;">
         <img class="kit__img" src="img/rent/set-picnic.webp" alt="Складной стол, два кресла и переносной гриль" style="left:84px; top:-15px; width:284px; height:284px;">
         <h4 class="kit__title">Набор «Пикник»</h4>
         <p class="kit__label">Состав:</p>
         <p class="kit__list" style="width:347px;">1 складной туристический стол, 2&nbsp;кемпинговых кресла и&nbsp;1&nbsp;переносной гриль.</p>
         <p class="kit__text" style="top:400px; width:381px;">Готовый комплект для комфортного отдыха на&nbsp;природе. Подходит для пикников, семейных поездок и&nbsp;остановок во&nbsp;время путешествия.</p>
-        <p class="gear__price kit__price">15&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price kit__price"><span class="money" data-kgs="850">850 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart style="left:320px;"></div>
       </article>
-      <article class="kit" data-item="kit-bike" data-title="Набор «Велопрогулка»" data-price="18" data-reveal style="left:869.4px; top:3068.8px; --rd:.2s;">
+      <article class="kit" data-item="kit-bike" data-title="Набор «Велопрогулка»" data-reveal style="left:869.4px; top:3068.8px; --rd:.2s;">
         <img class="kit__img" src="img/rent/set-bike.webp" alt="Два велосипеда, шлемы и замки" style="left:101px; top:10px; width:253px; height:253px;">
         <h4 class="kit__title">Набор «Велопрогулка»</h4>
         <p class="kit__label">Состав:</p>
         <p class="kit__list" style="width:258px;">2 велосипеда, 2&nbsp;защитных шлема и&nbsp;2&nbsp;велосипедных замка.</p>
         <p class="kit__text" style="top:400px; width:381px;">Комплект для самостоятельных велосипедных прогулок, исследования окрестностей Иссык-Куля и&nbsp;активного отдыха вдвоем.</p>
-        <p class="gear__price kit__price">18&nbsp;$<span class="price-per">/ сутки</span></p>
+        <p class="gear__price kit__price"><span class="money" data-kgs="1600">1&nbsp;600 сом</span><span class="price-per">/ сутки</span></p>
         <div class="cart-ctl" data-cart style="left:321px;"></div>
       </article>
 
@@ -421,9 +421,10 @@
 
 </main>
 
-<script src="js/main.js?v=e84bed77"></script>
-<script src="js/rent-store.js?v=57065075"></script>
+<script src="js/main.js?v=9d0a6c3c"></script>
+<script src="data/rent-prices.js?v=7f6be1fa"></script>
+<script src="js/rent-store.js?v=c59e1d18"></script>
 <script src="data/rent-availability.js?v=5a60e404"></script>
-<script src="js/rent.js?v=3795208b"></script>
+<script src="js/rent.js?v=844f2ba6"></script>
 </body>
 </html>

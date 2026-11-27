@@ -2,7 +2,8 @@
   "_readme": [
     "Программы туров (страницы tour-*.html). Здесь меняют тексты, фото и дни; потом запустить: python3 tools/build.py",
     "page — какая страница; trip — что выбирается в «Куда хочется?» на trips.html; title — заголовок (перенос строки — \\n); name — название во вкладке браузера; lead — текст под заголовком; description — описание для поисковиков; days_label — длительность на плашке.",
-    "days — дни по порядку. Только title — короткая карточка с крупным номером. С photo, alt (описание фото) и text — карточка с фото. photo_pos — какую часть фото показывать: top (верх), y16 (чуть ниже верха), без него — середина. «→» в названии рисуется тонкой стрелкой."
+    "days — дни по порядку. Только title — короткая карточка с крупным номером. С photo, alt (описание фото) и text — карточка с фото. photo_pos — какую часть фото показывать: top (верх), y16 (чуть ниже верха), без него — середина. «→» в названии рисуется тонкой стрелкой.",
+    "price — цена на карточке trips.html: «от N сом» (число в сомах; пусто — «Цена уточняется»). В долларах и рублях сайт показывает справочно — по курсу Нацбанка. price_usd_archive — прежняя цена в долларах (до 27.11.2026), только для истории."
   ],
   "tours": [
     {
@@ -18,7 +19,8 @@
       "description_en": "An 8-day trip around Issyk-Kul: the northern and southern shores, mountain gorges, Karakol and local traditions. Starts in Bishkek.",
       "days_label": "8 дней",
       "days_label_en": "8 days",
-      "price": "от 1 600 $",
+      "price": 139900,
+      "price_usd_archive": "от 1 600 $",
       "days": [
         {
           "title": "Бишкек → Иссык-Куль",
@@ -113,7 +115,8 @@
       "description_en": "A 6-day trip along the northern shore of Issyk-Kul: lakeside rest, horse rides, mountain gorges, fishing. Starts in Bishkek.",
       "days_label": "6 дней",
       "days_label_en": "6 days",
-      "price": "от 1 150 $",
+      "price": 100600,
+      "price_usd_archive": "от 1 150 $",
       "days": [
         {
           "title": "Бишкек",
@@ -188,7 +191,8 @@
       "description_en": "A 6-day winter trip around Issyk-Kul: Karakol ski resort, Ak-Suu hot springs, the red rocks of Jeti-Oguz. Starts in Bishkek.",
       "days_label": "6 дней",
       "days_label_en": "6 days",
-      "price": "от 0 000 $",
+      "price": null,
+      "price_usd_archive": "от 0 000 $",
       "days": [
         {
           "title": "Бишкек → Иссык-Куль",

@@ -11,14 +11,14 @@
 /* =========================================================
    1. ВЫБЕРИТЕ СВОЙ АВТОДОМ
    ========================================================= */
-.rent-top .stage { padding: 277px 0 14px 25px; }
+.rent-top .stage { padding: 287px 0 14px 25px; }
 .rent-top .stage > img.rent-cloud:nth-of-type(1) { left: -296px !important; top: 235px !important; width: 444px; height: 148px; }
 .rent-top .stage > img.rent-cloud:nth-of-type(2) { left: 252px !important; top: -29px !important; width: 432px; height: 144px; }
 .rent-top .stage > img.rent-cloud:nth-of-type(3) { display: none; }
-.rent-title { left: 86px; top: 25px; width: 238px; font-size: 36px; }
+.rent-title { left: 86px; top: 46px; width: 238px; font-size: 36px; }   /* на 21px ниже макета — под переключателями языка и валюты в углу; поиск и автодома ниже на 10px */
 
 /* ---------- поиск ---------- */
-.rent-search { width: 402px; }
+.rent-search { width: 402px; margin-top: 10px; }
 .rs-label { top: 129px; font-size: 16px; }
 #rs-dates-label { left: 29px !important; }
 #rs-guests-label { left: 247px !important; }
@@ -88,9 +88,9 @@
 .gear__text { left: 13px !important; top: 193px !important; width: 151px !important; font-size: 10px; line-height: normal; }
 .gear[data-item="bike"] .gear__title, .gear[data-item="sup"] .gear__title { bottom: 186px; }   /* название в одну строку — выше, как в макете */
 .gear[data-item="bike"] .gear__text, .gear[data-item="sup"] .gear__text { top: 169px !important; }
-.gear__price { left: 16px; top: 306px; font-size: 16px; }
+.gear__price { left: 16px; top: 299px; font-size: 16px; }
 .gear__price--ask { top: 301px; width: 66px; font-size: 10px; line-height: 1.15; white-space: normal; }
-.price-per { margin-left: 3px; font-size: 8px; }
+.price-per { display: block; margin: 3px 0 0; font-size: 9px; }   /* «/ сутки» под ценой — справа кнопка «В корзину» (вариант A, 27.11.2026) */
 .gear .cart-ctl { left: 85px; top: 299px; }
 
 .gear[data-item="table"]        { left: 19px !important;  top: 146px !important; }
@@ -130,7 +130,7 @@
 .kit__list { left: 61px; top: 183px; width: 100px !important; font-size: 8px; line-height: 11px; }
 .kit__text { left: 14px; top: 237px !important; width: 145px !important; font-size: 10px; line-height: normal; }
 .kit .cart-ctl { left: 88px !important; top: 348px; }
-.kit__price { left: 13px; top: 355px; }
+.kit__price { left: 13px; top: 348px; }
 
 /* «В корзину» / «− 1 +» — размер из макета (74×29) */
 .gear .cart-ctl, .kit .cart-ctl { width: 74px; height: 29px; scale: none; }

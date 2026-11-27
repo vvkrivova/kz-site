@@ -36,6 +36,7 @@ const rentSearch = (function () {
 
   const calendar = rangeCalendar(cal, {
     toggle: datesBtn,
+    minNights: RentStore.prices.minNights || 1,   // минимальный срок аренды (data/rent.json, min_nights)
     onApply(from, to) {
       showDates(from, to);
       RentStore.update((s) => { s.from = RentStore.toKey(from); s.to = RentStore.toKey(to); });
@@ -221,19 +222,23 @@ function carsHead(kind) {
   return head;
 }
 
-// цена и кнопка карточки: до поиска — «от 250 $ / сутки» и «Выбрать», после — сумма за срок и «Забронировать»
+// сумма аренды автодома за срок в сомах: ставка срока (1–3, 4–6, 7–13, 14–20, 21+ суток) × сутки; 0 — цена не известна
+const carSum = (card, nights) => RentStore.carRate(card.dataset.car, nights) * nights;
+
+// цена и кнопка карточки: до поиска — «от 19 200 сом / сутки» и «Выбрать», после — сумма за срок и «Забронировать»
 function paintCar(card, nights) {
   const price = card.querySelector('.car__price');
   if (!price.dataset.base) price.dataset.base = price.innerHTML;
   const btn = card.querySelector('[data-choose]');
   if (nights) {
-    price.innerHTML = Number(card.dataset.price)
-      ? `<span class="car__price-sum">${RentStore.money(Number(card.dataset.price) * nights)}</span>`
+    price.innerHTML = carSum(card, nights)
+      ? `<span class="car__price-sum">${RentStore.moneyHtml(carSum(card, nights))}</span>`
         + `<span class="car__price-per">${t('за {n} {word}', { n: nights, word: nightsWord(nights) })}</span>`
       : price.dataset.base; // цена еще не известна — «Цена уточняется»
     btn.textContent = t('Забронировать');
   } else {
     price.innerHTML = price.dataset.base;
+    Money.render(price);   // валюту могли сменить, пока показывалась сумма за срок
     btn.textContent = t('Выбрать');
   }
 }
@@ -249,7 +254,7 @@ function paintAlt(card, reason, dates) {
   alt.innerHTML = `<p class="car__alt-text">${t('Нет свободных дат {when}', { when: fromTo(dates.from, dates.to) })}</p>`
     + (opts.length ? `<p class="car__alt-sub">${t('Можно забронировать другие даты:')}</p><div class="car__alt-list">`
       + opts.map(([a, b]) => `<button class="car__alt-opt" type="button" data-from="${RentStore.toKey(a)}" data-to="${RentStore.toKey(b)}">`
-        + `<b>${shortRange(a, b)}</b><span>${len} ${nightsWord(len)}${Number(card.dataset.price) ? ` · ${RentStore.money(Number(card.dataset.price) * len)}` : ''}</span></button>`).join('')
+        + `<b>${shortRange(a, b)}</b><span>${len} ${nightsWord(len)}${carSum(card, len) ? ` · ${RentStore.moneyHtml(carSum(card, len))}` : ''}</span></button>`).join('')
       + '</div>' : `<p class="car__alt-sub">${t('В ближайшие два месяца на такой срок занят')}</p>`);
   card.style.setProperty('--alt-h', `${alt.offsetHeight + 24}px`);
 }
@@ -370,17 +375,16 @@ const bookModal = (function () {
     const dates = RentStore.dates(); const n = guestsCount();
     if (!dates || !n) { card = null; if (rentSearch) rentSearch.askFind(t('Выберите даты и гостей и нажмите «Найти»')); return; }
     const nights = nightsBetween(dates.from, dates.to);
-    const price = Number(card.dataset.price);
+    const price = RentStore.carRate(card.dataset.car, nights);
     $('[data-m-car]').textContent = t('Автодом {name}', { name: card.dataset.name });
     $('[data-m-dates]').textContent = `${dates.from.getMonth() === dates.to.getMonth() ? dates.from.getDate() : dayMonth(dates.from)} — ${dayMonth(dates.to)}, ${nights} ${nightsWord(nights)}`;
     $('[data-m-guests]').textContent = `${n} ${guestsWord(n)}`;
-    // автодом без цены (data-price="0") — «уточняется»: цену назовет менеджер
-    $('[data-m-rent-label]').textContent = price ? `${RentStore.money(price)} × ${nights} ${nightsWord(nights)}` : `${nights} ${nightsWord(nights)}`;
-    $('[data-m-rent]').textContent = price ? RentStore.money(price * nights) : t('уточняется');
-    // итого — вместе со снаряжением, которое уже в корзине (как на следующем шаге)
-    const items = Object.values(RentStore.get().items || {}).reduce((sum, it) => sum + (it.price || 0) * (it.qty || 0) * nights, 0);
-    $('[data-m-total]').textContent = price ? RentStore.money(price * nights + items)
-      : (items ? t('{sum} + автодом', { sum: RentStore.money(items) }) : t('уточняется'));
+    // автодом без цены — «уточняется»: цену назовет менеджер. Ставка — по сроку (чем дольше, тем дешевле сутки)
+    $('[data-m-rent-label]').innerHTML = price ? `${RentStore.moneyHtml(price)} × ${nights} ${nightsWord(nights)}` : `${nights} ${nightsWord(nights)}`;
+    $('[data-m-rent]').innerHTML = price ? RentStore.moneyHtml(price * nights) : t('уточняется');
+    // итого — вместе со снаряжением, которое уже в корзине (как на следующем шаге; расчет — общий, js/rent-store.js)
+    const sm = RentStore.summary({ car: { id: card.dataset.car, name: card.dataset.name } });
+    $('[data-m-total]').innerHTML = RentStore.totalText(sm, true);
     box.classList.add('is-open');
     document.documentElement.style.overflow = 'hidden';
     $('[data-m-go]').focus({ preventScroll: true });
@@ -400,7 +404,7 @@ const bookModal = (function () {
       if (dates) runSearch();
       return;
     }
-    RentStore.update((s) => { s.car = { id: card.dataset.car, name: card.dataset.name, price: Number(card.dataset.price) }; });
+    RentStore.update((s) => { s.car = { id: card.dataset.car, name: card.dataset.name }; });
   });
   $('[data-m-back]').addEventListener('click', close);
   $('.rent-modal__close').addEventListener('click', close);

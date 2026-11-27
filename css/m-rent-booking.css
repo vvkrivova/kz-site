@@ -6,9 +6,9 @@
    Размеры шрифтов — ровно как в макете.
    ========================================================= */
 
-.rb .stage { height: auto; padding: 140px 0 136px 30px; }
+.rb .stage { height: auto; padding: 150px 0 136px 30px; }
 .rb-topo { display: none; }   /* в мобильном макете рисунка гор нет */
-.rb-title { left: 48px; top: 25px; width: 305px; font-size: 36px; line-height: 114.04%; }
+.rb-title { left: 48px; top: 46px; width: 305px; font-size: 36px; line-height: 114.04%; }   /* на 21px ниже макета (все ниже — на 10px) — под переключателями языка и валюты в углу */
 
 /* ---------- ваше бронирование ---------- */
 .rb-sum { width: 341px; min-height: 0; padding: 216px 27px 12px 21px; }
@@ -34,7 +34,7 @@
 .rb-sum__car a { font-size: 11px; }
 .rb-sum__money { font-size: 14px; }
 .rb-sum__h { left: 20px; top: 191px; font-size: 16px; }
-.rb-sum__rows li { grid-template-columns: 1fr 28px 64px; height: 25.5px; padding-top: 2px; font-size: 13px; }
+.rb-sum__rows li { grid-template-columns: minmax(0, 1fr) 28px minmax(64px, auto); height: 25.5px; padding-top: 2px; font-size: 13px; }
 .rb-sum__rows li b { font-size: 14px; }
 .rb-sum__rows li b.is-ask span { font-size: 9px; }
 .rb-sum__rows .is-empty { padding: 2px 0 6px; font-size: 11px; }
@@ -42,17 +42,25 @@
 .rb-sum__total { height: 33px; margin: 9px -9px 0 -3px; padding: 0 11px 0 13px; border-radius: 6px; font-size: 16px; }
 
 /* условия — заголовки со стрелкой и линией между ними (текстов пока нет) */
-.rb-term, .rb-term + .rb-term, .rb-term.rb-term--last { min-height: 0; }
-.rb-term { position: relative; padding-bottom: 15px; margin-bottom: 19px; border-bottom: 1px solid rgba(0, 0, 0, .15); }
-.rb-sum__total + .rb-term { margin-top: 19px; }
-.rb-term.rb-term--last { margin-bottom: 0; padding-bottom: 6px; border-bottom: 0; }
+.rb-term { padding: 12px 0; }
+.rb-term.rb-term--last { padding-bottom: 0; }   /* снизу — отступ самой карточки (12px), как сверху */
+.rb-sum__total + .rb-term, .rb-fin + .rb-term { margin-top: 14px; }
 .rb-term__h { font-size: 16px; }
 .rb-term__h::after {
-  content: ""; position: absolute; right: 2px; top: 5px; width: 14px; height: 6px;
+  content: ""; position: absolute; right: 2px; top: calc(50% - 3px); width: 14px; height: 6px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='6' viewBox='0 0 14 6' fill='none'%3E%3Cpath d='M.5.5 7 5.5 13.5.5' stroke='%23000'/%3E%3C/svg%3E") no-repeat;
 }
 .rb-term__text { margin-top: 8px; font-size: 11px; }
 .rb-term__text:empty { display: none; }
+/* вкладки (как на компьютере, css/rent-booking.css): размеры для телефона */
+.rb-term__h { padding-right: 24px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.rb-term__h::after { transition: rotate .25s ease; }
+.rb-term__h:focus-visible { outline: 2px solid var(--orange-map); outline-offset: 3px; border-radius: 3px; }
+.rb-term.is-open .rb-term__h::after { rotate: 180deg; }
+.rb-term:not(.is-open) .rb-term__text { display: none; }
+.rb-term:has(> .rb-term__text:empty) .rb-term__h { cursor: default; }
+.rb-term:has(> .rb-term__text:empty) .rb-term__h::after { display: none; }
+@media (prefers-reduced-motion: reduce) { .rb-term__h::after { transition: none; } }
 
 /* ---------- заказчик — под сводкой ---------- */
 .rb-client { position: relative; left: 0; top: 0; width: 340px; height: 428px; margin-top: 26px; }
@@ -60,9 +68,9 @@
 .rb-field { width: 154px; height: 46px; padding: 0 12px; font-size: 12px; }
 .rb-field[name="name"]    { left: 11px !important;  top: 59px !important; }
 .rb-field[name="surname"] { left: 173px !important; top: 59px !important; }
-.rb-field[name="phone"]   { left: 11px !important;  top: 120px !important; }
-.rb-field[name="email"]   { left: 173px !important; top: 120px !important; }
-.rb-field--notes { left: 11px !important; top: 181px !important; width: 316px; height: 87px; padding: 12px 9px; }
+.rb-field[name="phone"]   { left: 11px !important;  top: 127px !important; }   /* ряды полей — через 22px: под полем помещается подсказка «Укажите …» */
+.rb-field[name="email"]   { left: 173px !important; top: 127px !important; }
+.rb-field--notes { left: 11px !important; top: 195px !important; width: 316px; height: 87px; padding: 12px 9px; }
 .rb-field::placeholder { font-size: 12px; }
 .rb-field[name="phone"] { padding: 0 9px; }
 .rb-field[name="phone"]::placeholder { font-size: 11px; }   /* «Телефон или Telegram» целиком */
@@ -72,7 +80,7 @@
 .rb-consent .trip-consent__text { width: 283px; font-size: 9px; font-weight: 600; }
 .rb-submit { left: 11px; top: 359px; width: 316px; height: 45px; border-radius: 5px; font: 700 16px/1 var(--font-body); }
 .rb-error { left: 11px; top: 407px; width: 316px; height: auto; font-size: 10px; }
-.rb-hint { font-size: 9px; }
+.rb-hint { font-size: 9px; line-height: 11px; }
 
 /* ---------- «Спасибо» (Frame 159): без плашки, темный текст, прямая кнопка ---------- */
 .rb.is-done .stage { height: 620px; padding: 0; }
@@ -83,3 +91,30 @@
 .rb-thanks__title { left: 41px; top: 307px; width: 320px; white-space: nowrap; font-size: 20px; color: #000; }
 .rb-thanks__text { left: 77px; top: 336px; width: 248px; font-size: 10px; color: #000; }
 .rb-thanks__home { left: 118.6px; top: 380px; width: 165px; height: 30px; border-radius: 3px; rotate: none; font-size: 10px; }
+
+/* деньги и оплата (ТЗ № 1): под «Итогом» — сумма в сомах, предоплата, остаток, залог, курс, уведомление;
+   в форме — «Способ оплаты», кнопка и пометка под ней */
+.rb-fin { margin-top: 12px; }
+.rb-fin__exact { margin-bottom: 4px; font-size: 12px; }
+.rb-fin__rows > div { gap: 10px; padding: 7px 0; }
+.rb-fin__rows dt { font-size: 12px; }
+.rb-fin__rows dt small { font-size: 9px; }
+.rb-fin__rows dd { font-size: 9px; }
+.rb-fin__rows dd b { font-size: 15px; }
+.rb-fin__rows dd small { margin-top: 2px; font-size: 9px; }
+.rb-fin__rate { margin-top: 8px; font-size: 10px; }
+.rb-fin__note { margin-top: 6px; font-size: 9px; }
+
+.rb-client { height: 604px; }
+.rb-consent { top: 294px; }
+.rb-pay { left: 11px; top: 372px; width: 316px; }
+.rb-pay__title { margin-bottom: 8px; font-size: 16px; }
+.rb-pay__opt { padding: 9px 10px 9px 34px; border-radius: 6px; }
+.rb-pay__dot { left: 10px; top: 10px; width: 15px; height: 15px; border-width: 1.5px; }
+.rb-pay__dot::after { inset: 3px; }
+.rb-pay__name { font-size: 11px; }
+.rb-pay__text { margin-top: 3px; font-size: 9.5px; }
+.rb-pay__prepay { margin-top: 7px; font-size: 9.5px; }
+.rb-submit { top: 500px; }   /* «Предоплата за аренду…» — посередине между блоком оплаты и кнопкой (по 7px) */
+.rb-submit-note { left: 11px; top: 551px; width: 316px; font-size: 9px; }
+.rb-error { top: 578px; }
