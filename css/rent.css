@@ -175,7 +175,7 @@
 .car__list li { position: relative; }
 .car__list li::before { content: ""; position: absolute; left: -11px; top: 7px; width: 4px; height: 4px; border-radius: 50%; background: var(--orange-map); }
 
-.car__price { right: 127px; top: 400px; margin: 0; text-align: right; transition: top .55s cubic-bezier(.2, .7, .2, 1); }
+.car__price { right: 127px; top: 400px; margin: -2px 0 0; text-align: right; transition: top .55s cubic-bezier(.2, .7, .2, 1); }   /* цена с «/ сутки» — по центру высоты кнопки «Выбрать» (margin-top) */
 .car__price-sum { display: block; font: 400 24px/.94 var(--font-display); text-transform: uppercase; color: var(--rent-ink); white-space: nowrap; }
 .car__price-sum small { font-size: 16px; }
 .car__price-per { display: block; font: 400 14px/1.366 var(--font-body); color: rgba(0, 0, 0, .43); }

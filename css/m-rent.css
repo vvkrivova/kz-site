@@ -46,14 +46,15 @@
 .car[data-car="forland-s1"] .car__lead { width: 262px !important; }
 .car[data-car="freedom-cannon"] .car__lead { width: 222px !important; }
 .car__more { font-size: 16.73px; }
-.car__price { right: 137px; top: 391.5px; }
+.car__price { right: 137px; top: 391.5px; margin-top: 2.5px; }   /* по центру высоты кнопки «Выбрать» */
 .car__price-sum small, .car__price-per { font-size: 11.7px; }
 .car__price-sum { font-size: 20px; }   /* цена в сомах длиннее прежней в долларах — мельче, чтобы не наезжала на «Подробнее» (27.11.2026) */
 .car__price--ask .car__price-sum { width: 120px; font-size: 18.4px; line-height: 1.1; white-space: normal; }   /* «Цена уточняется» ≈ 11px на экране, в две строки — не задевает «Подробнее» */
 .car__choose { left: 480px; top: 391.5px; width: 112px; height: 39.7px; font-size: 18.4px; }
 .cars.is-searched .car:not(.is-off) .car__choose { left: 426px; width: 166px; }
 .cars.is-searched .car:not(.is-off) .car__price { right: 192px; }
-.cars.is-searched .car:not(.is-off) .car__price-sum { font-size: 17px; }   /* сумма за срок — кнопка «Забронировать» шире */
+.cars.is-searched .car:not(.is-off) .car__price-sum { font-size: 17px; }
+.cars.is-searched .car:not(.is-off) .car__price { margin-top: 3.9px; }   /* сумма за срок — кнопка «Забронировать» шире */
 
 /* раскрытое описание — одной колонкой, списком, как в мобильном макете (карточка «Forland S1» справа от «Frame 152»):
    абзац 10px Light, подзаголовки 11px SemiBold, пункты 10px через 14px с оранжевыми точками.
