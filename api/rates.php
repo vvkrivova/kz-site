@@ -9,5 +9,7 @@
 require __DIR__ . '/rates-lib.php';
 
 header('Content-Type: application/json; charset=utf-8');
-header('Cache-Control: public, max-age=600');
-echo json_encode(tw_rates());
+$rates = tw_rates();
+// курс есть — браузер может хранить ответ 10 минут; курса нет — только минуту (чтобы курс появился сразу, как получен)
+header('Cache-Control: public, max-age=' . (!empty($rates['ok']) ? 600 : 60));
+echo json_encode($rates);
