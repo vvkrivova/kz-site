@@ -1,0 +1,6 @@
+# собирает tools/build_en.py (python3 tools/build.py) — руками не править
+User-agent: *
+Disallow: /api/
+Disallow: /lead.php
+
+Sitemap: https://tianway.kg/sitemap.xml

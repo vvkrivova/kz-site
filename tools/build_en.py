@@ -155,9 +155,12 @@ def page_url(name: str, lang: str) -> str:
     return base if name == 'index.html' else base + name
 
 
-def lang_head(name: str) -> str:
-    """ссылки на версии страницы (для поисковиков) и автовыбор языка по устройству"""
+def lang_head(name: str, lang: str = 'ru') -> str:
+    """ссылки на версии страницы (для поисковиков) и автовыбор языка по устройству.
+    canonical — главный адрес этой страницы на tianway.kg: копия сайта на GitHub Pages (vvkrivova.github.io/kz-site)
+    для поисковиков не дубль, а копия tianway.kg"""
     return (f'  <!-- языки: альтернативные версии и автовыбор (собирает tools/build.py) -->\n'
+            f'  <link rel="canonical" href="{page_url(name, lang)}">\n'
             f'  <link rel="alternate" hreflang="ru" href="{page_url(name, "ru")}">\n'
             f'  <link rel="alternate" hreflang="en" href="{page_url(name, "en")}">\n'
             f'  <link rel="alternate" hreflang="x-default" href="{page_url(name, "ru")}">\n'
@@ -170,7 +173,7 @@ LANG_BLOCK = re.compile(r'  <!-- языки: .*?<!-- /языки -->\n', re.S)
 
 def add_lang_head(s: str, name: str, root: str) -> str:
     """вставляет блок языков перед </head> (повторно — заменяет)"""
-    block = lang_head(name).replace('{root}', root)
+    block = lang_head(name, 'en' if root == '../' else 'ru').replace('{root}', root)
     s = LANG_BLOCK.sub('', s)
     return s.replace('</head>', block + '</head>', 1)
 
@@ -258,6 +261,7 @@ def main() -> None:
         if not dst.exists() or dst.read_text(encoding='utf-8') != en:
             dst.write_text(en, encoding='utf-8')
             print('английская страница:', 'en/' + src.name)
+    write_seo_files(pages)
     miss = ROOT / 'data' / 'i18n' / 'missing.txt'
     if tr.missing:
         lines = [f'{k}\n    — {", ".join(sorted(v))}' for k, v in sorted(tr.missing.items(), key=lambda kv: sorted(kv[1])[0])]
@@ -265,6 +269,35 @@ def main() -> None:
         print(f'нет перевода: {len(tr.missing)} текстов — список в data/i18n/missing.txt')
     elif miss.exists():
         miss.unlink()
+
+
+def short_url(name: str, lang: str) -> str:
+    """адрес страницы без .html — как на сайте (.htaccess)"""
+    return page_url(name, lang).removesuffix('.html')
+
+
+def write_seo_files(pages):
+    """sitemap.xml (все страницы на двух языках, с парами hreflang) и robots.txt — для поисковиков"""
+    rows = []
+    for src in pages:
+        for lang in ('ru', 'en'):
+            alts = ''.join(f'\n    <xhtml:link rel="alternate" hreflang="{h}" href="{short_url(src.name, l)}"/>'
+                           for h, l in (('ru', 'ru'), ('en', 'en'), ('x-default', 'ru')))
+            rows.append(f'  <url>\n    <loc>{short_url(src.name, lang)}</loc>{alts}\n  </url>')
+    sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+               '<!-- собирает tools/build_en.py (python3 tools/build.py) — руками не править -->\n'
+               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+               + '\n'.join(rows) + '\n</urlset>\n')
+    robots = ('# собирает tools/build_en.py (python3 tools/build.py) — руками не править\n'
+              'User-agent: *\n'
+              'Disallow: /api/\n'
+              'Disallow: /lead.php\n'
+              f'\nSitemap: {SITE}sitemap.xml\n')
+    for fname, text in (('sitemap.xml', sitemap), ('robots.txt', robots)):
+        f = ROOT / fname
+        if not f.exists() or f.read_text(encoding='utf-8') != text:
+            f.write_text(text, encoding='utf-8')
+            print('для поисковиков:', fname)
 
 
 if __name__ == '__main__':

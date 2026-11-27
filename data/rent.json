@@ -11,7 +11,6 @@
     "from — разовая «от price сом» (в сумму не входит, точную цену назовет менеджер), quote — по запросу,",
     "delivery — доставка: price сом за одно направление, бесплатно по Бишкеку от free_from суток, в аэропорт — от free_from_airport.",
     "note — подсказка к строке итога. deposit — возвратный залог (сом, отдельно от аренды), prepay_percent — предоплата аренды, %, min_nights — минимальный срок аренды, суток.",
-    "usd_archive — прежние цены в долларах (до 27.11.2026), только для истории; сайт их не использует.",
     "busy — занятые даты автодома: с дня заезда до дня выезда (в день выезда его уже можно отдать следующим гостям)."
   ],
   "prepay_percent": 30,
@@ -27,7 +26,6 @@
         "d14": 19700,
         "d21": 19200
       },
-      "usd_archive": 250,
       "seats": 6,
       "busy": [],
       "tag": "Популярный выбор",
@@ -173,7 +171,6 @@
         "d14": 19200,
         "d21": 18800
       },
-      "usd_archive": 250,
       "seats": 4,
       "busy": [],
       "tag": "Для больших историй",
@@ -283,7 +280,6 @@
         "d14": 11800,
         "d21": 11400
       },
-      "usd_archive": 150,
       "seats": 4,
       "busy": [],
       "tag": "Авто + кемпер",
@@ -413,86 +409,72 @@
     {
       "id": "table",
       "name": "Складной туристический стол",
-      "price": 200,
-      "usd_archive": 2
+      "price": 200
     },
     {
       "id": "chair",
       "name": "Кемпинговое кресло",
-      "price": 150,
-      "usd_archive": 1
+      "price": 150
     },
     {
       "id": "tent",
       "name": "Туристическая палатка",
-      "price": 600,
-      "usd_archive": 5
+      "price": 600
     },
     {
       "id": "sleeping-bag",
       "name": "Спальный мешок",
-      "price": 350,
-      "usd_archive": 3
+      "price": 350
     },
     {
       "id": "mat",
       "name": "Туристический коврик",
-      "price": 150,
-      "usd_archive": 1
+      "price": 150
     },
     {
       "id": "lantern",
       "name": "Походный фонарь",
-      "price": 200,
-      "usd_archive": 2
+      "price": 200
     },
     {
       "id": "grill",
       "name": "Мангал / переносной гриль",
-      "price": 450,
-      "usd_archive": 5
+      "price": 450
     },
     {
       "id": "bike",
       "name": "Велосипед",
-      "price": 900,
-      "usd_archive": 10
+      "price": 900
     },
     {
       "id": "sup",
       "name": "SUP-доска",
-      "price": 900,
-      "usd_archive": 10
+      "price": 900
     },
     {
       "id": "fishing",
       "name": "Рыболовный комплект",
-      "price": 700,
-      "usd_archive": 8
+      "price": 700
     },
     {
       "id": "poles",
       "name": "Треккинговые палки (пара)",
-      "price": 250,
-      "usd_archive": 3
+      "price": 250
     },
     {
       "id": "kit-camping",
       "name": "Набор «Кемпинг»",
-      "price": 1600,
-      "usd_archive": 20
+      "price": 1600
     },
     {
       "id": "kit-picnic",
       "name": "Набор «Пикник»",
-      "price": 850,
-      "usd_archive": 15
+      "price": 850
     },
     {
       "id": "kit-bike",
       "name": "Набор «Велопрогулка»",
-      "price": 1600,
-      "usd_archive": 18
+      "price": 1600
     }
   ],
   "services": [
@@ -506,8 +488,7 @@
       "label": "бесплатно",
       "label_en": "free",
       "note": "бесплатно при аренде автодома",
-      "note_en": "free with motorhome rental",
-      "usd_archive": "Бесплатно при аренде"
+      "note_en": "free with motorhome rental"
     },
     {
       "id": "sv-custom-route",
@@ -515,22 +496,19 @@
       "type": "from",
       "price": 4500,
       "note": "разовая оплата, точную цену назовет менеджер",
-      "note_en": "one-off payment, the manager will confirm the exact price",
-      "usd_archive": "от 50 $"
+      "note_en": "one-off payment, the manager will confirm the exact price"
     },
     {
       "id": "sv-sputnik",
       "name": "Спутниковая связь",
       "type": "day",
-      "price": 1300,
-      "usd_archive": 15
+      "price": 1300
     },
     {
       "id": "sv-kid-seat",
       "name": "Детское кресло",
       "type": "day",
-      "price": 200,
-      "usd_archive": 2
+      "price": 200
     },
     {
       "id": "sv-delivery",
@@ -542,7 +520,6 @@
       "note": "по Бишкеку — бесплатно от 3 суток, в аэропорт — от 5 суток; за пределы Бишкека — по запросу",
       "note_en": "within Bishkek — free from 3 days, to the airport — from 5 days; outside Bishkek — on request",
       "free_from": 3,
-      "usd_archive": "Бесплатно от 3 суток",
       "free_from_airport": 5
     },
     {
@@ -555,8 +532,7 @@
       "label": "бесплатно",
       "label_en": "free",
       "note": "инструктаж и помощь в начале поездки — бесплатно",
-      "note_en": "briefing and help at the start of the trip — free",
-      "usd_archive": "Бесплатно"
+      "note_en": "briefing and help at the start of the trip — free"
     }
   ]
 }

@@ -728,9 +728,6 @@ content:
             options:
               min: 0
               max: 10000000
-          - name: price_usd_archive
-            type: string
-            hidden: true
 
           - name: days
             label: Дни программы
@@ -892,9 +889,6 @@ content:
               - { name: d7, label: "7–13 суток", type: number, required: true, options: { min: 0, max: 500000 } }
               - { name: d14, label: "14–20 суток", type: number, required: true, options: { min: 0, max: 500000 } }
               - { name: d21, label: "21 сутки и больше", type: number, required: true, options: { min: 0, max: 500000 } }
-          - name: usd_archive
-            type: number
-            hidden: true
           - name: seats
             label: Сколько человек вмещает
             type: number
@@ -1032,9 +1026,6 @@ content:
             options:
               min: 0
               max: 100000
-          - name: usd_archive
-            type: number
-            hidden: true
           - name: id
             type: string
             hidden: true
@@ -1120,9 +1111,6 @@ content:
             options:
               min: 1
               max: 60
-          - name: usd_archive
-            type: string
-            hidden: true
           - name: id
             type: string
             hidden: true

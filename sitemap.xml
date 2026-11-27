@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- собирает tools/build_en.py (python3 tools/build.py) — руками не править -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://tianway.kg/faq</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/faq"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/faq</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/faq"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/fishing</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/fishing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/fishing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/fishing"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/fishing</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/fishing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/fishing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/fishing"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/privacy"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/privacy"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/rent-booking</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/rent-booking"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent-booking"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/rent-booking"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/rent-booking</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/rent-booking"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent-booking"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/rent-booking"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/rent-extras</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/rent-extras"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent-extras"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/rent-extras"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/rent-extras</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/rent-extras"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent-extras"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/rent-extras"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/rent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/rent"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/rent"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/rent</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/rent"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/rent"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/rent"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/tour-issyk-north</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/tour-issyk-north"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/tour-issyk-north"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/tour-issyk-north"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/tour-issyk-north</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/tour-issyk-north"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/tour-issyk-north"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/tour-issyk-north"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/tour-issyk-ring</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/tour-issyk-ring"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/tour-issyk-ring"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/tour-issyk-ring"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/tour-issyk-ring</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/tour-issyk-ring"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/tour-issyk-ring"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/tour-issyk-ring"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/tour-issyk-winter</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/tour-issyk-winter"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/tour-issyk-winter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/tour-issyk-winter"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/tour-issyk-winter</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/tour-issyk-winter"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/tour-issyk-winter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/tour-issyk-winter"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/trips</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/trips"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/trips"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/trips"/>
+  </url>
+  <url>
+    <loc>https://tianway.kg/en/trips</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tianway.kg/trips"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tianway.kg/en/trips"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tianway.kg/trips"/>
+  </url>
+</urlset>
