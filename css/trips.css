@@ -103,7 +103,8 @@
 .tcard__meta { top: 425px; font: 500 14px/normal var(--font-body); color: #342f2f; white-space: nowrap; }
 .tcard__meta--days { left: 58px; }
 .tcard__meta--locs { left: 147px; }
-.tcard__meta--price { left: 236px; width: 101px; text-align: center; }
+.tcard__meta--price { left: 236px; width: 101px; text-align: center; display: flex; justify-content: center; }   /* длинная цена («from 139,900 KGS») выходит за ширину поровну с обеих сторон — остается по центру под значком */
+.tcard__meta--price:not(.money) { white-space: normal; line-height: 1.2; }   /* «Цена уточняется» — в две строки под значком, а не вылезает вправо */
 
 .tcard__btn {
   left: 0; top: 499px; width: 373px; height: 70px; border-radius: 10px;
